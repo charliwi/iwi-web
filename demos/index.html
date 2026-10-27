@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>iwi · laboratorio</title>
+<meta name="theme-color" content="#1C2340">
+<style>
+:root{--n:#1C2340;--y:#E4F000;--b:#FAFAF6;--g:rgba(28,35,64,.62);--h:rgba(28,35,64,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;background:var(--b);color:var(--n);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+.w{max-width:1040px;width:100%;margin:0 auto;padding:0 32px}
+header{border-bottom:1px solid var(--h)}
+header .w{display:flex;justify-content:space-between;align-items:center;height:64px;font-size:14px}
+a{color:inherit}
+header a{text-decoration:none;font-weight:600}
+main{flex:1;padding:72px 0}
+.eti{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--g)}
+h1{font-size:clamp(40px,6vw,80px);line-height:1;letter-spacing:-.045em;font-weight:500;margin-top:20px}
+h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--y) 62%)}
+.lead{font-size:clamp(17px,1.6vw,20px);line-height:1.45;color:var(--g);max-width:600px;margin-top:20px}
+.en{display:block;font-size:15px;margin-top:6px}
+ul{list-style:none;margin-top:48px;border-top:1px solid var(--n)}
+li a{display:grid;grid-template-columns:1fr auto;gap:8px 24px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--h);text-decoration:none}
+li b{font-size:clamp(22px,2.4vw,30px);font-weight:500;letter-spacing:-.02em}
+li span{grid-column:1;font-size:15px;color:var(--g)}
+li i{grid-row:1/3;grid-column:2;font-style:normal;font-size:22px;transition:transform .3s}
+li a:hover i{transform:translateX(4px)}
+:focus-visible{outline:2px solid var(--n);outline-offset:3px}
+footer{padding:28px 0;font-size:13px;color:var(--g)}
+@media (max-width:600px){.w{padding:0 16px}main{padding:48px 0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="w"><a href="https://iwi.com.mx/">← iwi</a><span class="eti">Laboratorio · Lab</span></div></header>
+<main><div class="w">
+  <div class="eti">Prototipos y pruebas · Prototypes and tests</div>
+  <h1>Lo que estamos <em>probando.</em></h1>
+  <p class="lead">Bocetos que ya funcionan, antes de ser definitivos. Datos de ejemplo, nada sensible.<span class="en">Working sketches before they are final. Sample data, nothing sensitive.</span></p>
+  <ul>
+    <li><a href="../forbatch/"><b>ForBatch</b><span>Para diseñadores que están haciendo sus piezas: tienda, lotes y el florero a tu mood de mööd. · For designers making their own pieces.</span><i>→</i></a></li>
+  </ul>
+</div></main>
+<footer><div class="w">© 2026 iwi · <a href="mailto:hola@iwi.com.mx">hola@iwi.com.mx</a></div></footer>
+</body>
+</html>
