@@ -118,7 +118,9 @@ nav ul a.on::after{content:"";position:absolute;left:0;right:0;bottom:-2px;heigh
 nav ul a:hover{text-decoration:none}
 .pag{position:fixed;top:64px;left:0;right:0;bottom:0;overflow:auto;visibility:hidden;opacity:0;pointer-events:none;
   transition:opacity .45s ease,visibility 0s linear .45s}
-.pag.on{visibility:visible;opacity:1;pointer-events:auto;transition:opacity .6s ease}
+.pag.on{visibility:visible;opacity:1;pointer-events:auto;transition:opacity .5s ease .2s}
+/* una pantalla a la vez: la que se va desaparece rápido antes de que llegue la otra, así nunca se enciman */
+.pag:not(.on){transition:opacity .2s ease,visibility 0s linear .2s}
 .pag .w{height:100%}
 /* entradas: cada página se mueve a su manera */
 @keyframes sube{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
@@ -239,6 +241,77 @@ nav ul a:hover{text-decoration:none}
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
 }
 @media (max-width:860px) and (max-height:720px){.b p{font-size:12px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}.b-dt p{-webkit-line-clamp:3}.b-from p{-webkit-line-clamp:3}.b-mnf p{-webkit-line-clamp:2}.b-ir{margin-top:4px}.hacemos h2{font-size:24px;margin-bottom:8px!important}.hacemos .w{padding-top:12px;padding-bottom:12px}.caso{grid-template-rows:30% auto}.caso h3{font-size:21px;margin-top:8px}.caso .psa{margin-top:10px;font-size:13px;gap:4px 12px}.inicio h1{font-size:40px}}
+
+/* ===== fuerza ===== */
+/* inicio: tipo enorme y un collage que respira (retícula rota sólo aquí) */
+.inicio{overflow:hidden}
+.inicio .w{position:relative;z-index:2;pointer-events:none}
+.inicio .w a{pointer-events:auto}
+.inicio h1{font-size:clamp(48px,7vw,118px);max-width:58%}
+.inicio p{max-width:440px}
+.collage{position:absolute;right:3vw;top:5vh;bottom:6vh;width:44vw;z-index:1}
+.collage .m{position:absolute;margin:0;overflow:hidden;background:#EEEDE6;box-shadow:0 24px 60px rgba(28,35,64,.18);
+  transform:translate3d(calc(var(--px,0)*var(--prof)*-10px),calc(var(--py,0)*var(--prof)*-8px),0);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.collage .m img{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease}
+.collage .m img.on{opacity:1}
+.collage .m1{right:0;top:0;width:58%;height:78%}
+.collage .m2{left:0;top:30%;width:44%;height:52%}
+.collage .m3{right:16%;bottom:0;width:46%;height:30%}
+.pag.on .collage .m{animation:sube 1.1s cubic-bezier(.2,.7,.2,1) both}
+.pag.on .collage .m2{animation-delay:.15s}.pag.on .collage .m3{animation-delay:.3s}
+/* casos: la foto ocupa toda la página; el texto flota en vidrio encima (el vidrio explica la capa) */
+.caso{display:block!important;padding:0!important;max-width:none!important;position:fixed}
+.caso .foto{position:absolute;inset:-12px;transform:translate3d(calc(var(--px,0)*-12px),calc(var(--py,0)*-9px),0);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.caso .img{height:100%;border-radius:0}
+.caso .galeria .nota{top:24px;bottom:auto;left:24px}
+.caso .txt{position:absolute;left:32px;bottom:84px;width:min(540px,calc(100% - 64px));max-height:calc(100% - 120px);overflow:auto;
+  background:rgba(250,250,246,.82);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);
+  padding:24px 26px 22px;border-radius:10px;box-shadow:0 16px 48px rgba(28,35,64,.22)}
+.caso h3{font-size:clamp(26px,3.1vw,46px);letter-spacing:-.035em;line-height:1.02}
+.caso .img.estudio{padding:7% 8%;font-size:clamp(30px,4.4vw,68px);gap:24px;justify-content:flex-start;align-items:flex-end}
+@media (max-width:860px){.caso .img.estudio{padding:18px 20px;font-size:28px;gap:14px}}
+#barra{background:rgba(250,250,246,.74);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border-top:1px solid rgba(28,35,64,.08)}
+@media (max-width:860px){
+  .inicio h1{max-width:none;font-size:clamp(40px,11vw,56px)}
+  .inicio .w{justify-content:flex-end;padding-bottom:48px}
+  .collage{left:16px;right:16px;top:12px;bottom:auto;height:40%;width:auto}
+  .collage .m1{width:52%;height:100%}.collage .m2{width:40%;height:62%;top:8%}.collage .m3{width:42%;height:38%;right:40%;bottom:-6%}
+  .caso .txt{left:10px;right:10px;width:auto;bottom:70px;max-height:48%;padding:14px 16px 12px}
+  .caso h3{font-size:24px}
+  .caso .psa{font-size:13.5px}
+}
+@media (max-width:860px) and (max-height:720px){.collage{height:34%}.inicio p{display:none}}
+/* entrar en las imágenes: la que se va se acerca; la nueva llega desde un poco más cerca */
+.pag.sale .foto,.pag.sale .collage{transform:scale(1.18)!important;transition:transform .3s cubic-bezier(.5,0,.2,1)!important}
+.galeria img.on{animation:entra 2.4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes entra{from{transform:scale(1.12)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.collage .m,.caso .foto{transform:none!important}.galeria img.on{animation:none}}
+
+/* ===== azul iwi de fondo (Carlos, 27 oct): el azul del logo manda, letras claras, amarillo de acento ===== */
+:root{--n:#F4F3EE;--b:#1C2340;--g:rgba(244,243,238,.68);--h:rgba(244,243,238,.14);--azul:#1C2340}
+body{background:var(--azul);color:var(--n)}
+nav{background:rgba(28,35,64,.86)}
+nav svg path{fill:var(--n)}
+nav ul a.on::after{height:3px;bottom:-4px}
+.inicio h1 em{background:none;color:var(--y)}
+.ir{color:var(--y);border-color:var(--y)}
+.chip{border-color:rgba(244,243,238,.3);color:var(--n)}
+.caso .txt{background:rgba(22,28,52,.74);color:var(--n);box-shadow:0 16px 48px rgba(0,0,0,.35)}
+.caso .psa dd{color:var(--n)}
+#barra{background:rgba(22,28,52,.72);border-top-color:rgba(244,243,238,.1)}
+#barra button.on{color:var(--y)}#barra button.on::after{display:none}
+.collage .m{box-shadow:0 24px 70px rgba(0,0,0,.45);background:#263056}
+.b{background:#232B4C;border-color:rgba(244,243,238,.1);color:var(--n)}
+.b .lock svg path{fill:currentColor}
+.b .lock{color:var(--n)!important}.b-from .lock{color:#1C2340!important}
+.b-foto{background:#263056}
+.b-dt{background:#2B3460}
+.b-from{background:var(--y);color:#1C2340}.b-from .b-ir{color:#1C2340}
+.serie .paso h4{color:var(--n)}
+.pag.contacto,.pag.contacto .eti,.pag.contacto p,.pag.contacto .pie{color:#1C2340}
+.pag.contacto .btn{color:#1C2340;border-color:#1C2340}
+.contacto .pie svg path{fill:rgba(28,35,64,.62)}
+:focus-visible{outline-color:var(--y)}
 </style>
 </head>
 <body>
@@ -247,7 +320,7 @@ nav ul a:hover{text-decoration:none}
   <ul><li><a href="#caso-1" data-ir="caso-1" data-menu="casos">Trabajo</a></li><li><a href="#hacemos" data-ir="hacemos" data-menu="hacemos">Qué hacemos</a></li><li><a href="#pensamos" data-ir="pensamos" data-menu="pensamos">Cómo pensamos</a></li><li><a href="#contacto" data-ir="contacto" data-menu="contacto">Contacto</a></li><li><a href="demos/">Directorio</a></li></ul>
   <div class="idioma" aria-label="Idioma / Language"><button type="button" data-i="es">ES</button><button type="button" data-i="en">EN</button></div>
 </div></nav>
-<section class="pag inicio" data-p="inicio"><div class="w">
+<section class="pag inicio" data-p="inicio"><div class="collage" aria-hidden="true"><figure class="m m1" style="--prof:1"><img src="img/aros-render-1.jpg" alt="" class="on"><img src="img/lumika-1.jpg" alt=""><img src="img/aros-render-4.jpg" alt=""></figure><figure class="m m2" style="--prof:2.2"><img src="img/tiburon-1.jpg" alt="" class="on"><img src="img/esmaltes-1.jpg" alt=""><img src="img/hielera-colima.jpg" alt=""></figure><figure class="m m3" style="--prof:3.4"><img src="img/servilletero-tres.jpg" alt="" class="on"><img src="img/microsteps.jpg" alt=""><img src="img/pulso.jpg" alt=""></figure></div><div class="w">
   <div class="eti e" style="--i:0">iwi · estudio de diseño · Ciudad de México</div>
   <h1 class="e" style="--i:1">Diseñamos <span class="gira">objetos</span><br>que <em>sí se fabrican.</em></h1>
   <p class="e" style="--i:2">Observamos cómo funciona algo, encontramos lo que falta y lo llevamos del boceto a la pieza terminada.</p>
@@ -271,12 +344,12 @@ nav ul a:hover{text-decoration:none}
 <section class="pag caso" data-p="caso-6" data-grupo="casos" data-n="5"><div class="foto"><div class="img"><img src="img/tubo.jpg" alt="Lanyard con tubo."></div></div><div class="txt">
       <div class="meta"><span class="chip">Manufacturing</span><span class="chip">Amstel Ultra</span></div><h3>Lanyard con tubo.</h3>
       <dl class="psa"><dt>Problema</dt><dd>Una pieza de marca que se lleva puesta y tiene que ser útil.</dd><dt>Solución</dt><dd>Cinta, broche y contenedor metálico en una sola pieza.</dd><dt>Alcance</dt><dd>Diseño y desarrollo para fabricación.</dd></dl></div></section>
-<section class="pag caso" data-p="caso-7" data-grupo="casos" data-n="6"><div class="foto"><div class="img galeria"><img src="img/aros-render-1.jpg" alt="Aros: anillos de cerámica apilados en colores distintos, con flores" class="on"><img src="img/aros-render-2.jpg" alt="Aros: anillos de cerámica apilados en colores distintos, con flores"><img src="img/aros-render-3.jpg" alt="Aros: anillos de cerámica apilados en colores distintos, con flores"><img src="img/aros-render-4.jpg" alt="Aros: anillos de cerámica apilados en colores distintos, con flores"><span class="nota">Render</span></div></div><div class="txt">
+<section class="pag caso" data-p="caso-7" data-grupo="casos" data-n="6"><div class="foto"><div class="img galeria"><img src="img/aros-render-1.jpg" alt="Aros: anillos de cerámica apilados en colores distintos, con flores" data-etapa="Render" class="on"><img src="img/aros-render-2.jpg" alt="Aros: anillos de cerámica apilados en colores distintos, con flores" data-etapa="Render"><img src="img/aros-render-3.jpg" alt="Aros: anillos de cerámica apilados en colores distintos, con flores" data-etapa="Render"><img src="img/aros-render-4.jpg" alt="Aros: anillos de cerámica apilados en colores distintos, con flores" data-etapa="Render"><span class="nota">Render</span></div></div><div class="txt">
       <div class="meta"><span class="chip">ForBatch</span><span class="chip">from</span></div><h3>Aros.</h3>
       <dl class="psa"><dt>Problema</dt><dd>Un objeto de casa que no tenga que verse siempre igual.</dd><dt>Solución</dt><dd>Pieza modular de anillos que se apilan y se acomodan distinto cada vez.</dd><dt>Alcance</dt><dd>Diseño y prototipo, dentro de ForBatch.</dd></dl></div></section>
 <section class="pag caso" data-p="caso-8" data-grupo="casos" data-n="7"><div class="foto"><div class="img"><img src="img/esmaltes-1.jpg" alt="Plato de pruebas con los esmaltes del taller, en rueda de color"></div></div><div class="txt"><div class="meta"><span class="chip">ForBatch</span><span class="chip">mööd</span></div><h3>El color sale del horno.</h3><dl class="psa"><dt>Problema</dt><dd>Un esmalte en el frasco no se parece al que sale del horno.</dd><dt>Solución</dt><dd>Un plato de pruebas con cada esmalte del taller, quemado y marcado, para elegir color con la pieza real.</dd><dt>Alcance</dt><dd>La paleta de mööd, para armar un florero a tu mood en la tienda de ForBatch.</dd></dl></div></section>
-<section class="pag caso" data-p="caso-9" data-grupo="casos" data-n="8"><div class="foto"><div class="img galeria"><img src="img/lumika-1.jpg" alt="Lumika: colgantes en plata de gato y calabaza, y sus modelos 3D" class="on"><img src="img/lumika-2.jpg" alt="Lumika: colgantes en plata de gato y calabaza, y sus modelos 3D"><img src="img/lumika-3.jpg" alt="Lumika: colgantes en plata de gato y calabaza, y sus modelos 3D"><span class="nota">Plata · modelo 3D</span></div></div><div class="txt"><div class="meta"><span class="chip">ForBatch</span><span class="chip">Lumika</span></div><h3>Lumika: del modelo 3D a la plata.</h3><dl class="psa"><dt>Problema</dt><dd>Una diseñadora con sus piezas dibujadas y sin taller para hacerlas.</dd><dt>Solución</dt><dd>Desarrollamos los modelos y los fabricamos en plata: el gato y la calabaza.</dd><dt>Alcance</dt><dd>Colaboración con Carolina Pérez Moreno: desarrollo, fabricación y venta en la tienda de ForBatch.</dd></dl></div></section>
-<section class="pag caso" data-p="caso-10" data-grupo="casos" data-n="9"><div class="foto"><div class="img galeria"><img src="img/tiburon-1.jpg" alt="Lote de tiburones ballena articulados, impresos en 3D" class="on"><img src="img/tiburon-2.jpg" alt="Lote de tiburones ballena articulados, impresos en 3D"><img src="img/tiburon-3.jpg" alt="Lote de tiburones ballena articulados, impresos en 3D"><img src="img/lote-impresion.jpg" alt="Lote de tiburones ballena articulados, impresos en 3D"><span class="nota">Impresión 3D</span></div></div><div class="txt"><div class="meta"><span class="chip">ForBatch</span><span class="chip">Impresión 3D</span></div><h3>Un lote de tiburones, de volada.</h3><dl class="psa"><dt>Problema</dt><dd>Hacían falta muchas piezas impresas en 3D, para ya.</dd><dt>Solución</dt><dd>Un tiburón ballena articulado, ajustado para imprimirse en lote.</dd><dt>Alcance</dt><dd>Ajuste del modelo, impresión y acabado de todo el lote.</dd></dl></div></section>
+<section class="pag caso" data-p="caso-9" data-grupo="casos" data-n="8"><div class="foto"><div class="img galeria"><img src="img/lumika-3.jpg" alt="Lumika: colgantes en plata de gato y calabaza, y sus modelos 3D" data-etapa="Modelo 3D" class="on"><img src="img/lumika-1.jpg" alt="Lumika: colgantes en plata de gato y calabaza, y sus modelos 3D" data-etapa="Plata"><img src="img/lumika-2.jpg" alt="Lumika: colgantes en plata de gato y calabaza, y sus modelos 3D" data-etapa="Plata"><span class="nota">Modelo 3D</span></div></div><div class="txt"><div class="meta"><span class="chip">ForBatch</span><span class="chip">Lumika</span></div><h3>Lumika: del modelo 3D a la plata.</h3><dl class="psa"><dt>Problema</dt><dd>Una diseñadora con sus piezas dibujadas y sin taller para hacerlas.</dd><dt>Solución</dt><dd>Desarrollamos los modelos y los fabricamos en plata: el gato y la calabaza.</dd><dt>Alcance</dt><dd>Colaboración con Carolina Pérez Moreno: desarrollo, fabricación y venta en la tienda de ForBatch.</dd></dl></div></section>
+<section class="pag caso" data-p="caso-10" data-grupo="casos" data-n="9"><div class="foto"><div class="img galeria"><img src="img/lote-impresion.jpg" alt="Lote de tiburones ballena articulados, impresos en 3D" data-etapa="En la impresora" class="on"><img src="img/tiburon-1.jpg" alt="Lote de tiburones ballena articulados, impresos en 3D" data-etapa="El lote"><img src="img/tiburon-2.jpg" alt="Lote de tiburones ballena articulados, impresos en 3D" data-etapa="El lote"><img src="img/tiburon-3.jpg" alt="Lote de tiburones ballena articulados, impresos en 3D" data-etapa="El lote"><span class="nota">En la impresora</span></div></div><div class="txt"><div class="meta"><span class="chip">ForBatch</span><span class="chip">Impresión 3D</span></div><h3>Un lote de tiburones, de volada.</h3><dl class="psa"><dt>Problema</dt><dd>Hacían falta muchas piezas impresas en 3D, para ya.</dd><dt>Solución</dt><dd>Un tiburón ballena articulado, ajustado para imprimirse en lote.</dd><dt>Alcance</dt><dd>Ajuste del modelo, impresión y acabado de todo el lote.</dd></dl></div></section>
 <section class="pag caso" data-p="caso-11" data-grupo="casos" data-n="10"><div class="foto"><div class="img estudio" role="img" aria-label="El sistema del estudio: espacios, memoria y agentes"><span>espacios</span><i></i><span>memoria</span><i></i><span>agentes</span></div></div><div class="txt">
       <div class="meta"><span class="chip">design thinking</span><span class="chip">iwi</span></div><h3>Cómo diseñamos el estudio.</h3>
       <dl class="psa"><dt>Problema</dt><dd>Las ideas vivían repartidas en chats y se perdían antes de volverse entregas.</dd><dt>Solución</dt><dd>Una memoria común, un espacio por proyecto y agentes que trabajan en pareja: uno explora, otro ejecuta.</dd><dt>Alcance</dt><dd>Todo el estudio: divisiones, clientes y proyectos personales, con reglas comunes.</dd></dl></div></section>
@@ -340,6 +413,8 @@ document.querySelectorAll('.from').forEach(function(f){var s=f.querySelectorAll(
     if(orden.indexOf(id)<0)id='inicio';
     var de=orden.indexOf(actual),a=orden.indexOf(id);
     document.documentElement.style.setProperty('--dir',a>=de?1:-1);
+    // al cambiar, la página que se va se acerca: entramos en la imagen
+    var va=P[de];if(va&&de!==a){va.classList.add('sale');setTimeout(function(){va.classList.remove('sale')},800)}
     P.forEach(function(p){var on=p.dataset.p===id;p.classList.toggle('on',on);if(on)p.scrollTop=0});
     actual=id;
     var g=grupoDe(P[a]), menu=g==='casos'?'casos':id;
@@ -364,12 +439,24 @@ document.querySelectorAll('.from').forEach(function(f){var s=f.querySelectorAll(
   addEventListener('popstate',function(){ve(location.hash.slice(1),true)});
   // galerías: las fotos se relevan solas mientras su caso está a la vista
   if(!calma)setInterval(function(){document.querySelectorAll('.pag.on .galeria').forEach(function(g){var im=g.querySelectorAll('img'),k=0;
-    im.forEach(function(x,j){if(x.classList.contains('on'))k=j});im[k].classList.remove('on');im[(k+1)%im.length].classList.add('on')})},3200);
+    im.forEach(function(x,j){if(x.classList.contains('on'))k=j});im[k].classList.remove('on');var nx=im[(k+1)%im.length];nx.classList.add('on');
+    var n=g.querySelector('.nota'),e=nx.dataset.etapa||'';if(n)n.textContent=lang()==='en'?(ETAPA_EN[e]||e):e})},3200);
+  var ETAPA_EN={'Modelo 3D':'3D model','Plata':'Silver','En la impresora':'On the printer','El lote':'The batch','Render':'Render'};
   // la palabra del inicio va cambiando
   var gira=document.querySelector('.gira'),gi=0;
   if(!calma)setInterval(function(){if(actual!=='inicio')return;gira.classList.add('va');setTimeout(function(){gi=(gi+1)%GIRA.es.length;gira.textContent=GIRA[lang()][gi];gira.classList.remove('va')},450)},2600);
   window.iwiIdioma=function(){if(gira)gira.textContent=GIRA[lang()][gi];if(actual)pintaBarra()};
   ve(location.hash.slice(1)||'inicio',true);
+})();
+</script>
+<script>
+/* fuerza: las fotos responden un poco al cursor (o a la inclinación del dedo) y el collage se releva solo */
+(function(){
+  var calma=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;if(calma)return;
+  var raiz=document.documentElement;
+  addEventListener('pointermove',function(e){raiz.style.setProperty('--px',(e.clientX/innerWidth-.5).toFixed(3));raiz.style.setProperty('--py',(e.clientY/innerHeight-.5).toFixed(3))},{passive:true});
+  var k=0;setInterval(function(){var ms=document.querySelectorAll('.pag.on .collage .m');if(!ms.length)return;var m=ms[k%ms.length];k++;
+    var im=m.querySelectorAll('img'),j=0;im.forEach(function(x,i){if(x.classList.contains('on'))j=i});im[j].classList.remove('on');im[(j+1)%im.length].classList.add('on')},1700);
 })();
 </script>
 <script>
