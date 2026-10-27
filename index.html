@@ -204,6 +204,12 @@ nav ul a:hover{text-decoration:none}
   #barra{padding:0 16px}
 }
 @media (max-width:420px){nav ul{font-size:12px;gap:10px}}
+/* calma y acceso (tendencias 2026: movimiento que explica, accesibilidad como infraestructura) */
+:focus-visible{outline:2px solid var(--n);outline-offset:3px}
+#barra button{min-height:44px}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+}
 @media (max-width:860px) and (max-height:720px){.caso{grid-template-rows:30% auto}.caso h3{font-size:21px;margin-top:8px}.caso .psa{margin-top:10px;font-size:13px;gap:4px 12px}.inicio h1{font-size:40px}}
 </style>
 </head>
@@ -293,6 +299,7 @@ document.querySelectorAll('.from').forEach(function(f){var s=f.querySelectorAll(
   var PASOS={es:["Escuchamos","Observamos","Devolvemos","Un paso pequeño"],en:["We listen","We observe","We respond","One small step"]};
   var GIRA={es:["objetos","procesos","experiencias","servicios"],en:["objects","processes","experiences","services"]};
   var lang=function(){return document.documentElement.lang==='en'?'en':'es'};
+  var calma=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var actual=null, paso=0, pasos=[].slice.call(document.querySelectorAll('.serie .paso')), relojPasos=null;
   function grupoDe(p){return p&&p.dataset.grupo}
   function pintaBarra(){
@@ -301,13 +308,13 @@ document.querySelectorAll('.from').forEach(function(f){var s=f.querySelectorAll(
     if(!g)return;
     var nombres=g==='casos'?CORTOS[lang()]:PASOS[lang()], i=g==='casos'?+p.dataset.n:paso;
     lista.innerHTML='';
-    nombres.forEach(function(t,k){var b=document.createElement('button');b.textContent=t;b.className=k===i?'on':'';
+    nombres.forEach(function(t,k){var b=document.createElement('button');b.textContent=t;b.className=k===i?'on':'';if(k===i)b.setAttribute('aria-current','true');
       b.addEventListener('click',function(){g==='casos'?ve('caso-'+(k+1)):ponPaso(k,true)});lista.appendChild(b)});
     cuenta.textContent=String(i+1).padStart(2,'0')+' / '+String(nombres.length).padStart(2,'0');
     var on=lista.querySelector('.on');if(on)on.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
   }
   function ponPaso(k,mano){paso=(k+pasos.length)%pasos.length;pasos.forEach(function(p,j){p.classList.toggle('on',j===paso)});pintaBarra();
-    clearInterval(relojPasos);if(actual==='pensamos')relojPasos=setInterval(function(){ponPaso(paso+1)},mano?9000:4500)}
+    clearInterval(relojPasos);if(actual==='pensamos'&&!calma)relojPasos=setInterval(function(){ponPaso(paso+1)},mano?9000:4500)}
   function ve(id,sinHistoria){
     if(orden.indexOf(id)<0)id='inicio';
     var de=orden.indexOf(actual),a=orden.indexOf(id);
@@ -315,7 +322,8 @@ document.querySelectorAll('.from').forEach(function(f){var s=f.querySelectorAll(
     P.forEach(function(p){var on=p.dataset.p===id;p.classList.toggle('on',on);if(on)p.scrollTop=0});
     actual=id;
     var g=grupoDe(P[a]), menu=g==='casos'?'casos':id;
-    document.querySelectorAll('[data-menu]').forEach(function(m){m.classList.toggle('on',m.dataset.menu===menu)});
+    document.querySelectorAll('[data-menu]').forEach(function(m){var on=m.dataset.menu===menu;m.classList.toggle('on',on);if(on)m.setAttribute('aria-current','page');else m.removeAttribute('aria-current')});
+    P.forEach(function(p){p.setAttribute('aria-hidden',p.dataset.p===id?'false':'true')});
     if(id==='pensamos')ponPaso(0);else clearInterval(relojPasos);
     pintaBarra();
     if(!sinHistoria&&location.hash!=='#'+id)history.pushState(null,'','#'+id);
@@ -334,11 +342,11 @@ document.querySelectorAll('.from').forEach(function(f){var s=f.querySelectorAll(
     if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)mueve(dx<0?1:-1);x0=null},{passive:true});
   addEventListener('popstate',function(){ve(location.hash.slice(1),true)});
   // galerías: las fotos se relevan solas mientras su caso está a la vista
-  setInterval(function(){document.querySelectorAll('.pag.on .galeria').forEach(function(g){var im=g.querySelectorAll('img'),k=0;
+  if(!calma)setInterval(function(){document.querySelectorAll('.pag.on .galeria').forEach(function(g){var im=g.querySelectorAll('img'),k=0;
     im.forEach(function(x,j){if(x.classList.contains('on'))k=j});im[k].classList.remove('on');im[(k+1)%im.length].classList.add('on')})},3200);
   // la palabra del inicio va cambiando
   var gira=document.querySelector('.gira'),gi=0;
-  setInterval(function(){if(actual!=='inicio')return;gira.classList.add('va');setTimeout(function(){gi=(gi+1)%GIRA.es.length;gira.textContent=GIRA[lang()][gi];gira.classList.remove('va')},450)},2600);
+  if(!calma)setInterval(function(){if(actual!=='inicio')return;gira.classList.add('va');setTimeout(function(){gi=(gi+1)%GIRA.es.length;gira.textContent=GIRA[lang()][gi];gira.classList.remove('va')},450)},2600);
   window.iwiIdioma=function(){if(gira)gira.textContent=GIRA[lang()][gi];if(actual)pintaBarra()};
   ve(location.hash.slice(1)||'inicio',true);
 })();
