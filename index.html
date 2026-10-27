@@ -197,7 +197,7 @@ document.querySelectorAll('.from').forEach(function(f){var s=f.querySelectorAll(
     document.documentElement.lang=i;document.querySelectorAll('.idioma button').forEach(function(b){b.classList.toggle('on',b.dataset.i===i)});try{localStorage.setItem('iwi-idioma',i)}catch(e){}}
   var g=null;try{g=localStorage.getItem('iwi-idioma')}catch(e){}
   document.querySelectorAll('.idioma button').forEach(function(b){b.addEventListener('click',function(){pon(b.dataset.i)})});
-  pon(g||((navigator.language||'es').toLowerCase().indexOf('es')===0?'es':'en'));
+  pon(g||'es');
 })();
 </script>
 </body>
