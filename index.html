@@ -419,7 +419,8 @@ nav ul a{color:var(--n)}
   nav .iwi{height:52px!important}
   .der{order:-1;gap:10px}
   .der .sello{flex-direction:row;gap:10px;font-size:12px}.der .sello b{font-size:12px}
-  nav ul{font-size:14px!important;gap:14px!important}
+  /* en móvil el menú completo se ve sin deslizar: si no cabe en un renglón, pasa a dos (antes Directorio quedaba fuera) */
+  nav ul{font-size:14px!important;gap:6px 18px!important;flex-wrap:wrap;overflow:visible!important;justify-content:flex-start!important}
   .intro .w{grid-template-columns:1fr;grid-template-rows:auto auto;gap:24px;align-content:start;padding-top:128px!important}
   .ventana{height:40vh;width:auto;max-height:none;max-width:none;justify-self:stretch;aspect-ratio:auto}
   .intro p{font-size:16px;margin-top:16px}
