@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Cotizador Nafta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e6e6e6;--card:#f2f2f2;--ink:#1c1c1c;--mu:#5c5c5c;--line:#c9c9c9;--ac:#f26b35;--acs:#fbe3d8;--ok:#2d7a4d;--warn:#b5520f;--y:#f26b35;--hd:#1c1c1c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141414;--card:#1f1f1f;--ink:#ececec;--mu:#a3a3a3;--line:#333;--acs:#3a2219}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Titillium Web","Helvetica Neue",Arial,sans-serif}
+.top{background:var(--hd);color:#fff}.top .in{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:14px}
+.logo{font-weight:700;letter-spacing:.18em;font-size:26px}.logo b{color:var(--ac)}
+.tabs{margin-left:28px;display:flex;gap:4px}.tabs button{background:transparent;border:0;color:#ddd;font:inherit;font-size:14px;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;cursor:pointer;border-bottom:2px solid transparent}.tabs button.on{color:var(--ac);border-color:var(--ac)}
+@media (max-width:600px){.tabs{margin-left:auto}.top .tg{display:none}}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}@media (max-width:700px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{background:var(--card);border-left:3px solid var(--ac);padding:12px}.kpi b{display:block;font-size:30px;line-height:1.1}
+.bar{display:grid;grid-template-columns:150px 1fr 40px;gap:8px;align-items:center;font-size:13.5px;margin:6px 0}.bar i{display:block;height:14px;background:var(--ac)}.bar i.st{background:#b5520f}
+.st-tag{font-size:11px;padding:2px 8px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}.s-ok{background:#dcefe3;color:#2d7a4d}.s-ob{background:#fbe3d8;color:#b5520f}.s-wa{background:#ececec;color:#5c5c5c}
+.doc{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.filt button{border:1px solid var(--line);background:transparent;color:var(--ink);padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}.filt button.on{background:var(--hd);color:#fff;border-color:var(--hd)}
+tr.atorado td:first-child{border-left:3px solid #b5520f;padding-left:6px}
+.top .tg{margin-left:auto;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#bbb}
+h1,h2,.k{text-transform:uppercase}h1{font-weight:400;color:var(--ac);font-size:32px;line-height:1.05}.num{font-weight:300;color:var(--mu);font-size:13px;margin-right:6px}
+.card{border-radius:0!important;border-left:3px solid var(--ac)!important}.btn{border-radius:0!important;text-transform:uppercase;letter-spacing:.06em}
+[hidden]{display:none!important}
+header{padding:20px 16px 8px;max-width:1100px;margin:0 auto}
+.k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);font-weight:700}
+h1{margin:4px 0 2px;font-size:26px}h2{font-size:17px;margin:0 0 10px}
+.sub{color:var(--mu);font-size:13px}
+main{max-width:1100px;margin:0 auto;padding:8px 16px 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+@media (max-width:860px){main{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.steps{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.steps button{border:1px solid var(--line);background:transparent;color:var(--mu);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
+.steps button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.bot{display:flex;gap:10px;align-items:flex-start;background:var(--acs);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:14px}
+.av{flex:0 0 28px;height:28px;border-radius:50%;background:var(--ac);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:520px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:12.5px;color:var(--mu)}
+input,select{width:100%;margin-top:3px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+.full{grid-column:1/-1}
+.row{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.btn{border:0;background:var(--ac);color:#fff;border-radius:8px;padding:9px 14px;font:inherit;font-weight:700;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ac);border:1px solid var(--ac)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.big{font-size:28px;font-weight:700}.pend{color:var(--warn);font-style:italic}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:var(--acs);color:var(--ac);font-weight:700}
+.best{border:2px solid var(--y)}
+.note{font-size:12px;color:var(--mu);margin-top:8px}
+.versions td{cursor:pointer}
+footer{max-width:1100px;margin:0 auto;padding:0 16px 30px;color:var(--mu);font-size:12px}
+@media print{.steps,.row,.noprint{display:none!important}main{grid-template-columns:1fr}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="top"><div class="in"><span class="logo">NAFTA <b>↖↘</b></span><nav class="tabs"><button class="on" data-v="cot">Cotizador</button><button data-v="exp">Expedientes</button></nav><span class="tg">Agente · demo</span></div></div>
+<div id="v-cot">
+<header>
+  <div class="k"><span class="num">1.0</span>Cotizador de bodega y patio</div>
+  <h1>Cotice cada pallet en minutos</h1>
+  <div class="sub">Almacenaje, carga, descarga, revisión y patio, en bodegas de México y EUA. Un agente que pregunta, calcula su costo real y arma la cotización para cada cliente y producto. Demo preparada por iwi (Design Thinking). Todos los datos son de ejemplo.</div>
+</header>
+<main>
+<section class="card">
+  <div class="steps" id="steps"></div>
+
+  <div data-step="0">
+    <div class="bot"><div class="av">N</div><div>Hola, Rodrigo. Primero, tu bodega: lo que cuesta tenerla abierta cada mes, aunque no entre un solo pallet. Empieza por los impuestos locales del año. Lo que no sepas, déjalo vacío y lo marco como pendiente.</div></div>
+    <div class="grid">
+      <label>Bodega<select id="sede"><option>Laredo, TX (EUA)</option><option>Nuevo Laredo, Tamps.</option><option>Ciudad de México</option><option>Otra</option></select></label>
+      <label>Moneda<select id="mon"><option>USD</option><option>MXN</option></select></label>
+      <label>Impuestos locales al año<input id="imp" type="number"></label>
+      <label>Personal (sueldos y prestaciones) al mes<input id="per" type="number"></label>
+      <label>Mantenimiento al mes<input id="man" type="number"></label>
+      <label>Seguros al mes<input id="seg" type="number"></label>
+      <label>Luz, agua y servicios al mes<input id="ser" type="number"></label>
+      <label>Desgaste de equipo (montacargas, racks) al mes<input id="dep" type="number"></label>
+      <label>Administración y sistemas al mes<input id="adm" type="number"></label>
+      <label>Posiciones de pallet (capacidad)<input id="pos" type="number"></label>
+      <label>Ocupación promedio (%)<input id="ocu" type="number" value="70"></label>
+      <label>Horas operativas al mes (andenes)<input id="hrs" type="number"></label>
+      <label>Parte del costo fijo que es espacio (%)<input id="pesp" type="number" value="60"></label>
+    </div>
+    <div class="note">El resto del costo fijo se reparte entre las maniobras según el tiempo que consumen. Así no se cobra dos veces lo mismo.</div>
+  </div>
+
+  <div data-step="1" hidden>
+    <div class="bot"><div class="av">N</div><div>Ahora, tus actividades. Dime cuánto tarda cada maniobra por pallet y qué material consume. Con eso calculo cuánto te cuesta de verdad cada movimiento.</div></div>
+    <table><thead><tr><th>Actividad</th><th class="n">Minutos por pallet</th><th class="n">Consumibles por pallet</th></tr></thead>
+    <tbody id="acts"></tbody></table>
+    <div class="note">Mide un día normal con cronómetro: el promedio de 10 pallets alcanza para empezar.</div>
+  </div>
+
+  <div data-step="2" hidden>
+    <div class="bot"><div class="av">N</div><div>Listo. ¿Para quién cotizamos? Cada cliente y cada producto puede tener su versión: guárdala y armamos las que quieras.</div></div>
+    <div class="grid">
+      <label>Cliente<input id="cli" placeholder="Nombre del cliente"></label>
+      <label>Producto o mercancía<input id="pro" placeholder="Ej. autopartes, resina, abarrotes"></label>
+      <label>Operación<select id="ope"><option>Importación</option><option>Exportación</option><option>Tránsito o reexpedición</option></select></label>
+      <label>Tipo de carga<select id="tip"><option value="1">Pallet estándar</option><option value="1.3">Carga pesada o sobredimensionada</option><option value="1.5">Peligroso o especial</option><option value="1.15">Frágil</option></select></label>
+      <label>Pallets por mes<input id="npal" type="number"></label>
+      <label>Días promedio en bodega<input id="dias" type="number"></label>
+      <label>Margen sobre el precio (%)<input id="mar" type="number" value="30"></label>
+      <label><input type="checkbox" id="xdesc" checked style="width:auto"> Incluye descarga</label>
+      <label><input type="checkbox" id="xcar" checked style="width:auto"> Incluye carga</label>
+      <label><input type="checkbox" id="xrev" checked style="width:auto"> Incluye revisión</label>
+      <label>Revisión: % de pallets revisados<input id="prev" type="number" value="100"></label>
+      <label>Control con código de barras, costo por pallet<input id="bar" type="number"></label>
+      <label>Contenedores en patio (días al mes)<input id="pat" type="number"></label>
+      <label>Costo de patio por contenedor-día<input id="cpat" type="number"></label>
+      <label class="full">Agente aduanal y patente (aparece en la cotización)<input id="pate" placeholder="Nombre · patente"></label>
+    </div>
+  </div>
+
+  <div class="row noprint">
+    <button class="btn ghost" id="prev_b">Atrás</button>
+    <button class="btn" id="next_b">Siguiente</button>
+    <button class="btn ghost" id="demo">Cargar ejemplo</button>
+  </div>
+  <div class="note noprint">«Cargar ejemplo» llena cifras inventadas para ver el cálculo. No son datos de Nafta Group.</div>
+</section>
+
+<section>
+  <div class="card best" id="quote">
+    <div class="k"><span class="num">2.0</span>Cotización</div>
+    <h2 id="qtitle">Cliente por definir</h2>
+    <div id="qbody"></div>
+    <div class="row noprint">
+      <button class="btn" id="save">Guardar esta versión</button>
+      <button class="btn ghost" onclick="window.print()">Imprimir o PDF</button>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <div class="k"><span class="num">3.0</span>Tu costo real</div>
+    <div id="cbody"></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <div class="k"><span class="num">4.0</span>Versiones guardadas</div>
+    <table class="versions"><thead><tr><th>Cliente · producto</th><th class="n">Pallets</th><th class="n">Precio al mes</th></tr></thead><tbody id="vers"><tr><td colspan="3" class="pend">Aún no hay versiones.</td></tr></tbody></table>
+  </div>
+</section>
+</main>
+</div>
+<div id="v-exp" hidden>
+<header>
+  <div class="k"><span class="num">5.0</span>Expedientes · contraloría</div>
+  <h1>Siga sólo lo que está atorado</h1>
+  <div class="sub">Cada cliente recibe un link, sube sus documentos y el agente los revisa contra los demás. Nafta ve en qué etapa va cada expediente y a quién hay que darle seguimiento. Clientes y datos inventados para la demo.</div>
+</header>
+<main style="grid-template-columns:1fr">
+  <div class="kpis" id="kpis"></div>
+  <section class="card">
+    <div class="row" style="margin:0 0 8px;justify-content:space-between;align-items:center"><div class="k" style="margin:0">Expedientes por etapa</div>
+    <div class="filt" id="filt"><button class="on" data-f="Exportación">Exportación</button><button data-f="Importación">Importación</button><button data-f="Todos">Todos</button></div></div>
+    <div id="funnel"></div>
+  </section>
+  <div style="display:grid;grid-template-columns:1.2fr .8fr;gap:16px" class="expgrid">
+  <section class="card">
+    <div class="k">Expedientes</div>
+    <table><thead><tr><th>Cliente</th><th>Operación</th><th>Etapa</th><th class="n">Días</th><th>Qué falta</th></tr></thead><tbody id="exps"></tbody></table>
+    <div class="note">En naranja oscuro: más de 2 días sin moverse. Toque un expediente para ver lo que ve su cliente.</div>
+  </section>
+  <section class="card" id="cliente">
+    <div class="k">Lo que ve el cliente en su link</div>
+    <div id="cview"></div>
+  </section>
+  </div>
+</main>
+</div>
+<style>@media (max-width:860px){.expgrid{grid-template-columns:1fr!important}}</style>
+<footer>Cómo calcula: costo fijo mensual = impuestos/12 + los demás gastos. El espacio se cobra por pallet-día con la ocupación real. Las maniobras se cobran por minuto de andén más consumibles. Precio = costo ÷ (1 − margen). Si falta un dato, la línea dice «pendiente», nunca cero. iwi · Design Thinking · borrador 29 oct 2026.</footer>
+<script>
+const $=id=>document.getElementById(id);
+const ACTS=[["desc","Descarga",""],["car","Carga",""],["rev","Revisión",""]];
+$("acts").innerHTML=ACTS.map(a=>`<tr><td>${a[1]}</td><td class="n"><input id="m_${a[0]}" type="number"></td><td class="n"><input id="c_${a[0]}" type="number"></td></tr>`).join("");
+const STEPS=["Tu bodega","Actividades","Cliente y producto"];let step=0;
+function drawSteps(){$("steps").innerHTML=STEPS.map((s,i)=>`<button class="${i==step?'on':''}" data-i="${i}">${i+1}. ${s}</button>`).join("");
+ document.querySelectorAll("[data-step]").forEach(el=>el.hidden=+el.dataset.step!==step);
+ $("prev_b").disabled=step==0;$("next_b").textContent=step==2?"Ver cotización":"Siguiente";}
+$("steps").onclick=e=>{if(e.target.dataset.i){step=+e.target.dataset.i;drawSteps();}};
+$("prev_b").onclick=()=>{if(step>0){step--;drawSteps();}};
+$("next_b").onclick=()=>{if(step<2){step++;drawSteps();}else $("quote").scrollIntoView({behavior:"smooth"});};
+const v=id=>{const x=$(id).value;return x===""?null:+x;};
+const sum=a=>a.some(x=>x===null)?null:a.reduce((p,c)=>p+c,0);
+function fmt(x){return x===null||!isFinite(x)?'<span class="pend">pendiente</span>':x.toLocaleString("es-MX",{minimumFractionDigits:2,maximumFractionDigits:2})+" "+$("mon").value;}
+function calc(){
+ const imp=v("imp");const parts=["per","man","seg","ser","dep","adm"].map(v);
+ const known=parts.filter(x=>x!==null);const fijo=imp===null?null:imp/12+known.reduce((p,c)=>p+c,0);
+ const faltan=parts.filter(x=>x===null).length;
+ const pos=v("pos"),ocu=v("ocu"),hrs=v("hrs"),pesp=v("pesp");
+ const pd=(fijo===null||!pos||!ocu)?null:fijo*(pesp/100)/(pos*30*ocu/100);
+ const ch=(fijo===null||!hrs)?null:fijo*(1-pesp/100)/hrs;
+ const man={};ACTS.forEach(a=>{const m=v("m_"+a[0]),c=v("c_"+a[0]);man[a[0]]=(ch===null||m===null)?null:m/60*ch+(c||0);});
+ // cotización
+ const n=v("npal"),d=v("dias"),f=+$("tip").value,mar=v("mar")/100,prev=v("prev")/100;
+ const lines=[];
+ const alm=(pd===null||n===null||d===null)?null:n*d*pd*f;lines.push(["Almacenaje",n&&d?`${n} pallets × ${d} días`:"",alm]);
+ if($("xdesc").checked)lines.push(["Descarga",n?`${n} pallets`:"",(man.desc===null||n===null)?null:n*man.desc*f]);
+ if($("xcar").checked)lines.push(["Carga",n?`${n} pallets`:"",(man.car===null||n===null)?null:n*man.car*f]);
+ if($("xrev").checked)lines.push(["Revisión",n?`${Math.round((n||0)*prev)} pallets`:"",(man.rev===null||n===null)?null:n*prev*man.rev*f]);
+ const bar=v("bar");if(bar!==null)lines.push(["Control con código de barras",n?`${n} pallets`:"",n===null?null:n*bar]);
+ const pat=v("pat"),cpat=v("cpat");if(pat!==null||cpat!==null)lines.push(["Patio",pat?`${pat} contenedor-días`:"",(pat===null||cpat===null)?null:pat*cpat]);
+ const costo=sum(lines.map(l=>l[2]));const precio=costo===null?null:costo/(1-mar);
+ const pp=(precio===null||!n)?null:precio/n;
+ // tarifa por pallet-día y por maniobra para el cliente
+ const tpd=pd===null?null:pd*f/(1-mar);
+ const tman=ACTS.map(a=>[a[1],man[a[0]]===null?null:man[a[0]]*f/(1-mar)]);
+ $("qtitle").textContent=($("cli").value||"Cliente por definir")+($("pro").value?" · "+$("pro").value:"");
+ const meta=`${$("sede").value} · ${$("ope").value}${$("pate").value?" · "+$("pate").value:""}`;
+ $("qbody").innerHTML=`<div class="sub" style="margin:-4px 0 10px">${meta}</div><table><tbody>${lines.map(l=>`<tr><td>${l[0]}<div class="note" style="margin:0">${l[1]}</div></td><td class="n">${fmt(l[2]===null?null:l[2]/(1-mar))}</td></tr>`).join("")}</tbody></table>
+ <p style="margin:12px 0 2px" class="sub">Precio al mes</p><div class="big">${fmt(precio)}</div>
+ <p class="sub" style="margin:4px 0 12px">Por pallet, todo incluido: ${fmt(pp)}</p>
+ <div class="k" style="margin-top:6px">Tres formas de presentarlo al cliente</div>
+ <table><tbody>
+ <tr><td>A · Todo incluido por pallet <span class="tag">recomendada</span></td><td class="n">${fmt(pp)}</td></tr>
+ <tr><td>B · Pallet-día + maniobras sueltas</td><td class="n">${fmt(tpd)} por día</td></tr>
+ ${tman.map(t=>`<tr><td style="padding-left:18px">${t[0]}</td><td class="n">${fmt(t[1])} por pallet</td></tr>`).join("")}
+ <tr><td>C · Pallet-mes (30 días)</td><td class="n">${fmt(tpd===null?null:tpd*30)}</td></tr>
+ </tbody></table>
+ <div class="note">La A es la más fácil de comparar y vender. La B conviene si el cliente rota rápido. La C sirve para inventario que se queda.</div>`;
+ const cap=(pos&&ocu)?Math.round(pos*ocu/100):null;
+ $("cbody").innerHTML=`<table><tbody>
+ <tr><td>Costo fijo al mes${faltan?` <span class="pend">(faltan ${faltan} gastos)</span>`:""}</td><td class="n">${fmt(fijo)}</td></tr>
+ <tr><td>Tu costo por pallet-día</td><td class="n">${fmt(pd)}</td></tr>
+ <tr><td>Tu costo por hora de andén</td><td class="n">${fmt(ch)}</td></tr>
+ ${ACTS.map(a=>`<tr><td>Costo por ${a[1].toLowerCase()} de un pallet</td><td class="n">${fmt(man[a[0]])}</td></tr>`).join("")}
+ <tr><td>Pallets que ocupas hoy</td><td class="n">${cap===null?'<span class="pend">pendiente</span>':cap+" de "+pos}</td></tr>
+ <tr><td>Margen sobre el precio</td><td class="n">${Math.round(mar*100)}%</td></tr>
+ </tbody></table>
+ <div class="note">Mejor escenario: si la ocupación sube de ${ocu||"–"}% a 85%, tu costo por pallet-día baja a ${fmt((fijo===null||!pos)?null:fijo*(pesp/100)/(pos*30*0.85))}. Llenar la bodega abarata cada pallet; eso es lo que se negocia con clientes de volumen.</div>`;
+ return {cli:$("cli").value||"Sin nombre",pro:$("pro").value,n,precio};
+}
+document.addEventListener("input",calc);document.addEventListener("change",calc);
+let versions=[];try{versions=JSON.parse(localStorage.getItem("naftaVersions")||"[]");}catch(e){}
+function drawV(){$("vers").innerHTML=versions.length?versions.map(x=>`<tr><td>${x.cli}${x.pro?" · "+x.pro:""}</td><td class="n">${x.n??"–"}</td><td class="n">${fmt(x.precio)}</td></tr>`).join(""):'<tr><td colspan="3" class="pend">Aún no hay versiones.</td></tr>';}
+$("save").onclick=()=>{versions.unshift(calc());try{localStorage.setItem("naftaVersions",JSON.stringify(versions.slice(0,50)));}catch(e){}drawV();};
+$("demo").onclick=()=>{const ex={imp:24000,per:9000,man:1200,seg:800,ser:900,dep:1500,adm:1100,pos:800,ocu:70,hrs:440,m_desc:6,c_desc:1.5,m_car:6,c_car:1.5,m_rev:12,c_rev:0.5,npal:120,dias:15};
+ for(const k in ex)$(k).value=ex[k];$("bar").value=0.4;$("pat").value=20;$("cpat").value=15;$("cli").value="Cliente de ejemplo";$("pro").value="Autopartes";calc();};
+drawSteps();drawV();calc();
+// vistas
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));$("v-cot").hidden=b.dataset.v!=="cot";$("v-exp").hidden=b.dataset.v!=="exp";window.scrollTo(0,0);});
+const ETAPAS=["Link enviado","Documentos subidos","Revisión del agente","Con observaciones","Listo para pedimento","Despachado"];
+const DOCS={"Exportación":["Factura comercial","Lista de empaque","Certificado de origen T-MEC","Carta de encargo conferido","Constancia de situación fiscal","Fracción arancelaria y descripción"],"Importación":["Factura comercial","Lista de empaque","Conocimiento de embarque o carta porte","Carta de encargo conferido","Permisos o regulaciones no arancelarias","Fracción arancelaria y descripción"]};
+const EXPS=[["Aceros del Norte (ejemplo)","Exportación",3,1,"La factura y la lista de empaque no coinciden en peso"],["Frutas Bajío (ejemplo)","Exportación",0,4,"No ha abierto el link"],["Autopartes Saltillo (ejemplo)","Exportación",4,0,""],["Textiles Puebla (ejemplo)","Exportación",3,3,"Certificado de origen sin firma"],["Plásticos Querétaro (ejemplo)","Exportación",1,2,"Falta la carta de encargo"],["Electro Monterrey (ejemplo)","Exportación",5,0,""],["Cerámica Jalisco (ejemplo)","Exportación",2,0,"El agente está revisando"],["Química Laredo (ejemplo)","Importación",3,2,"Falta permiso de regulación no arancelaria"],["Muebles Tijuana (ejemplo)","Importación",1,1,"Falta la lista de empaque"],["Alimentos Texas (ejemplo)","Importación",4,0,""],["Maquinaria Houston (ejemplo)","Importación",0,3,"No ha abierto el link"]];
+let filt="Exportación",sel=0;
+function drawExp(){
+ const L=EXPS.filter(e=>filt==="Todos"||e[1]===filt);
+ const at=L.filter(e=>e[3]>2||e[2]===3);
+ const kp=[["Activos",L.filter(e=>e[2]<5).length],["Atorados",at.length],["Listos para pedimento",L.filter(e=>e[2]===4).length],["Días promedio atorado",at.length?(at.reduce((p,e)=>p+e[3],0)/at.length).toFixed(1):"0"]];
+ $("kpis").innerHTML=kp.map(k=>`<div class="kpi"><span class="sub">${k[0]}</span><b>${k[1]}</b></div>`).join("");
+ const mx=Math.max(1,...ETAPAS.map((_,i)=>L.filter(e=>e[2]===i).length));
+ $("funnel").innerHTML=ETAPAS.map((et,i)=>{const n=L.filter(e=>e[2]===i).length;return `<div class="bar"><span>${et}</span><i class="${i===3||i===0?'st':''}" style="width:${n/mx*100}%"></i><b class="n">${n}</b></div>`}).join("");
+ $("exps").innerHTML=L.map((e,i)=>{const cls=e[2]===5||e[2]===4?"s-ok":(e[2]===3||e[3]>2?"s-ob":"s-wa");return `<tr class="${e[3]>2||e[2]===3?'atorado':''}" data-i="${EXPS.indexOf(e)}" style="cursor:pointer"><td>${e[0]}</td><td>${e[1]}</td><td><span class="st-tag ${cls}">${ETAPAS[e[2]]}</span></td><td class="n">${e[3]}</td><td class="sub">${e[4]||"–"}</td></tr>`}).join("");
+ document.querySelectorAll("#exps tr").forEach(r=>r.onclick=()=>{sel=+r.dataset.i;drawCli();});
+ if(!L.includes(EXPS[sel]))sel=EXPS.indexOf(L[0]);drawCli();
+}
+function drawCli(){const e=EXPS[sel];if(!e)return;const docs=DOCS[e[1]];
+ const st=docs.map((d,i)=>{if(e[2]===0)return "wa";if(e[2]>=4)return "ok";if(e[4]&&e[4].toLowerCase().includes(d.split(" ")[0].toLowerCase())&&e[2]===3)return "ob";if(e[2]===1&&i>2)return "wa";return i===docs.length-1&&e[2]<2?"wa":"ok";});
+ const lab={ok:["Revisado","s-ok"],ob:["Corregir","s-ob"],wa:["Falta","s-wa"]};
+ const msg=e[2]===0?"Hola. Para avanzar con su exportación, suba estos documentos aquí. Le aviso al momento si algo no cuadra.":e[2]===3?`Revisé sus documentos. ${e[4]}. Corríjalo aquí mismo y lo vuelvo a revisar.`:e[2]>=4?"Todo está en orden. Su expediente pasó a pedimento.":"Recibí sus documentos y los estoy revisando contra la factura.";
+ $("cview").innerHTML=`<h2 style="margin:4px 0">${e[0]}</h2><div class="sub" style="margin-bottom:10px">${e[1]} · etapa: ${ETAPAS[e[2]]}</div>
+ <div class="bot"><div class="av">N</div><div>${msg}</div></div>
+ ${docs.map((d,i)=>`<div class="doc"><span>${d}</span><span class="st-tag ${lab[st[i]][1]}">${lab[st[i]][0]}</span></div>`).join("")}
+ <div class="note">El agente cruza valor, peso, descripción y fracción entre documentos. La lista de documentos se valida con Nafta antes de usarla.</div>`;}
+$("filt").onclick=e=>{if(e.target.dataset.f){filt=e.target.dataset.f;document.querySelectorAll("#filt button").forEach(b=>b.classList.toggle("on",b===e.target));drawExp();}};
+drawExp();
+
+</script>
+</body>
+</html>
