@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>alkimia · atención compartida</title>
+<meta name="description" content="Alkimia: un equipo de agentes que escucha, recuerda lo que importa y se corrige. Una demo de iwi.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Instrument+Serif:ital@0;1&family=Courier+Prime&display=swap">
+<style>
+/* alkimia · demo (Diseño, 30 oct 2026)
+   la magia de microsteps: una parvada que sigue a sus vecinos y cambia de forma con cada pantalla
+   aurora de Pulso: dos luces difusas detrás, que cambian de color con cada pantalla
+   la estructura de iwi: retícula de 12 columnas (margen 36, medianil 24) y 4 en móvil (18 y 12)
+   ForBatch: el producto se presenta como pieza de tienda
+   fluye como historias: avanza sola, tocas a la derecha para seguir, a la izquierda para regresar, mantienes para pausar */
+:root{--noche:#15131F;--perg:#F3EEE4;--suave:#C9C2D6;--tenue:#8F88A3;--oro:#E3B34A;
+  --m:36px;--g:24px;--mt:56px;--ncol:12}
+@media (max-width:760px){:root{--m:18px;--g:12px;--mt:62px;--ncol:4}}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--noche);color:var(--perg);overflow:hidden;-webkit-tap-highlight-color:transparent}
+body{font-family:"Instrument Sans","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;user-select:none;-webkit-user-select:none}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+#aurora{image-rendering:auto}
+.mono{font-family:"Courier Prime","Courier New",monospace}
+.serif{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400}
+
+/* barras de avance, como historias */
+#barras{position:fixed;left:var(--m);right:var(--m);top:max(14px,env(safe-area-inset-top));display:flex;gap:4px;z-index:5;max-width:1368px;margin:0 auto}
+#barras i{flex:1;height:2px;border-radius:2px;background:rgba(243,238,228,.22);overflow:hidden;position:relative}
+#barras i b{position:absolute;inset:0;background:var(--perg);transform-origin:left;transform:scaleX(0)}
+#cab{position:fixed;left:0;right:0;top:calc(max(14px,env(safe-area-inset-top)) + 14px);z-index:5;pointer-events:none}
+#cab .w{display:flex;align-items:center;justify-content:space-between}
+#cab .marca{font-size:20px;font-weight:500;letter-spacing:-.02em}
+#cab .marca span{color:var(--oro)}
+#cab .ctl{display:flex;gap:6px;pointer-events:auto}
+#cab button,.flecha{background:rgba(21,19,31,.35);border:1px solid rgba(243,238,228,.22);color:var(--perg);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+#cab button:hover,.flecha:hover{border-color:var(--perg)}
+#cab button svg,.flecha svg{width:16px;height:16px;fill:currentColor}
+.flecha{position:fixed;top:50%;z-index:5;transform:translateY(-50%)}
+#atras{left:max(12px,calc((100vw - 1440px)/2 + 12px))}#adelante{right:max(12px,calc((100vw - 1440px)/2 + 12px))}
+/* las flechas a los lados sólo cuando sobra pantalla; si no, viven arriba junto a la pausa */
+@media (max-width:1560px){.flecha{display:none}}
+#pausado{position:fixed;left:50%;bottom:calc(var(--mt) + 8px);transform:translateX(-50%);z-index:5;font-size:13px;letter-spacing:.12em;color:var(--suave);opacity:0;transition:opacity .4s}
+body.pausa #pausado{opacity:1}
+
+/* la retícula de iwi */
+.w{max-width:1440px;margin:0 auto;padding:0 var(--m)}
+.esc{position:fixed;inset:0;z-index:4;display:flex;align-items:center;pointer-events:none;visibility:hidden}
+.esc.on{visibility:visible}
+.esc .w{width:100%;display:grid;grid-template-columns:repeat(var(--ncol),1fr);column-gap:var(--g);row-gap:28px;align-content:center;padding-top:calc(var(--mt) + 40px);padding-bottom:var(--mt)}
+.esc a{pointer-events:auto}
+.c-full{grid-column:1/-1}.c-10{grid-column:1/span 10}.c-8{grid-column:1/span 8}.c-6{grid-column:1/span 6}.c-5{grid-column:1/span 5}
+@media (max-width:760px){.c-10,.c-8,.c-6,.c-5{grid-column:1/-1}}
+
+/* entra como en iwi: cae, se enfoca */
+.e{opacity:0;transform:translateY(18px);filter:blur(8px);transition:opacity 1s ease,transform 1.1s cubic-bezier(.2,.7,.2,1),filter 1s ease;transition-delay:calc(var(--i,0)*.45s + .15s)}
+.esc.on .e{opacity:1;transform:none;filter:none}
+.esc.sale .e{opacity:0;transform:translateY(-10px);filter:blur(6px);transition-delay:0s;transition-duration:.45s}
+
+.eti{font-size:15px;letter-spacing:.18em;color:var(--oro)}
+h1,h2{font-weight:500;letter-spacing:-.045em;line-height:.98}
+.gigante{font-size:clamp(84px,17vw,280px)}
+.enorme{font-size:clamp(52px,9vw,148px)}
+.grande{font-size:clamp(40px,6.2vw,96px)}
+.media{font-size:clamp(32px,4.4vw,64px);line-height:1.04}
+p.lee{font-size:clamp(18px,1.9vw,26px);line-height:1.4;color:var(--suave)}
+p.cita{font-size:clamp(26px,3vw,44px);line-height:1.18;color:var(--suave)}
+.oro{color:var(--oro)}
+b{font-weight:700}
+
+/* el nombre */
+.nombre{display:grid;grid-template-columns:auto 1fr;column-gap:clamp(20px,4vw,64px);row-gap:6px;align-items:baseline}
+.nombre .pal{font-size:clamp(56px,11vw,176px);font-weight:500;letter-spacing:-.05em;line-height:1;color:#77708C}
+.nombre .pal span{color:var(--oro)}
+.nombre .rol{font-size:clamp(18px,2.4vw,36px);color:var(--perg)}
+@media (max-width:760px){.nombre{grid-template-columns:1fr}.nombre .rol{margin:-4px 0 14px}}
+
+/* imi: iwi da media vuelta */
+.giro{display:flex;align-items:center;gap:clamp(24px,5vw,96px);flex-wrap:wrap}
+.giro .iwi{font-size:clamp(90px,15vw,240px);font-weight:500;letter-spacing:-.05em;line-height:1;display:inline-block}
+.esc.on .giro .iwi.gira{animation:gira 2.4s cubic-bezier(.6,0,.2,1) 1.6s forwards}
+@keyframes gira{to{transform:rotate(180deg);color:var(--oro)}}
+.giro .alk{font-size:clamp(64px,10vw,168px);font-weight:500;letter-spacing:-.05em;line-height:1;color:#77708C}
+.giro .alk span{transition:color 1s ease 3.6s}
+.esc.on .giro .alk span{color:var(--oro)}
+
+/* tres papeles, el loop, la memoria: filas sobre columnas */
+.fila{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--g)}
+.fila.cinco{grid-template-columns:repeat(5,1fr)}.fila.cuatro{grid-template-columns:repeat(4,1fr)}
+.fila>div{border-top:1px solid rgba(243,238,228,.4);padding-top:18px;display:flex;flex-direction:column;gap:10px}
+.fila>div.o{border-top-color:var(--oro)}
+.fila .n{font-size:13px;letter-spacing:.14em;color:var(--oro)}
+.fila h3{font-size:clamp(26px,3.2vw,48px);font-weight:500;letter-spacing:-.03em;line-height:1}
+.fila.cinco h3,.fila.cuatro h3{font-size:clamp(22px,2vw,30px)}
+.fila p{font-size:clamp(15px,1.25vw,18px);line-height:1.4;color:var(--suave)}
+@media (max-width:760px){.fila,.fila.cinco,.fila.cuatro{grid-template-columns:1fr 1fr;row-gap:20px}.fila.tres1{grid-template-columns:1fr}.fila>div{padding-top:12px;gap:6px}}
+
+.prin{display:grid;grid-template-columns:1fr 1fr;gap:16px var(--g);counter-reset:p}
+.prin li{list-style:none;font-size:clamp(20px,2.3vw,34px);line-height:1.2;letter-spacing:-.01em;display:flex;gap:16px}
+.prin li::before{counter-increment:p;content:counter(p);font-family:"Courier Prime",monospace;font-size:.6em;color:var(--oro);padding-top:.35em;min-width:1.2em}
+@media (max-width:760px){.prin{grid-template-columns:1fr;gap:10px}}
+
+/* el producto, como pieza de ForBatch */
+.pieza{display:grid;grid-template-columns:repeat(var(--ncol),1fr);column-gap:var(--g);row-gap:24px;align-items:center}
+.pieza .mat{grid-column:1/span 5;aspect-ratio:4/5;border-radius:4px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 25%,#4A2A7A 0%,transparent 60%),radial-gradient(ellipse at 75% 80%,#8A6A1E 0%,transparent 55%),#1E1B2B;box-shadow:0 30px 90px -20px rgba(4,6,16,.65),0 8px 30px -10px rgba(4,6,16,.5);max-height:62vh;justify-self:start;width:100%}
+.pieza .mat em{position:absolute;left:11%;bottom:11%;font-style:normal;font-size:clamp(40px,5vw,84px);font-weight:500;letter-spacing:-.05em;line-height:1}
+.pieza .mat em span{color:var(--oro)}
+.pieza .mat small{position:absolute;left:11%;top:11%;font-size:12px;letter-spacing:.14em;color:var(--suave)}
+.pieza .txt{grid-column:7/span 6;display:flex;flex-direction:column;gap:18px}
+.pieza .m{display:flex;flex-wrap:wrap;gap:4px 16px;justify-content:space-between;font-size:13px;letter-spacing:.06em;color:var(--suave);border-top:1px solid rgba(243,238,228,.3);padding-top:12px}
+.pieza ul{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:clamp(16px,1.4vw,20px);color:var(--suave)}
+.pieza ul li::before{content:"· ";color:var(--oro)}
+.btn{display:inline-block;align-self:flex-start;background:var(--oro);color:var(--noche);text-decoration:none;font-weight:600;font-size:17px;padding:14px 26px;border-radius:40px;margin-top:6px}
+@media (max-width:760px){.pieza .mat{grid-column:1/-1;aspect-ratio:8/5;max-height:none}.pieza .txt{grid-column:1/-1;gap:12px}}
+
+#pie{position:fixed;left:0;right:0;bottom:max(18px,env(safe-area-inset-bottom));z-index:4;pointer-events:none}
+#pie .w{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.08em;color:var(--tenue)}
+#pie a{color:var(--tenue);text-decoration:none;pointer-events:auto}
+#toque{position:fixed;inset:0;z-index:3}
+@media (prefers-reduced-motion:reduce){.e{transition-duration:.01s!important;transition-delay:0s!important}.esc.on .giro .iwi.gira{animation-duration:.01s;animation-delay:0s}}
+</style>
+</head>
+<body>
+<canvas id="aurora" aria-hidden="true"></canvas>
+<canvas id="parvada" aria-hidden="true"></canvas>
+<div id="toque" aria-hidden="true"></div>
+
+<div id="barras" aria-hidden="true"></div>
+<header id="cab"><div class="w">
+  <div class="marca">alkimia<span>.</span></div>
+  <div class="ctl">
+    <button id="b-atras" type="button" aria-label="Anterior"><svg viewBox="0 0 16 16"><path d="M10.5 2 4.5 8l6 6 1-1-5-5 5-5z"/></svg></button>
+    <button id="b-pausa" type="button" aria-label="Pausa"><svg viewBox="0 0 16 16"><path class="pa" d="M4 2h3v12H4zM9 2h3v12H9z"/></svg></button>
+    <button id="b-adelante" type="button" aria-label="Siguiente"><svg viewBox="0 0 16 16"><path d="M5.5 2 4.5 3l5 5-5 5 1 1 6-6z"/></svg></button>
+  </div>
+</div></header>
+<button class="flecha" id="atras" type="button" aria-label="Anterior"><svg viewBox="0 0 16 16"><path d="M10.5 2 4.5 8l6 6 1-1-5-5 5-5z"/></svg></button>
+<button class="flecha" id="adelante" type="button" aria-label="Siguiente"><svg viewBox="0 0 16 16"><path d="M5.5 2 4.5 3l5 5-5 5 1 1 6-6z"/></svg></button>
+<div id="pausado" class="mono">EN PAUSA</div>
+
+<main aria-live="polite">
+<section class="esc" data-luz="#4A2A7A,#2A3A86" data-forma="libre"><div class="w">
+  <p class="eti mono e c-full" style="--i:0">IWI PRESENTA</p>
+  <h1 class="gigante e c-full" style="--i:1">alkimia<span class="oro">.</span></h1>
+  <p class="cita serif e c-8" style="--i:2">Un equipo de agentes que escucha, recuerda lo que importa y se corrige.</p>
+</div></section>
+
+<section class="esc" data-luz="#8A6A1E,#6D4A2A" data-forma="junta"><div class="w">
+  <h1 class="enorme e c-10" style="--i:0">No es conciencia.</h1>
+  <h1 class="enorme e c-10" style="--i:2"><b class="oro">Es atención compartida.</b></h1>
+  <p class="cita serif e c-8" style="--i:4">Lo dices una vez y se convierte en trabajo.</p>
+</div></section>
+
+<section class="esc" data-luz="#2A3550,#3A2A50" data-forma="dispersa"><div class="w">
+  <p class="eti mono e c-full" style="--i:0">EL PROBLEMA</p>
+  <h2 class="grande e c-10" style="--i:1">Un asistente responde. Un negocio necesita que las cosas pasen.</h2>
+  <p class="lee e c-6" style="--i:3">Hablas con tu IA en mil lugares: el teléfono, la computadora, por voz en el coche. Cada chat empieza de cero y vuelve a preguntar lo que ya se decidió.</p>
+  <p class="lee e c-6" style="--i:4;color:var(--perg)"><b>Terminas siendo la memoria y el mensajero de tus propias herramientas.</b></p>
+</div></section>
+
+<section class="esc" data-luz="#4F4E86,#6D5A3A" data-forma="tres"><div class="w">
+  <p class="eti mono e c-full" style="--i:0">EL NOMBRE LLEVA DENTRO A LOS TRES</p>
+  <div class="nombre c-full">
+    <div class="pal e" style="--i:1"><span>Al</span>kimia</div><div class="rol e" style="--i:1.4"><b>Al</b> escucha</div>
+    <div class="pal e" style="--i:2.4">al<span>Kim</span>ia</div><div class="rol e" style="--i:2.8"><b>Kim</b> orquesta</div>
+    <div class="pal e" style="--i:3.8">alki<span>Mia</span></div><div class="rol e" style="--i:4.2"><b>Mia</b> ejecuta</div>
+  </div>
+  <p class="cita serif e c-8" style="--i:5.4">Se enciman en una sola palabra: así trabajan.</p>
+</div></section>
+
+<section class="esc" data-luz="#2A6466,#4A2A7A" data-forma="circulo"><div class="w">
+  <p class="eti mono e c-full" style="--i:0">DE DÓNDE VIENE</p>
+  <div class="giro c-full e" style="--i:1">
+    <span class="iwi gira">iwi</span>
+    <span class="alk">alk<span>imi</span>a</span>
+  </div>
+  <p class="lee e c-6" style="--i:3">Gira iwi media vuelta y la w se vuelve m. Ese imi vive en medio de alkimia: el estudio está dentro del producto, sosteniéndolo.</p>
+</div></section>
+
+<section class="esc" data-luz="#3A4A86,#2E5C35" data-forma="tres"><div class="w">
+  <p class="eti mono e c-full" style="--i:0">TRES PAPELES BASE</p>
+  <div class="fila tres1 c-full">
+    <div class="e" style="--i:1"><span class="n mono">ESCUCHA</span><h3>Al</h3><p>Recibe tu voz y guarda lo que piensas en voz alta, sin perder una palabra.</p></div>
+    <div class="e" style="--i:2"><span class="n mono">ORQUESTA</span><h3>Kim</h3><p>Reparte cada orden a su dueño, verifica y es el único canal que comunica hacia fuera.</p></div>
+    <div class="e" style="--i:3"><span class="n mono">EJECUTA</span><h3>Mia</h3><p>Hace lo que no tiene dueño y mantiene el orden de fondo.</p></div>
+  </div>
+  <p class="cita serif e c-8" style="--i:4.5">Alrededor, un agente por área. Lo que lo hace funcionar no es un modelo más listo: es la estructura.</p>
+</div></section>
+
+<section class="esc" data-luz="#2A6466,#3A4A86" data-forma="rio"><div class="w">
+  <p class="eti mono e c-full" style="--i:0">EL LOOP</p>
+  <h2 class="media e c-8" style="--i:1">Hablas donde estés; la orden encuentra a su dueño.</h2>
+  <div class="fila cinco c-full">
+    <div class="e" style="--i:2"><span class="n mono">1</span><h3>Dices algo</h3><p>Voz o texto, en cualquier chat. Una vez.</p></div>
+    <div class="e" style="--i:2.6"><span class="n mono">2</span><h3>Se escucha</h3><p>La frase textual, la fecha y su dueño.</p></div>
+    <div class="e" style="--i:3.2"><span class="n mono">3</span><h3>Se recuerda</h3><p>Un registro que todos leen antes de preguntar.</p></div>
+    <div class="e" style="--i:3.8"><span class="n mono">4</span><h3>Se hace</h3><p>El dueño verifica la frase de origen y lo ejecuta.</p></div>
+    <div class="e o" style="--i:4.4"><span class="n mono">5</span><h3 class="oro">Kim comunica</h3><p>Correos y envíos salen de un solo agente.</p></div>
+  </div>
+</div></section>
+
+<section class="esc" data-luz="#2A1C52,#4A2A7A" data-forma="pulso"><div class="w">
+  <p class="eti mono e c-full" style="--i:0">MEMORIA</p>
+  <h2 class="media e c-8" style="--i:1">El sistema recuerda aunque ningún agente recuerde.</h2>
+  <div class="fila cuatro c-full">
+    <div class="e" style="--i:2"><h3>La casa</h3><p>Reglas, decisiones con fecha, el estado de cada espacio.</p></div>
+    <div class="e" style="--i:2.6"><h3>Los archivos</h3><p>Lo pesado y todo número, en casas separadas.</p></div>
+    <div class="e" style="--i:3.2"><h3>La operación</h3><p>Proyectos, tareas y ventas, donde el equipo ya trabaja.</p></div>
+    <div class="e o" style="--i:3.8"><h3 class="oro">El cerebro</h3><p>Las órdenes que todos leen antes de preguntarte algo.</p></div>
+  </div>
+  <p class="cita serif e c-8" style="--i:5">Cada fricción se vuelve una regla con fecha.</p>
+</div></section>
+
+<section class="esc" data-luz="#2E5C35,#2A6466" data-forma="dispersa"><div class="w">
+  <p class="eti mono e c-full" style="--i:0">LO QUE NO SE VE</p>
+  <h2 class="media e c-8" style="--i:1">Lo obvio son los agentes. Lo valioso está entre ellos.</h2>
+  <div class="fila cuatro c-full">
+    <div class="e" style="--i:2"><h3>La atención es lo más escaso.</h3><p>Buen agente pregunta sólo lo que es tuyo decidir.</p></div>
+    <div class="e" style="--i:2.6"><h3>Tu molestia es el sensor.</h3><p>El sistema aprende cuando alguien siente que algo está mal.</p></div>
+    <div class="e" style="--i:3.2"><h3>La confianza sale de decir «no salió».</h3><p>Más que de los aciertos.</p></div>
+    <div class="e" style="--i:3.8"><h3>Recordar es elegir qué no guardar.</h3><p>Esas fronteras protegen a quien no está.</p></div>
+  </div>
+</div></section>
+
+<section class="esc" data-luz="#5A3A7A,#8A6A1E" data-forma="circulo"><div class="w">
+  <p class="eti mono e c-full" style="--i:0">SIETE PRINCIPIOS, DEBAJO DE LAS REGLAS</p>
+  <ol class="prin c-10">
+    <li class="e" style="--i:1">Cuida la atención de las personas.</li>
+    <li class="e" style="--i:1.4">Di la verdad sobre lo que hiciste y lo que no.</li>
+    <li class="e" style="--i:1.8">Protege a quien no está presente.</li>
+    <li class="e" style="--i:2.2">Lo que es de otro, se le pasa.</li>
+    <li class="e" style="--i:2.6">Lo irreversible, con calma.</li>
+    <li class="e" style="--i:3">Todo está conectado.</li>
+    <li class="e" style="--i:3.4">Que todo nutra.</li>
+  </ol>
+  <p class="cita serif e c-8" style="--i:4.4">Las reglas cambian; los principios se quedan.</p>
+</div></section>
+
+<section class="esc" data-luz="#6D5A3A,#3A4A86" data-forma="junta"><div class="w">
+  <div class="pieza c-full">
+    <div class="mat e" style="--i:0"><small class="mono">KIT BASE</small><em>al<span>kim</span>ia<span>.</span></em></div>
+    <div class="txt">
+      <p class="eti mono e" style="--i:1">EL PRODUCTO</p>
+      <h2 class="media e" style="--i:1.5">Alkimia, kit base</h2>
+      <div class="m mono e" style="--i:2"><span>Tres papeles</span><span>Crece un agente a la vez</span></div>
+      <ul class="e" style="--i:2.6"><li>Al, Kim y Mia, listos para tu negocio</li><li>Una casa con tus reglas, tus límites y tus dueños</li><li>El cerebro: lo dices una vez y queda escrito</li><li>Lo instalamos con tu equipo</li></ul>
+      <a class="btn e" style="--i:3.4" href="mailto:carlos@iwi.com.mx?subject=Alkimia">Quiero instalarlo</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="esc" data-luz="#4A2A7A,#8A6A1E" data-forma="junta"><div class="w">
+  <h1 class="gigante e c-full" style="--i:0">alkimia<span class="oro">.</span></h1>
+  <p class="cita serif e c-8" style="--i:1.5">No es conciencia. Es atención compartida.</p>
+  <p class="lee mono e c-full" style="--i:2.5;font-size:15px;letter-spacing:.06em">Carlos Mayne · iwi · <a href="mailto:carlos@iwi.com.mx" style="color:var(--oro)">carlos@iwi.com.mx</a></p>
+</div></section>
+</main>
+
+<footer id="pie"><div class="w mono"><span>una demo de <a href="/">iwi</a></span><span id="num"></span></div></footer>
+
+<script>
+(function(){
+  var E=[].slice.call(document.querySelectorAll('.esc')),n=E.length,act=-1,trans=0,pausa=false,sost=false,ult=performance.now();
+  var calma=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // cada pantalla dura según lo que hay que leer: 5 s más un cuarto de segundo por palabra
+  var DUR=E.map(function(s){var p=s.textContent.trim().split(/\s+/).length;return Math.min(17000,5200+p*260)});
+  var barras=document.getElementById('barras');
+  E.forEach(function(){var i=document.createElement('i');i.appendChild(document.createElement('b'));barras.appendChild(i)});
+  var B=[].slice.call(barras.querySelectorAll('b'));
+  function ir(k){
+    if(k<0)k=0;if(k>=n){k=n-1;ponPausa(true);return}
+    if(act>=0&&act!==k){var v=E[act];v.classList.add('sale');setTimeout(function(){v.classList.remove('on','sale')},450)}
+    var s=E[k];s.classList.remove('sale');
+    // reinicia las entradas y el giro de iwi
+    s.classList.remove('on');void s.offsetWidth;setTimeout(function(){s.classList.add('on')},act<0?0:380);
+    act=k;trans=0;
+    B.forEach(function(b,i){b.style.transform='scaleX('+(i<k?1:0)+')'});
+    document.getElementById('num').textContent=String(k+1).padStart(2,'0')+' / '+String(n).padStart(2,'0');
+    var c=s.dataset.luz.split(',');aurora.meta(c[0],c[1]);parvada.forma=s.dataset.forma;
+    if(k===n-1)setTimeout(function(){},0);
+  }
+  function ponPausa(p){pausa=p;document.body.classList.toggle('pausa',p);
+    var b=document.getElementById('b-pausa');b.setAttribute('aria-label',p?'Seguir':'Pausa');
+    b.querySelector('path').setAttribute('d',p?'M4 2l10 6-10 6z':'M4 2h3v12H4zM9 2h3v12H9z')}
+  function sig(){if(act===n-1){ir(0);ponPausa(false)}else ir(act+1)}
+  function ant(){ir(trans>1200||act===0?act:act-1)}
+  document.getElementById('b-pausa').onclick=function(){ponPausa(!pausa)};
+  document.getElementById('b-adelante').onclick=document.getElementById('adelante').onclick=sig;
+  document.getElementById('b-atras').onclick=document.getElementById('atras').onclick=ant;
+  addEventListener('keydown',function(e){if(e.key==='ArrowRight')sig();else if(e.key==='ArrowLeft')ant();else if(e.key===' '){e.preventDefault();ponPausa(!pausa)}});
+  // como en Instagram: tocar a la izquierda regresa, a la derecha sigue; mantener pausa mientras sostienes
+  var t=document.getElementById('toque'),t0=0,tm=null;
+  t.addEventListener('pointerdown',function(e){t0=performance.now();tm=setTimeout(function(){sost=true;document.body.classList.add('pausa')},260)});
+  function suelta(e){clearTimeout(tm);if(sost){sost=false;document.body.classList.toggle('pausa',pausa);return}
+    if(performance.now()-t0<260){if(e.clientX<innerWidth*.3)ant();else sig()}}
+  t.addEventListener('pointerup',suelta);t.addEventListener('pointercancel',function(){clearTimeout(tm);sost=false;document.body.classList.toggle('pausa',pausa)});
+  // también los vínculos de la pantalla funcionan sobre la capa de toque
+  document.addEventListener('visibilitychange',function(){if(document.hidden)ponPausa(true)});
+
+  // ===== aurora (de Pulso): dos luces muy difusas que cambian de color con cada pantalla
+  var A=document.getElementById('aurora'),ax=A.getContext('2d');
+  function hex(h){var v=parseInt(h.slice(1),16);return[(v>>16)&255,(v>>8)&255,v&255]}
+  var aurora={c1:hex('#4A2A7A'),c2:hex('#2A3A86'),m1:hex('#4A2A7A'),m2:hex('#2A3A86'),meta:function(a,b){this.m1=hex(a);this.m2=hex(b)}};
+  function pintaAurora(tt){
+    var w=A.width,h=A.height;['c1','c2'].forEach(function(k,i){var c=aurora[k],m=aurora['m'+(i+1)];for(var j=0;j<3;j++)c[j]+=(m[j]-c[j])*.02});
+    ax.fillStyle='#15131F';ax.fillRect(0,0,w,h);
+    var s=tt*.00006,L=[[.22+.12*Math.sin(s*1.3),.78+.1*Math.cos(s),aurora.c1],[.8+.1*Math.cos(s*1.1),.22+.12*Math.sin(s*.9),aurora.c2]];
+    L.forEach(function(l){var g=ax.createRadialGradient(l[0]*w,l[1]*h,0,l[0]*w,l[1]*h,Math.max(w,h)*.62);var c=l[2].map(Math.round).join(',');
+      g.addColorStop(0,'rgba('+c+',.95)');g.addColorStop(.45,'rgba('+c+',.35)');g.addColorStop(1,'rgba('+c+',0)');ax.fillStyle=g;ax.fillRect(0,0,w,h)});
+  }
+
+  // ===== la parvada (de microsteps): cada punto sigue a sus vecinos; la forma cambia con la pantalla
+  var P=document.getElementById('parvada'),px=P.getContext('2d'),dpr=Math.min(2,devicePixelRatio||1);
+  var parvada={forma:'libre'},N,X,Y,VX,VY,Z,G,W,H;
+  function arma(){W=innerWidth;H=innerHeight;P.width=W*dpr;P.height=H*dpr;px.setTransform(dpr,0,0,dpr,0,0);A.width=Math.ceil(W/8);A.height=Math.ceil(H/8);
+    N=W<760?420:950;X=new Float32Array(N);Y=new Float32Array(N);VX=new Float32Array(N);VY=new Float32Array(N);Z=new Float32Array(N);G=new Uint8Array(N);
+    for(var i=0;i<N;i++){var a=Math.random()*6.283,r=Math.random()*Math.min(W,H)*.3;X[i]=W*.62+Math.cos(a)*r;Y[i]=H*.5+Math.sin(a)*r;var c=Math.random()*6.283;VX[i]=Math.cos(c);VY[i]=Math.sin(c);Z[i]=Math.random();G[i]=i%3}}
+  arma();addEventListener('resize',arma);
+  var cel=40,cab,sg=new Int32Array(1),tq=0;
+  function anclas(f,t){var cx=W*(W<760?.5:.66),cy=H*(W<760?.62:.5),R=Math.min(W,H),o=[];
+    for(var q=0;q<3;q++){var a=q*2.094+t*.0025,x,y;
+      if(f==='tres'){if(W<760){x=W*(.2+q*.3);y=H*.86}else{x=W*.84+Math.cos(t*.006+q)*R*.04;y=H*(.28+q*.22)}x+=Math.cos(t*.01+q)*R*.03;y+=Math.sin(t*.012+q*2)*R*.03}
+      else if(f==='junta'){x=cx+Math.cos(a)*R*.04;y=cy+Math.sin(a)*R*.04}
+      else if(f==='dispersa'){x=W*(.2+.6*((Math.sin(t*.002+q*2.3)+1)/2));y=H*(.2+.6*((Math.cos(t*.0017+q*1.7)+1)/2))}
+      else if(f==='circulo'||f==='pulso'){x=cx;y=cy}
+      else if(f==='rio'){x=((t*1.2+q*W/3)%(W+200))-100;y=H*.82+Math.sin(t*.01+q)*30}
+      else{x=cx+Math.sin(t*.0042)*W*.16+Math.cos(a)*R*.12;y=cy+Math.cos(t*.0033)*H*.14+Math.sin(a)*R*.1}
+      o.push([x,y])}return o}
+  function paso(t){
+    var f=parvada.forma,cols=Math.ceil(W/cel)+1,filas=Math.ceil(H/cel)+1;
+    if(!cab||cab.length!==cols*filas)cab=new Int32Array(cols*filas);if(sg.length!==N)sg=new Int32Array(N);cab.fill(-1);
+    for(var i=0;i<N;i++){var c=((X[i]/cel)|0)+((Y[i]/cel)|0)*cols;if(c>=0&&c<cab.length){sg[i]=cab[c];cab[c]=i}}
+    var an=anclas(f,t),vmax=(f==='junta'||f==='pulso')?1.3:f==='rio'?2.4:1.9,vmin=vmax*.45,R=Math.min(W,H);
+    for(i=0;i<N;i++){var x=X[i],y=Y[i],ax=0,ay=0,cx=0,cy=0,sx=0,sy=0,k=0,gx=(x/cel)|0,gy=(y/cel)|0;
+      for(var dy=-1;dy<=1;dy++)for(var dx=-1;dx<=1;dx++){var xx=gx+dx,yy=gy+dy;if(xx<0||yy<0||xx>=cols||yy>=filas)continue;
+        for(var j=cab[xx+yy*cols];j!==-1&&k<12;j=sg[j]){if(j===i)continue;var ddx=X[j]-x,ddy=Y[j]-y,d2=ddx*ddx+ddy*ddy;if(d2>cel*cel)continue;
+          ax+=VX[j];ay+=VY[j];cx+=ddx;cy+=ddy;k++;if(d2<324&&d2>0){sx-=ddx/d2;sy-=ddy/d2}}}
+      var vx=VX[i],vy=VY[i];
+      if(k){vx+=(ax/k-vx)*.07;vy+=(ay/k-vy)*.07;vx+=cx/k*.003;vy+=cy/k*.003}
+      vx+=sx*1.6;vy+=sy*1.6;
+      var g=G[i],qx=an[g][0]-x,qy=an[g][1]-y,qd=Math.sqrt(qx*qx+qy*qy)+1;
+      if(f==='circulo'||f==='pulso'){var r0=R*(f==='pulso'?.2+.06*Math.sin(t*.02):.24)*(.8+g*.15),ff=(qd-r0)*.0012;vx+=qx/qd*ff*5+(-qy/qd)*.03;vy+=qy/qd*ff*5+(qx/qd)*.03}
+      else{var fz=f==='tres'?.035:f==='junta'?.03:f==='dispersa'?.014:.022;vx+=qx/qd*fz;vy+=qy/qd*fz}
+      var v=Math.sqrt(vx*vx+vy*vy)||1;if(v>vmax){vx=vx/v*vmax;vy=vy/v*vmax}else if(v<vmin){vx=vx/v*vmin;vy=vy/v*vmin}
+      VX[i]=vx;VY[i]=vy;x+=vx;y+=vy;if(x<-20)x+=W+40;if(x>W+20)x-=W+40;if(y<-20)y+=H+40;if(y>H+20)y-=H+40;X[i]=x;Y[i]=y}
+  }
+  function dibuja(){px.clearRect(0,0,W,H);
+    for(var i=0;i<N;i++){var z=Z[i],r=.9+z*1.8;px.fillStyle=i%9===0?'rgba(227,179,74,'+(.5+z*.5)+')':'rgba(243,238,228,'+(.25+z*.6)+')';px.beginPath();px.arc(X[i],Y[i],r,0,6.283);px.fill()}}
+
+  // ===== un solo reloj: el avance de las barras, la aurora y la parvada
+  function bucle(now){var dt=Math.min(64,now-ult);ult=now;
+    if(!pausa&&!sost&&act>=0){trans+=dt;var p=Math.min(1,trans/DUR[act]);B[act].style.transform='scaleX('+p+')';if(p>=1){if(act===n-1){ponPausa(true)}else sig()}}
+    tq++;pintaAurora(now);if(!calma||tq%3===0){paso(tq);}dibuja();
+    requestAnimationFrame(bucle)}
+  ir(0);requestAnimationFrame(bucle);
+})();
+</script>
+</body>
+</html>
