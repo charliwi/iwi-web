@@ -561,6 +561,37 @@ nav .idioma{padding-top:15px!important;font-size:14px;letter-spacing:.03em}
   .intro p{font-size:15px!important;line-height:20px!important;max-width:none!important;margin-top:20px!important}
   .intro .sonido{position:static!important;margin-top:20px!important}
 }
+/* color y letra de Figma (Carlos, 30 oct): todo el texto en claro pleno, sin grises; el verbo en amarillo
+   y su subrayado en claro, casi a media letra; el pie en Courier 15 a 130 %. En móvil el punto final va en claro */
+.intro h1,.intro p,.intro .sonido,.intro .der .sello,.intro .der .sello b,.intro .pie-v,nav ul a,nav .idioma,nav .idioma *{color:#F4F3EE!important}
+.intro .sonido .ic{opacity:1!important}
+/* ES y EN los dos en claro pleno; la que está activa sólo lleva su línea */
+nav .idioma button{opacity:1!important}
+.intro em.hace{color:#E4F000!important;background:linear-gradient(#F4F3EE,#F4F3EE) no-repeat 0 97%/100% .36em!important}
+.intro em.hace .verbo,.intro em.hace .pto{color:#E4F000}
+.intro .pie-v{line-height:1.3!important;letter-spacing:0}
+.intro .sonido{font-weight:400}
+.toca{color:#F4F3EE}
+nav .idioma{font-weight:400;line-height:1.35}
+/* posiciones medidas en el marco web: el texto entra 16 px desde el margen (x 52), baja 24 px respecto al centro
+   de la ventana, Sonido en x 50 y el pie a un medianil (24) debajo de la ventana */
+.intro .txt-i{padding-left:16px;margin-top:48px!important}
+.intro .sonido{left:calc(var(--m) + 14px)!important}
+.intro .pie-v{top:calc(100% + var(--gv))!important}
+@media (max-width:860px){
+  .intro em.hace{background:linear-gradient(#EEF2F8,#EEF2F8) no-repeat 0 100%/100% .4em!important}
+  .intro em.hace .pto{color:#F4F3EE}
+  .intro h1 .cosa{font-size:.97em}
+  .intro p{line-height:1.25!important}
+  .intro .der .sello b{font-weight:500}
+  /* marco móvil: menú en y 131, sello en 206, la ventana de 234 a 520 y el pie 12 abajo; el texto arranca medio
+     renglón dentro del renglón 6 y Sonido se queda al fondo */
+  nav ul{margin-top:30px!important}
+  .intro .der{grid-template-rows:calc(var(--row) - var(--gv)) 1fr!important;row-gap:var(--gv)!important}
+  .intro .ventana{height:calc(100% + var(--gv))!important}
+  .intro .txt-i{padding-left:0;margin-top:0!important;align-self:stretch!important;display:flex;flex-direction:column;padding-top:calc(var(--r)/2 + 18px)}
+  .intro .sonido{margin-top:auto!important;align-self:flex-start}
+}
 </style>
 </head>
 <body class="figma">
@@ -569,7 +600,7 @@ nav .idioma{padding-top:15px!important;font-size:14px;letter-spacing:.03em}
   <ul><li><a href="#caso-1" data-ir="caso-1" data-menu="casos">Trabajo</a></li><li><a href="#hacemos" data-ir="hacemos" data-menu="hacemos">Servicios</a></li><li><a href="#pensamos" data-ir="pensamos" data-menu="pensamos">Filosofía</a></li><li><a href="#contacto" data-ir="contacto" data-menu="contacto">Contacto</a></li></ul>
   <div class="idioma" aria-label="Idioma / Language"><button type="button" data-i="es">ES</button><button type="button" data-i="en">EN</button></div>
 </div></nav>
-<section class="pag inicio intro" data-p="inicio"><div class="w"><div class="txt-i"><h1 class="e" style="--i:1"><b class="dis">Diseñamos</b> <span class="cosa">objetos</span><br><span class="nw">que <em class="hace"><span class="verbo">sí se fabrican.</span></em></span></h1><p class="e" style="--i:2">Observamos cómo funciona algo, encontramos lo que falta y lo llevamos del boceto a la pieza terminada.</p><button type="button" class="sonido e" style="--i:3" aria-pressed="false"><span class="ic" aria-hidden="true"></span><span class="st">Sonido</span></button></div><div class="der e" style="--i:2"><div class="sello"><b>iwi</b><span>estudio de diseño.</span><span>CDMX</span></div><a class="ventana" href="#caso-7" data-ir="caso-7" aria-label="Ver el proyecto"><span class="marco"><img src="img/v-aros.jpg" alt="" data-g="0" data-caso="caso-7" data-pie="Aros · ForBatch" class="on"><img src="img/v-colima.jpg" alt="" data-g="0" data-caso="caso-1" data-pie="Cervecería de Colima · Manufacturing"><img src="img/v-lumika.jpg" alt="" data-g="0" data-caso="caso-9" data-pie="Lumika · ForBatch"><img src="img/v-tiburon.jpg" alt="" data-g="1" data-caso="caso-10" data-pie="Un lote de tiburones · impresión 3D"><img src="img/v-iaudit-1.jpg" alt="" data-g="1" data-caso="caso-2" data-pie="IAudit · design thinking"><img src="img/v-pulso-1.jpg" alt="" data-g="2" data-caso="caso-3" data-pie="Pulso · UI/UX"><img src="img/v-pulso-2.jpg" alt="" data-g="2" data-caso="caso-3" data-pie="Pulso · UI/UX"><img src="img/v-microsteps.jpg" alt="" data-g="3" data-caso="caso-4" data-pie="microsteps.mx"><img src="img/v-hielera.jpg" alt="" data-g="0" data-caso="caso-5" data-pie="Hielera · Manufacturing"><img src="img/v-esmaltes.jpg" alt="" data-g="0" data-caso="caso-8" data-pie="mööd · ForBatch"><img src="img/v-lanyard.jpg" alt="" data-g="0" data-caso="caso-6" data-pie="Lanyard · Manufacturing"><img src="img/v-iaudit-2.jpg" alt="" data-g="1" data-caso="caso-2" data-pie="IAudit · design thinking"><img src="img/v-pulso-3.jpg" alt="" data-g="2" data-caso="caso-3" data-pie="Pulso · UI/UX"></span><span class="voz" aria-hidden="true"><span class="halo"></span><svg viewBox="-50 -50 100 100"><path/><path/><path/></svg><span class="toca">ver</span></span><span class="pie-v"></span></a></div></div></section>
+<section class="pag inicio intro" data-p="inicio"><div class="w"><div class="txt-i"><h1 class="e" style="--i:1"><b class="dis">Diseñamos</b> <span class="cosa">objetos</span><br><span class="nw">que <em class="hace"><span class="verbo">sí se fabrican</span><span class="pto">.</span></em></span></h1><p class="e" style="--i:2">Observamos cómo funciona algo, encontramos lo que falta y lo llevamos del boceto a la pieza terminada.</p><button type="button" class="sonido e" style="--i:3" aria-pressed="false"><span class="ic" aria-hidden="true"></span><span class="st">Sonido</span></button></div><div class="der e" style="--i:2"><div class="sello"><b>iwi</b><span>estudio de diseño.</span><span>CDMX</span></div><a class="ventana" href="#caso-7" data-ir="caso-7" aria-label="Ver el proyecto"><span class="marco"><img src="img/v-aros.jpg" alt="" data-g="0" data-caso="caso-7" data-pie="Aros · ForBatch" class="on"><img src="img/v-colima.jpg" alt="" data-g="0" data-caso="caso-1" data-pie="Cervecería de Colima · Manufacturing"><img src="img/v-lumika.jpg" alt="" data-g="0" data-caso="caso-9" data-pie="Lumika · ForBatch"><img src="img/v-tiburon.jpg" alt="" data-g="1" data-caso="caso-10" data-pie="Un lote de tiburones · impresión 3D"><img src="img/v-iaudit-1.jpg" alt="" data-g="1" data-caso="caso-2" data-pie="IAudit · design thinking"><img src="img/v-pulso-1.jpg" alt="" data-g="2" data-caso="caso-3" data-pie="Pulso · UI/UX"><img src="img/v-pulso-2.jpg" alt="" data-g="2" data-caso="caso-3" data-pie="Pulso · UI/UX"><img src="img/v-microsteps.jpg" alt="" data-g="3" data-caso="caso-4" data-pie="microsteps.mx"><img src="img/v-hielera.jpg" alt="" data-g="0" data-caso="caso-5" data-pie="Hielera · Manufacturing"><img src="img/v-esmaltes.jpg" alt="" data-g="0" data-caso="caso-8" data-pie="mööd · ForBatch"><img src="img/v-lanyard.jpg" alt="" data-g="0" data-caso="caso-6" data-pie="Lanyard · Manufacturing"><img src="img/v-iaudit-2.jpg" alt="" data-g="1" data-caso="caso-2" data-pie="IAudit · design thinking"><img src="img/v-pulso-3.jpg" alt="" data-g="2" data-caso="caso-3" data-pie="Pulso · UI/UX"></span><span class="voz" aria-hidden="true"><span class="halo"></span><svg viewBox="-50 -50 100 100"><path/><path/><path/></svg><span class="toca">ver</span></span><span class="pie-v"></span></a></div></div></section>
 <section class="pag caso" data-p="caso-1" data-grupo="casos" data-n="0"><div class="foto"><div class="img"><img src="img/servilletero-tres.jpg" alt="Materiales de punto de venta que cuentan de dónde viene la cerveza."></div></div><div class="txt">
       <div class="meta"><span class="chip">Manufacturing</span><span class="chip">Cervecería de Colima</span></div><h3>Materiales de punto de venta que cuentan de dónde viene la cerveza.</h3>
       <dl class="psa"><dt>Problema</dt><dd>La marca necesitaba objetos de bar que se reconocieran a distancia y aguantaran el uso diario.</dd><dt>Solución</dt><dd>Una familia de piezas de lámina y metal: servilleteros, hielera y destapador, con la identidad de la cervecería.</dd><dt>Alcance</dt><dd>Diseño, render y desarrollo para fabricar en serie.</dd></dl></div></section>
@@ -703,8 +734,8 @@ document.querySelectorAll('.from').forEach(function(f){var s=f.querySelectorAll(
   var im=[].slice.call(v.querySelectorAll('img')),pie=v.querySelector('.pie-v'),h1=document.querySelector('.intro h1'),cosa=h1.querySelector('.cosa'),
       hace=h1.querySelector('em.hace'),verbo=h1.querySelector('.verbo'),bs=document.querySelector('.sonido'),col=document.querySelector('.intro .txt-i');
   var calma=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var FR={es:[['objetos','sí se fabrican.'],['procesos','sí se cumplen.'],['plataformas','sí se usan.'],['experiencias','sí se viven.']],
-          en:[['objects','actually get made.'],['processes','actually get done.'],['platforms','actually get used.'],['experiences','actually get lived.']]};
+  var FR={es:[['objetos','sí se fabrican'],['procesos','sí se cumplen'],['plataformas','sí se usan'],['experiencias','sí se viven']],
+          en:[['objects','actually get made'],['processes','actually get done'],['platforms','actually get used'],['experiences','actually get lived']]};
   var lang=function(){return document.documentElement.lang==='en'?'en':'es'};
   var i=0,g=0;
   // el tamaño de la frase se ajusta a su columna con la palabra más larga, así nunca pasa de dos renglones
