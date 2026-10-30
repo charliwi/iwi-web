@@ -9,13 +9,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Instrument+Serif:ital@0;1&family=Courier+Prime&display=swap">
 <style>
-/* alkimia · demo (Diseño, 30 oct 2026)
+/* alkimia · demo (Diseño, 30 oct 2026). Color (Carlos, 30 oct): la intención de la presentación con tonos de Claude: arcilla #D97757 de acento, kraft, marfil y una noche cálida
    la magia de microsteps: una parvada que sigue a sus vecinos y cambia de forma con cada pantalla
    aurora de Pulso: dos luces difusas detrás, que cambian de color con cada pantalla
    la estructura de iwi: retícula de 12 columnas (margen 36, medianil 24) y 4 en móvil (18 y 12)
    ForBatch: el producto se presenta como pieza de tienda
    fluye como historias: avanza sola, tocas a la derecha para seguir, a la izquierda para regresar, mantienes para pausar */
-:root{--noche:#15131F;--perg:#F3EEE4;--suave:#C9C2D6;--tenue:#8F88A3;--oro:#E3B34A;
+:root{--noche:#191714;--perg:#F0EEE6;--suave:#CEC6BA;--tenue:#958C80;--oro:#D97757;--kraft:#D4A27F;
   --m:36px;--g:24px;--mt:56px;--ncol:12}
 @media (max-width:760px){:root{--m:18px;--g:12px;--mt:62px;--ncol:4}}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -28,14 +28,14 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
 
 /* barras de avance, como historias */
 #barras{position:fixed;left:var(--m);right:var(--m);top:max(14px,env(safe-area-inset-top));display:flex;gap:4px;z-index:5;max-width:1368px;margin:0 auto}
-#barras i{flex:1;height:2px;border-radius:2px;background:rgba(243,238,228,.22);overflow:hidden;position:relative}
+#barras i{flex:1;height:2px;border-radius:2px;background:rgba(240,238,230,.22);overflow:hidden;position:relative}
 #barras i b{position:absolute;inset:0;background:var(--perg);transform-origin:left;transform:scaleX(0)}
 #cab{position:fixed;left:0;right:0;top:calc(max(14px,env(safe-area-inset-top)) + 14px);z-index:5;pointer-events:none}
 #cab .w{display:flex;align-items:center;justify-content:space-between}
 #cab .marca{font-size:20px;font-weight:500;letter-spacing:-.02em}
 #cab .marca span{color:var(--oro)}
 #cab .ctl{display:flex;gap:6px;pointer-events:auto}
-#cab button,.flecha{background:rgba(21,19,31,.35);border:1px solid rgba(243,238,228,.22);color:var(--perg);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+#cab button,.flecha{background:rgba(25,23,20,.35);border:1px solid rgba(240,238,230,.22);color:var(--perg);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 #cab button:hover,.flecha:hover{border-color:var(--perg)}
 #cab button svg,.flecha svg{width:16px;height:16px;fill:currentColor}
 .flecha{position:fixed;top:50%;z-index:5;transform:translateY(-50%)}
@@ -72,7 +72,7 @@ b{font-weight:700}
 
 /* el nombre */
 .nombre{display:grid;grid-template-columns:auto 1fr;column-gap:clamp(20px,4vw,64px);row-gap:6px;align-items:baseline}
-.nombre .pal{font-size:clamp(56px,11vw,176px);font-weight:500;letter-spacing:-.05em;line-height:1;color:#77708C}
+.nombre .pal{font-size:clamp(56px,11vw,176px);font-weight:500;letter-spacing:-.05em;line-height:1;color:#857C70}
 .nombre .pal span{color:var(--oro)}
 .nombre .rol{font-size:clamp(18px,2.4vw,36px);color:var(--perg)}
 @media (max-width:760px){.nombre{grid-template-columns:1fr}.nombre .rol{margin:-4px 0 14px}}
@@ -82,14 +82,14 @@ b{font-weight:700}
 .giro .iwi{font-size:clamp(90px,15vw,240px);font-weight:500;letter-spacing:-.05em;line-height:1;display:inline-block}
 .esc.on .giro .iwi.gira{animation:gira 2.4s cubic-bezier(.6,0,.2,1) 1.6s forwards}
 @keyframes gira{to{transform:rotate(180deg);color:var(--oro)}}
-.giro .alk{font-size:clamp(64px,10vw,168px);font-weight:500;letter-spacing:-.05em;line-height:1;color:#77708C}
+.giro .alk{font-size:clamp(64px,10vw,168px);font-weight:500;letter-spacing:-.05em;line-height:1;color:#857C70}
 .giro .alk span{transition:color 1s ease 3.6s}
 .esc.on .giro .alk span{color:var(--oro)}
 
 /* tres papeles, el loop, la memoria: filas sobre columnas */
 .fila{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--g)}
 .fila.cinco{grid-template-columns:repeat(5,1fr)}.fila.cuatro{grid-template-columns:repeat(4,1fr)}
-.fila>div{border-top:1px solid rgba(243,238,228,.4);padding-top:18px;display:flex;flex-direction:column;gap:10px}
+.fila>div{border-top:1px solid rgba(240,238,230,.4);padding-top:18px;display:flex;flex-direction:column;gap:10px}
 .fila>div.o{border-top-color:var(--oro)}
 .fila .n{font-size:13px;letter-spacing:.14em;color:var(--oro)}
 .fila h3{font-size:clamp(26px,3.2vw,48px);font-weight:500;letter-spacing:-.03em;line-height:1}
@@ -104,12 +104,12 @@ b{font-weight:700}
 
 /* el producto, como pieza de ForBatch */
 .pieza{display:grid;grid-template-columns:repeat(var(--ncol),1fr);column-gap:var(--g);row-gap:24px;align-items:center}
-.pieza .mat{grid-column:1/span 5;aspect-ratio:4/5;border-radius:4px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 25%,#4A2A7A 0%,transparent 60%),radial-gradient(ellipse at 75% 80%,#8A6A1E 0%,transparent 55%),#1E1B2B;box-shadow:0 30px 90px -20px rgba(4,6,16,.65),0 8px 30px -10px rgba(4,6,16,.5);max-height:62vh;justify-self:start;width:100%}
+.pieza .mat{grid-column:1/span 5;aspect-ratio:4/5;border-radius:4px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 25%,#4A2A7A 0%,transparent 60%),radial-gradient(ellipse at 75% 80%,#D97757 0%,transparent 55%),#24201B;box-shadow:0 30px 90px -20px rgba(4,6,16,.65),0 8px 30px -10px rgba(4,6,16,.5);max-height:62vh;justify-self:start;width:100%}
 .pieza .mat em{position:absolute;left:11%;bottom:11%;font-style:normal;font-size:clamp(40px,5vw,84px);font-weight:500;letter-spacing:-.05em;line-height:1}
 .pieza .mat em span{color:var(--oro)}
 .pieza .mat small{position:absolute;left:11%;top:11%;font-size:12px;letter-spacing:.14em;color:var(--suave)}
 .pieza .txt{grid-column:7/span 6;display:flex;flex-direction:column;gap:18px}
-.pieza .m{display:flex;flex-wrap:wrap;gap:4px 16px;justify-content:space-between;font-size:13px;letter-spacing:.06em;color:var(--suave);border-top:1px solid rgba(243,238,228,.3);padding-top:12px}
+.pieza .m{display:flex;flex-wrap:wrap;gap:4px 16px;justify-content:space-between;font-size:13px;letter-spacing:.06em;color:var(--suave);border-top:1px solid rgba(240,238,230,.3);padding-top:12px}
 .pieza ul{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:clamp(16px,1.4vw,20px);color:var(--suave)}
 .pieza ul li::before{content:"· ";color:var(--oro)}
 .btn{display:inline-block;align-self:flex-start;background:var(--oro);color:var(--noche);text-decoration:none;font-weight:600;font-size:17px;padding:14px 26px;border-radius:40px;margin-top:6px}
@@ -141,26 +141,26 @@ b{font-weight:700}
 <div id="pausado" class="mono">EN PAUSA</div>
 
 <main aria-live="polite">
-<section class="esc" data-luz="#4A2A7A,#2A3A86" data-forma="libre"><div class="w">
+<section class="esc" data-luz="#4A2A7A,#8A3F28" data-forma="libre"><div class="w">
   <p class="eti mono e c-full" style="--i:0">IWI PRESENTA</p>
   <h1 class="gigante e c-full" style="--i:1">alkimia<span class="oro">.</span></h1>
   <p class="cita serif e c-8" style="--i:2">Un equipo de agentes que escucha, recuerda lo que importa y se corrige.</p>
 </div></section>
 
-<section class="esc" data-luz="#8A6A1E,#6D4A2A" data-forma="junta"><div class="w">
+<section class="esc" data-luz="#8A3F28,#7A5A34" data-forma="junta"><div class="w">
   <h1 class="enorme e c-10" style="--i:0">No es conciencia.</h1>
   <h1 class="enorme e c-10" style="--i:2"><b class="oro">Es atención compartida.</b></h1>
   <p class="cita serif e c-8" style="--i:4">Lo dices una vez y se convierte en trabajo.</p>
 </div></section>
 
-<section class="esc" data-luz="#2A3550,#3A2A50" data-forma="dispersa"><div class="w">
+<section class="esc" data-luz="#3A3530,#4A3A5A" data-forma="dispersa"><div class="w">
   <p class="eti mono e c-full" style="--i:0">EL PROBLEMA</p>
   <h2 class="grande e c-10" style="--i:1">Un asistente responde. Un negocio necesita que las cosas pasen.</h2>
   <p class="lee e c-6" style="--i:3">Hablas con tu IA en mil lugares: el teléfono, la computadora, por voz en el coche. Cada chat empieza de cero y vuelve a preguntar lo que ya se decidió.</p>
   <p class="lee e c-6" style="--i:4;color:var(--perg)"><b>Terminas siendo la memoria y el mensajero de tus propias herramientas.</b></p>
 </div></section>
 
-<section class="esc" data-luz="#4F4E86,#6D5A3A" data-forma="tres"><div class="w">
+<section class="esc" data-luz="#4A3A6A,#8A3F28" data-forma="tres"><div class="w">
   <p class="eti mono e c-full" style="--i:0">EL NOMBRE LLEVA DENTRO A LOS TRES</p>
   <div class="nombre c-full">
     <div class="pal e" style="--i:1"><span>Al</span>kimia</div><div class="rol e" style="--i:1.4"><b>Al</b> escucha</div>
@@ -170,7 +170,7 @@ b{font-weight:700}
   <p class="cita serif e c-8" style="--i:5.4">Se enciman en una sola palabra: así trabajan.</p>
 </div></section>
 
-<section class="esc" data-luz="#2A6466,#4A2A7A" data-forma="circulo"><div class="w">
+<section class="esc" data-luz="#2A5A5A,#7A5A34" data-forma="circulo"><div class="w">
   <p class="eti mono e c-full" style="--i:0">DE DÓNDE VIENE</p>
   <div class="giro c-full e" style="--i:1">
     <span class="iwi gira">iwi</span>
@@ -179,7 +179,7 @@ b{font-weight:700}
   <p class="lee e c-6" style="--i:3">Gira iwi media vuelta y la w se vuelve m. Ese imi vive en medio de alkimia: el estudio está dentro del producto, sosteniéndolo.</p>
 </div></section>
 
-<section class="esc" data-luz="#3A4A86,#2E5C35" data-forma="tres"><div class="w">
+<section class="esc" data-luz="#3A4A7A,#8A3F28" data-forma="tres"><div class="w">
   <p class="eti mono e c-full" style="--i:0">TRES PAPELES BASE</p>
   <div class="fila tres1 c-full">
     <div class="e" style="--i:1"><span class="n mono">ESCUCHA</span><h3>Al</h3><p>Recibe tu voz y guarda lo que piensas en voz alta, sin perder una palabra.</p></div>
@@ -189,7 +189,7 @@ b{font-weight:700}
   <p class="cita serif e c-8" style="--i:4.5">Alrededor, un agente por área. Lo que lo hace funcionar no es un modelo más listo: es la estructura.</p>
 </div></section>
 
-<section class="esc" data-luz="#2A6466,#3A4A86" data-forma="rio"><div class="w">
+<section class="esc" data-luz="#2A5A5A,#5A4A3A" data-forma="rio"><div class="w">
   <p class="eti mono e c-full" style="--i:0">EL LOOP</p>
   <h2 class="media e c-8" style="--i:1">Hablas donde estés; la orden encuentra a su dueño.</h2>
   <div class="fila cinco c-full">
@@ -201,7 +201,7 @@ b{font-weight:700}
   </div>
 </div></section>
 
-<section class="esc" data-luz="#2A1C52,#4A2A7A" data-forma="pulso"><div class="w">
+<section class="esc" data-luz="#3A2A52,#7A4A30" data-forma="pulso"><div class="w">
   <p class="eti mono e c-full" style="--i:0">MEMORIA</p>
   <h2 class="media e c-8" style="--i:1">El sistema recuerda aunque ningún agente recuerde.</h2>
   <div class="fila cuatro c-full">
@@ -213,7 +213,7 @@ b{font-weight:700}
   <p class="cita serif e c-8" style="--i:5">Cada fricción se vuelve una regla con fecha.</p>
 </div></section>
 
-<section class="esc" data-luz="#2E5C35,#2A6466" data-forma="dispersa"><div class="w">
+<section class="esc" data-luz="#4A5A3A,#2A5A5A" data-forma="dispersa"><div class="w">
   <p class="eti mono e c-full" style="--i:0">LO QUE NO SE VE</p>
   <h2 class="media e c-8" style="--i:1">Lo obvio son los agentes. Lo valioso está entre ellos.</h2>
   <div class="fila cuatro c-full">
@@ -224,7 +224,7 @@ b{font-weight:700}
   </div>
 </div></section>
 
-<section class="esc" data-luz="#5A3A7A,#8A6A1E" data-forma="circulo"><div class="w">
+<section class="esc" data-luz="#5A3A6A,#8A5A2E" data-forma="circulo"><div class="w">
   <p class="eti mono e c-full" style="--i:0">SIETE PRINCIPIOS, DEBAJO DE LAS REGLAS</p>
   <ol class="prin c-10">
     <li class="e" style="--i:1">Cuida la atención de las personas.</li>
@@ -238,7 +238,7 @@ b{font-weight:700}
   <p class="cita serif e c-8" style="--i:4.4">Las reglas cambian; los principios se quedan.</p>
 </div></section>
 
-<section class="esc" data-luz="#6D5A3A,#3A4A86" data-forma="junta"><div class="w">
+<section class="esc" data-luz="#7A5A34,#3A4A7A" data-forma="junta"><div class="w">
   <div class="pieza c-full">
     <div class="mat e" style="--i:0"><small class="mono">KIT BASE</small><em>al<span>kim</span>ia<span>.</span></em></div>
     <div class="txt">
@@ -251,7 +251,7 @@ b{font-weight:700}
   </div>
 </div></section>
 
-<section class="esc" data-luz="#4A2A7A,#8A6A1E" data-forma="junta"><div class="w">
+<section class="esc" data-luz="#8A3F28,#4A2A7A" data-forma="junta"><div class="w">
   <h1 class="gigante e c-full" style="--i:0">alkimia<span class="oro">.</span></h1>
   <p class="cita serif e c-8" style="--i:1.5">No es conciencia. Es atención compartida.</p>
   <p class="lee mono e c-full" style="--i:2.5;font-size:15px;letter-spacing:.06em">Carlos Mayne · iwi · <a href="mailto:carlos@iwi.com.mx" style="color:var(--oro)">carlos@iwi.com.mx</a></p>
@@ -302,10 +302,10 @@ b{font-weight:700}
   // ===== aurora (de Pulso): dos luces muy difusas que cambian de color con cada pantalla
   var A=document.getElementById('aurora'),ax=A.getContext('2d');
   function hex(h){var v=parseInt(h.slice(1),16);return[(v>>16)&255,(v>>8)&255,v&255]}
-  var aurora={c1:hex('#4A2A7A'),c2:hex('#2A3A86'),m1:hex('#4A2A7A'),m2:hex('#2A3A86'),meta:function(a,b){this.m1=hex(a);this.m2=hex(b)}};
+  var aurora={c1:hex('#4A2A7A'),c2:hex('#8A3F28'),m1:hex('#4A2A7A'),m2:hex('#8A3F28'),meta:function(a,b){this.m1=hex(a);this.m2=hex(b)}};
   function pintaAurora(tt){
     var w=A.width,h=A.height;['c1','c2'].forEach(function(k,i){var c=aurora[k],m=aurora['m'+(i+1)];for(var j=0;j<3;j++)c[j]+=(m[j]-c[j])*.02});
-    ax.fillStyle='#15131F';ax.fillRect(0,0,w,h);
+    ax.fillStyle='#191714';ax.fillRect(0,0,w,h);
     var s=tt*.00006,L=[[.22+.12*Math.sin(s*1.3),.78+.1*Math.cos(s),aurora.c1],[.8+.1*Math.cos(s*1.1),.22+.12*Math.sin(s*.9),aurora.c2]];
     L.forEach(function(l){var g=ax.createRadialGradient(l[0]*w,l[1]*h,0,l[0]*w,l[1]*h,Math.max(w,h)*.62);var c=l[2].map(Math.round).join(',');
       g.addColorStop(0,'rgba('+c+',.95)');g.addColorStop(.45,'rgba('+c+',.35)');g.addColorStop(1,'rgba('+c+',0)');ax.fillStyle=g;ax.fillRect(0,0,w,h)});
@@ -347,7 +347,7 @@ b{font-weight:700}
       VX[i]=vx;VY[i]=vy;x+=vx;y+=vy;if(x<-20)x+=W+40;if(x>W+20)x-=W+40;if(y<-20)y+=H+40;if(y>H+20)y-=H+40;X[i]=x;Y[i]=y}
   }
   function dibuja(){px.clearRect(0,0,W,H);
-    for(var i=0;i<N;i++){var z=Z[i],r=.9+z*1.8;px.fillStyle=i%9===0?'rgba(227,179,74,'+(.5+z*.5)+')':'rgba(243,238,228,'+(.25+z*.6)+')';px.beginPath();px.arc(X[i],Y[i],r,0,6.283);px.fill()}}
+    for(var i=0;i<N;i++){var z=Z[i],r=.9+z*1.8;px.fillStyle=i%9===0?'rgba(217,119,87,'+(.5+z*.5)+')':'rgba(240,238,230,'+(.25+z*.6)+')';px.beginPath();px.arc(X[i],Y[i],r,0,6.283);px.fill()}}
 
   // ===== un solo reloj: el avance de las barras, la aurora y la parvada
   function bucle(now){var dt=Math.min(64,now-ult);ult=now;
