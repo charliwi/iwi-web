@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulso · demo · iwi</title><meta name="robots" content="noindex,nofollow">
+<style>
+:root{
+  --base:#0A1A10;--pergamino:#F2EDE3;--sage:#7AAB82;--tierra:#C4A97A;
+  --t1:#fff;--t2:rgba(242,237,227,.76);--t3:rgba(242,237,227,.5);
+  --linea:rgba(242,237,227,.16);--linea2:rgba(242,237,227,.42);
+  --f:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --c1:#2E5C35;--c2:#6D5A3A;--x1:15%;--y1:100%;--x2:45%;--y2:110%;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f);background:#E8E0D0;color:#0F2415;padding:32px 16px 64px;-webkit-font-smoothing:antialiased}
+button,input,textarea{font-family:inherit;color:inherit;background:none;border:0}
+button{cursor:pointer}
+.nota{max-width:720px;margin:0 auto 28px;font-size:15px;line-height:1.55}
+.nota b{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;margin-bottom:10px;color:#2E5C35}
+.nota ul{margin:10px 0 0 18px}
+
+.tel{width:350px;height:740px;margin:0 auto;border-radius:50px;background:#04100a;padding:10px;box-shadow:0 40px 80px -40px rgba(15,36,21,.7)}
+.pant{width:100%;height:100%;border-radius:41px;overflow:hidden;position:relative;background:var(--base);color:var(--t1)}
+
+/* cielo: dos luces cuyo origen se mueve como amanecer y atardecer */
+.cielo{position:absolute;inset:0;pointer-events:none;filter:blur(64px);animation:respira 10s ease-in-out infinite}
+@keyframes respira{0%,100%{transform:scale(.95);opacity:.8}40%{transform:scale(1.05);opacity:1}}
+.cielo i{position:absolute;width:85%;height:60%;border-radius:50%;transform:translate(-50%,-50%);opacity:.6;transition:left 2.8s cubic-bezier(.4,0,.2,1),top 2.8s cubic-bezier(.4,0,.2,1),background 2.4s ease}
+.cielo i:nth-child(1){left:var(--x1);top:var(--y1);background:var(--c1)}
+.cielo i:nth-child(2){left:var(--x2);top:var(--y2);background:var(--c2);width:70%;height:50%}
+.pant.scroll-ctl .cielo i{transition:background .3s linear,left .3s linear,top .3s linear}
+.pant{transition:background 1.6s ease}
+.pant.clinico .cielo,.pant.clinico .velo{opacity:0}
+.cielo,.velo{transition:opacity 1.6s ease}
+.velo{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(10,26,16,.35) 0%,rgba(10,26,16,0) 22%,rgba(10,26,16,0) 70%,rgba(10,26,16,.75) 100%)}
+@media (prefers-reduced-motion:reduce){.cielo{animation:none}.cielo i{transition:none}}
+
+.barra{position:absolute;top:0;left:0;right:0;z-index:5;height:48px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 6px;font-size:13px;font-weight:500}
+.barra .der{font-size:12px;color:var(--t3);transition:opacity .6s}
+.barra .der b{color:var(--t1);font-weight:600}
+
+/* vistas: entran con calma */
+.vista{position:absolute;inset:48px 0 0;display:flex;flex-direction:column;opacity:0;transform:translateY(16px);transition:opacity 1.1s cubic-bezier(.4,0,.2,1),transform 1.1s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2}
+.vista.on{opacity:1;transform:none;pointer-events:auto;transition-delay:.35s}
+.cuerpo{flex:1;overflow-y:auto;padding:12px 26px 8px;display:flex;flex-direction:column;scrollbar-width:none}
+.cuerpo::-webkit-scrollbar{display:none}
+.abajo{margin-top:auto}
+.pie{flex:none;padding:12px 26px 22px}
+.con-tabs .pie{padding-bottom:10px}
+
+.marca{display:flex;align-items:center;gap:7px;font-size:14px;letter-spacing:-.02em}
+.marca svg{width:28px}
+.eti{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--t3)}
+.tit{font-size:42px;line-height:1;letter-spacing:-.04em;margin-top:12px}
+.tit .l{font-weight:300;color:var(--t2)}
+.tit .f{font-weight:600;color:var(--t1)}
+.txt{font-size:15px;line-height:1.45;color:rgba(250,248,244,.9);margin-top:14px}
+.aviso{font-size:13px;line-height:1.4;color:var(--t1);margin-top:18px;padding-left:12px;border-left:1px solid var(--sage);opacity:0;max-height:0;overflow:hidden;transition:opacity .8s,max-height .8s}
+.aviso.on{opacity:1;max-height:80px}
+
+.btn{width:100%;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--linea2);border-radius:4px;padding:16px 18px;font-size:15px;font-weight:600;color:var(--t1);transition:border-color .5s,background .5s,color .5s}
+.btn:hover{border-color:var(--pergamino);background:rgba(242,237,227,.06)}
+.btn:disabled{color:var(--t3);border-color:var(--linea);cursor:default;background:none}
+.liga{display:inline-block;margin-top:14px;font-size:13px;color:var(--t2);border-bottom:1px solid var(--linea2);padding-bottom:2px}
+
+.tabs{position:absolute;left:0;right:0;bottom:0;z-index:4;display:flex;justify-content:space-between;padding:14px 28px 22px;border-top:1px solid var(--linea);background:linear-gradient(180deg,rgba(10,26,16,0),rgba(10,26,16,.6));transition:opacity .8s,transform .8s}
+.tabs.fuera{opacity:0;transform:translateY(20px);pointer-events:none}
+.tabs button{font-size:12px;color:var(--t3);transition:color .5s}
+.tabs button.on{color:var(--t1);font-weight:600}
+.con-tabs{bottom:60px}
+
+/* inicio */
+.semana{display:flex;justify-content:space-between;margin-top:26px}
+.semana div{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;color:var(--t3)}
+.semana i{width:9px;height:9px;border-radius:50%;border:1px solid var(--t3)}
+.semana i.s{background:var(--sage);border-color:var(--sage)}
+.semana i.d{background:var(--tierra);border-color:var(--tierra)}
+.semana .hoy{color:var(--t1);font-weight:600}.semana .hoy i{border-color:var(--t1)}
+.filas{margin-top:24px;display:flex;flex-direction:column}
+.fila{display:flex;align-items:center;gap:14px;padding:15px 0;border-top:1px solid var(--linea)}
+.fila:last-child{border-bottom:1px solid var(--linea)}
+.fila .n{font-size:12px;font-weight:600;color:var(--t3);width:18px}
+.fila strong{display:block;font-size:17px;font-weight:600;transition:color .6s}
+.fila small{display:block;font-size:13px;color:var(--t2);margin-top:3px}
+.fila.esp strong{font-weight:400;color:var(--t3)}.fila.esp small{color:var(--t3)}
+.fila .ok{margin-left:auto;width:8px;height:8px;border-radius:50%;border:1px solid var(--t3);transition:background .6s,border-color .6s}
+.fila .ok.si{background:var(--sage);border-color:var(--sage)}
+
+/* respira */
+.luz{width:170px;height:170px;border-radius:50%;margin:40px auto 0;background:radial-gradient(circle,rgba(242,237,227,.75) 0%,rgba(242,237,227,.2) 45%,rgba(242,237,227,0) 70%);animation:luz 10s ease-in-out infinite}
+@keyframes luz{0%,100%{transform:scale(.65);opacity:.55}40%{transform:scale(1.1);opacity:1}}
+.cuenta{font-size:12px;color:var(--t3);margin-top:10px;letter-spacing:.06em}
+
+/* ánimo: sol que sube */
+.animo{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:20px}
+.animo button{aspect-ratio:1;border:1px solid var(--linea);border-radius:4px;display:flex;align-items:center;justify-content:center;transition:border-color .6s}
+.animo svg{width:30px;height:30px;stroke:var(--t3);fill:none;stroke-width:1.2;stroke-linecap:round;transition:stroke .6s,filter .6s}
+.animo button.sel{border-color:var(--pergamino)}
+.animo .o{fill:currentColor;stroke:none}
+.animo svg{color:var(--t3)}
+.animo button.sel svg{color:#fff;stroke:#fff;filter:drop-shadow(0 0 5px rgba(255,255,255,.55))}
+.extremos{display:flex;justify-content:space-between;font-size:12px;color:rgba(242,237,227,.88);margin-top:8px}
+.lbl{font-size:16px;font-weight:600}
+.bloque{margin-top:28px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px}
+.seg button{display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--linea);border-radius:4px;padding:13px;font-size:14px;color:var(--t2);transition:border-color .6s,color .6s}
+.seg svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.seg button.sel{border-color:var(--pergamino);color:var(--t1);font-weight:600}
+.despliega{overflow:hidden;max-height:0;opacity:0;transition:max-height 1s cubic-bezier(.4,0,.2,1),opacity .8s}
+.despliega.on{max-height:700px;opacity:1}
+.sub-lbl{font-size:12px;color:var(--t3);margin:18px 0 8px}
+.paso{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.paso button{width:44px;height:44px;border:1px solid var(--linea2);border-radius:4px;font-size:20px;color:var(--t1)}
+.paso .val{text-align:center}
+.paso .val b{font-size:34px;font-weight:600;letter-spacing:-.03em}
+.paso .val small{display:block;font-size:12px;color:var(--t2);margin-top:2px}
+.ref{font-size:12px;color:var(--t3);margin-top:8px;text-align:center}
+.opc{display:flex;flex-wrap:wrap;gap:6px}
+.opc button{border:1px solid var(--linea);border-radius:4px;padding:9px 11px;font-size:13px;color:var(--t2);transition:border-color .6s,color .6s}
+.opc button.sel{border-color:var(--pergamino);color:var(--t1)}
+.campo{width:100%;border-bottom:1px solid var(--linea2);padding:10px 0;font-size:15px;outline:none;resize:none}
+.campo::placeholder{color:var(--t3)}
+.campo:focus{border-bottom-color:var(--pergamino)}
+
+/* dimensiones con huella */
+.grupo{margin-top:32px}
+.grupo>.eti{display:flex;justify-content:space-between}
+.dim{padding:18px 0;border-bottom:1px solid var(--linea)}
+.dim strong{font-size:16px;font-weight:600}
+.escala{display:flex;align-items:flex-start;margin-top:16px}
+.escala .tramo{flex:1;height:1px;background:var(--linea2);margin:19px 3px 0}
+.escala button{width:38px;flex:none;display:flex;flex-direction:column;align-items:center;gap:6px}
+.escala .h{position:relative;width:38px;height:38px;transition:filter .8s}
+.escala .ico{position:absolute;left:6px;top:0;width:26px;height:37px;background:rgba(242,237,227,.55);-webkit-mask:url(data:image/png;base64,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) center/contain no-repeat;mask:url(data:image/png;base64,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) center/contain no-repeat;transition:background .8s}
+.escala b{font-size:10px;font-weight:500;color:var(--t3);transition:color .8s}
+.escala button.sel .h{filter:drop-shadow(0 0 6px rgba(255,255,255,.6))}
+.escala button.sel .ico{background:#fff}
+.escala button.sel b{color:#fff;font-weight:600}
+.anclas{display:flex;justify-content:space-between;font-size:12px;color:rgba(242,237,227,.88);margin-top:8px}
+
+/* diario y proceso */
+.entrada{padding:18px 0;border-bottom:1px solid var(--linea)}
+.entrada .eti{font-size:10px}
+.entrada p{font-size:16px;line-height:1.5;color:#FAF8F4;margin-top:8px}
+.entrada small{display:block;font-size:12px;color:var(--t3);margin-top:8px}
+.datos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px;padding:16px 0;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
+.datos b{display:block;font-size:26px;font-weight:600;letter-spacing:-.02em}
+.datos span{font-size:12px;color:var(--t3)}
+.comp{padding:14px 0;border-bottom:1px solid var(--linea)}
+.comp strong{font-size:14px;font-weight:600}
+.riel{position:relative;height:16px;margin-top:10px}
+.riel::before{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:var(--linea2)}
+.riel i{position:absolute;top:3px;width:10px;height:10px;border-radius:50%;transform:translateX(-50%)}
+.riel .ini{border:1px solid var(--t2);background:var(--base)}
+.riel .aho{background:var(--pergamino)}
+.leyenda{display:flex;gap:16px;font-size:11px;color:var(--t3);margin-top:12px}
+.leyenda span{display:flex;align-items:center;gap:6px}
+.leyenda i{width:8px;height:8px;border-radius:50%}
+.item{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--linea)}
+.item strong{font-size:16px;font-weight:600}
+.item small{display:block;font-size:12px;color:var(--t3);margin-top:3px}
+.item span{color:var(--t3)}
+
+/* clínico: plano, más distinción, datos duros */
+.clin .tit .l{color:rgba(242,237,227,.7)}
+.ficha{display:flex;align-items:baseline;gap:8px;margin-top:26px;padding-top:14px;border-top:1px solid rgba(242,237,227,.22);font-size:12px;color:rgba(242,237,227,.6)}
+.ficha b{font-size:22px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums}
+.item-clin{font-size:20px;font-weight:600;line-height:1.25;margin-top:10px}
+.opciones{margin-top:18px;border-top:1px solid rgba(242,237,227,.22)}
+.opciones button{width:100%;display:flex;gap:14px;align-items:flex-start;text-align:left;padding:14px 0;border-bottom:1px solid rgba(242,237,227,.22);font-size:14px;line-height:1.35;color:rgba(242,237,227,.85)}
+.opciones i{flex:none;width:16px;height:16px;border-radius:50%;border:1px solid rgba(242,237,227,.6);margin-top:2px;transition:background .4s,box-shadow .4s}
+.opciones b{display:inline-block;width:18px;font-weight:600;color:rgba(242,237,227,.6);font-variant-numeric:tabular-nums}
+.opciones button.sel{color:#fff}
+.opciones button.sel i{background:#fff;box-shadow:inset 0 0 0 3px #12304A}
+.tabla{width:100%;border-collapse:collapse;margin-top:10px}
+.tabla td{padding:12px 0;border-bottom:1px solid rgba(242,237,227,.22);font-size:13px;color:rgba(242,237,227,.75);vertical-align:top}
+.tabla td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.tabla b{display:block;font-size:15px;color:#fff;font-weight:600}
+.tabla small{font-size:12px;color:rgba(242,237,227,.6)}
+
+/* ajuste 25 oct: menos aire. El principal conserva un recuadro chico y tenue; los selectores van sin caja */
+.btn{width:auto;display:inline-flex;gap:28px;padding:11px 16px;font-size:14px;border-color:rgba(242,237,227,.3)}
+.pie{display:flex;flex-direction:column;align-items:flex-start}
+.animo{gap:2px}
+.animo button{border:0;aspect-ratio:auto;height:46px}
+.seg{display:flex;gap:26px}
+.seg button{border:0;border-bottom:1px solid transparent;border-radius:0;padding:8px 0;justify-content:flex-start}
+.seg button.sel{border-bottom-color:#fff}
+.opc button{padding:7px 10px;border-color:rgba(242,237,227,.14)}
+.paso button{width:36px;height:36px;font-size:17px;border-color:rgba(242,237,227,.3)}
+
+/* emojis en tono piel apagado: misma carita, sin el amarillo */
+.animo .emo{font-size:26px;line-height:1;filter:grayscale(1) sepia(.55) saturate(.75) hue-rotate(-8deg) brightness(.95);opacity:.5;transition:opacity .9s,filter .9s}
+.animo button.sel .emo{opacity:1;filter:grayscale(1) sepia(.55) saturate(.8) hue-rotate(-8deg) brightness(1.05) drop-shadow(0 0 6px rgba(255,255,255,.35))}
+
+/* cielo más difuso y lento: sin un punto que jale la vista; el fondo sigue al color */
+.pant{background:var(--fondo,#0A1A10);transition:background 4s ease}
+.cielo{filter:blur(96px);animation:respira 12s ease-in-out infinite}
+@keyframes respira{0%,100%{transform:scale(.985);opacity:.9}40%{transform:scale(1.015);opacity:1}}
+.cielo i{width:130%;height:95%;opacity:.32;transition:left 5s cubic-bezier(.4,0,.2,1),top 5s cubic-bezier(.4,0,.2,1),background 4s ease}
+.cielo i:nth-child(2){width:115%;height:80%;opacity:.26}
+.pant.scroll-ctl .cielo i{transition:background 1.2s ease,left 1.6s ease,top 1.6s ease}
+.vista{transition:opacity 1.6s cubic-bezier(.4,0,.2,1),transform 1.6s cubic-bezier(.4,0,.2,1);transform:translateY(8px)}
+.vista.on{transition-delay:.5s}
+
+/* ajuste final: selección más iluminada y una micronada más veloz */
+.escala .h{transition:filter .6s}
+.escala .ico{transition:background .6s}
+.escala b{transition:color .6s}
+.escala button.sel .h{filter:drop-shadow(0 0 5px rgba(255,255,255,.85)) drop-shadow(0 0 14px rgba(255,255,255,.45))}
+.animo .emo{transition:opacity .7s,filter .7s}
+.animo button.sel .emo{filter:grayscale(1) sepia(.55) saturate(.8) hue-rotate(-8deg) brightness(1.15) drop-shadow(0 0 6px rgba(255,255,255,.6)) drop-shadow(0 0 14px rgba(255,255,255,.3))}
+.btn:disabled{opacity:.45}
+
+/* demo · iwi (31 oct) */
+.nota .son,.nota .volver{display:inline-block;margin:14px 14px 0 0;font:inherit;font-size:13px;font-weight:600;background:none;border:1px solid rgba(15,36,21,.35);border-radius:4px;padding:8px 14px;color:#0F2415;text-decoration:none;cursor:pointer}
+.nota .son[aria-pressed="true"]{background:#0F2415;color:#E8E0D0}
+.vista.herr{padding:0}
+.vista.herr iframe{position:absolute;left:0;right:0;top:44px;bottom:72px;width:100%;height:calc(100% - 116px);border:0;background:transparent;border-radius:0}
+.vista.herr .pie{position:absolute;left:0;right:0;bottom:0;padding:14px 22px 22px}
+@media (max-width:520px){
+  body{padding:0;background:#0A1A10}
+  .nota{display:none}
+  .tel{width:100vw;height:100dvh;border-radius:0;padding:0;box-shadow:none}
+  .pant{border-radius:0}
+  #son2{display:block}
+}
+#son2{display:none;position:fixed;right:12px;top:calc(env(safe-area-inset-top) + 10px);z-index:20;background:rgba(10,26,16,.4);border:1px solid rgba(242,237,227,.3);color:#F2EDE3;border-radius:20px;font:600 12px var(--f);padding:6px 10px}
+#son2[aria-pressed="true"]{border-color:#F2EDE3}
+</style>
+</head>
+<body>
+
+<div class="nota">
+  <b>Pulso · demo</b>
+  Un día completo en la app: abre el día, respira, registra cómo amaneciste, llena las dimensiones y cierra el día. Desde Perfil o desde el cierre llegas a la Brújula y al Mapa. Todo se toca; los datos son inventados.
+  <button type="button" class="son" id="son" aria-pressed="false">♪ Sonido</button>
+  <a class="volver" href="../">← Pulso</a>
+</div>
+
+<div class="tel"><div class="pant" id="pant">
+  <div class="cielo"><i></i><i></i></div>
+  <div class="velo"></div>
+  <div class="barra"><span id="hora">9:41</span><span class="der" id="der"></span></div>
+
+  <!-- INICIO -->
+  <section class="vista con-tabs on" data-v="inicio">
+    <div class="cuerpo">
+      <div class="marca"><svg viewBox="0 0 200 160"><defs><linearGradient id="luzLogo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".7" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><path fill="url(#luzLogo)" stroke="#fff" stroke-opacity=".9" stroke-width="5" stroke-linejoin="round" d="M100 150 L30 80 A35 35 0 0 1 100 34 Z"/><path fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="5" stroke-linejoin="round" d="M100 150 L170 80 A35 35 0 0 0 100 34 Z"/><path fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M0 92 H70 L82 92 L92 62 L104 124 L116 48 L126 92 H200"/></svg>Pulso</div>
+      <div class="abajo">
+        <div class="eti">Dom 25 oct · Sem 3 · Día 18</div>
+        <div class="tit"><span class="l">Tu registro</span><br><span class="f">de hoy.</span></div>
+        <div class="aviso" id="avisoInicio">Apertura guardada. Haz el cierre más tarde, cuando termines tu día.</div>
+        <div class="semana"><div><i class="s"></i>L</div><div><i class="d"></i>M</div><div><i class="s"></i>M</div><div><i class="s"></i>J</div><div><i class="d"></i>V</div><div><i class="s"></i>S</div><div class="hoy"><i id="hoyPunto"></i>D</div></div>
+        <div class="filas">
+          <div class="fila" id="fA"><span class="n">01</span><div><strong>Apertura del día</strong><small id="fAs">Pendiente · ánimo y toma</small></div><span class="ok" id="okA"></span></div>
+          <div class="fila" id="fChq" style="cursor:pointer;order:3"><span class="n">03</span><div><strong>Chequeo de las 4 semanas</strong><small>Unos 10 minutos · tienes hasta el 28 oct</small></div><span style="margin-left:auto;color:var(--t3)">→</span></div>
+          <div class="fila esp" id="fC"><span class="n">02</span><div><strong>Cierre del día</strong><small id="fCs">Después de la apertura</small></div><span class="ok" id="okC"></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pie"><button class="btn" id="btnInicio"><span id="btnInicioTxt">Abrir el día</span><span>→</span></button></div>
+  </section>
+
+  <!-- RESPIRA -->
+  <section class="vista" data-v="respira">
+    <div class="cuerpo">
+      <div class="luz"></div>
+      <div class="abajo">
+        <div class="eti">Antes de registrar</div>
+        <div class="tit"><span class="l">Inhala.</span><br><span class="f">Exhala.</span></div>
+        <div class="cuenta" id="cuenta">1 de 3</div>
+      </div>
+    </div>
+    <div class="pie"><button class="btn" data-ir="apertura"><span>Ir al registro</span><span>→</span></button><button class="liga" data-ir="apertura">Saltar</button></div>
+  </section>
+
+  <!-- APERTURA -->
+  <section class="vista" data-v="apertura">
+    <div class="cuerpo">
+      <div class="eti" style="margin-top:14px">Mañana · Apertura del día</div>
+      <div class="tit"><span class="l">¿Cómo</span><br><span class="f">amaneciste?</span></div>
+      <div class="animo" data-uno id="animoA"></div>
+            <div class="bloque">
+        <div class="lbl">¿Hoy es día de toma?</div>
+        <div class="seg" data-uno id="tomaSeg">
+          <button data-v="si"><svg viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z"/><path d="M5 19 13 11"/></svg>Sí</button>
+          <button data-v="no"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/><path d="M6.7 17.3 17.3 6.7"/></svg>No</button>
+        </div>
+        <div class="txt" style="font-size:13px">Según tu protocolo, hoy toca toma.</div>
+        <div class="despliega" id="tomaDet">
+          <div class="sub-lbl">Porcentaje de tu dosis de referencia</div>
+          <div class="paso"><button id="menos" aria-label="Bajar medio punto">−</button><div class="val"><b id="pct">10%</b><small id="eq">10% = 0.15 g</small></div><button id="mas" aria-label="Subir medio punto">+</button></div>
+          <div class="ref">Tu referencia es 1.5 g</div>
+          <div class="sub-lbl">Entorno</div>
+          <div class="opc" data-uno><button class="sel">Casa</button><button>Naturaleza</button><button>Trabajo</button><button>Otro</button></div>
+          <div class="sub-lbl">Compañía</div>
+          <div class="opc" data-uno><button class="sel">Sin compañía</button><button>Con mi guía</button><button>Con pareja</button><button>Con amigos</button><button>Otro</button></div>
+          <div class="sub-lbl">Intención hacia la medicina este día</div>
+          <input class="campo" placeholder="¿Con qué intención te acercas hoy a la medicina?">
+        </div>
+      </div>
+      <button class="liga" data-ir="inicio" style="align-self:flex-start;margin-top:26px">Volver sin abrir el día</button>
+    </div>
+    <div class="pie"><button class="btn" id="guardarA" disabled><span id="guardarAtxt">Guardar apertura</span><span>→</span></button></div>
+  </section>
+
+  <!-- DIMENSIONES -->
+  <section class="vista" data-v="dims">
+    <div class="cuerpo" id="dimsCuerpo">
+      <div class="eti" style="margin-top:14px">Tarde · Cierre del día</div>
+      <div class="tit" style="font-size:38px"><span class="l">¿Cómo te</span><br><span class="f">sientes hoy?</span></div>
+      <div id="lista"></div>
+      <button class="liga" id="llenar" style="align-self:flex-start;margin:22px 0 8px">Llenar al azar (sólo para la demo)</button>
+    </div>
+    <div class="pie"><button class="btn" id="sigD" disabled><span id="sigDtxt">Siguiente</span><span>→</span></button></div>
+  </section>
+
+  <!-- CIERRE -->
+  <section class="vista" data-v="cierre">
+    <div class="cuerpo">
+      <div class="eti" style="margin-top:14px">Tarde · Cierre del día</div>
+      <div class="tit"><span class="l">Lo que</span><br><span class="f">observaste.</span></div>
+      <div class="bloque">
+        <div class="lbl">¿Tuviste un insight hoy?</div>
+        <div class="txt" style="font-size:13px;margin-top:4px">Insight: lo que descubriste hoy.</div>
+        <div class="seg" data-uno data-abre="insTxt"><button data-v="si">Sí</button><button data-v="no">No</button></div>
+        <div class="despliega" id="insTxt"><textarea class="campo" rows="2" placeholder="¿Quieres contar un poco más?"></textarea></div>
+      </div>
+      <div class="bloque">
+        <div class="lbl">¿Tuviste un desafío hoy?</div>
+        <div class="txt" style="font-size:13px;margin-top:4px">Desafío: lo que te costó.</div>
+        <div class="seg" data-uno data-abre="desTxt"><button data-v="si">Sí</button><button data-v="no">No</button></div>
+        <div class="despliega" id="desTxt"><textarea class="campo" rows="2" placeholder="¿Quieres contar un poco más?"></textarea></div>
+      </div>
+      <button class="liga" data-ir="brujula" style="align-self:flex-start;margin-top:18px">¿Algo no está resuelto? Abre la Brújula</button>
+      <div class="bloque">
+        <div class="lbl">Tu diario</div>
+        <div class="sub-lbl" style="margin-top:6px">Espacio libre</div>
+        <textarea class="campo" rows="3" placeholder="¿Qué más quieres dejar escrito hoy? Esto es tuyo."></textarea>
+      </div>
+      <div class="bloque">
+        <div class="lbl">¿Cómo cierras el día?</div>
+        <div class="animo" data-uno id="animoC"></div>
+              </div>
+      <div style="height:16px"></div>
+    </div>
+    <div class="pie"><button class="btn" data-ir="listo"><span>Cerrar el día</span><span>→</span></button></div>
+  </section>
+
+  <!-- LISTO -->
+  <section class="vista" data-v="listo">
+    <div class="cuerpo">
+      <div class="abajo">
+        <div class="eti">Día 18 · cerrado</div>
+        <div class="tit"><span class="l">Hasta</span><br><span class="f">mañana.</span></div>
+        <p class="txt">Lo que escribiste quedó en tu diario.</p>
+      </div>
+    </div>
+    <div class="pie"><button class="btn" id="volverListo"><span>Volver al inicio</span><span>→</span></button></div>
+  </section>
+
+
+  <!-- CHEQUEO · clínico -->
+  <section class="vista clin" data-v="chequeo">
+    <div class="cuerpo">
+      <div class="eti" style="margin-top:14px;color:rgba(242,237,227,.6)">Chequeo de las 4 semanas · 2 de 4</div>
+      <div class="tit"><span class="l">Cómo te has</span><br><span class="f">sentido.</span></div>
+      <p class="txt" style="font-size:14px">Estas preguntas son sobre la última semana. Responde con lo primero que sientas.</p>
+      <div class="ficha"><span>Ítem</span><b>01</b><span>de 21</span></div>
+      <div class="item-clin">Me costó mucho relajarme</div>
+      <div class="opciones" data-uno>
+        <button><i></i><span><b>0</b>No me aplicó</span></button>
+        <button><i></i><span><b>1</b>Me aplicó un poco, o durante parte del tiempo</span></button>
+        <button><i></i><span><b>2</b>Me aplicó bastante, o durante una buena parte del tiempo</span></button>
+        <button><i></i><span><b>3</b>Me aplicó mucho, o la mayor parte del tiempo</span></button>
+      </div>
+      <p class="txt" style="font-size:12px;color:rgba(242,237,227,.6);margin-top:18px">Tus resultados los ves al cierre del proceso, con tu guía.</p>
+    </div>
+    <div class="pie"><button class="btn" data-ir="inicio"><span>Siguiente</span><span>→</span></button><button class="liga" data-ir="inicio">Seguir después</button></div>
+  </section>
+
+  <!-- MEDICAMENTOS · clínico -->
+  <section class="vista clin" data-v="meds">
+    <div class="cuerpo">
+      <div class="eti" style="margin-top:14px;color:rgba(242,237,227,.6)">Mi proceso · Medicamentos</div>
+      <div class="tit" style="font-size:36px"><span class="l">Medicamentos y</span><br><span class="f">suplementos.</span></div>
+      <p class="txt" style="font-size:14px">Lo ve solo tu guía. Nada se borra: cada cambio queda guardado con su fecha.</p>
+      <div class="eti" style="margin-top:26px;color:rgba(242,237,227,.6)">Los que tomas ahora</div>
+      <table class="tabla"><tr><td><b>Magnesio</b><small>400 mg · noche</small></td><td>En curso</td></tr><tr><td><b>Vitamina D</b><small>2000 UI · mañana</small></td><td>En curso</td></tr></table>
+      <div class="eti" style="margin-top:22px;color:rgba(242,237,227,.6)">Ya no los tomas</div>
+      <table class="tabla"><tr><td><b>Melatonina</b><small>3 mg</small></td><td>Hasta el 12 oct</td></tr></table>
+      <button class="liga" style="align-self:flex-start;margin-top:18px">+ Agregar</button>
+    </div>
+    <div class="pie"><button class="btn" data-ir="perfil"><span>Volver</span><span>←</span></button></div>
+  </section>
+
+  <!-- DIARIO -->
+  <section class="vista con-tabs" data-v="diario">
+    <div class="cuerpo">
+      <div class="eti" style="margin-top:14px">Pulso Diario · Semana 3</div>
+      <div class="tit"><span class="l">Mi</span><br><span class="f">diario.</span></div>
+      <p class="txt">Lo que has escrito a lo largo del proceso.</p>
+      <div style="margin-top:18px">
+        <div class="entrada"><div class="eti">Ayer · Día 17 · Espacio libre</div><p>Caminé sin teléfono. Volví más despacio.</p></div>
+        <div class="entrada"><div class="eti">Hace 2 días · Día 16 · Insight</div><p>Me cuesta menos decir que no.</p></div>
+        <div class="entrada"><div class="eti">Hace 3 días · Día 15 · Desafío</div><p>Dormí poco y lo sentí en todo el día.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MI PROCESO -->
+  <section class="vista con-tabs" data-v="proceso">
+    <div class="cuerpo">
+      <div class="eti" style="margin-top:14px">Tu proceso · Semana 3 de 7</div>
+      <div class="tit"><span class="l">Hola,</span><br><span class="f">Ana.</span></div>
+      <div class="datos"><div><b>86%</b><span>Adherencia</span></div><div><b>3.8</b><span>Ánimo prom.</span></div><div><b>12</b><span>Escritos</span></div></div>
+      <div class="eti" style="margin-top:26px">Tus dimensiones · inicio y ahora</div>
+      <div class="leyenda"><span><i style="border:1px solid var(--t2)"></i>Inicio</span><span><i style="background:var(--pergamino)"></i>Ahora</span></div>
+      <div id="comp"></div>
+    </div>
+  </section>
+
+  <!-- PERFIL -->
+  <section class="vista con-tabs" data-v="perfil">
+    <div class="cuerpo">
+      <div class="eti" style="margin-top:14px">Protocolo · Ana</div>
+      <div class="tit"><span class="l">Mi</span><br><span class="f">perfil.</span></div>
+      <div style="margin-top:22px">
+        <div class="item"><div><strong>Mi intención</strong><small>Ver y recalibrar tu intención del proceso</small></div><span>→</span></div>
+        <div class="item"><div><strong>Mi línea base</strong><small>Revisión de semana 0 · Solo lectura</small></div><span>→</span></div>
+        <div class="item" data-ir="meds" style="cursor:pointer"><div><strong>Mis medicamentos y suplementos</strong><small>Agrega uno nuevo o avisa que ya no lo tomas</small></div><span>→</span></div>
+        <div class="item" data-ir="brujula" style="cursor:pointer"><div><strong>Brújula</strong><small>Lo que sientes y lo que necesitas hoy</small></div><span>→</span></div>
+        <div class="item" data-ir="mapa" style="cursor:pointer"><div><strong>Mapa</strong><small>Tu carta, para ubicarte</small></div><span>→</span></div>
+        <div class="item"><div><strong>Guía de uso</strong><small>Qué hay en cada pantalla y dónde está cada cosa</small></div><span>→</span></div>
+        <div class="item"><div><strong>Consentimiento</strong><small>Revisar y cambiar tus decisiones</small></div><span>→</span></div>
+      </div>
+      <button class="liga" style="align-self:flex-start;margin-top:20px">Cerrar sesión</button>
+    </div>
+  </section>
+
+
+  <section class="vista herr" data-v="brujula">
+    <iframe src="../brujula/" title="Brújula" loading="lazy"></iframe>
+    <div class="pie"><button class="btn" data-ir="perfil"><span>Volver</span><span>←</span></button></div>
+  </section>
+  <section class="vista herr" data-v="mapa">
+    <iframe src="../mapa/" title="Mapa" loading="lazy"></iframe>
+    <div class="pie"><button class="btn" data-ir="perfil"><span>Volver</span><span>←</span></button></div>
+  </section>
+  <nav class="tabs" id="tabs"><button class="on" data-tab="inicio">Registro</button><button data-tab="diario">Diario</button><button data-tab="proceso">Mi proceso</button><button data-tab="perfil">Perfil</button></nav>
+</div></div>
+
+<script>
+(function(){
+  var pant=document.getElementById('pant'), root=pant.style;
+  // cielo por vista: colores (oscuros) y origen de la luz
+  function hex(h){ if(h.indexOf('rgb')===0) return h.match(/\d+/g).map(Number); return [1,3,5].map(function(i){return parseInt(h.substr(i,2),16)})}
+  function mezcla(a,b,t){a=hex(a);b=hex(b);return 'rgb('+a.map(function(v,i){return Math.round(v+(b[i]-v)*t)}).join(',')+')'}
+  var CIELO={
+    inicio:  {c1:'#2E5C35',c2:'#6D5A3A',x1:12,y1:100,x2:40,y2:112,h:'9:41'},   // amanecer, abajo a la izquierda
+    respira: {c1:'#2E5C35',c2:'#2B5677',x1:40,y1:58,x2:62,y2:64,h:'9:42'},     // el sol ya está arriba
+    apertura:{c1:'#2E5C35',c2:'#2B5677',x1:22,y1:82,x2:50,y2:96,h:'9:43'},     // sube
+    dims:    {c1:'#2E5C35',c2:'#6D5A3A',x1:78,y1:28,x2:60,y2:40,h:'18:30'},    // tarde: empieza alto a la derecha
+    cierre:  {c1:'#4A2E5A',c2:'#2B2350',x1:86,y1:96,x2:62,y2:108,h:'18:52'},   // atardecer profundo: escribir y observar
+    listo:   {c1:'#2B2350',c2:'#1F3F5E',x1:92,y1:118,x2:70,y2:124,h:'22:10'},  // noche
+    diario:  {c1:'#3A2466',c2:'#2B4766',x1:18,y1:22,x2:40,y2:8,h:'9:45'},     // lectura: profundo aunque sea de día
+    proceso: {c1:'#2E5C35',c2:'#3A4A86',x1:50,y1:108,x2:76,y2:96,h:'9:46'},
+    chequeo: {c1:'#102840',c2:'#102840',x1:50,y1:-40,x2:50,y2:-40,h:'9:50',clinico:1}, // clínico: plano
+    meds:    {c1:'#102840',c2:'#102840',x1:50,y1:-40,x2:50,y2:-40,h:'9:48',clinico:1},
+    brujula: {c1:'#4A2E5A',c2:'#2B2350',x1:20,y1:20,x2:50,y2:6,h:'19:05'},
+    mapa:    {c1:'#2A1C52',c2:'#4A2A7A',x1:70,y1:10,x2:40,y2:-6,h:'22:30'},
+    perfil:  {c1:'#2E5C35',c2:'#3A3A2A',x1:82,y1:10,x2:60,y2:-4,h:'9:47'}
+  };
+  function cielo(c){
+    pant.classList.toggle('clinico',!!c.clinico); if(c.clinico) root.setProperty('--fondo','#12304A');
+    root.setProperty('--c1',c.c1);root.setProperty('--c2',c.c2);
+    if(!c.clinico) root.setProperty('--fondo',mezcla(c.c1,'#0A1A10',0.8));
+    root.setProperty('--x1',c.x1+'%');root.setProperty('--y1',c.y1+'%');
+    root.setProperty('--x2',c.x2+'%');root.setProperty('--y2',c.y2+'%');
+    if(c.h) document.getElementById('hora').textContent=c.h;
+  }
+  var actual='inicio', der=document.getElementById('der');
+  function ir(v){
+    actual=v; pant.classList.remove('scroll-ctl'); pant.scrollTop=0;
+    document.querySelectorAll('.vista').forEach(function(s){s.classList.toggle('on',s.dataset.v===v)});
+    document.getElementById('tabs').classList.toggle('fuera',['inicio','diario','proceso','perfil'].indexOf(v)<0);
+    document.querySelectorAll('#tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.tab===v)});
+    der.innerHTML = v==='apertura'?'<b>1</b> de 3' : v==='dims'?'<b>'+hechas+'</b> de 15' : v==='cierre'?'<b>3</b> de 3' : '';
+    cielo(v==='inicio'&&etapa===2?{c1:'#2B2350',c2:'#1F3F5E',x1:88,y1:112,x2:66,y2:120,h:'22:12'}:v==='inicio'&&etapa===1?{c1:'#2E5C35',c2:'#2B5677',x1:30,y1:70,x2:55,y2:84,h:'13:05'}:CIELO[v]);
+    if(v==='dims'){ var c=document.getElementById('dimsCuerpo'); c.scrollTop=0; }
+    if(v==='respira') respirar();
+  }
+  document.querySelectorAll('[data-ir]').forEach(function(b){b.addEventListener('click',function(){ir(b.dataset.ir)})});
+  document.querySelectorAll('#tabs button').forEach(function(b){b.addEventListener('click',function(){ir(b.dataset.tab)})});
+
+  // estado del día
+  var etapa=0; // 0 sin abrir, 1 apertura hecha, 2 cerrado
+  function pintaInicio(){
+    document.getElementById('avisoInicio').classList.toggle('on',etapa===1);
+    document.getElementById('okA').classList.toggle('si',etapa>=1);
+    document.getElementById('okC').classList.toggle('si',etapa>=2);
+    document.getElementById('hoyPunto').className=etapa>=2?'s':'';
+    document.getElementById('fAs').textContent=etapa>=1?'Completada · 9:43 · Día de toma 10%':'Pendiente · ánimo y toma';
+    var fc=document.getElementById('fC'); fc.classList.toggle('esp',etapa===0);
+    document.getElementById('fCs').textContent=etapa===0?'Después de la apertura':etapa===1?'Pendiente · 15 dimensiones + insights':'Completado · 18:52';
+    document.getElementById('btnInicioTxt').textContent=etapa===0?'Abrir el día':etapa===1?'Completar cierre del día':'Ver resumen del día';
+  }
+  document.getElementById('btnInicio').onclick=function(){ ir(etapa===0?'respira':etapa===1?'dims':'diario'); };
+  document.getElementById('fChq').onclick=function(){ ir('chequeo'); };
+  document.getElementById('volverListo').onclick=function(){ etapa=2; pintaInicio(); ir('inicio'); };
+
+  // respira: tres ciclos de 10 s
+  var tRes;
+  function respirar(){
+    var n=1, c=document.getElementById('cuenta'); c.textContent='1 de 3'; clearInterval(tRes);
+    tRes=setInterval(function(){ if(actual!=='respira'){clearInterval(tRes);return} n++; if(n>3){clearInterval(tRes);ir('apertura');return} c.textContent=n+' de 3'; },10000);
+  }
+
+  // íconos de ánimo: un sol que sube sobre el horizonte
+  // caritas: los emojis de la app, en tono piel apagado (sin amarillo)
+  var SOLES=['😞','😕','😐','🙂','😄'];
+  ['animoA','animoC'].forEach(function(id){
+    document.getElementById(id).innerHTML=SOLES.map(function(s,i){return '<button data-v="'+(i+1)+'" aria-label="'+(i+1)+'"><span class="emo">'+s+'</span></button>'}).join('');
+  });
+
+  // una sola opción por grupo; algunos abren un campo
+  document.querySelectorAll('[data-uno]').forEach(function(g){
+    g.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){
+      g.querySelectorAll('button').forEach(function(x){x.classList.remove('sel')}); b.classList.add('sel');
+      if(g.dataset.abre) document.getElementById(g.dataset.abre).classList.toggle('on',b.dataset.v==='si');
+      revisaA();
+    })});
+  });
+  // apertura
+  var pct=10, ref=1.5;
+  function pintaPct(){document.getElementById('pct').textContent=pct+'%';document.getElementById('eq').textContent=pct+'% = '+(Math.round(ref*pct)/100).toFixed(2)+' g'}
+  document.getElementById('menos').onclick=function(){if(pct>0.5){pct=Math.round((pct-0.5)*10)/10;pintaPct()}};
+  document.getElementById('mas').onclick=function(){if(pct<25){pct=Math.round((pct+0.5)*10)/10;pintaPct()}};
+  function revisaA(){
+    var a=document.querySelector('#animoA .sel'), t=document.querySelector('#tomaSeg .sel');
+    document.getElementById('tomaDet').classList.toggle('on',!!t&&t.dataset.v==='si');
+    var f=[]; if(!a) f.push('cómo amaneciste'); if(!t) f.push('día de toma');
+    var g=document.getElementById('guardarA'); g.disabled=f.length>0;
+    
+  }
+  document.getElementById('guardarA').onclick=function(){ etapa=1; pintaInicio(); ir('inicio'); };
+
+  // dimensiones (nombres y anclas de la app activa)
+  var G=[
+    ['Físico',[['Sueño','Pésimo','Excelente'],['Energía','Muy baja','Muy alta'],['Motivación','Muy baja','Muy alta']]],
+    ['Emocional',[['Ánimo','Muy bajo','Muy alto'],['Ansiedad','Ausente','Muy intensa'],['Tranquilidad','Ausente','Plena'],['Autoeficacia','Muy baja','Muy alta'],['Amabilidad','Poca','Mucha'],['Relaciones','Distantes','Conectadas']]],
+    ['Cognitivo',[['Foco','Disperso','Sostenido'],['Creatividad','Muy baja','Muy alta'],['Claridad mental','Nublada','Nítida'],['Autoconocimiento','Poca observación','Mucha observación']]],
+    ['Espiritual',[['Contemplación','Ausente','Presente'],['Conexión','Ausente','Profunda']]]
+  ];
+  var html='';
+  G.forEach(function(g,gi){
+    html+='<div class="grupo"><div class="eti"><span>'+g[0]+'</span><span>'+g[1].length+'</span></div>';
+    g[1].forEach(function(d){
+      html+='<div class="dim"><strong>'+d[0]+'</strong><div class="escala">'+[1,2,3,4,5].map(function(n){return '<button aria-label="'+n+'"><span class="h"><i class="ico"></i></span><b>'+n+'</b></button>'}).join('<i class="tramo"></i>')+'</div><div class="anclas"><span>'+d[1]+'</span><span>'+d[2]+'</span></div></div>';
+    });
+    html+='</div>';
+  });
+  var lista=document.getElementById('lista'); lista.innerHTML=html;
+  var hechas=0;
+  function cuentaD(){
+    hechas=lista.querySelectorAll('.escala .sel').length;
+    if(actual==='dims') der.innerHTML='<b>'+hechas+'</b> de 15';
+    var f=15-hechas, b=document.getElementById('sigD'); b.disabled=f>0;
+    
+  }
+  lista.querySelectorAll('.escala').forEach(function(e){
+    e.querySelectorAll('button').forEach(function(b){b.onclick=function(){e.querySelectorAll('button').forEach(function(x){x.classList.remove('sel')});b.classList.add('sel');cuentaD()}});
+  });
+  document.getElementById('llenar').onclick=function(){
+    lista.querySelectorAll('.escala').forEach(function(e){ if(!e.querySelector('.sel')){ var bs=e.querySelectorAll('button'); bs[Math.floor(Math.random()*5)].classList.add('sel'); }});
+    cuentaD();
+  };
+  document.getElementById('sigD').onclick=function(){ ir('cierre'); };
+
+  // en dimensiones, el color va de lo físico a lo espiritual y la luz baja como atardecer
+  var FAM=[['#2E5C35','#6D5A3A'],['#2A6466','#4F4E86'],['#3A4A86','#5A3A7A'],['#2A1C52','#4A2A7A']]; // físico: verde y tierra · emocional: azul verde a lavanda · cognitivo: azul morado · espiritual: universo
+  var dc=document.getElementById('dimsCuerpo'), grupos=lista.querySelectorAll('.grupo');
+  dc.addEventListener('scroll',function(){
+    pant.classList.add('scroll-ctl');
+    var ref=dc.getBoundingClientRect().top+dc.clientHeight*0.45, pos=0;
+    grupos.forEach(function(el,i){var r=el.getBoundingClientRect(),t=(ref-r.top)/r.height; if(t>=0) pos=i+Math.min(t,1)*(i<grupos.length-1?1:0)});
+    var i=Math.min(Math.floor(pos),2), t=pos-i; if(pos>=3){i=2;t=1}
+    var c1=mezcla(FAM[i][0],FAM[i+1][0],t); root.setProperty('--c1',c1); root.setProperty('--c2',mezcla(FAM[i][1],FAM[i+1][1],t));
+    root.setProperty('--fondo',mezcla(c1,'#0A1A10',0.8));
+    var p=dc.scrollTop/Math.max(1,dc.scrollHeight-dc.clientHeight); // 0 arriba, 1 abajo
+    root.setProperty('--x1',(78+8*p)+'%'); root.setProperty('--y1',(28+68*p)+'%');
+    root.setProperty('--x2',(60+2*p)+'%'); root.setProperty('--y2',(40+68*p)+'%');
+  },{passive:true});
+
+  // mi proceso: inicio y ahora, sin colores de bueno o malo
+  var comp=[['Sueño',2,3],['Energía',3,3],['Ánimo',2,4],['Ansiedad',4,3],['Foco',2,3],['Contemplación',3,4]];
+  document.getElementById('comp').innerHTML=comp.map(function(c){
+    function x(v){return ((v-1)/4*100)+'%'}
+    return '<div class="comp"><strong>'+c[0]+'</strong><div class="riel"><i class="ini" style="left:'+x(c[1])+'"></i><i class="aho" style="left:'+x(c[2])+'"></i></div></div>';
+  }).join('');
+
+  // el marco del teléfono nunca se desplaza (el navegador a veces lo mueve al enfocar un campo)
+  pant.addEventListener('scroll',function(){ if(pant.scrollTop) pant.scrollTop=0; });
+  pintaInicio(); ir('inicio');
+})();
+</script>
+
+<button type="button" id="son2" aria-pressed="false" aria-label="Sonido">♪</button>
+<script>
+/* sonido de la demo: muy bajo. Un fondo que respira y cambia de acorde con cada pantalla, una campanita al guardar,
+   un toque suave al elegir el ánimo y, en las dimensiones, un latido casi imperceptible. Arranca con el primer toque. */
+(function(){
+  var ac=null,on=false,fondo=null,usado=false,bs=[document.getElementById('son'),document.getElementById('son2')];
+  // acordes por momento del día (Hz): mañana abierta, tarde, cierre profundo, noche, clínico casi nada
+  var ACORDES={inicio:[196,293.7,392],respira:[196,293.7,440],apertura:[220,329.6,440],dims:[174.6,261.6,349.2],
+    cierre:[146.8,220,329.6],listo:[130.8,196,261.6],diario:[164.8,246.9,329.6],proceso:[196,246.9,392],perfil:[196,293.7,392],
+    brujula:[155.6,233.1,311.1],mapa:[130.8,196,293.7],chequeo:[110,164.8,220],meds:[110,164.8,220]};
+  function ctx(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}return ac}
+  function pinta(){bs.forEach(function(b){if(b)b.setAttribute('aria-pressed',String(on))})}
+  function arma(){var c=ctx();if(!c||fondo)return;var g=c.createGain();g.gain.value=0;var f=c.createBiquadFilter();f.type='lowpass';f.frequency.value=900;f.connect(g);g.connect(c.destination);
+    var os=[0,1,2].map(function(k){var o=c.createOscillator();o.type=k?'sine':'triangle';var gg=c.createGain();gg.gain.value=[.5,.35,.22][k];o.connect(gg);gg.connect(f);o.start();
+      var l=c.createOscillator(),lg=c.createGain();l.frequency.value=.07+k*.03;lg.gain.value=1.5;l.connect(lg);lg.connect(o.detune);l.start();return o});
+    fondo={g:g,os:os}}
+  function acorde(v){if(!fondo)return;var a=ACORDES[v]||ACORDES.inicio,t=ac.currentTime;fondo.os.forEach(function(o,k){o.frequency.setTargetAtTime(a[k],t,1.2)})}
+  function enciende(x){var c=ctx();if(!c)return;on=x;if(c.resume)c.resume();arma();fondo.g.gain.setTargetAtTime(on?.028:0,c.currentTime,1.5);pinta();acorde(vista())}
+  function vista(){var e=document.querySelector('.vista.on');return e?e.dataset.v:'inicio'}
+  function campana(){if(!on)return;var t=ac.currentTime;[784,1174.7,1568].forEach(function(f,k){var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+k*.09);g.gain.linearRampToValueAtTime(.03/(k+1),t+k*.09+.01);g.gain.exponentialRampToValueAtTime(.0001,t+k*.09+1.8);o.connect(g);g.connect(ac.destination);o.start(t+k*.09);o.stop(t+k*.09+1.9)})}
+  function toque(f){if(!on)return;var t=ac.currentTime,o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.022,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+.5);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+.55)}
+  // latido: dos golpes graves, el segundo más suave; apenas se siente
+  function latido(){if(!on)return;var t=ac.currentTime;[[0,.07],[.2,.045]].forEach(function(p){var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.setValueAtTime(62,t+p[0]);o.frequency.exponentialRampToValueAtTime(38,t+p[0]+.14);
+      g.gain.setValueAtTime(0,t+p[0]);g.gain.linearRampToValueAtTime(p[1],t+p[0]+.012);g.gain.exponentialRampToValueAtTime(.0001,t+p[0]+.22);o.connect(g);g.connect(ac.destination);o.start(t+p[0]);o.stop(t+p[0]+.25)})}
+  bs.forEach(function(b){if(b)b.addEventListener('click',function(e){e.stopPropagation();usado=true;enciende(!on)})});
+  document.addEventListener('click',function(e){
+    // la primera vez que se toca la app, el sonido se enciende solo (para la demo); el botón lo apaga
+    if(!usado&&e.target.closest('.tel')){usado=true;enciende(true)}
+    var b=e.target.closest('button');if(!b||!on)return;
+    if(b.closest('.escala'))latido();
+    else if(b.closest('.animo'))toque(523.3);
+    else if(b.closest('.seg'))toque(440);
+    else if(/Guardar|Cerrar el día|Siguiente/.test(b.textContent))campana();
+    setTimeout(function(){acorde(vista())},60);
+  },true);
+})();
+</script>
+</body>
+</html>
