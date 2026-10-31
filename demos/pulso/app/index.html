@@ -214,6 +214,38 @@ button{cursor:pointer}
 .btn:disabled{opacity:.45}
 
 /* demo · iwi (31 oct) */
+.vista[data-v="inicio"] .marca{order:0}.vista[data-v="inicio"] .abajo{order:2}
+.portales{order:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.portal{display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:14px 14px 12px;border:1px solid rgba(242,237,227,.22);border-radius:10px;background:rgba(242,237,227,.05);color:var(--t1);text-align:left;cursor:pointer;transition:background .5s,border-color .5s,transform .5s}
+.portal:active{transform:scale(.97)}
+.portal b{font-size:15px;font-weight:600;margin-top:8px}.portal small{font-size:11.5px;color:var(--t2)}
+.orbe{width:46px;height:46px;position:relative;display:block}
+.chakras i{position:absolute;left:50%;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;animation:resp 3.6s ease-in-out infinite}
+.chakras i:nth-child(1){top:0;background:#B49BE0;animation-delay:0s}.chakras i:nth-child(2){top:6px;background:#8E7CC3;animation-delay:.2s}.chakras i:nth-child(3){top:12.5px;background:#6FA8DC;animation-delay:.4s}.chakras i:nth-child(4){top:19px;background:#7AC08A;animation-delay:.6s}.chakras i:nth-child(5){top:25.5px;background:#E8D06A;animation-delay:.8s}.chakras i:nth-child(6){top:32px;background:#E69A5A;animation-delay:1s}.chakras i:nth-child(7){top:38.5px;background:#E0675C;animation-delay:1.2s}
+@keyframes resp{0%,100%{opacity:.45;box-shadow:0 0 0 rgba(255,255,255,0)}50%{opacity:1;box-shadow:0 0 9px currentColor,0 0 4px rgba(255,255,255,.7)}}
+.cielo-m svg{width:46px;height:46px;overflow:visible;animation:gira 60s linear infinite}
+.cielo-m circle,.cielo-m line{fill:none;stroke:rgba(242,237,227,.55);stroke-width:1}
+.cielo-m .astro{fill:#FFE7B8;stroke:none;filter:drop-shadow(0 0 4px #FFE7B8);animation:late 3.6s ease-in-out infinite}
+@keyframes gira{to{transform:rotate(360deg)}}@keyframes late{0%,100%{opacity:.6}50%{opacity:1}}
+.telarana{display:block;width:100%;margin:10px auto 0;overflow:visible}
+.tel-anillo{fill:none;stroke:rgba(242,237,227,.13)}.tel-eje{stroke:rgba(242,237,227,.11)}
+.tel-etiqueta{fill:rgba(242,237,227,.86);font-size:11px;font-family:var(--f)}
+.tel-serie polygon{stroke-linejoin:round}
+.tel-inicio polygon{fill:none;stroke:rgba(242,237,227,.55);stroke-width:1.2;stroke-dasharray:3 3}.tel-inicio circle{fill:rgba(242,237,227,.55)}
+.tel-promedio polygon{fill:rgba(220,196,158,.16);stroke:rgba(220,196,158,.85);stroke-width:1.2}.tel-promedio circle{fill:rgba(220,196,158,.9)}
+.tel-ultimo polygon{fill:rgba(255,255,255,.08);stroke:#fff;stroke-width:1.8;filter:drop-shadow(0 0 5px rgba(255,236,200,.85)) drop-shadow(0 0 14px rgba(255,236,200,.4))}
+.tel-ultimo circle{fill:#fff;filter:drop-shadow(0 0 4px rgba(255,236,200,1))}
+.tel-ultimo{transform-origin:170px 170px}
+.tel-ultimo.crece{animation:crece 1.8s cubic-bezier(.2,.7,.2,1)}
+@keyframes crece{from{transform:scale(.55);opacity:.2}to{transform:none;opacity:1}}
+.tel-leyenda{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 16px;margin-top:4px;font-size:11.5px;color:var(--t2)}
+.tel-leyenda span{display:flex;align-items:center;gap:7px}.tel-leyenda i{width:18px;height:0;border-top:1.5px solid;display:inline-block}
+.tel-leyenda i.tel-inicio{border-top:1.5px dashed rgba(242,237,227,.7)}.tel-leyenda i.tel-promedio{border-color:rgba(220,196,158,.9)}.tel-leyenda i.tel-ultimo{border-color:#fff;box-shadow:0 0 6px rgba(255,236,200,.8)}
+.tel-nota{font-size:11.5px;color:var(--t3);text-align:center;margin-top:8px;line-height:1.45}
+/* más luz en lo que se elige */
+.escala button.sel .h{filter:drop-shadow(0 0 6px rgba(255,255,255,.95)) drop-shadow(0 0 16px rgba(255,236,200,.65)) drop-shadow(0 0 30px rgba(255,236,200,.3))!important}
+.animo button.sel .emo{filter:grayscale(1) sepia(.55) saturate(.85) hue-rotate(-8deg) brightness(1.3) drop-shadow(0 0 7px rgba(255,255,255,.85)) drop-shadow(0 0 18px rgba(255,236,200,.5))!important}
+.seg button.sel{text-shadow:0 0 10px rgba(255,236,200,.7)}
 .nota .son,.nota .volver{display:inline-block;margin:14px 14px 0 0;font:inherit;font-size:13px;font-weight:600;background:none;border:1px solid rgba(15,36,21,.35);border-radius:4px;padding:8px 14px;color:#0F2415;text-decoration:none;cursor:pointer}
 .nota .son[aria-pressed="true"]{background:#0F2415;color:#E8E0D0}
 .vista.herr{padding:0}
@@ -247,6 +279,10 @@ button{cursor:pointer}
   <!-- INICIO -->
   <section class="vista con-tabs on" data-v="inicio">
     <div class="cuerpo">
+      <div class="portales">
+        <button type="button" class="portal" data-ir="brujula" aria-label="Abrir la Brújula"><span class="orbe chakras"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><b>Brújula</b><small>¿Qué sientes hoy?</small></button>
+        <button type="button" class="portal" data-ir="mapa" aria-label="Abrir el Mapa"><span class="orbe cielo-m"><svg viewBox="-50 -50 100 100"><circle r="44"/><circle r="28"/><g><line x1="28.0" y1="0.0" x2="44.0" y2="0.0"/><line x1="24.2" y1="14.0" x2="38.1" y2="22.0"/><line x1="14.0" y1="24.2" x2="22.0" y2="38.1"/><line x1="-0.0" y1="28.0" x2="-0.0" y2="44.0"/><line x1="-14.0" y1="24.2" x2="-22.0" y2="38.1"/><line x1="-24.2" y1="14.0" x2="-38.1" y2="22.0"/><line x1="-28.0" y1="-0.0" x2="-44.0" y2="-0.0"/><line x1="-24.2" y1="-14.0" x2="-38.1" y2="-22.0"/><line x1="-14.0" y1="-24.2" x2="-22.0" y2="-38.1"/><line x1="0.0" y1="-28.0" x2="0.0" y2="-44.0"/><line x1="14.0" y1="-24.2" x2="22.0" y2="-38.1"/><line x1="24.2" y1="-14.0" x2="38.1" y2="-22.0"/></g><circle class="astro" r="2.6" cx="0" cy="-36"/></svg></span><b>Mapa</b><small>Tu cielo al nacer</small></button>
+      </div>
       <div class="marca"><svg viewBox="0 0 200 160"><defs><linearGradient id="luzLogo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".7" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><path fill="url(#luzLogo)" stroke="#fff" stroke-opacity=".9" stroke-width="5" stroke-linejoin="round" d="M100 150 L30 80 A35 35 0 0 1 100 34 Z"/><path fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="5" stroke-linejoin="round" d="M100 150 L170 80 A35 35 0 0 0 100 34 Z"/><path fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M0 92 H70 L82 92 L92 62 L104 124 L116 48 L126 92 H200"/></svg>Pulso</div>
       <div class="abajo">
         <div class="eti">Dom 25 oct · Sem 3 · Día 18</div>
@@ -417,8 +453,9 @@ button{cursor:pointer}
       <div class="tit"><span class="l">Hola,</span><br><span class="f">Ana.</span></div>
       <div class="datos"><div><b>86%</b><span>Adherencia</span></div><div><b>3.8</b><span>Ánimo prom.</span></div><div><b>12</b><span>Escritos</span></div></div>
       <div class="eti" style="margin-top:26px">Tus dimensiones · inicio y ahora</div>
-      <div class="leyenda"><span><i style="border:1px solid var(--t2)"></i>Inicio</span><span><i style="background:var(--pergamino)"></i>Ahora</span></div>
-      <div id="comp"></div>
+      <svg class="telarana" id="tela" viewBox="-70 -14 480 368" role="img" aria-label="Tus dimensiones, inicio, promedio y último día"></svg>
+      <div class="tel-leyenda"><span><i class="tel-inicio"></i>Inicio</span><span><i class="tel-promedio"></i>Promedio</span><span><i class="tel-ultimo"></i>Último día</span></div>
+      <p class="tel-nota">Cuánto está presente cada dimensión, de 1 (centro) a 5 (borde). Sin bueno ni malo: es para observarte.</p>
     </div>
   </section>
 
@@ -595,8 +632,21 @@ button{cursor:pointer}
   },{passive:true});
 
   // mi proceso: inicio y ahora, sin colores de bueno o malo
+  // la telaraña de las 15 (datos inventados): inicio punteado, promedio en tierra, último día en luz
+  (function(){var N=['Sueño','Energía','Motivación','Ánimo','Ansiedad','Tranquilidad','Autoeficacia','Amabilidad','Relaciones','Foco','Creatividad','Claridad mental','Autoconocimiento','Contemplación','Conexión'],
+    I=[2,3,2,2,4,2,3,3,3,2,3,2,3,3,2],P=[3,3,3,3,3,3,3,4,3,3,3,3,4,4,3],U=[4,3,4,4,2,4,4,4,4,3,4,4,4,4,4],R=112,C=170,n=15;
+    function pt(i,v){var a=-Math.PI/2+i/n*2*Math.PI,r=v/5*R;return [C+r*Math.cos(a),C+r*Math.sin(a)]}
+    function pol(vs){return vs.map(function(v,i){return pt(i,v).map(function(x){return x.toFixed(1)}).join(',')}).join(' ')}
+    var h='';[1,2,3,4,5].forEach(function(k){h+='<polygon class="tel-anillo" points="'+pol(Array(n).fill(k))+'"/>'});
+    N.forEach(function(_,i){var p=pt(i,5);h+='<line class="tel-eje" x1="'+C+'" y1="'+C+'" x2="'+p[0]+'" y2="'+p[1]+'"/>'});
+    [['tel-inicio',I],['tel-promedio',P],['tel-ultimo',U]].forEach(function(s){h+='<g class="tel-serie '+s[0]+'"><polygon points="'+pol(s[1])+'"/>'+s[1].map(function(v,i){var p=pt(i,v);return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="2.6"/>'}).join('')+'</g>'});
+    N.forEach(function(t,i){var a=-Math.PI/2+i/n*2*Math.PI,x=C+(R+16)*Math.cos(a),y=C+(R+16)*Math.sin(a),an=Math.abs(Math.cos(a))<.2?'middle':Math.cos(a)>0?'start':'end';h+='<text class="tel-etiqueta" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" text-anchor="'+an+'" dominant-baseline="middle">'+t+'</text>'});
+    document.getElementById('tela').innerHTML=h;
+    // cada vez que entras, el último día crece desde el inicio
+    var u=document.querySelector('#tela .tel-ultimo');new MutationObserver(function(){var v=document.querySelector('.vista[data-v="proceso"]');if(v&&v.classList.contains('on')){u.classList.remove('crece');void u.getBBox();u.classList.add('crece')}}).observe(document.querySelector('.vista[data-v="proceso"]'),{attributes:true,attributeFilter:['class']});
+  })();
   var comp=[['Sueño',2,3],['Energía',3,3],['Ánimo',2,4],['Ansiedad',4,3],['Foco',2,3],['Contemplación',3,4]];
-  document.getElementById('comp').innerHTML=comp.map(function(c){
+  (document.getElementById('comp')||{}).innerHTML=comp.map(function(c){
     function x(v){return ((v-1)/4*100)+'%'}
     return '<div class="comp"><strong>'+c[0]+'</strong><div class="riel"><i class="ini" style="left:'+x(c[1])+'"></i><i class="aho" style="left:'+x(c[2])+'"></i></div></div>';
   }).join('');
@@ -619,29 +669,32 @@ button{cursor:pointer}
     brujula:[155.6,233.1,311.1],mapa:[130.8,196,293.7],chequeo:[110,164.8,220],meds:[110,164.8,220]};
   function ctx(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}return ac}
   function pinta(){bs.forEach(function(b){if(b)b.setAttribute('aria-pressed',String(on))})}
-  function arma(){var c=ctx();if(!c||fondo)return;var g=c.createGain();g.gain.value=0;var f=c.createBiquadFilter();f.type='lowpass';f.frequency.value=900;f.connect(g);g.connect(c.destination);
-    var os=[0,1,2].map(function(k){var o=c.createOscillator();o.type=k?'sine':'triangle';var gg=c.createGain();gg.gain.value=[.5,.35,.22][k];o.connect(gg);gg.connect(f);o.start();
+  function arma(){var c=ctx();if(!c||fondo)return;var g=c.createGain();g.gain.value=0;var f=c.createBiquadFilter();f.type='lowpass';f.frequency.value=1600;f.connect(g);g.connect(c.destination);
+    var os=[0,1,2].map(function(k){var o=c.createOscillator();o.type='sine';var gg=c.createGain();gg.gain.value=[.42,.3,.2][k];o.connect(gg);gg.connect(f);o.start();
       var l=c.createOscillator(),lg=c.createGain();l.frequency.value=.07+k*.03;lg.gain.value=1.5;l.connect(lg);lg.connect(o.detune);l.start();return o});
     fondo={g:g,os:os}}
-  function acorde(v){if(!fondo)return;var a=ACORDES[v]||ACORDES.inicio,t=ac.currentTime;fondo.os.forEach(function(o,k){o.frequency.setTargetAtTime(a[k],t,1.2)})}
-  function enciende(x){var c=ctx();if(!c)return;on=x;if(c.resume)c.resume();arma();fondo.g.gain.setTargetAtTime(on?.028:0,c.currentTime,1.5);pinta();acorde(vista())}
+  function acorde(v){if(!fondo)return;var a=ACORDES[v]||ACORDES.inicio,t=ac.currentTime;fondo.os.forEach(function(o,k){o.frequency.setTargetAtTime(a[k]*2,t,1.2)})}
+  function enciende(x){var c=ctx();if(!c)return;on=x;if(c.resume)c.resume();arma();fondo.g.gain.setTargetAtTime(on?.014:0,c.currentTime,1.5);pinta();acorde(vista())}
   function vista(){var e=document.querySelector('.vista.on');return e?e.dataset.v:'inicio'}
   function campana(){if(!on)return;var t=ac.currentTime;[784,1174.7,1568].forEach(function(f,k){var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;
       g.gain.setValueAtTime(0,t+k*.09);g.gain.linearRampToValueAtTime(.03/(k+1),t+k*.09+.01);g.gain.exponentialRampToValueAtTime(.0001,t+k*.09+1.8);o.connect(g);g.connect(ac.destination);o.start(t+k*.09);o.stop(t+k*.09+1.9)})}
   function toque(f){if(!on)return;var t=ac.currentTime,o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.022,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+.5);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+.55)}
   // latido: dos golpes graves, el segundo más suave; apenas se siente
-  function latido(){if(!on)return;var t=ac.currentTime;[[0,.07],[.2,.045]].forEach(function(p){var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.setValueAtTime(62,t+p[0]);o.frequency.exponentialRampToValueAtTime(38,t+p[0]+.14);
+  function latido(){if(!on)return;var t=ac.currentTime;[[0,.17],[.2,.11]].forEach(function(p){var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.setValueAtTime(74,t+p[0]);o.frequency.exponentialRampToValueAtTime(44,t+p[0]+.14);
       g.gain.setValueAtTime(0,t+p[0]);g.gain.linearRampToValueAtTime(p[1],t+p[0]+.012);g.gain.exponentialRampToValueAtTime(.0001,t+p[0]+.22);o.connect(g);g.connect(ac.destination);o.start(t+p[0]);o.stop(t+p[0]+.25)})}
   bs.forEach(function(b){if(b)b.addEventListener('click',function(e){e.stopPropagation();usado=true;enciende(!on)})});
   document.addEventListener('click',function(e){
     // la primera vez que se toca la app, el sonido se enciende solo (para la demo); el botón lo apaga
     if(!usado&&e.target.closest('.tel')){usado=true;enciende(true)}
+    var b0=e.target.closest('[data-ir]');
+    // Volver regresa a donde estabas antes de abrir la Brújula o el Mapa
+    if(b0&&/^(brujula|mapa)$/.test(b0.dataset.ir)&&!/^(brujula|mapa)$/.test(vista()))document.querySelectorAll('.vista.herr .btn').forEach(function(x){x.dataset.ir=vista()});
     var b=e.target.closest('button');if(!b||!on)return;
     if(b.closest('.escala'))latido();
     else if(b.closest('.animo'))toque(523.3);
     else if(b.closest('.seg'))toque(440);
     else if(/Guardar|Cerrar el día|Siguiente/.test(b.textContent))campana();
-    setTimeout(function(){acorde(vista())},60);
+    setTimeout(function(){acorde(vista());if(vista()==='proceso')setTimeout(latido,700)},60);
   },true);
 })();
 </script>
