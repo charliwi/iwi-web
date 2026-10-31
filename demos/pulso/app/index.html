@@ -229,7 +229,7 @@ button{cursor:pointer}
 @keyframes gira{to{transform:rotate(360deg)}}@keyframes late{0%,100%{opacity:.6}50%{opacity:1}}
 .vista[data-v="proceso"] .cuerpo{overflow-x:hidden}
 .telarana{display:block;width:calc(100% + 36px);margin:10px -18px 0;overflow:hidden}
-.pastel{opacity:.5}.tel-anillo{fill:none;stroke:rgba(242,237,227,.16)}.tel-eje{stroke:rgba(242,237,227,.12)}
+.pastel{opacity:.62}.tel-anillo{fill:none;stroke:rgba(242,237,227,.16)}.tel-eje{stroke:rgba(242,237,227,.12)}
 .tel-cruz line{stroke:rgba(242,237,227,.55);stroke-width:1}
 .tel-cuerpo{font-size:10px;font-weight:600;letter-spacing:.14em;font-family:var(--f)}.tel-mov{font-size:10.5px;font-family:var(--f);opacity:.9}
 .tel-etiqueta{font-size:10.5px;font-family:var(--f)}
@@ -640,7 +640,7 @@ button{cursor:pointer}
   // Suben como el scroll de la app: Físico abajo a la izquierda, Emocional abajo a la derecha, Cognitivo arriba a la
   // derecha, Espiritual arriba a la izquierda. Datos inventados.
   (function(){var N=['Sueño','Energía','Motivación','Ánimo','Ansiedad','Tranquilidad','Autoeficacia','Amabilidad','Relaciones','Foco','Creatividad','Claridad mental','Autoconocimiento','Contemplación','Conexión'],
-    I=[2,3,2,2,4,2,3,3,3,2,3,2,3,3,2],P=[3,3,3,3,3,3,3,4,3,3,3,3,4,4,3],U=[4,3,4,4,2,4,4,4,4,3,4,4,4,4,4],R=112,C=170,
+    I=[2,3,2,2,4,2,3,3,3,2,3,2,3,3,2],P=[3,3,3,3,3,3,3,4,3,3,3,3,4,4,3],U=[4,3,4,4,2,4,4,4,4,3,3,3,3,5,5],R=112,C=170,
     CU=[['Físico',0,3,90,'#7FB37C'],['Emocional',3,6,0,'#6FB8B4'],['Cognitivo',9,4,-90,'#8C98E0'],['Espiritual',13,2,-180,'#B48BE0']],
     ang=[],col=[];
     CU.forEach(function(c){for(var k=0;k<c[2];k++){ang[c[1]+k]=(c[3]+(k+.5)/c[2]*90)*Math.PI/180;col[c[1]+k]=c[4]}});
@@ -650,13 +650,18 @@ button{cursor:pointer}
     function rgb(h){return [1,3,5].map(function(k){return parseInt(h.substr(k,2),16)})}
     // el pastel degradado: 144 gajos; cada color vive en el centro de su cuarto y se funde con el vecino en la cruz
     var h='<defs><radialGradient id="telV"><stop offset="0" stop-color="#0A1A10" stop-opacity=".75"/><stop offset=".55" stop-color="#0A1A10" stop-opacity=".25"/><stop offset="1" stop-color="#0A1A10" stop-opacity="0"/></radialGradient></defs><g class="pastel">';
+    // presencia por cuerpo: el más presente brilla más; así se ve, sutil, en qué color estás más
+    var PRE=CU.map(function(c){var m=0;for(var k=0;k<c[2];k++)m+=U[c[1]+k];return m/c[2]}),mn=Math.min.apply(0,PRE),mx=Math.max.apply(0,PRE);
+    PRE=PRE.map(function(v){return mx>mn?(v-mn)/(mx-mn):1});
     var cen=CU.map(function(c){return c[3]+45}),G=144;
     for(var g=0;g<G;g++){var a0=-180+g*360/G,a1=a0+360/G+.6,am=(a0+a1)/2,best=0,d=[];
       cen.forEach(function(ca,k){var x=Math.abs(((am-ca+540)%360)-180);d[k]=x});
       var o=d.map(function(x,k){return k}).sort(function(a,b){return d[a]-d[b]}),k1=o[0],k2=o[1],t=Math.min(1,Math.max(0,(d[k1]-0)/90));
       var c1=rgb(CU[k1][4]),c2=rgb(CU[k2][4]),w=t*t*(3-2*t)*.5,cc=c1.map(function(v,q){return Math.round(v+(c2[q]-v)*w)});
       var p0=[C+(R+4)*Math.cos(a0*Math.PI/180),C+(R+4)*Math.sin(a0*Math.PI/180)],p1=[C+(R+4)*Math.cos(a1*Math.PI/180),C+(R+4)*Math.sin(a1*Math.PI/180)];
-      h+='<path d="M'+C+' '+C+'L'+p0[0].toFixed(1)+' '+p0[1].toFixed(1)+'A'+(R+4)+' '+(R+4)+' 0 0 1 '+p1[0].toFixed(1)+' '+p1[1].toFixed(1)+'Z" fill="rgb('+cc.join(',')+')"/>'}
+      // cuánto brilla cada cuarto: la presencia del cuerpo en el último día (promedio de sus dimensiones, 1 a 5)
+      var pr=PRE[k1]+(PRE[k2]-PRE[k1])*w;
+      h+='<path d="M'+C+' '+C+'L'+p0[0].toFixed(1)+' '+p0[1].toFixed(1)+'A'+(R+4)+' '+(R+4)+' 0 0 1 '+p1[0].toFixed(1)+' '+p1[1].toFixed(1)+'Z" fill="rgb('+cc.join(',')+')" fill-opacity="'+(.25+.75*pr).toFixed(2)+'"/>'}
     h+='</g><circle cx="'+C+'" cy="'+C+'" r="'+(R+4)+'" fill="url(#telV)"/>';
     [1,2,3,4,5].forEach(function(k){h+='<circle class="tel-anillo" cx="'+C+'" cy="'+C+'" r="'+(k/5*R).toFixed(1)+'"/>'});
     N.forEach(function(_,i){var p=pt(i,5);h+='<line class="tel-eje" x1="'+C+'" y1="'+C+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'"/>'});
