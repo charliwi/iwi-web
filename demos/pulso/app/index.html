@@ -456,7 +456,7 @@ button{cursor:pointer}
       <div class="tit"><span class="l">Hola,</span><br><span class="f">Ana.</span></div>
       <div class="datos"><div><b>86%</b><span>Adherencia</span></div><div><b>3.8</b><span>Ánimo prom.</span></div><div><b>12</b><span>Escritos</span></div></div>
       <div class="eti" style="margin-top:26px">Tus dimensiones · inicio y ahora</div>
-      <svg class="telarana" id="tela" viewBox="-62 -34 464 410" role="img" aria-label="Tus dimensiones, inicio, promedio y último día"></svg>
+      <svg class="telarana" id="tela" viewBox="-62 -48 464 438" role="img" aria-label="Tus dimensiones, inicio, promedio y último día"></svg>
       <div class="tel-leyenda"><span><i class="tel-inicio"></i>Inicio</span><span><i class="tel-promedio"></i>Promedio</span><span><i class="tel-ultimo"></i>Último día</span></div>
       <p class="tel-nota">Cuánto está presente cada dimensión, de 1 (centro) a 5 (borde). Sin bueno ni malo: es para observarte.</p>
     </div>
@@ -637,13 +637,14 @@ button{cursor:pointer}
   // mi proceso: inicio y ahora, sin colores de bueno o malo
   // la telaraña de las 15 en sus cuatro cuerpos (Carlos, 31 oct): una cruz divide el círculo; el fondo es un pastel
   // degradado de los cuatro colores donde caben los cuatro, y cada cuerpo dice arriba cuánto se movió en promedio.
-  // Suben como el scroll de la app: Físico abajo a la izquierda, Emocional abajo a la derecha, Cognitivo arriba a la
-  // derecha, Espiritual arriba a la izquierda. Datos inventados.
+  // Orientación (Carlos, 31 oct): la disposición de la cruz de cuatro direcciones, sólo la estructura. Cada cuerpo vive
+  // en su brazo: Espiritual al este (derecha), Emocional al sur (abajo), Físico al oeste (izquierda) y Cognitivo al
+  // norte (arriba), en el sentido del sol. Datos inventados.
   (function(){var N=['Sueño','Energía','Motivación','Ánimo','Ansiedad','Tranquilidad','Autoeficacia','Amabilidad','Relaciones','Foco','Creatividad','Claridad mental','Autoconocimiento','Contemplación','Conexión'],
     I=[2,3,2,2,4,2,3,3,3,2,3,2,3,3,2],P=[3,3,3,3,3,3,3,4,3,3,3,3,4,4,3],U=[4,3,4,4,2,4,4,4,4,3,3,3,3,5,5],R=112,C=170,
-    CU=[['Físico',0,3,90,'#7FB37C'],['Emocional',3,6,0,'#6FB8B4'],['Cognitivo',9,4,-90,'#8C98E0'],['Espiritual',13,2,-180,'#B48BE0']],
+    CU=[['Físico',0,3,135,'#7FB37C'],['Emocional',3,6,45,'#6FB8B4'],['Cognitivo',9,4,-135,'#8C98E0'],['Espiritual',13,2,-45,'#B48BE0']],
     ang=[],col=[];
-    CU.forEach(function(c){for(var k=0;k<c[2];k++){ang[c[1]+k]=(c[3]+(k+.5)/c[2]*90)*Math.PI/180;col[c[1]+k]=c[4]}});
+    var rl=[];CU.forEach(function(c){var L=86-18;for(var k=0;k<c[2];k++){var u=(k+.5)*L/c[2],d=2+u+(u>=L/2?18:0);ang[c[1]+k]=(c[3]+d)*Math.PI/180;col[c[1]+k]=c[4];rl[c[1]+k]=R+14}});
     var orden=N.map(function(_,i){return i}).sort(function(a,b){return ang[a]-ang[b]});
     function pt(i,v){var r=v/5*R;return [C+r*Math.cos(ang[i]),C+r*Math.sin(ang[i])]}
     function pol(vs){return orden.map(function(i){return pt(i,vs[i]).map(function(x){return x.toFixed(1)}).join(',')}).join(' ')}
@@ -668,12 +669,16 @@ button{cursor:pointer}
     // la cruz que separa los cuatro cuerpos
     h+='<g class="tel-cruz"><line x1="'+(C-R-10)+'" y1="'+C+'" x2="'+(C+R+10)+'" y2="'+C+'"/><line x1="'+C+'" y1="'+(C-R-10)+'" x2="'+C+'" y2="'+(C+R+10)+'"/></g>';
     [['tel-inicio',I],['tel-promedio',P],['tel-ultimo',U]].forEach(function(s){h+='<g class="tel-serie '+s[0]+'"><polygon points="'+pol(s[1])+'"/>'+s[1].map(function(v,i){var p=pt(i,v);return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="2.6"/>'}).join('')+'</g>'});
-    // los nombres de cada dimensión, en el color de su cuerpo
-    N.forEach(function(t,i){var a=ang[i],x=C+(R+14)*Math.cos(a),y=C+(R+14)*Math.sin(a),an=Math.abs(Math.cos(a))<.2?'middle':Math.cos(a)>0?'start':'end';
-      h+='<text class="tel-etiqueta" fill="'+col[i]+'" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" text-anchor="'+an+'" dominant-baseline="middle">'+t+'</text>'});
+    // los nombres de cada dimensión, en el color de su cuerpo; de cada lado se separan para no encimarse
+    // y dejan libre el nombre del cuerpo que vive en el brazo horizontal
+    var lab=N.map(function(t,i){var a=ang[i];return {t:t,i:i,x:C+(R+14)*Math.cos(a),y:C+(R+14)*Math.sin(a),der:Math.cos(a)>=0}});
+    [true,false].forEach(function(lado){var L=lab.filter(function(l){return l.der===lado}),SP=13.5,
+      arr=L.filter(function(l){return l.y<C}).sort(function(a,b){return b.y-a.y}),aba=L.filter(function(l){return l.y>=C}).sort(function(a,b){return a.y-b.y});
+      var p=C-17;arr.forEach(function(l){if(l.y>p-SP)l.y=p-SP;p=l.y});p=C+17;aba.forEach(function(l){if(l.y<p+SP)l.y=p+SP;p=l.y})});
+    lab.forEach(function(l){h+='<text class="tel-etiqueta" fill="'+col[l.i]+'" x="'+l.x.toFixed(1)+'" y="'+l.y.toFixed(1)+'" text-anchor="'+(l.der?'start':'end')+'" dominant-baseline="middle">'+l.t+'</text>'});
     // arriba de cada cuerpo, cuánto se movió en promedio del inicio al último día
     CU.forEach(function(c){var m=0;for(var k=0;k<c[2];k++)m+=U[c[1]+k]-I[c[1]+k];m/=c[2];
-      var a=(c[3]+45)*Math.PI/180,x=C+(R+62)*Math.cos(a),y=C+(R+62)*Math.sin(a)+(Math.sin(a)<0?-6:10),an=Math.cos(a)>0?'start':'end';
+      var a=(c[3]+45)*Math.PI/180,ca=Math.round(Math.cos(a)),sa=Math.round(Math.sin(a)),x=C+ca*(R+18),y=sa<0?C-R-58:sa>0?C+R+52:C-4,an=ca>0?'start':ca<0?'end':'middle';
       h+='<text class="tel-cuerpo" fill="'+c[4]+'" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" text-anchor="'+an+'">'+c[0].toUpperCase()+'</text><text class="tel-mov" fill="'+c[4]+'" x="'+x.toFixed(1)+'" y="'+(y+14).toFixed(1)+'" text-anchor="'+an+'">'+(m>=0?'+':'−')+Math.abs(m).toFixed(1)+' en promedio</text>'});
     document.getElementById('tela').innerHTML=h;
     // cada vez que entras, el último día crece desde el inicio
