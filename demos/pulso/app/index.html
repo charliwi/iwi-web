@@ -227,9 +227,12 @@ button{cursor:pointer}
 .cielo-m circle,.cielo-m line{fill:none;stroke:rgba(242,237,227,.55);stroke-width:1}
 .cielo-m .astro{fill:#FFE7B8;stroke:none;filter:drop-shadow(0 0 4px #FFE7B8);animation:late 3.6s ease-in-out infinite}
 @keyframes gira{to{transform:rotate(360deg)}}@keyframes late{0%,100%{opacity:.6}50%{opacity:1}}
-.telarana{display:block;width:100%;margin:10px auto 0;overflow:visible}
-.tel-anillo{fill:none;stroke:rgba(242,237,227,.13)}.tel-eje{stroke:rgba(242,237,227,.11)}
-.tel-etiqueta{fill:rgba(242,237,227,.86);font-size:11px;font-family:var(--f)}
+.vista[data-v="proceso"] .cuerpo{overflow-x:hidden}
+.telarana{display:block;width:calc(100% + 36px);margin:10px -18px 0;overflow:hidden}
+.pastel{opacity:.5}.tel-anillo{fill:none;stroke:rgba(242,237,227,.16)}.tel-eje{stroke:rgba(242,237,227,.12)}
+.tel-cruz line{stroke:rgba(242,237,227,.55);stroke-width:1}
+.tel-cuerpo{font-size:10px;font-weight:600;letter-spacing:.14em;font-family:var(--f)}.tel-mov{font-size:10.5px;font-family:var(--f);opacity:.9}
+.tel-etiqueta{font-size:10.5px;font-family:var(--f)}
 .tel-serie polygon{stroke-linejoin:round}
 .tel-inicio polygon{fill:none;stroke:rgba(242,237,227,.55);stroke-width:1.2;stroke-dasharray:3 3}.tel-inicio circle{fill:rgba(242,237,227,.55)}
 .tel-promedio polygon{fill:rgba(220,196,158,.16);stroke:rgba(220,196,158,.85);stroke-width:1.2}.tel-promedio circle{fill:rgba(220,196,158,.9)}
@@ -453,7 +456,7 @@ button{cursor:pointer}
       <div class="tit"><span class="l">Hola,</span><br><span class="f">Ana.</span></div>
       <div class="datos"><div><b>86%</b><span>Adherencia</span></div><div><b>3.8</b><span>Ánimo prom.</span></div><div><b>12</b><span>Escritos</span></div></div>
       <div class="eti" style="margin-top:26px">Tus dimensiones · inicio y ahora</div>
-      <svg class="telarana" id="tela" viewBox="-70 -14 480 368" role="img" aria-label="Tus dimensiones, inicio, promedio y último día"></svg>
+      <svg class="telarana" id="tela" viewBox="-62 -34 464 410" role="img" aria-label="Tus dimensiones, inicio, promedio y último día"></svg>
       <div class="tel-leyenda"><span><i class="tel-inicio"></i>Inicio</span><span><i class="tel-promedio"></i>Promedio</span><span><i class="tel-ultimo"></i>Último día</span></div>
       <p class="tel-nota">Cuánto está presente cada dimensión, de 1 (centro) a 5 (borde). Sin bueno ni malo: es para observarte.</p>
     </div>
@@ -632,15 +635,41 @@ button{cursor:pointer}
   },{passive:true});
 
   // mi proceso: inicio y ahora, sin colores de bueno o malo
-  // la telaraña de las 15 (datos inventados): inicio punteado, promedio en tierra, último día en luz
+  // la telaraña de las 15 en sus cuatro cuerpos (Carlos, 31 oct): una cruz divide el círculo; el fondo es un pastel
+  // degradado de los cuatro colores donde caben los cuatro, y cada cuerpo dice arriba cuánto se movió en promedio.
+  // Suben como el scroll de la app: Físico abajo a la izquierda, Emocional abajo a la derecha, Cognitivo arriba a la
+  // derecha, Espiritual arriba a la izquierda. Datos inventados.
   (function(){var N=['Sueño','Energía','Motivación','Ánimo','Ansiedad','Tranquilidad','Autoeficacia','Amabilidad','Relaciones','Foco','Creatividad','Claridad mental','Autoconocimiento','Contemplación','Conexión'],
-    I=[2,3,2,2,4,2,3,3,3,2,3,2,3,3,2],P=[3,3,3,3,3,3,3,4,3,3,3,3,4,4,3],U=[4,3,4,4,2,4,4,4,4,3,4,4,4,4,4],R=112,C=170,n=15;
-    function pt(i,v){var a=-Math.PI/2+i/n*2*Math.PI,r=v/5*R;return [C+r*Math.cos(a),C+r*Math.sin(a)]}
-    function pol(vs){return vs.map(function(v,i){return pt(i,v).map(function(x){return x.toFixed(1)}).join(',')}).join(' ')}
-    var h='';[1,2,3,4,5].forEach(function(k){h+='<polygon class="tel-anillo" points="'+pol(Array(n).fill(k))+'"/>'});
-    N.forEach(function(_,i){var p=pt(i,5);h+='<line class="tel-eje" x1="'+C+'" y1="'+C+'" x2="'+p[0]+'" y2="'+p[1]+'"/>'});
+    I=[2,3,2,2,4,2,3,3,3,2,3,2,3,3,2],P=[3,3,3,3,3,3,3,4,3,3,3,3,4,4,3],U=[4,3,4,4,2,4,4,4,4,3,4,4,4,4,4],R=112,C=170,
+    CU=[['Físico',0,3,90,'#7FB37C'],['Emocional',3,6,0,'#6FB8B4'],['Cognitivo',9,4,-90,'#8C98E0'],['Espiritual',13,2,-180,'#B48BE0']],
+    ang=[],col=[];
+    CU.forEach(function(c){for(var k=0;k<c[2];k++){ang[c[1]+k]=(c[3]+(k+.5)/c[2]*90)*Math.PI/180;col[c[1]+k]=c[4]}});
+    var orden=N.map(function(_,i){return i}).sort(function(a,b){return ang[a]-ang[b]});
+    function pt(i,v){var r=v/5*R;return [C+r*Math.cos(ang[i]),C+r*Math.sin(ang[i])]}
+    function pol(vs){return orden.map(function(i){return pt(i,vs[i]).map(function(x){return x.toFixed(1)}).join(',')}).join(' ')}
+    function rgb(h){return [1,3,5].map(function(k){return parseInt(h.substr(k,2),16)})}
+    // el pastel degradado: 144 gajos; cada color vive en el centro de su cuarto y se funde con el vecino en la cruz
+    var h='<defs><radialGradient id="telV"><stop offset="0" stop-color="#0A1A10" stop-opacity=".75"/><stop offset=".55" stop-color="#0A1A10" stop-opacity=".25"/><stop offset="1" stop-color="#0A1A10" stop-opacity="0"/></radialGradient></defs><g class="pastel">';
+    var cen=CU.map(function(c){return c[3]+45}),G=144;
+    for(var g=0;g<G;g++){var a0=-180+g*360/G,a1=a0+360/G+.6,am=(a0+a1)/2,best=0,d=[];
+      cen.forEach(function(ca,k){var x=Math.abs(((am-ca+540)%360)-180);d[k]=x});
+      var o=d.map(function(x,k){return k}).sort(function(a,b){return d[a]-d[b]}),k1=o[0],k2=o[1],t=Math.min(1,Math.max(0,(d[k1]-0)/90));
+      var c1=rgb(CU[k1][4]),c2=rgb(CU[k2][4]),w=t*t*(3-2*t)*.5,cc=c1.map(function(v,q){return Math.round(v+(c2[q]-v)*w)});
+      var p0=[C+(R+4)*Math.cos(a0*Math.PI/180),C+(R+4)*Math.sin(a0*Math.PI/180)],p1=[C+(R+4)*Math.cos(a1*Math.PI/180),C+(R+4)*Math.sin(a1*Math.PI/180)];
+      h+='<path d="M'+C+' '+C+'L'+p0[0].toFixed(1)+' '+p0[1].toFixed(1)+'A'+(R+4)+' '+(R+4)+' 0 0 1 '+p1[0].toFixed(1)+' '+p1[1].toFixed(1)+'Z" fill="rgb('+cc.join(',')+')"/>'}
+    h+='</g><circle cx="'+C+'" cy="'+C+'" r="'+(R+4)+'" fill="url(#telV)"/>';
+    [1,2,3,4,5].forEach(function(k){h+='<circle class="tel-anillo" cx="'+C+'" cy="'+C+'" r="'+(k/5*R).toFixed(1)+'"/>'});
+    N.forEach(function(_,i){var p=pt(i,5);h+='<line class="tel-eje" x1="'+C+'" y1="'+C+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'"/>'});
+    // la cruz que separa los cuatro cuerpos
+    h+='<g class="tel-cruz"><line x1="'+(C-R-10)+'" y1="'+C+'" x2="'+(C+R+10)+'" y2="'+C+'"/><line x1="'+C+'" y1="'+(C-R-10)+'" x2="'+C+'" y2="'+(C+R+10)+'"/></g>';
     [['tel-inicio',I],['tel-promedio',P],['tel-ultimo',U]].forEach(function(s){h+='<g class="tel-serie '+s[0]+'"><polygon points="'+pol(s[1])+'"/>'+s[1].map(function(v,i){var p=pt(i,v);return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="2.6"/>'}).join('')+'</g>'});
-    N.forEach(function(t,i){var a=-Math.PI/2+i/n*2*Math.PI,x=C+(R+16)*Math.cos(a),y=C+(R+16)*Math.sin(a),an=Math.abs(Math.cos(a))<.2?'middle':Math.cos(a)>0?'start':'end';h+='<text class="tel-etiqueta" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" text-anchor="'+an+'" dominant-baseline="middle">'+t+'</text>'});
+    // los nombres de cada dimensión, en el color de su cuerpo
+    N.forEach(function(t,i){var a=ang[i],x=C+(R+14)*Math.cos(a),y=C+(R+14)*Math.sin(a),an=Math.abs(Math.cos(a))<.2?'middle':Math.cos(a)>0?'start':'end';
+      h+='<text class="tel-etiqueta" fill="'+col[i]+'" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" text-anchor="'+an+'" dominant-baseline="middle">'+t+'</text>'});
+    // arriba de cada cuerpo, cuánto se movió en promedio del inicio al último día
+    CU.forEach(function(c){var m=0;for(var k=0;k<c[2];k++)m+=U[c[1]+k]-I[c[1]+k];m/=c[2];
+      var a=(c[3]+45)*Math.PI/180,x=C+(R+62)*Math.cos(a),y=C+(R+62)*Math.sin(a)+(Math.sin(a)<0?-6:10),an=Math.cos(a)>0?'start':'end';
+      h+='<text class="tel-cuerpo" fill="'+c[4]+'" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" text-anchor="'+an+'">'+c[0].toUpperCase()+'</text><text class="tel-mov" fill="'+c[4]+'" x="'+x.toFixed(1)+'" y="'+(y+14).toFixed(1)+'" text-anchor="'+an+'">'+(m>=0?'+':'−')+Math.abs(m).toFixed(1)+' en promedio</text>'});
     document.getElementById('tela').innerHTML=h;
     // cada vez que entras, el último día crece desde el inicio
     var u=document.querySelector('#tela .tel-ultimo');new MutationObserver(function(){var v=document.querySelector('.vista[data-v="proceso"]');if(v&&v.classList.contains('on')){u.classList.remove('crece');void u.getBBox();u.classList.add('crece')}}).observe(document.querySelector('.vista[data-v="proceso"]'),{attributes:true,attributeFilter:['class']});
