@@ -596,33 +596,25 @@ nav .idioma{font-weight:400;line-height:1.35}
 </style>
 
 <style>
-/* prueba: Contacto como invitación. Retícula de 12 columnas y línea horizontal de 24px (3 x 8):
-   cada bloque arranca en una línea; el aire entre bloques es múltiplo de 24 */
-.contacto .w{display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-content:start;justify-content:stretch!important;align-items:start!important;padding-top:144px!important;padding-bottom:0!important}
-.contacto .w>*{grid-column:1/-1;min-width:0;margin-top:0}
-.contacto .w>.eti{grid-row:1;line-height:24px!important;margin:0!important}
-.contacto h2{grid-row:2;font-size:clamp(48px,6.6vw,104px)!important;font-weight:700!important;letter-spacing:-.05em!important;line-height:.96!important;line-height:round(up,.96em,8px)!important;margin-top:24px!important}
-.contacto .w>h2{margin-top:24px!important}
+/* prueba: Contacto como invitación, en retícula de 12 columnas */
+.contacto .w{display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-content:start;justify-content:stretch!important;align-items:start!important;padding-top:clamp(110px,16vh,170px)!important;padding-bottom:0!important}
+.contacto .w>*{grid-column:1/-1;min-width:0}
+.contacto .eti{grid-row:1}
+.contacto h2{grid-column:1/9!important;grid-row:2;font-size:clamp(52px,7.8vw,136px)!important;font-weight:700!important;letter-spacing:-.055em!important;line-height:.9!important;margin-top:18px!important}
 .contacto h2 .ligera{font-weight:300}
-.contacto .w>.accion{grid-column:7/13!important;grid-row:3;margin-top:48px!important}
-.contacto .accion p{margin:0!important;font-size:20px;line-height:32px}
-.contacto .accion .fila{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px}
-.contacto .accion .btn{height:48px;box-sizing:border-box;display:inline-flex;align-items:center}
-.contacto .accion .correo{margin-left:0;line-height:24px}
-.contacto .w>.pie{grid-column:1/6!important;grid-row:3;align-self:end;margin-top:0!important;line-height:24px;row-gap:0!important}
+.contacto .w>.accion{grid-column:9/13;grid-row:2;align-self:end!important;padding-bottom:1.2vw}
+.contacto .accion .fila>*{margin:0!important;align-self:center}
+.contacto .accion p{margin-top:0!important;font-size:clamp(17px,1.5vw,21px)}
+.contacto .accion .fila{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:22px}
+.contacto .accion .correo{margin-left:0}
+.contacto .pie{grid-column:1/-1!important;grid-row:3;margin-top:clamp(20px,3.5vh,40px)!important}
 .contacto .trama{position:absolute;left:0;right:0;bottom:0;height:30vh;z-index:1}
 .contacto .trama canvas{display:block;width:100%;height:100%;touch-action:pan-y}
 @media (max-width:760px){
-  .contacto .w{padding-top:120px!important}
-  .contacto .w>.accion{grid-column:1/-1!important;margin-top:48px!important}
-  .contacto .w>.pie{grid-column:1/-1!important;grid-row:4;margin-top:48px!important}
-  .contacto h2{font-size:clamp(44px,12.5vw,72px)!important}
-  .contacto .accion p{font-size:18px;line-height:28px}
+  .contacto h2,.contacto .accion,.contacto .pie{grid-column:1/-1!important;grid-row:auto}
+  .contacto .accion{margin-top:24px}
+  .contacto h2{font-size:clamp(48px,15vw,88px)!important}
 }
-/* la tecla G muestra la retícula: columnas y líneas de 24px */
-html.reticula .contacto::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:5;
-  background:repeating-linear-gradient(to bottom,rgba(28,35,64,.18) 0 1px,transparent 1px 24px)}
-html.reticula .contacto .w{background:repeating-linear-gradient(to right,rgba(28,35,64,.07) 0 calc((100% - 64px - 264px)/12),transparent calc((100% - 64px - 264px)/12) calc((100% - 64px - 264px)/12 + 24px)) 32px 0/calc(100% - 64px) 100% no-repeat}
 </style>
 </head>
 <body class="figma">
@@ -828,14 +820,11 @@ document.querySelectorAll('.from').forEach(function(f){var s=f.querySelectorAll(
   var caja=document.querySelector('.contacto .trama');if(!caja)return;
   var cv=caja.querySelector('canvas'),cx=cv.getContext('2d');
   var quieto=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var W=0,H=0,P=[],paso=8,raton={x:-1e4,y:-1e4,on:false},va=false;
+  var W=0,H=0,P=[],paso=8,raton={x:-1e4,y:-1e4,vx:0,vy:0,on:false},va=false;
   function arma(){
     // la franja va del final de las marcas al borde de abajo: la trama usa el espacio que queda
-    var pie=document.querySelector('.contacto .accion'),sec=caja.parentNode;
-    // cada bloque mide un múltiplo de 24px, así todo arranca sobre una línea de la retícula
-    document.querySelectorAll('.contacto .w>h2,.contacto .w>.accion,.contacto .w>.pie').forEach(function(b){b.style.minHeight='';var hb=b.getBoundingClientRect().height;b.style.minHeight=Math.ceil(hb/24-.01)*24+'px'});
-    // la franja empieza en una línea de la retícula, 48px abajo de las marcas
-    if(pie&&sec){var rs=sec.getBoundingClientRect(),pb=document.querySelector('.contacto .pie'),top=Math.max(pie.getBoundingClientRect().bottom,pb?pb.getBoundingClientRect().bottom:0)-rs.top+48;top=Math.ceil(top/24)*24;var hp=rs.height-top;caja.style.display=hp<72?'none':'';if(hp>=72)caja.style.height=Math.round(hp)+'px'}
+    var pie=document.querySelector('.contacto .pie'),sec=caja.parentNode;
+    if(pie&&sec){var hp=sec.getBoundingClientRect().bottom-pie.getBoundingClientRect().bottom-28;if(hp>60)caja.style.height=Math.round(hp)+'px'}
     var r=caja.getBoundingClientRect();if(r.width<20||r.height<20)return;
     var dpr=Math.min(devicePixelRatio||1,2);W=Math.round(r.width);H=Math.round(r.height);
     cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
@@ -852,27 +841,41 @@ document.querySelectorAll('.from').forEach(function(f){var s=f.querySelectorAll(
     for(var y=paso/2;y<H;y+=paso)for(var x=paso/2;x<W;x+=paso){
       var s=0,n=0;for(var j=-1;j<=1;j++)for(var i=-1;i<=1;i++){var px=Math.round(x+i*paso/3),py=Math.round(y+j*paso/3);if(px>=0&&py>=0&&px<W&&py<H){s+=d[(py*W+px)*4+3];n++}}
       var c=s/(n*255);if(c<.15)continue;
-      P.push({hx:x,hy:y,x:x,y:y,vx:0,vy:0,r:Math.max(.8,c*paso*.36)});
+      P.push({hx:x,hy:y,x:x,y:y,vx:0,vy:0,g:1,r:Math.max(.8,c*paso*.36)});
     }
     if(!va){va=true;cuadro()}
   }
+  // sueltos: puntos que se desprenden al pasar rápido, vuelan un poco en parvada y se esfuman;
+  // en su lugar el punto vuelve a crecer
+  var S=[],MAX=260;
   function cuadro(){
     cx.clearRect(0,0,W,H);cx.fillStyle='#1C2340';
-    var R=Math.max(60,W*.07),R2=R*R;
+    var R=Math.max(60,W*.07),R2=R*R,vel=Math.hypot(raton.vx,raton.vy);
     for(var k=0;k<P.length;k++){var p=P[k];
       if(raton.on){var dx=p.x-raton.x,dy=p.y-raton.y,d2=dx*dx+dy*dy;
-        if(d2<R2){var dd=Math.sqrt(d2)||1,f=1-dd/R;f*=f*1.1;p.vx+=dx/dd*f;p.vy+=dy/dd*f}}
+        if(d2<R2){var dd=Math.sqrt(d2)||1,f=1-dd/R;f*=f*1.1;p.vx+=dx/dd*f;p.vy+=dy/dd*f;
+          if(p.g>=1&&vel>6&&S.length<MAX&&d2<R2*.35&&Math.random()<.05){p.g=0;
+            S.push({x:p.x,y:p.y,vx:raton.vx*.18+dx/dd*.8+(Math.random()-.5),vy:raton.vy*.18+dy/dd*.8-Math.random()*.6,r:p.r*.85,v:1})}}}
       p.vx+=(p.hx-p.x)*.05;p.vy+=(p.hy-p.y)*.05;p.vx*=.8;p.vy*=.8;p.x+=p.vx;p.y+=p.vy;
-      cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.2832);cx.fill()}
+      if(p.g<1)p.g=Math.min(1,p.g+.012);
+      cx.beginPath();cx.arc(p.x,p.y,p.r*p.g,0,6.2832);cx.fill()}
+    raton.vx*=.85;raton.vy*=.85;
+    // la mini parvada: cada suelto sigue a sus vecinos cercanos, sube apenas y se apaga
+    for(var i=S.length-1;i>=0;i--){var s=S[i],ax=0,ay=0,mx=0,my=0,n=0;
+      for(var j=0;j<S.length;j++){if(i===j)continue;var t=S[j],ex=t.x-s.x,ey=t.y-s.y,e2=ex*ex+ey*ey;
+        if(e2<900){n++;ax+=t.vx;ay+=t.vy;mx+=t.x;my+=t.y;if(e2<30){s.vx-=ex*.05;s.vy-=ey*.05}}}
+      if(n){s.vx+=(ax/n-s.vx)*.06+(mx/n-s.x)*.0025;s.vy+=(ay/n-s.vy)*.06+(my/n-s.y)*.0025}
+      s.vy-=.015;s.vx*=.985;s.vy*=.985;s.x+=s.vx;s.y+=s.vy;s.v-=.011;
+      if(s.v<=0){S.splice(i,1);continue}
+      cx.globalAlpha=s.v;cx.beginPath();cx.arc(s.x,s.y,s.r*(.6+.4*s.v),0,6.2832);cx.fill();cx.globalAlpha=1}
     if(!quieto)requestAnimationFrame(cuadro);
   }
-  function pos(e){var r=cv.getBoundingClientRect();raton.x=e.clientX-r.left;raton.y=e.clientY-r.top;raton.on=true}
+  function pos(e){var r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;if(raton.on){raton.vx=x-raton.x;raton.vy=y-raton.y}raton.x=x;raton.y=y;raton.on=true}
   cv.addEventListener('pointermove',pos);cv.addEventListener('pointerdown',pos);
-  cv.addEventListener('pointerleave',function(){raton.on=false});
+  cv.addEventListener('pointerleave',function(){raton.on=false;raton.vx=raton.vy=0});
   cv.addEventListener('pointerup',function(e){if(e.pointerType!=='mouse')raton.on=false});
   var tm;function rearma(){clearTimeout(tm);tm=setTimeout(arma,120)}
   if(window.ResizeObserver)new ResizeObserver(rearma).observe(caja);addEventListener('resize',rearma);rearma();
-  addEventListener('keydown',function(e){if((e.key==='g'||e.key==='G')&&!e.metaKey&&!e.ctrlKey&&!/INPUT|TEXTAREA/.test(e.target.tagName||''))document.documentElement.classList.toggle('reticula')});
 })();
 </script>
 </body>
