@@ -596,24 +596,33 @@ nav .idioma{font-weight:400;line-height:1.35}
 </style>
 
 <style>
-/* prueba: Contacto como invitación, en retícula de 12 columnas */
-.contacto .w{display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-content:start;justify-content:stretch!important;align-items:start!important;padding-top:clamp(110px,16vh,170px)!important;padding-bottom:0!important}
-.contacto .w>*{grid-column:1/-1;min-width:0}
-.contacto .eti{grid-row:1}
-.contacto h2{grid-column:1/9!important;grid-row:2;font-size:clamp(56px,8.6vw,150px)!important;font-weight:700!important;letter-spacing:-.055em!important;line-height:.9!important;margin-top:18px!important}
+/* prueba: Contacto como invitación. Retícula de 12 columnas y línea horizontal de 24px (3 x 8):
+   cada bloque arranca en una línea; el aire entre bloques es múltiplo de 24 */
+.contacto .w{display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-content:start;justify-content:stretch!important;align-items:start!important;padding-top:144px!important;padding-bottom:0!important}
+.contacto .w>*{grid-column:1/-1;min-width:0;margin-top:0}
+.contacto .w>.eti{grid-row:1;line-height:24px!important;margin:0!important}
+.contacto h2{grid-row:2;font-size:clamp(48px,6.6vw,104px)!important;font-weight:700!important;letter-spacing:-.05em!important;line-height:.96!important;line-height:round(up,.96em,8px)!important;margin-top:24px!important}
+.contacto .w>h2{margin-top:24px!important}
 .contacto h2 .ligera{font-weight:300}
-.contacto .accion{grid-column:9/13;grid-row:2;align-self:end;padding-bottom:.6vw}
-.contacto .accion p{margin-top:0!important;font-size:clamp(17px,1.5vw,21px)}
-.contacto .accion .fila{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:22px}
-.contacto .accion .correo{margin-left:0}
-.contacto .pie{grid-column:1/-1!important;grid-row:3;margin-top:clamp(20px,3.5vh,40px)!important}
+.contacto .w>.accion{grid-column:7/13!important;grid-row:3;margin-top:48px!important}
+.contacto .accion p{margin:0!important;font-size:20px;line-height:32px}
+.contacto .accion .fila{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px}
+.contacto .accion .btn{height:48px;box-sizing:border-box;display:inline-flex;align-items:center}
+.contacto .accion .correo{margin-left:0;line-height:24px}
+.contacto .w>.pie{grid-column:1/6!important;grid-row:3;align-self:end;margin-top:0!important;line-height:24px;row-gap:0!important}
 .contacto .trama{position:absolute;left:0;right:0;bottom:0;height:30vh;z-index:1}
 .contacto .trama canvas{display:block;width:100%;height:100%;touch-action:pan-y}
 @media (max-width:760px){
-  .contacto h2,.contacto .accion,.contacto .pie{grid-column:1/-1!important;grid-row:auto}
-  .contacto .accion{margin-top:24px}
-  .contacto h2{font-size:clamp(48px,15vw,88px)!important}
+  .contacto .w{padding-top:120px!important}
+  .contacto .w>.accion{grid-column:1/-1!important;margin-top:48px!important}
+  .contacto .w>.pie{grid-column:1/-1!important;grid-row:4;margin-top:48px!important}
+  .contacto h2{font-size:clamp(44px,12.5vw,72px)!important}
+  .contacto .accion p{font-size:18px;line-height:28px}
 }
+/* la tecla G muestra la retícula: columnas y líneas de 24px */
+html.reticula .contacto::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:5;
+  background:repeating-linear-gradient(to bottom,rgba(28,35,64,.18) 0 1px,transparent 1px 24px)}
+html.reticula .contacto .w{background:repeating-linear-gradient(to right,rgba(28,35,64,.07) 0 calc((100% - 64px - 264px)/12),transparent calc((100% - 64px - 264px)/12) calc((100% - 64px - 264px)/12 + 24px)) 32px 0/calc(100% - 64px) 100% no-repeat}
 </style>
 </head>
 <body class="figma">
@@ -822,8 +831,11 @@ document.querySelectorAll('.from').forEach(function(f){var s=f.querySelectorAll(
   var W=0,H=0,P=[],paso=8,raton={x:-1e4,y:-1e4,on:false},va=false;
   function arma(){
     // la franja va del final de las marcas al borde de abajo: la trama usa el espacio que queda
-    var pie=document.querySelector('.contacto .pie'),sec=caja.parentNode;
-    if(pie&&sec){var hp=sec.getBoundingClientRect().bottom-pie.getBoundingClientRect().bottom-28;if(hp>60)caja.style.height=Math.round(hp)+'px'}
+    var pie=document.querySelector('.contacto .accion'),sec=caja.parentNode;
+    // cada bloque mide un múltiplo de 24px, así todo arranca sobre una línea de la retícula
+    document.querySelectorAll('.contacto .w>h2,.contacto .w>.accion,.contacto .w>.pie').forEach(function(b){b.style.minHeight='';var hb=b.getBoundingClientRect().height;b.style.minHeight=Math.ceil(hb/24-.01)*24+'px'});
+    // la franja empieza en una línea de la retícula, 48px abajo de las marcas
+    if(pie&&sec){var rs=sec.getBoundingClientRect(),pb=document.querySelector('.contacto .pie'),top=Math.max(pie.getBoundingClientRect().bottom,pb?pb.getBoundingClientRect().bottom:0)-rs.top+48;top=Math.ceil(top/24)*24;var hp=rs.height-top;caja.style.display=hp<72?'none':'';if(hp>=72)caja.style.height=Math.round(hp)+'px'}
     var r=caja.getBoundingClientRect();if(r.width<20||r.height<20)return;
     var dpr=Math.min(devicePixelRatio||1,2);W=Math.round(r.width);H=Math.round(r.height);
     cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
@@ -860,6 +872,7 @@ document.querySelectorAll('.from').forEach(function(f){var s=f.querySelectorAll(
   cv.addEventListener('pointerup',function(e){if(e.pointerType!=='mouse')raton.on=false});
   var tm;function rearma(){clearTimeout(tm);tm=setTimeout(arma,120)}
   if(window.ResizeObserver)new ResizeObserver(rearma).observe(caja);addEventListener('resize',rearma);rearma();
+  addEventListener('keydown',function(e){if((e.key==='g'||e.key==='G')&&!e.metaKey&&!e.ctrlKey&&!/INPUT|TEXTAREA/.test(e.target.tagName||''))document.documentElement.classList.toggle('reticula')});
 })();
 </script>
 </body>
