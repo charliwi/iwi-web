@@ -233,7 +233,8 @@ button{cursor:pointer}
 .cielo-m .astro{fill:#FFE7B8;stroke:none;filter:drop-shadow(0 0 4px #FFE7B8);animation:late 3.6s ease-in-out infinite}
 @keyframes gira{to{transform:rotate(360deg)}}@keyframes late{0%,100%{opacity:.6}50%{opacity:1}}
 .vista[data-v="proceso"] .cuerpo{overflow-x:hidden}
-.telarana{display:block;width:calc(100% + 36px);margin:10px -18px 0;overflow:hidden}
+.telarana{display:block;flex:none;width:calc(100% + 36px);aspect-ratio:464/438;height:auto;margin:10px -18px 0;overflow:hidden}
+.vista[data-v="proceso"] .cuerpo>*{flex-shrink:0}
 .pastel{opacity:.62}.tel-anillo{fill:none;stroke:rgba(242,237,227,.16)}.tel-eje{stroke:rgba(242,237,227,.12)}
 .tel-cruz line{stroke:rgba(242,237,227,.55);stroke-width:1}
 .tel-cuerpo{font-size:10px;font-weight:600;letter-spacing:.14em;font-family:var(--f)}.tel-mov{font-size:10.5px;font-family:var(--f);opacity:.9}
@@ -250,9 +251,45 @@ button{cursor:pointer}
 .tel-leyenda span{display:flex;align-items:center;gap:7px}.tel-leyenda i{width:18px;height:0;border-top:1.5px solid;display:inline-block}
 .tel-leyenda i.tel-inicio{border-top:1.5px dashed rgba(242,237,227,.7)}.tel-leyenda i.tel-promedio{border-color:rgba(220,196,158,.9)}.tel-leyenda i.tel-ultimo{border-color:#fff;box-shadow:0 0 6px rgba(255,236,200,.8)}
 .tel-nota{font-size:11.5px;color:var(--t3);text-align:center;margin-top:8px;line-height:1.45}
+/* menú de abajo siempre visible y claro: te mueve entre páginas desde cualquier pantalla (Carlos, 1 nov) */
+.tabs.fuera{opacity:1!important;transform:none!important;pointer-events:auto!important}
+.vista{bottom:60px!important}
+.tabs{background:rgba(8,20,12,.86)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top-color:rgba(242,237,227,.22)!important}
+.tabs button{font-size:13px!important;color:rgba(242,237,227,.74)!important}
+.tabs button.on{color:#fff!important;text-shadow:0 0 10px rgba(255,236,200,.6)}
+/* inicio */
+.vista[data-v="inicio"] .pie{display:none}
+.saludo{font-size:15px;color:var(--t1);margin:0 0 10px;text-shadow:0 0 12px rgba(255,236,200,.25)}
+.fila.brilla{cursor:pointer}.fila.brilla strong{color:#fff;text-shadow:0 0 12px rgba(255,236,200,.6)}
+.fila.brilla .ok{border-color:#fff;box-shadow:0 0 8px rgba(255,236,200,.95),0 0 18px rgba(255,236,200,.45);animation:lat 2.4s ease-in-out infinite}
+@keyframes lat{0%,100%{opacity:.7}50%{opacity:1}}
+.fila.hecha{opacity:.5;pointer-events:none}
+.espejo b{text-shadow:0 0 12px rgba(255,236,200,.45)}.espejo .ver{color:#fff;margin-top:6px;font-weight:600}
+/* mi proceso: calendario de tomas */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:14px}
+.cal b{font-size:10px;font-weight:600;color:var(--t3);text-align:center}
+.cal span{aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:11px;color:var(--t2);border:1px solid transparent}
+.cal span.t{background:rgba(167,203,173,.22);border-color:rgba(167,203,173,.7);color:#fff}
+.cal span.x{border:1px dashed rgba(242,237,227,.55);color:var(--t1)}
+.cal span.h{border-color:#fff;color:#fff;box-shadow:0 0 10px rgba(255,236,200,.6)}
+.cal span.f{opacity:.35}
+.cal-ley{display:flex;gap:16px;margin-top:10px;font-size:11.5px;color:var(--t2)}
+.cal-ley span{display:flex;align-items:center;gap:6px}.cal-ley i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.cal-ley .t{background:rgba(167,203,173,.5)}.cal-ley .x{border:1px dashed rgba(242,237,227,.7)}.cal-ley .h{border:1px solid #fff;box-shadow:0 0 6px rgba(255,236,200,.7)}
+/* telaraña: leyenda que se toca y logros que se iluminan, muy tenue */
+.tel-leyenda button{display:flex;align-items:center;gap:7px;font:inherit;color:inherit;background:none;border:0;padding:4px 2px;cursor:pointer;opacity:.85}
+.tel-leyenda button.on{opacity:1;color:#fff}
+.tel-serie circle.logro{stroke:rgba(255,236,200,.75);stroke-width:4;filter:drop-shadow(0 0 4px rgba(255,236,200,.7))}
+.tel-etiqueta{transition:filter .6s}.tel-etiqueta.logro{filter:drop-shadow(0 0 3px rgba(255,236,200,.55));font-weight:600}
+/* el scroll no se traba en el teléfono */
+.cuerpo{-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y}
+@media (max-width:520px){html,body{height:100%;overflow:hidden;overscroll-behavior:none}}
+/* emojis de ánimo como en la app (más contraste; al elegir se encienden) */
+.animo button{height:62px!important}
+.animo .emo{font-size:29px!important;opacity:.72!important;filter:grayscale(1) sepia(.55) saturate(.8) hue-rotate(-8deg) contrast(1.45) brightness(.9)!important;transition:opacity .12s ease-out,filter .12s ease-out,transform .12s ease-out!important}
+.animo button.sel .emo{opacity:1!important;transform:scale(1.06);filter:sepia(.2) saturate(1.5) contrast(1.15) brightness(1.3) drop-shadow(0 0 6px rgba(255,236,200,.95)) drop-shadow(0 0 18px rgba(255,214,150,.55))!important}
 /* más luz en lo que se elige */
 .escala button.sel .h{filter:drop-shadow(0 0 6px rgba(255,255,255,.95)) drop-shadow(0 0 16px rgba(255,236,200,.65)) drop-shadow(0 0 30px rgba(255,236,200,.3))!important}
-.animo button.sel .emo{filter:grayscale(1) sepia(.55) saturate(.85) hue-rotate(-8deg) brightness(1.3) drop-shadow(0 0 7px rgba(255,255,255,.85)) drop-shadow(0 0 18px rgba(255,236,200,.5))!important}
 .seg button.sel{text-shadow:0 0 10px rgba(255,236,200,.7)}
 .nota .son,.nota .volver{display:inline-block;margin:14px 14px 0 0;font:inherit;font-size:13px;font-weight:600;background:none;border:1px solid rgba(15,36,21,.35);border-radius:4px;padding:8px 14px;color:#0F2415;text-decoration:none;cursor:pointer}
 .nota .son[aria-pressed="true"]{background:#0F2415;color:#E8E0D0}
@@ -275,7 +312,7 @@ button{cursor:pointer}
 <div class="nota">
   <b>Pulso · demo</b>
   Un día completo en la app: abre el día, respira, registra cómo amaneciste, llena las dimensiones y cierra el día. Desde Perfil o desde el cierre llegas a la Brújula y al Mapa. Todo se toca; los datos son inventados.
-  <button type="button" class="son" id="son" aria-pressed="false">♪ Sonido</button>
+  <button type="button" class="son" id="son" aria-pressed="false">♥ Pulsos</button>
   <a class="volver" href="../">← Pulso</a>
 </div>
 
@@ -287,21 +324,22 @@ button{cursor:pointer}
   <!-- INICIO -->
   <section class="vista con-tabs on" data-v="inicio">
     <div class="cuerpo">
-      <button type="button" class="espejo" data-ir="proceso" aria-label="Ver tu proceso"><svg class="mini" id="telaMini" viewBox="50 50 240 240" aria-hidden="true"></svg><span><b>Tu día en cuatro cuerpos</b><small>Toca para ver tu proceso</small></span></button>
+      <button type="button" class="espejo" data-ir="proceso" aria-label="Ver tu proceso"><svg class="mini" id="telaMini" viewBox="50 50 240 240" aria-hidden="true"></svg><span><b>Mi proceso</b><small>86 % adherencia · 7 tomas · ánimo 3.8</small><small class="ver">Ver mi proceso →</small></span></button>
       <div class="portales">
         <button type="button" class="portal" data-ir="brujula" aria-label="Abrir la Brújula"><span class="orbe chakras"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span><b>Brújula</b><small>¿Qué sientes hoy?</small></span></button>
         <button type="button" class="portal" data-ir="mapa" aria-label="Abrir el Mapa"><span class="orbe cielo-m"><svg viewBox="-50 -50 100 100"><circle r="44"/><circle r="28"/><g><line x1="28.0" y1="0.0" x2="44.0" y2="0.0"/><line x1="24.2" y1="14.0" x2="38.1" y2="22.0"/><line x1="14.0" y1="24.2" x2="22.0" y2="38.1"/><line x1="-0.0" y1="28.0" x2="-0.0" y2="44.0"/><line x1="-14.0" y1="24.2" x2="-22.0" y2="38.1"/><line x1="-24.2" y1="14.0" x2="-38.1" y2="22.0"/><line x1="-28.0" y1="-0.0" x2="-44.0" y2="-0.0"/><line x1="-24.2" y1="-14.0" x2="-38.1" y2="-22.0"/><line x1="-14.0" y1="-24.2" x2="-22.0" y2="-38.1"/><line x1="0.0" y1="-28.0" x2="0.0" y2="-44.0"/><line x1="14.0" y1="-24.2" x2="22.0" y2="-38.1"/><line x1="24.2" y1="-14.0" x2="38.1" y2="-22.0"/></g><circle class="astro" r="2.6" cx="0" cy="-36"/></svg></span><span><b>Mapa</b><small>Tu cielo al nacer</small></span></button>
       </div>
       <div class="marca"><svg viewBox="0 0 200 160"><defs><linearGradient id="luzLogo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".7" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><path fill="url(#luzLogo)" stroke="#fff" stroke-opacity=".9" stroke-width="5" stroke-linejoin="round" d="M100 150 L30 80 A35 35 0 0 1 100 34 Z"/><path fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="5" stroke-linejoin="round" d="M100 150 L170 80 A35 35 0 0 0 100 34 Z"/><path fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M0 92 H70 L82 92 L92 62 L104 124 L116 48 L126 92 H200"/></svg>Pulso</div>
       <div class="abajo">
+        <div class="saludo" id="saludo">Hola, Ana. Hoy es día de toma.</div>
         <div class="eti">Dom 25 oct · Sem 3 · Día 18</div>
         <div class="tit"><span class="l">Tu registro</span><br><span class="f">de hoy.</span></div>
         <div class="aviso" id="avisoInicio">Apertura guardada. Haz el cierre más tarde, cuando termines tu día.</div>
         <div class="semana"><div><i class="s"></i>L</div><div><i class="d"></i>M</div><div><i class="s"></i>M</div><div><i class="s"></i>J</div><div><i class="d"></i>V</div><div><i class="s"></i>S</div><div class="hoy"><i id="hoyPunto"></i>D</div></div>
         <div class="filas">
-          <div class="fila" id="fA"><span class="n">01</span><div><strong>Apertura del día</strong><small id="fAs">Pendiente · ánimo y toma</small></div><span class="ok" id="okA"></span></div>
+          <div class="fila" id="fA"><span class="n">01</span><div><strong>Abrir mi día</strong><small id="fAs">Pendiente · ánimo y toma</small></div><span class="ok" id="okA"></span></div>
           <div class="fila" id="fChq" style="cursor:pointer;order:3"><span class="n">03</span><div><strong>Chequeo de las 4 semanas</strong><small>Unos 10 minutos · tienes hasta el 28 oct</small></div><span style="margin-left:auto;color:var(--t3)">→</span></div>
-          <div class="fila esp" id="fC"><span class="n">02</span><div><strong>Cierre del día</strong><small id="fCs">Después de la apertura</small></div><span class="ok" id="okC"></span></div>
+          <div class="fila esp" id="fC"><span class="n">02</span><div><strong>Cerrar mi día</strong><small id="fCs">Después de la apertura</small></div><span class="ok" id="okC"></span></div>
         </div>
       </div>
     </div>
@@ -460,11 +498,22 @@ button{cursor:pointer}
     <div class="cuerpo">
       <div class="eti" style="margin-top:14px">Tu proceso · Semana 3 de 7</div>
       <div class="tit"><span class="l">Hola,</span><br><span class="f">Ana.</span></div>
-      <div class="datos"><div><b>86%</b><span>Adherencia</span></div><div><b>3.8</b><span>Ánimo prom.</span></div><div><b>12</b><span>Escritos</span></div></div>
+      
       <div class="eti" style="margin-top:26px">Tus dimensiones · inicio y ahora</div>
       <svg class="telarana" id="tela" viewBox="-62 -48 464 438" role="img" aria-label="Tus dimensiones, inicio, promedio y último día"></svg>
-      <div class="tel-leyenda"><span><i class="tel-inicio"></i>Inicio</span><span><i class="tel-promedio"></i>Promedio</span><span><i class="tel-ultimo"></i>Último día</span></div>
-      <p class="tel-nota">Cuánto está presente cada dimensión, de 1 (centro) a 5 (borde). Sin bueno ni malo: es para observarte.</p>
+      <div class="tel-leyenda"><button type="button" data-s="inicio"><i class="tel-inicio"></i>Inicio</button><button type="button" data-s="promedio"><i class="tel-promedio"></i>Promedio</button><button type="button" data-s="ultimo"><i class="tel-ultimo"></i>Último día</button></div>
+      <p class="tel-nota">Cuánto está presente cada dimensión, de 1 (centro) a 5 (borde). Sin bueno ni malo: es para observarte. Toca Inicio, Promedio o Último día.</p>
+      <div class="datos"><div><b>86%</b><span>Adherencia</span></div><div><b>3.8</b><span>Ánimo prom.</span></div><div><b>12</b><span>Escritos</span></div></div>
+      <div class="eti" style="margin-top:26px">Tus tomas · semanas 1 a 3</div>
+      <div class="datos"><div><b>7</b><span>Días de toma</span></div><div><b>1</b><span>Saltada</span></div><div><b>Hoy</b><span>Próxima toma</span></div></div>
+      <div class="cal" id="cal"></div>
+      <div class="cal-ley"><span><i class="t"></i>Toma</span><span><i class="x"></i>Saltada</span><span><i class="h"></i>Hoy</span></div>
+      <div class="eti" style="margin-top:26px">Medicamentos y suplementos</div>
+      <div class="item" data-ir="meds" style="cursor:pointer"><div><strong>Mis medicamentos y suplementos</strong><small>Agrega uno nuevo o avisa que ya no lo tomas</small></div><span>→</span></div>
+      <div class="eti" style="margin-top:26px">Herramientas</div>
+      <div class="item" data-ir="brujula" style="cursor:pointer"><div><strong>Brújula</strong><small>Lo que sientes y lo que necesitas hoy</small></div><span>→</span></div>
+      <div class="item" data-ir="mapa" style="cursor:pointer"><div><strong>Mapa</strong><small>Tu carta, para ubicarte</small></div><span>→</span></div>
+      <div style="height:18px"></div>
     </div>
   </section>
 
@@ -551,9 +600,12 @@ button{cursor:pointer}
     document.getElementById('fAs').textContent=etapa>=1?'Completada · 9:43 · Día de toma 10%':'Pendiente · ánimo y toma';
     var fc=document.getElementById('fC'); fc.classList.toggle('esp',etapa===0);
     document.getElementById('fCs').textContent=etapa===0?'Después de la apertura':etapa===1?'Pendiente · 15 dimensiones + insights':'Completado · 18:52';
+    var fa=document.getElementById('fA'),fc2=document.getElementById('fC');fa.classList.toggle('brilla',etapa===0);fa.classList.toggle('hecha',etapa>=1);fc2.classList.toggle('brilla',etapa===1);fc2.classList.toggle('hecha',etapa>=2);
+    var sl=document.getElementById('saludo');if(sl)sl.textContent=etapa===0?'Hola, Ana. Hoy es día de toma.':etapa===1?'Toma registrada. Cierra tu día cuando termine.':'Día cerrado. Hasta mañana, Ana.';
     document.getElementById('btnInicioTxt').textContent=etapa===0?'Abrir el día':etapa===1?'Completar cierre del día':'Ver resumen del día';
   }
   document.getElementById('btnInicio').onclick=function(){ ir(etapa===0?'respira':etapa===1?'dims':'diario'); };
+  document.getElementById('fA').onclick=function(){if(etapa===0)ir('respira')};document.getElementById('fC').onclick=function(){if(etapa===1)ir('dims')};
   document.getElementById('fChq').onclick=function(){ ir('chequeo'); };
   document.getElementById('volverListo').onclick=function(){ etapa=2; pintaInicio(); ir('inicio'); };
 
@@ -613,7 +665,7 @@ button{cursor:pointer}
   function cuentaD(){
     hechas=lista.querySelectorAll('.escala .sel').length;
     if(actual==='dims') der.innerHTML='<b>'+hechas+'</b> de 15';
-    var f=15-hechas, b=document.getElementById('sigD'); b.disabled=f>0;
+    var f=15-hechas, b=document.getElementById('sigD'); b.disabled=hechas<3;
     
   }
   lista.querySelectorAll('.escala').forEach(function(e){
@@ -649,14 +701,15 @@ button{cursor:pointer}
   (function(){var N=['Sueño','Energía','Motivación','Ánimo','Ansiedad','Tranquilidad','Autoeficacia','Amabilidad','Relaciones','Foco','Creatividad','Claridad mental','Autoconocimiento','Contemplación','Conexión'],
     I=[2,3,2,2,4,2,3,3,3,2,3,2,3,3,2],P=[3,3,3,3,3,3,3,4,3,3,3,3,4,4,3],U=[4,3,4,4,2,4,4,4,4,3,3,3,3,5,5],R=112,C=170,
     CU=[['Físico',0,3,135,'#7FB37C'],['Emocional',3,6,45,'#6FB8B4'],['Cognitivo',9,4,-135,'#8C98E0'],['Espiritual',13,2,-45,'#B48BE0']],
-    ang=[],col=[];
-    var rl=[];CU.forEach(function(c){var L=86-18;for(var k=0;k<c[2];k++){var u=(k+.5)*L/c[2],d=2+u+(u>=L/2?18:0);ang[c[1]+k]=(c[3]+d)*Math.PI/180;col[c[1]+k]=c[4];rl[c[1]+k]=R+14}});
+    ang=[],col=[],RE=R+64;
+    function claro(h){var c=[1,3,5].map(function(k){return parseInt(h.substr(k,2),16)});return 'rgb('+c.map(function(v){return Math.round(v+(255-v)*.5)}).join(',')+')'}
+    var rl=[];CU.forEach(function(c){var L=86-18;for(var k=0;k<c[2];k++){var u=(k+.5)*L/c[2],d=2+u+(u>=L/2?18:0);ang[c[1]+k]=(c[3]+d)*Math.PI/180;col[c[1]+k]=claro(c[4]);rl[c[1]+k]=R+14}});
     var orden=N.map(function(_,i){return i}).sort(function(a,b){return ang[a]-ang[b]});
     function pt(i,v){var r=v/5*R;return [C+r*Math.cos(ang[i]),C+r*Math.sin(ang[i])]}
     function pol(vs){return orden.map(function(i){return pt(i,vs[i]).map(function(x){return x.toFixed(1)}).join(',')}).join(' ')}
     function rgb(h){return [1,3,5].map(function(k){return parseInt(h.substr(k,2),16)})}
     // el pastel degradado: 144 gajos; cada color vive en el centro de su cuarto y se funde con el vecino en la cruz
-    var h='<defs><radialGradient id="telV"><stop offset="0" stop-color="#0A1A10" stop-opacity=".75"/><stop offset=".55" stop-color="#0A1A10" stop-opacity=".25"/><stop offset="1" stop-color="#0A1A10" stop-opacity="0"/></radialGradient></defs><g class="pastel">';
+    var h='<defs><radialGradient id="telV"><stop offset="0" stop-color="#0A1A10" stop-opacity=".75"/><stop offset=".55" stop-color="#0A1A10" stop-opacity=".25"/><stop offset="1" stop-color="#0A1A10" stop-opacity="0"/></radialGradient><radialGradient id="telM" gradientUnits="userSpaceOnUse" cx="170" cy="170" r="'+RE+'"><stop offset="0" stop-color="#fff"/><stop offset="'+((R+4)/RE).toFixed(2)+'" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="telK"><rect x="-300" y="-300" width="900" height="900" fill="url(#telM)"/></mask></defs><g class="pastel" mask="url(#telK)">';
     // presencia por cuerpo: el más presente brilla más; así se ve, sutil, en qué color estás más
     var PRE=CU.map(function(c){var m=0;for(var k=0;k<c[2];k++)m+=U[c[1]+k];return m/c[2]}),mn=Math.min.apply(0,PRE),mx=Math.max.apply(0,PRE);
     PRE=PRE.map(function(v){return mx>mn?(v-mn)/(mx-mn):1});
@@ -665,28 +718,34 @@ button{cursor:pointer}
       cen.forEach(function(ca,k){var x=Math.abs(((am-ca+540)%360)-180);d[k]=x});
       var o=d.map(function(x,k){return k}).sort(function(a,b){return d[a]-d[b]}),k1=o[0],k2=o[1],t=Math.min(1,Math.max(0,(d[k1]-0)/90));
       var c1=rgb(CU[k1][4]),c2=rgb(CU[k2][4]),w=t*t*(3-2*t)*.5,cc=c1.map(function(v,q){return Math.round(v+(c2[q]-v)*w)});
-      var p0=[C+(R+4)*Math.cos(a0*Math.PI/180),C+(R+4)*Math.sin(a0*Math.PI/180)],p1=[C+(R+4)*Math.cos(a1*Math.PI/180),C+(R+4)*Math.sin(a1*Math.PI/180)];
+      var p0=[C+RE*Math.cos(a0*Math.PI/180),C+RE*Math.sin(a0*Math.PI/180)],p1=[C+RE*Math.cos(a1*Math.PI/180),C+RE*Math.sin(a1*Math.PI/180)];
       // cuánto brilla cada cuarto: la presencia del cuerpo en el último día (promedio de sus dimensiones, 1 a 5)
       var pr=PRE[k1]+(PRE[k2]-PRE[k1])*w;
-      h+='<path d="M'+C+' '+C+'L'+p0[0].toFixed(1)+' '+p0[1].toFixed(1)+'A'+(R+4)+' '+(R+4)+' 0 0 1 '+p1[0].toFixed(1)+' '+p1[1].toFixed(1)+'Z" fill="rgb('+cc.join(',')+')" fill-opacity="'+(.25+.75*pr).toFixed(2)+'"/>'}
+      h+='<path d="M'+C+' '+C+'L'+p0[0].toFixed(1)+' '+p0[1].toFixed(1)+'A'+RE+' '+RE+' 0 0 1 '+p1[0].toFixed(1)+' '+p1[1].toFixed(1)+'Z" fill="rgb('+cc.join(',')+')" fill-opacity="'+(.25+.75*pr).toFixed(2)+'"/>'}
     h+='</g><circle cx="'+C+'" cy="'+C+'" r="'+(R+4)+'" fill="url(#telV)"/>';
     [1,2,3,4,5].forEach(function(k){h+='<circle class="tel-anillo" cx="'+C+'" cy="'+C+'" r="'+(k/5*R).toFixed(1)+'"/>'});
     N.forEach(function(_,i){var p=pt(i,5);h+='<line class="tel-eje" x1="'+C+'" y1="'+C+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'"/>'});
     // la cruz que separa los cuatro cuerpos
     h+='<g class="tel-cruz"><line x1="'+(C-R-10)+'" y1="'+C+'" x2="'+(C+R+10)+'" y2="'+C+'"/><line x1="'+C+'" y1="'+(C-R-10)+'" x2="'+C+'" y2="'+(C+R+10)+'"/></g>';
-    [['tel-inicio',I],['tel-promedio',P],['tel-ultimo',U]].forEach(function(s){h+='<g class="tel-serie '+s[0]+'"><polygon points="'+pol(s[1])+'"/>'+s[1].map(function(v,i){var p=pt(i,v);return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="2.6"/>'}).join('')+'</g>'});
+    [['tel-inicio',I],['tel-promedio',P],['tel-ultimo',U]].forEach(function(s){h+='<g class="tel-serie '+s[0]+'"><polygon points="'+pol(s[1])+'"/>'+s[1].map(function(v,i){var p=pt(i,v);return '<circle data-i="'+i+'" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="2.6"/>'}).join('')+'</g>'});
     // los nombres de cada dimensión, en el color de su cuerpo; de cada lado se separan para no encimarse
     // y dejan libre el nombre del cuerpo que vive en el brazo horizontal
     var lab=N.map(function(t,i){var a=ang[i];return {t:t,i:i,x:C+(R+14)*Math.cos(a),y:C+(R+14)*Math.sin(a),der:Math.cos(a)>=0}});
     [true,false].forEach(function(lado){var L=lab.filter(function(l){return l.der===lado}),SP=13.5,
       arr=L.filter(function(l){return l.y<C}).sort(function(a,b){return b.y-a.y}),aba=L.filter(function(l){return l.y>=C}).sort(function(a,b){return a.y-b.y});
       var p=C-17;arr.forEach(function(l){if(l.y>p-SP)l.y=p-SP;p=l.y});p=C+17;aba.forEach(function(l){if(l.y<p+SP)l.y=p+SP;p=l.y})});
-    lab.forEach(function(l){h+='<text class="tel-etiqueta" fill="'+col[l.i]+'" x="'+l.x.toFixed(1)+'" y="'+l.y.toFixed(1)+'" text-anchor="'+(l.der?'start':'end')+'" dominant-baseline="middle">'+l.t+'</text>'});
+    lab.forEach(function(l){h+='<text class="tel-etiqueta" data-i="'+l.i+'" fill="'+col[l.i]+'" x="'+l.x.toFixed(1)+'" y="'+l.y.toFixed(1)+'" text-anchor="'+(l.der?'start':'end')+'" dominant-baseline="middle">'+l.t+'</text>'});
     // arriba de cada cuerpo, cuánto se movió en promedio del inicio al último día
     CU.forEach(function(c){var m=0;for(var k=0;k<c[2];k++)m+=U[c[1]+k]-I[c[1]+k];m/=c[2];
       var a=(c[3]+45)*Math.PI/180,ca=Math.round(Math.cos(a)),sa=Math.round(Math.sin(a)),x=C+ca*(R+18),y=sa<0?C-R-58:sa>0?C+R+52:C-4,an=ca>0?'start':ca<0?'end':'middle';
-      h+='<text class="tel-cuerpo" fill="'+c[4]+'" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" text-anchor="'+an+'">'+c[0].toUpperCase()+'</text><text class="tel-mov" fill="'+c[4]+'" x="'+x.toFixed(1)+'" y="'+(y+14).toFixed(1)+'" text-anchor="'+an+'">'+(m>=0?'+':'−')+Math.abs(m).toFixed(1)+' en promedio</text>'});
+      h+='<text class="tel-cuerpo" fill="'+claro(c[4])+'" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" text-anchor="'+an+'">'+c[0].toUpperCase()+'</text><text class="tel-mov" fill="'+claro(c[4])+'" x="'+x.toFixed(1)+'" y="'+(y+14).toFixed(1)+'" text-anchor="'+an+'">'+(m>=0?'+':'−')+Math.abs(m).toFixed(1)+' en promedio</text>'});
     document.getElementById('tela').innerHTML=h;
+    // al tocar Inicio, Promedio o Último día se iluminan, muy tenue, las cuatro dimensiones más presentes de esa capa
+    var SER={inicio:I,promedio:P,ultimo:U};
+    document.querySelectorAll('.tel-leyenda button').forEach(function(b){b.onclick=function(){var ya=b.classList.contains('on'),tela=document.getElementById('tela');
+      document.querySelectorAll('.tel-leyenda button').forEach(function(x){x.classList.remove('on')});tela.querySelectorAll('.logro').forEach(function(x){x.classList.remove('logro')});
+      if(ya)return;b.classList.add('on');var v=SER[b.dataset.s],corte=v.slice().sort(function(a,c){return c-a})[3];
+      v.forEach(function(x,i){if(x>=corte){var c=tela.querySelector('.tel-'+b.dataset.s+' circle[data-i="'+i+'"]');if(c)c.classList.add('logro');var t=tela.querySelector('.tel-etiqueta[data-i="'+i+'"]');if(t)t.classList.add('logro')}})}});
     var mi=document.getElementById('telaMini');if(mi)mi.innerHTML=h.replace(/telV/g,'telVm');
     // cada vez que entras, el último día crece desde el inicio
     var u=document.querySelector('#tela .tel-ultimo');new MutationObserver(function(){var v=document.querySelector('.vista[data-v="proceso"]');if(v&&v.classList.contains('on')){u.classList.remove('crece');void u.getBBox();u.classList.add('crece')}}).observe(document.querySelector('.vista[data-v="proceso"]'),{attributes:true,attributeFilter:['class']});
@@ -723,7 +782,7 @@ button{cursor:pointer}
   // en iPhone con el interruptor en silencio el sonido web no suena: modo reproducción y un instante de silencio al tocar
   function destraba(){try{if(navigator.audioSession)navigator.audioSession.type='playback'}catch(e){}
     try{var a=new Audio('data:audio/wav;base64,UklGRkQDAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YSADAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==');a.setAttribute('playsinline','');a.volume=.01;var p=a.play();if(p&&p.catch)p.catch(function(){})}catch(e){}}
-  function enciende(x){destraba();var c=ctx();if(!c)return;on=x;if(c.resume)c.resume();arma();fondo.g.gain.setTargetAtTime(on?.014:0,c.currentTime,1.5);pinta();acorde(vista())}
+  function enciende(x){destraba();var c=ctx();if(!c)return;on=x;if(c.resume)c.resume();pinta()}  // sin música de fondo (Carlos, 1 nov): sólo pulsos al tocar
   function vista(){var e=document.querySelector('.vista.on');return e?e.dataset.v:'inicio'}
   function campana(){if(!on)return;var t=ac.currentTime;[784,1174.7,1568].forEach(function(f,k){var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;
       g.gain.setValueAtTime(0,t+k*.09);g.gain.linearRampToValueAtTime(.03/(k+1),t+k*.09+.01);g.gain.exponentialRampToValueAtTime(.0001,t+k*.09+1.8);o.connect(g);g.connect(ac.destination);o.start(t+k*.09);o.stop(t+k*.09+1.9)})}
@@ -738,14 +797,17 @@ button{cursor:pointer}
     var b0=e.target.closest('[data-ir]');
     // Volver regresa a donde estabas antes de abrir la Brújula o el Mapa
     if(b0&&/^(brujula|mapa)$/.test(b0.dataset.ir)&&!/^(brujula|mapa)$/.test(vista()))document.querySelectorAll('.vista.herr .btn').forEach(function(x){x.dataset.ir=vista()});
-    var b=e.target.closest('button');if(!b||!on)return;
-    if(b.closest('.escala'))latido();
-    else if(b.closest('.animo'))toque(523.3);
-    else if(b.closest('.seg'))toque(440);
-    else if(/Guardar|Cerrar el día|Siguiente/.test(b.textContent))campana();
-    setTimeout(function(){acorde(vista());if(vista()==='proceso')setTimeout(latido,700)},60);
+    var b=e.target.closest('button,.fila.brilla,.item');if(!b||!on)return;
+    if(b.closest('.escala,.animo,.seg,.opc,.btn,.portal,.espejo,.paso'))latido();
+    setTimeout(function(){if(vista()==='proceso')setTimeout(latido,700)},60);
   },true);
 })();
+</script>
+<script>
+(function(){var c=document.getElementById('cal');if(!c)return;var h='LMMJVSD'.split('').map(function(d){return '<b>'+d+'</b>'}).join('');
+  for(var k=0;k<3;k++)h+='<span class="f"></span>';
+  for(var d=1;d<=25;d++){var cls=d===18?'h':d>18?'f':d===10?'x':d%2===0?'t':'';h+='<span class="'+cls+'">'+d+'</span>'}
+  c.innerHTML=h})();
 </script>
 </body>
 </html>
