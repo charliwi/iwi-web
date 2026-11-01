@@ -214,7 +214,7 @@ button{cursor:pointer}
 .btn:disabled{opacity:.45}
 
 /* demo · iwi (31 oct) */
-.vista[data-v="inicio"] .marca{order:0}.vista[data-v="inicio"] .espejo{order:1}.vista[data-v="inicio"] .abajo{order:2}
+.vista[data-v="inicio"] .abajo{margin-top:18px}
 .portales{order:3;margin:14px 0 6px;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
 .portal{display:flex;flex-direction:row;align-items:center;gap:10px;padding:9px 12px;border:1px solid rgba(242,237,227,.22);border-radius:10px;background:rgba(242,237,227,.05);color:var(--t1);text-align:left;cursor:pointer;transition:background .5s,border-color .5s,transform .5s}
 .portal:active{transform:scale(.97)}
@@ -281,9 +281,44 @@ button{cursor:pointer}
 .tel-leyenda button.on{opacity:1;color:#fff}
 .tel-serie circle.logro{stroke:rgba(255,236,200,.75);stroke-width:4;filter:drop-shadow(0 0 4px rgba(255,236,200,.7))}
 .tel-etiqueta{transition:filter .6s}.tel-etiqueta.logro{filter:drop-shadow(0 0 3px rgba(255,236,200,.55));font-weight:600}
+/* íconos de fila, todos del mismo tamaño que la telaraña chiquita */
+.ico-f{flex:none;width:46px;height:46px;display:block}
+.ico{width:46px;height:46px;display:block;overflow:visible}
+.ico .an{fill:none;stroke:rgba(242,237,227,.22);stroke-width:1.2}
+.ico .hor{stroke:rgba(242,237,227,.7);stroke-width:1.4}
+.ico .disco{fill:#FFE7B8}.ico .rayos line{stroke:#FFE7B8;stroke-width:2;stroke-linecap:round}
+.amanece .astro{animation:sube 7s ease-in-out infinite}.anochece .astro{animation:baja 7s ease-in-out infinite}
+.anochece .disco{fill:#F0B48A}.anochece .rayos line{stroke:#F0B48A}
+@keyframes sube{0%{transform:translateY(26px)}55%,100%{transform:translateY(-12px)}}
+@keyframes baja{0%,20%{transform:translateY(-12px)}100%{transform:translateY(26px)}}
+.fila.hecha .astro{animation:none}
+.ico .sem{fill:none;stroke:rgba(242,237,227,.55);stroke-width:1.3}.ico .sem.ok{fill:rgba(167,203,173,.7);stroke:none}
+.ico.mini text{display:none}.ico.mini .tel-inicio,.ico.mini .tel-promedio,.ico.mini .tel-eje,.ico.mini .tel-ultimo circle{display:none}
+.ico.mini .tel-ultimo polygon{stroke-width:5}
+.vitru .cuerpo-v{fill:none;stroke:rgba(242,237,227,.8);stroke-width:2;stroke-linecap:round}
+.vitru .chak{opacity:.35;animation:chak 2.8s ease-in-out infinite}
+@keyframes chak{0%,100%{opacity:.35}40%{opacity:1}}
+.carta{animation:gira 90s linear infinite}
+.carta .signo{font-size:9px;fill:rgba(242,237,227,.45);text-anchor:middle;font-family:"Apple Symbols","Segoe UI Symbol",serif;transition:fill .6s}
+.carta .signo.on{fill:#FFE7B8;filter:drop-shadow(0 0 3px rgba(255,231,184,.9))}
+.carta .centro{fill:#FFE7B8}
+.portal .ico-f,.portal .ico{width:40px;height:40px}
 /* el scroll no se traba en el teléfono */
 .cuerpo{-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y}
-@media (max-width:520px){html,body{height:100%;overflow:hidden;overscroll-behavior:none}}
+@media (max-width:520px){
+  html,body{height:auto!important;overflow:visible!important}
+  .tel{height:auto!important;min-height:100dvh}
+  .pant{height:auto!important;min-height:100dvh;overflow:visible!important}
+  .cielo,.velo{position:fixed!important}
+  .vista{position:relative!important;inset:auto!important;display:none;min-height:calc(100dvh - 48px);margin-top:48px;padding-bottom:76px;transform:none!important;opacity:1!important}
+  .vista.on{display:flex;animation:entra .9s ease}
+  .cuerpo{overflow:visible!important;flex:none!important}
+  .tabs{position:fixed!important}
+  .vista.herr{height:calc(100dvh - 48px);padding-bottom:0}
+  .barra{display:none}
+  .vista{margin-top:max(12px,env(safe-area-inset-top))}
+}
+@keyframes entra{from{opacity:0}to{opacity:1}}
 /* emojis de ánimo como en la app (más contraste; al elegir se encienden) */
 .animo button{height:62px!important}
 .animo .emo{font-size:29px!important;opacity:.72!important;filter:grayscale(1) sepia(.55) saturate(.8) hue-rotate(-8deg) contrast(1.45) brightness(.9)!important;transition:opacity .12s ease-out,filter .12s ease-out,transform .12s ease-out!important}
@@ -324,11 +359,6 @@ button{cursor:pointer}
   <!-- INICIO -->
   <section class="vista con-tabs on" data-v="inicio">
     <div class="cuerpo">
-      <button type="button" class="espejo" data-ir="proceso" aria-label="Ver tu proceso"><svg class="mini" id="telaMini" viewBox="50 50 240 240" aria-hidden="true"></svg><span><b>Mi proceso</b><small>86 % adherencia · 7 tomas · ánimo 3.8</small><small class="ver">Ver mi proceso →</small></span></button>
-      <div class="portales">
-        <button type="button" class="portal" data-ir="brujula" aria-label="Abrir la Brújula"><span class="orbe chakras"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span><b>Brújula</b><small>¿Qué sientes hoy?</small></span></button>
-        <button type="button" class="portal" data-ir="mapa" aria-label="Abrir el Mapa"><span class="orbe cielo-m"><svg viewBox="-50 -50 100 100"><circle r="44"/><circle r="28"/><g><line x1="28.0" y1="0.0" x2="44.0" y2="0.0"/><line x1="24.2" y1="14.0" x2="38.1" y2="22.0"/><line x1="14.0" y1="24.2" x2="22.0" y2="38.1"/><line x1="-0.0" y1="28.0" x2="-0.0" y2="44.0"/><line x1="-14.0" y1="24.2" x2="-22.0" y2="38.1"/><line x1="-24.2" y1="14.0" x2="-38.1" y2="22.0"/><line x1="-28.0" y1="-0.0" x2="-44.0" y2="-0.0"/><line x1="-24.2" y1="-14.0" x2="-38.1" y2="-22.0"/><line x1="-14.0" y1="-24.2" x2="-22.0" y2="-38.1"/><line x1="0.0" y1="-28.0" x2="0.0" y2="-44.0"/><line x1="14.0" y1="-24.2" x2="22.0" y2="-38.1"/><line x1="24.2" y1="-14.0" x2="38.1" y2="-22.0"/></g><circle class="astro" r="2.6" cx="0" cy="-36"/></svg></span><span><b>Mapa</b><small>Tu cielo al nacer</small></span></button>
-      </div>
       <div class="marca"><svg viewBox="0 0 200 160"><defs><linearGradient id="luzLogo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".7" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><path fill="url(#luzLogo)" stroke="#fff" stroke-opacity=".9" stroke-width="5" stroke-linejoin="round" d="M100 150 L30 80 A35 35 0 0 1 100 34 Z"/><path fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="5" stroke-linejoin="round" d="M100 150 L170 80 A35 35 0 0 0 100 34 Z"/><path fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M0 92 H70 L82 92 L92 62 L104 124 L116 48 L126 92 H200"/></svg>Pulso</div>
       <div class="abajo">
         <div class="saludo" id="saludo">Hola, Ana. Hoy es día de toma.</div>
@@ -337,10 +367,15 @@ button{cursor:pointer}
         <div class="aviso" id="avisoInicio">Apertura guardada. Haz el cierre más tarde, cuando termines tu día.</div>
         <div class="semana"><div><i class="s"></i>L</div><div><i class="d"></i>M</div><div><i class="s"></i>M</div><div><i class="s"></i>J</div><div><i class="d"></i>V</div><div><i class="s"></i>S</div><div class="hoy"><i id="hoyPunto"></i>D</div></div>
         <div class="filas">
-          <div class="fila" id="fA"><span class="n">01</span><div><strong>Abrir mi día</strong><small id="fAs">Pendiente · ánimo y toma</small></div><span class="ok" id="okA"></span></div>
-          <div class="fila" id="fChq" style="cursor:pointer;order:3"><span class="n">03</span><div><strong>Chequeo de las 4 semanas</strong><small>Unos 10 minutos · tienes hasta el 28 oct</small></div><span style="margin-left:auto;color:var(--t3)">→</span></div>
-          <div class="fila esp" id="fC"><span class="n">02</span><div><strong>Cerrar mi día</strong><small id="fCs">Después de la apertura</small></div><span class="ok" id="okC"></span></div>
+          <div class="fila" id="fP" data-ir="proceso" style="cursor:pointer;order:2"><span class="ico-f"><svg class="ico mini" id="telaMini" viewBox="-24 -24 388 388" aria-hidden="true"></svg></span><div><strong>Mi proceso</strong><small>86 % adherencia · 7 tomas · ánimo 3.8</small></div><span style="margin-left:auto;color:var(--t3)">→</span></div>
+          <div class="fila" id="fA"><span class="ico-f"><svg class="ico amanece" viewBox="-50 -50 100 100" aria-hidden="true"><defs><clipPath id="cp-amanece"><rect x="-50" y="-50" width="100" height="58"/></clipPath><radialGradient id="rg-amanece" cx="50%" cy="58%" r="55%"><stop offset="0" stop-color="#F2C879" stop-opacity=".75"/><stop offset=".6" stop-color="#C96F4A" stop-opacity=".25"/><stop offset="1" stop-color="#C96F4A" stop-opacity="0"/></radialGradient></defs><circle r="44" fill="url(#rg-amanece)"/><circle r="44" class="an"/><circle r="30" class="an"/><g clip-path="url(#cp-amanece)"><g class="astro"><circle r="9" class="disco"/><g class="rayos"><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(0)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(45)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(90)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(135)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(180)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(225)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(270)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(315)"/></g></g></g><line x1="-44" y1="8" x2="44" y2="8" class="hor"/></svg></span><div><strong>Abrir mi día</strong><small id="fAs">Pendiente · ánimo y toma</small></div><span class="ok" id="okA"></span></div>
+          <div class="fila" id="fChq" style="cursor:pointer;order:3"><span class="ico-f"><svg class="ico" viewBox="-50 -50 100 100" aria-hidden="true"><circle r="44" class="an"/><circle r="30" class="an"/><circle cx="0.0" cy="-30.0" r="4" class="sem ok"/><circle cx="30.0" cy="0.0" r="4" class="sem ok"/><circle cx="0.0" cy="30.0" r="4" class="sem ok"/><circle cx="-30.0" cy="0.0" r="4" class="sem"/></svg></span><div><strong>Chequeo de las 4 semanas</strong><small>Unos 10 minutos · tienes hasta el 28 oct</small></div><span style="margin-left:auto;color:var(--t3)">→</span></div>
+          <div class="fila esp" id="fC"><span class="ico-f"><svg class="ico anochece" viewBox="-50 -50 100 100" aria-hidden="true"><defs><clipPath id="cp-anochece"><rect x="-50" y="-50" width="100" height="58"/></clipPath><radialGradient id="rg-anochece" cx="50%" cy="58%" r="55%"><stop offset="0" stop-color="#C98A6A" stop-opacity=".75"/><stop offset=".6" stop-color="#4A2E5A" stop-opacity=".25"/><stop offset="1" stop-color="#4A2E5A" stop-opacity="0"/></radialGradient></defs><circle r="44" fill="url(#rg-anochece)"/><circle r="44" class="an"/><circle r="30" class="an"/><g clip-path="url(#cp-anochece)"><g class="astro"><circle r="9" class="disco"/><g class="rayos"><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(0)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(45)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(90)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(135)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(180)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(225)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(270)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(315)"/></g></g></g><line x1="-44" y1="8" x2="44" y2="8" class="hor"/></svg></span><div><strong>Cerrar mi día</strong><small id="fCs">Después de la apertura</small></div><span class="ok" id="okC"></span></div>
         </div>
+      </div>
+      <div class="portales">
+        <button type="button" class="portal" data-ir="brujula" aria-label="Abrir la Brújula"><span class="ico-f"><svg class="ico vitru" viewBox="-50 -50 100 100" aria-hidden="true"><circle r="44" class="an"/><rect x="-33" y="-33" width="66" height="66" class="an"/><g class="cuerpo-v"><circle cx="0" cy="-27" r="6.5"/><line x1="0" y1="-20" x2="0" y2="14"/><line x1="-31" y1="-12" x2="31" y2="-12"/><line x1="0" y1="14" x2="-17" y2="38"/><line x1="0" y1="14" x2="17" y2="38"/></g><circle class="chak" cx="0" cy="13" r="3.2" fill="#E0675C" style="animation-delay:-2.10s"/><circle class="chak" cx="0" cy="5" r="3.2" fill="#E69A5A" style="animation-delay:-1.75s"/><circle class="chak" cx="0" cy="-3" r="3.2" fill="#E8D06A" style="animation-delay:-1.40s"/><circle class="chak" cx="0" cy="-11" r="3.2" fill="#7AC08A" style="animation-delay:-1.05s"/><circle class="chak" cx="0" cy="-19" r="3.2" fill="#6FA8DC" style="animation-delay:-0.70s"/><circle class="chak" cx="0" cy="-27" r="3.2" fill="#8E7CC3" style="animation-delay:-0.35s"/><circle class="chak" cx="0" cy="-36" r="3.2" fill="#B49BE0" style="animation-delay:-0.00s"/></svg></span><span><b>Brújula</b><small>¿Qué sientes hoy?</small></span></button>
+        <button type="button" class="portal" data-ir="mapa" aria-label="Abrir el Mapa"><span class="ico-f"><svg class="ico carta" viewBox="-50 -50 100 100" aria-hidden="true"><circle r="44" class="an"/><circle r="30" class="an"/><circle r="14" class="an"/><line x1="30.0" y1="0.0" x2="44.0" y2="0.0" class="an"/><line x1="26.0" y1="15.0" x2="38.1" y2="22.0" class="an"/><line x1="15.0" y1="26.0" x2="22.0" y2="38.1" class="an"/><line x1="0.0" y1="30.0" x2="0.0" y2="44.0" class="an"/><line x1="-15.0" y1="26.0" x2="-22.0" y2="38.1" class="an"/><line x1="-26.0" y1="15.0" x2="-38.1" y2="22.0" class="an"/><line x1="-30.0" y1="0.0" x2="-44.0" y2="0.0" class="an"/><line x1="-26.0" y1="-15.0" x2="-38.1" y2="-22.0" class="an"/><line x1="-15.0" y1="-26.0" x2="-22.0" y2="-38.1" class="an"/><line x1="-0.0" y1="-30.0" x2="-0.0" y2="-44.0" class="an"/><line x1="15.0" y1="-26.0" x2="22.0" y2="-38.1" class="an"/><line x1="26.0" y1="-15.0" x2="38.1" y2="-22.0" class="an"/><text class="signo" x="9.6" y="-32.7">♈&#xFE0E;</text><text class="signo" x="26.2" y="-23.2">♉&#xFE0E;</text><text class="signo" x="35.7" y="-6.6">♊&#xFE0E;</text><text class="signo" x="35.7" y="12.6">♋&#xFE0E;</text><text class="signo" x="26.2" y="29.2">♌&#xFE0E;</text><text class="signo" x="9.6" y="38.7">♍&#xFE0E;</text><text class="signo" x="-9.6" y="38.7">♎&#xFE0E;</text><text class="signo" x="-26.2" y="29.2">♏&#xFE0E;</text><text class="signo" x="-35.7" y="12.6">♐&#xFE0E;</text><text class="signo" x="-35.7" y="-6.6">♑&#xFE0E;</text><text class="signo" x="-26.2" y="-23.2">♒&#xFE0E;</text><text class="signo" x="-9.6" y="-32.7">♓&#xFE0E;</text><circle r="3" class="centro"/></svg></span><span><b>Mapa</b><small>Tu cielo al nacer</small></span></button>
       </div>
     </div>
     <div class="pie"><button class="btn" id="btnInicio"><span id="btnInicioTxt">Abrir el día</span><span>→</span></button></div>
@@ -797,13 +832,16 @@ button{cursor:pointer}
     var b0=e.target.closest('[data-ir]');
     // Volver regresa a donde estabas antes de abrir la Brújula o el Mapa
     if(b0&&/^(brujula|mapa)$/.test(b0.dataset.ir)&&!/^(brujula|mapa)$/.test(vista()))document.querySelectorAll('.vista.herr .btn').forEach(function(x){x.dataset.ir=vista()});
-    var b=e.target.closest('button,.fila.brilla,.item');if(!b||!on)return;
+    var b=e.target.closest('button,.fila.brilla,.item,#fP');if(!b||!on)return;
     if(b.closest('.escala,.animo,.seg,.opc,.btn,.portal,.espejo,.paso'))latido();
     setTimeout(function(){if(vista()==='proceso')setTimeout(latido,700)},60);
   },true);
 })();
 </script>
 <script>
+(function(){var ss=document.querySelectorAll('.carta .signo'),k=0;if(ss.length)setInterval(function(){ss[k].classList.remove('on');k=(k+1)%ss.length;ss[k].classList.add('on')},1100);
+  // en el teléfono la página se desplaza sola: al cambiar de pantalla, vuelve arriba
+  document.addEventListener('click',function(e){if(e.target.closest('[data-ir],[data-tab],#fA,#fC,#guardarA,#sigD'))setTimeout(function(){if(matchMedia('(max-width:520px)').matches)scrollTo(0,0)},80)},true)})();
 (function(){var c=document.getElementById('cal');if(!c)return;var h='LMMJVSD'.split('').map(function(d){return '<b>'+d+'</b>'}).join('');
   for(var k=0;k<3;k++)h+='<span class="f"></span>';
   for(var d=1;d<=25;d++){var cls=d===18?'h':d>18?'f':d===10?'x':d%2===0?'t':'';h+='<span class="'+cls+'">'+d+'</span>'}
