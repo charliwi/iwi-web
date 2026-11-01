@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex">
+<title>iwi Pie en trama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap">
+<style>
+/* Pie de iwi.com.mx: la palabra «iwi» enorme, cortada por el borde, hecha de puntos de trama que el cursor empuja. Idea: Halftone Wordmark Footer (21st.dev), hecho de cero. */
+:root{
+  --noche:#1C2340; --noche-2:#232B4C; --linea:#33406E; --marfil:#F4F3EE; --tenue:#A9AEC8; --amarillo:#E4F000;
+  --f:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --f-mono:"Courier Prime","Courier New",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--noche);color:var(--marfil)}
+body{font-family:var(--f-mono);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amarillo);outline-offset:3px;border-radius:3px}
+.marco{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* simulación del final de la página */
+.contacto{padding-block:clamp(56px,9vw,120px) clamp(40px,6vw,72px)}
+.eti{font-family:var(--f);font-weight:700;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--marfil);margin:0 0 18px}
+.contacto h2{font-family:var(--f);font-weight:300;letter-spacing:-.02em;font-size:clamp(2.2rem,5.6vw,4.2rem);line-height:1.02;margin:0;max-width:16ch;text-wrap:balance}
+.contacto h2 em{font-style:normal;font-weight:700;background:linear-gradient(var(--amarillo),var(--amarillo)) 0 88%/100% .36em no-repeat;color:var(--marfil)}
+.contacto p{color:var(--marfil);max-width:46ch;margin:22px 0 0}
+.correo{display:inline-flex;gap:10px;align-items:center;margin-top:22px;font-size:1.05rem}
+.correo button{font:inherit;font-size:.8125rem;background:none;color:var(--marfil);border:1px solid var(--linea);border-radius:999px;padding:4px 12px;cursor:pointer}
+.correo button:hover{border-color:var(--amarillo)}
+
+/* el pie */
+footer{position:relative;border-top:1px solid var(--linea);overflow:hidden}
+.pie-fila{display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:24px;padding-block:28px 0;position:relative;z-index:2}
+.pie-fila>div{min-width:0}
+.pie-fila h3{font-family:var(--f);font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--marfil);margin:0 0 10px}
+.pie-fila ul{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-family:var(--f);font-weight:300;font-size:1rem}
+.pie-fila a{text-decoration:none}
+.pie-fila a:hover{background:linear-gradient(var(--amarillo),var(--amarillo)) 0 92%/100% .28em no-repeat}
+.estudio{font-size:.875rem;color:var(--marfil);max-width:30ch}
+.estudio b{display:block;color:var(--marfil);font-family:var(--f);font-weight:700;font-size:1.375rem;letter-spacing:-.02em;margin-bottom:6px}
+.arriba{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:24px;z-index:3;font:inherit;font-size:.8125rem;background:var(--noche);color:var(--marfil);border:1px solid var(--linea);border-radius:999px;padding:6px 14px;cursor:pointer}
+.arriba:hover{border-color:var(--amarillo)}
+@media (max-width:760px){.pie-fila{grid-template-columns:1fr 1fr}.estudio{grid-column:1/-1}}
+
+#trama{display:block;width:100%;height:clamp(180px,30vw,380px);margin-top:clamp(12px,3vw,32px);touch-action:pan-y;cursor:crosshair}
+.grano{position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.75rem;color:var(--marfil);padding-block:12px 18px;position:relative;z-index:2;border-top:1px solid var(--linea)}
+.pista{font-family:var(--f);font-weight:300;letter-spacing:.08em;text-transform:uppercase}
+</style>
+
+</head><body>
+<main>
+  <section class="contacto marco" id="contacto">
+    <p class="eti">Contacto</p>
+    <h2>¿Qué quieres que <em>hagamos</em> juntos?</h2>
+    <p>Mándanos una foto, un boceto o una idea en dos líneas. Te respondemos con preguntas concretas.</p>
+    <div class="correo"><span id="dir">hola@iwi.com.mx</span><button type="button" id="copiar">Copiar</button></div>
+  </section>
+</main>
+
+<footer>
+  <div class="grano" aria-hidden="true"></div>
+  <button class="arriba" type="button" id="arriba">↑ Arriba</button>
+  <div class="marco">
+    <div class="pie-fila">
+      <div class="estudio"><b>iwi</b>Estudio de diseño que lleva ideas del boceto a la pieza terminada.</div>
+      <div><h3>Estudio</h3><ul><li><a href="https://iwi.com.mx/#caso-1">Trabajo</a></li><li><a href="https://iwi.com.mx/#hacemos">Servicios</a></li><li><a href="https://iwi.com.mx/#pensamos">Filosofía</a></li></ul></div>
+      <div><h3>Probando</h3><ul><li><a href="https://iwi.com.mx/demos/">Demos</a></li><li><a href="https://iwi.com.mx/demos/biblioteca/">Biblioteca</a></li><li><a href="https://iwi.com.mx/forbatch/">ForBatch</a></li></ul></div>
+      <div><h3>Familia</h3><ul><li><a href="https://microsteps.mx/">microsteps</a></li><li><a href="https://iwi.com.mx/demos/pulso/">Pulso</a></li></ul></div>
+    </div>
+  </div>
+  <canvas id="trama" aria-label="La palabra iwi hecha de puntos de trama. Pasa el cursor o el dedo para moverlos; haz clic para mandar una onda."></canvas>
+  <div class="marco"><div class="legal"><span>© 2026 iwi</span><span class="pista">Pasa el cursor · toca para mandar una onda</span></div></div>
+</footer>
+
+<script>
+(function(){
+  var cv=document.getElementById('trama'),cx=cv.getContext('2d');
+  var quieto=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W=0,H=0,dpr=1,P=[],paso=9,raton={x:-9999,y:-9999,vx:0,vy:0,on:false},ondas=[];
+  var MARFIL=[244,243,238],AMARILLO=[228,240,0];
+
+  function arma(){
+    var r=cv.getBoundingClientRect();if(r.width<20||r.height<20)return;dpr=Math.min(devicePixelRatio||1,2);W=Math.round(r.width);H=Math.round(r.height);
+    cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
+    paso=W<500?7:W<900?9:11;
+    // la palabra en un lienzo aparte: enorme y cortada por abajo
+    var o=document.createElement('canvas'),ox=o.getContext('2d');o.width=W;o.height=H;
+    var fs=H*1.32;ox.font='700 '+fs+'px "Helvetica Neue", Helvetica, Arial, sans-serif';
+    var ancho=ox.measureText('iwi').width;if(ancho>W*.96){fs*=W*.96/ancho;ox.font='700 '+fs+'px "Helvetica Neue", Helvetica, Arial, sans-serif';ancho=ox.measureText('iwi').width}
+    ox.fillStyle='#fff';ox.textBaseline='alphabetic';ox.fillText('iwi',(W-ancho)/2,H+fs*.08);
+    var d=ox.getImageData(0,0,W,H).data;P=[];
+    for(var y=paso/2;y<H;y+=paso)for(var x=paso/2;x<W;x+=paso){
+      // cobertura del cuadro: el tamaño del punto sale de cuánta letra cae ahí
+      var s=0,n=0;for(var j=-2;j<=2;j++)for(var i=-2;i<=2;i++){var px=Math.round(x+i*paso/5),py=Math.round(y+j*paso/5);if(px>=0&&py>=0&&px<W&&py<H){s+=d[(py*W+px)*4+3];n++}}
+      var c=s/(n*255);
+      // fuera de la letra queda una trama muy tenue que se desvanece hacia arriba
+      var fondo=.10*(y/H);if(c<.04&&fondo<.03)continue;
+      P.push({hx:x,hy:y,x:x,y:y,vx:0,vy:0,r:c>.04?Math.max(.9,c*paso*.52):fondo*paso*.5,letra:c>.04,cal:0});
+    }
+  }
+  function lerp(a,b,t){return Math.round(a+(b-a)*t)}
+  function dibuja(){
+    cx.clearRect(0,0,W,H);
+    var R=Math.max(70,W*.09),R2=R*R,ahora=performance.now();
+    ondas=ondas.filter(function(o){return ahora-o.t<1400});
+    for(var k=0;k<P.length;k++){var p=P[k];
+      if(raton.on){var dx=p.x-raton.x,dy=p.y-raton.y,d2=dx*dx+dy*dy;
+        if(d2<R2){var d=Math.sqrt(d2)||1,f=(1-d/R);f=f*f*2.4;p.vx+=dx/d*f;p.vy+=dy/d*f;p.cal=Math.min(1,p.cal+f*.35)}}
+      for(var q=0;q<ondas.length;q++){var o=ondas[q],rad=(ahora-o.t)*.55,ex=p.hx-o.x,ey=p.hy-o.y,dd=Math.sqrt(ex*ex+ey*ey)||1,banda=Math.abs(dd-rad);
+        if(banda<26){var fu=(1-banda/26)*3.2*(1-(ahora-o.t)/1400);p.vx+=ex/dd*fu;p.vy+=ey/dd*fu;p.cal=Math.min(1,p.cal+.12)}}
+      // resorte de regreso a su lugar
+      p.vx+=(p.hx-p.x)*.06;p.vy+=(p.hy-p.y)*.06;p.vx*=.82;p.vy*=.82;p.x+=p.vx;p.y+=p.vy;p.cal*=.965;
+      var t=p.cal,col=p.letra?'rgb('+lerp(MARFIL[0],AMARILLO[0],t)+','+lerp(MARFIL[1],AMARILLO[1],t)+','+lerp(MARFIL[2],AMARILLO[2],t)+')':'rgba(244,243,238,.55)';
+      cx.fillStyle=col;cx.beginPath();cx.arc(p.x,p.y,p.r*(1+t*.35),0,6.2832);cx.fill();
+    }
+    if(!quieto)requestAnimationFrame(dibuja);
+  }
+  function pos(e){var r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+  cv.addEventListener('pointermove',function(e){var p=pos(e);raton.x=p.x;raton.y=p.y;raton.on=true;if(quieto)dibuja()});
+  cv.addEventListener('pointerleave',function(){raton.on=false});
+  cv.addEventListener('pointerdown',function(e){var p=pos(e);ondas.push({x:p.x,y:p.y,t:performance.now()});raton.x=p.x;raton.y=p.y;raton.on=true});
+  cv.addEventListener('pointerup',function(e){if(e.pointerType!=='mouse')raton.on=false});
+  // se arma cuando el lienzo tiene tamaño real (en el visor puede nacer en cero) y cada vez que cambia
+  var tm,va=false;function rearma(){clearTimeout(tm);tm=setTimeout(function(){arma();if(!va&&P.length){va=true;dibuja()}else if(quieto)dibuja()},120)}
+  if(window.ResizeObserver)new ResizeObserver(rearma).observe(cv);addEventListener('resize',rearma);rearma();
+
+  document.getElementById('arriba').onclick=function(){scrollTo({top:0,behavior:quieto?'auto':'smooth'})};
+  var b=document.getElementById('copiar'),dir=document.getElementById('dir');
+  b.onclick=function(){var t=dir.textContent;try{navigator.clipboard.writeText(t).then(function(){b.textContent='Copiado';setTimeout(function(){b.textContent='Copiar'},1600)},sel)}catch(e){sel()}
+    function sel(){var r=document.createRange();r.selectNodeContents(dir);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Seleccionado'}};
+})();
+</script>
+
+</body></html>
