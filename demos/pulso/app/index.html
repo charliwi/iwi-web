@@ -273,7 +273,23 @@ button{cursor:pointer}
 .cal span.x{border:1px dashed rgba(242,237,227,.55);color:var(--t1)}
 .cal span.h{border-color:#fff;color:#fff;box-shadow:0 0 10px rgba(255,236,200,.6)}
 .cal span.f{opacity:.35}
-.cal-ley{display:flex;gap:16px;margin-top:10px;font-size:11.5px;color:var(--t2)}
+/* heatmap de días (patrón Activity Heatmap de 21st.dev, rehecho): los mismos cuadros vuelan entre tres vistas */
+.hm-vistas{display:flex;gap:4px;margin-top:14px;padding:3px;border:1px solid rgba(242,237,227,.18);border-radius:10px;width:max-content;max-width:100%}
+.hm-vistas button{font:inherit;font-size:11.5px;padding:5px 10px;border:0;border-radius:7px;background:none;color:var(--t2);cursor:pointer;transition:background .3s,color .3s}
+.hm-vistas button[aria-checked="true"]{background:rgba(242,237,227,.14);color:var(--t1)}
+.hm{position:relative;margin-top:12px;height:150px;transition:height .5s cubic-bezier(.22,1,.36,1)}
+.hm .c{position:absolute;left:0;top:0;border-radius:5px;background:rgba(242,237,227,.07);transition:transform .62s cubic-bezier(.22,1,.36,1),opacity .4s,background .4s;display:grid;place-items:center;font-size:10px;color:rgba(242,237,227,.55)}
+.hm .c.t::after{content:"";width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 6px rgba(255,236,200,.9)}
+.hm .c.x{border:1px dashed rgba(242,237,227,.6)}
+.hm .c.h{box-shadow:0 0 0 1.5px #fff,0 0 12px rgba(255,236,200,.6)}
+.hm .c.s{background:none;border:1px solid rgba(242,237,227,.14)}
+.hm .c.f{opacity:.25}
+.hm .et{position:absolute;font-size:10px;color:var(--t3);transition:opacity .3s,transform .62s cubic-bezier(.22,1,.36,1);text-align:center;white-space:nowrap}
+.hm .et.pico{color:var(--t1);font-weight:600}
+.hm-lee{font-size:11.5px;color:var(--t2);margin:8px 0 0;min-height:1.4em}
+.cal-ley .s{border:1px solid rgba(242,237,227,.3);border-radius:3px!important}
+@media (prefers-reduced-motion:reduce){.hm .c,.hm .et,.hm{transition:none}}
+.cal-ley{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:10px;font-size:11.5px;color:var(--t2)}
 .cal-ley span{display:flex;align-items:center;gap:6px}.cal-ley i{width:10px;height:10px;border-radius:50%;display:inline-block}
 .cal-ley .t{background:rgba(167,203,173,.5)}.cal-ley .x{border:1px dashed rgba(242,237,227,.7)}.cal-ley .h{border:1px solid #fff;box-shadow:0 0 6px rgba(255,236,200,.7)}
 /* telaraña: leyenda que se toca y logros que se iluminan, muy tenue */
@@ -541,8 +557,10 @@ button{cursor:pointer}
       <div class="datos"><div><b>86%</b><span>Adherencia</span></div><div><b>3.8</b><span>Ánimo prom.</span></div><div><b>12</b><span>Escritos</span></div></div>
       <div class="eti" style="margin-top:26px">Tus tomas · semanas 1 a 3</div>
       <div class="datos"><div><b>7</b><span>Días de toma</span></div><div><b>1</b><span>Saltada</span></div><div><b>Hoy</b><span>Próxima toma</span></div></div>
-      <div class="cal" id="cal"></div>
-      <div class="cal-ley"><span><i class="t"></i>Toma</span><span><i class="x"></i>Saltada</span><span><i class="h"></i>Hoy</span></div>
+      <div class="hm-vistas" role="radiogroup" aria-label="Cómo ver tus días"><button type="button" role="radio" aria-checked="true" data-hm="cal">Calendario</button><button type="button" role="radio" aria-checked="false" data-hm="dia">Por día</button><button type="button" role="radio" aria-checked="false" data-hm="animo">Por ánimo</button></div>
+      <div class="hm" id="hm" aria-label="Tus 18 días: color según tu ánimo al cerrar"></div>
+      <p class="hm-lee" id="hmLee">Cada cuadro es un día. Más luz, mejor ánimo al cerrar.</p>
+      <div class="cal-ley"><span><i class="t"></i>Toma</span><span><i class="x"></i>Saltada</span><span><i class="h"></i>Hoy</span><span><i class="s"></i>Sin registro</span></div>
       <div class="eti" style="margin-top:26px">Medicamentos y suplementos</div>
       <div class="item" data-ir="meds" style="cursor:pointer"><div><strong>Mis medicamentos y suplementos</strong><small>Agrega uno nuevo o avisa que ya no lo tomas</small></div><span>→</span></div>
       <div class="eti" style="margin-top:26px">Herramientas</div>
@@ -842,10 +860,37 @@ button{cursor:pointer}
 (function(){var ss=document.querySelectorAll('.carta .signo'),k=0;if(ss.length)setInterval(function(){ss[k].classList.remove('on');k=(k+1)%ss.length;ss[k].classList.add('on')},1100);
   // en el teléfono la página se desplaza sola: al cambiar de pantalla, vuelve arriba
   document.addEventListener('click',function(e){if(e.target.closest('[data-ir],[data-tab],#fA,#fC,#guardarA,#sigD'))setTimeout(function(){if(matchMedia('(max-width:520px)').matches)scrollTo(0,0)},80)},true)})();
-(function(){var c=document.getElementById('cal');if(!c)return;var h='LMMJVSD'.split('').map(function(d){return '<b>'+d+'</b>'}).join('');
-  for(var k=0;k<3;k++)h+='<span class="f"></span>';
-  for(var d=1;d<=25;d++){var cls=d===18?'h':d>18?'f':d===10?'x':d%2===0?'t':'';h+='<span class="'+cls+'">'+d+'</span>'}
-  c.innerHTML=h})();
+(function(){var hm=document.getElementById('hm');if(!hm)return;
+  // datos inventados de Ana: día 1 = jueves 8 oct; ánimo al cerrar de 1 a 5 (0 = sin registro); tomas en días pares, la del 10 saltada; hoy = día 18
+  var AN=[0,3,4,3,4,3,4,0,4,3,2,3,4,0,4,5,4,4,0],DS='LMMJVSD',DL=['lunes','martes','miércoles','jueves','viernes','sábado','domingo'],OFF=3;
+  var dias=[];for(var d=1;d<=18;d++){var w=(OFF+d-1)%7,f=d>18,a=f?0:AN[d];dias.push({d:d,w:w,s:Math.floor((OFF+d-1)/7),a:a,f:f,toma:!f&&d%2===0&&d!==10,salt:d===10,hoy:d===18})}
+  var hecho=dias.filter(function(x){return x.a>0&&!x.hoy});
+  var ets=[];function et(t){var e=document.createElement('span');e.className='et';e.textContent=t;hm.appendChild(e);ets.push(e);return e}
+  var eW=DS.split('').map(function(l){return et(l)}),eA=[1,2,3,4,5].map(function(n){return et(n)}),eN=[];
+  for(var i=0;i<7;i++)eN.push(et(''));
+  dias.forEach(function(x){var c=document.createElement('span');c.className='c'+(x.f?' f':x.a===0&&!x.hoy?' s':'')+(x.toma?' t':'')+(x.salt?' x':'')+(x.hoy?' h':'');
+    if(x.a>0&&!x.hoy)c.style.background='rgba(167,203,173,'+(.12+x.a*.16)+')';c.title='Día '+x.d+(x.a&&!x.hoy?' · ánimo '+x.a:x.hoy?' · hoy':'');x.el=c;hm.appendChild(c)});
+  var vista='cal';
+  function pon(el,x,y,o){el.style.transform='translate('+x+'px,'+y+'px)';el.style.opacity=o}
+  function arma(){var W=hm.clientWidth||320,g=6,e=Math.min(38,Math.floor((W-g*6)/7)),col=function(i){return i*(e+g)},H;
+    dias.forEach(function(x){x.el.style.width=x.el.style.height=e+'px';x.el.textContent=vista==='cal'&&!x.toma?x.d:''});
+    ets.forEach(function(s){s.style.width=e+'px';s.style.opacity=0});
+    if(vista==='cal'){eW.forEach(function(s,i){pon(s,col(i),0,1)});
+      dias.forEach(function(x){pon(x.el,col(x.w),16+x.s*(e+g),1)});H=16+3*(e+g);
+      document.getElementById('hmLee').textContent='Cada cuadro es un día. Más luz, mejor ánimo al cerrar. El punto marca tus tomas.'}
+    else if(vista==='dia'){var n=[0,0,0,0,0,0,0],alto=0;hecho.forEach(function(x){n[x.w]++});var mx=Math.max.apply(null,n),pk=n.indexOf(mx),cnt=[0,0,0,0,0,0,0];
+      var base=16+mx*(e/2+3);dias.forEach(function(x){if(x.a>0&&!x.hoy){pon(x.el,col(x.w),base-(++cnt[x.w])*(e/2+3)+3,1);x.el.style.height=(e/2)+'px'}else pon(x.el,col(x.w),base,0)});
+      eW.forEach(function(s,i){pon(s,col(i),base+6,1);s.classList.toggle('pico',i===pk)});
+      eN.forEach(function(s,i){s.textContent=n[i]||'';pon(s,col(i),base-n[i]*(e/2+3)-14,n[i]?1:0);s.classList.toggle('pico',i===pk)});H=base+22;
+      document.getElementById('hmLee').textContent='Los '+DL[pk]+' son los días que más cierras.'}
+    else{var k=[0,0,0,0,0,0],c2=[0,0,0,0,0,0];hecho.forEach(function(x){k[x.a]++});var mx2=Math.max.apply(null,k),pk2=k.indexOf(mx2),cw=(W-g*4)/5,ew=Math.min(e,cw);
+      var base2=16+mx2*(e/2+3);dias.forEach(function(x){if(x.a>0&&!x.hoy){var cc=c2[x.a]++;x.el.style.height=(e/2)+'px';x.el.style.width=ew+'px';pon(x.el,(x.a-1)*(cw+g)+(cw-ew)/2,base2-(cc+1)*(e/2+3)+3,1)}else pon(x.el,W/2,base2,0)});
+      eA.forEach(function(s,i){s.style.width=cw+'px';pon(s,i*(cw+g),base2+6,1);s.classList.toggle('pico',i+1===pk2)});
+      eN.slice(0,5).forEach(function(s,i){s.style.width=cw+'px';s.textContent=k[i+1]||'';pon(s,i*(cw+g),base2-k[i+1]*(e/2+3)-14,k[i+1]?1:0);s.classList.toggle('pico',i+1===pk2)});H=base2+22;
+      document.getElementById('hmLee').textContent='Tu cierre más frecuente: ánimo '+pk2+' de 5, en '+mx2+' días.'}
+    hm.style.height=H+'px'}
+  document.querySelectorAll('[data-hm]').forEach(function(b){b.onclick=function(){vista=b.dataset.hm;document.querySelectorAll('[data-hm]').forEach(function(o){o.setAttribute('aria-checked',o===b)});arma()}});
+  if(window.ResizeObserver)new ResizeObserver(function(){arma()}).observe(hm);arma()})();
 </script>
 </body>
 </html>
