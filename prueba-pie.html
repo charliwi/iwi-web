@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iwi · estudio de diseño · design studio</title>
+<meta name="description" content="iwi, estudio de diseño en Ciudad de México: diseñamos objetos, procesos y experiencias que sí se fabrican. · Design studio in Mexico City: we design objects, processes and experiences that actually get made.">
+<meta property="og:title" content="iwi · estudio de diseño · design studio">
+<meta property="og:description" content="Diseñamos objetos, procesos y experiencias que sí se fabrican. · We design objects, processes and experiences that actually get made.">
+<meta property="og:image" content="https://raw.githubusercontent.com/charliwi/iwi-web/main/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://iwi.com.mx/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="iwi">
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1C2340">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://iwi.com.mx/#org","name":"iwi","url":"https://iwi.com.mx/","email":"hola@iwi.com.mx","slogan":"Diseñamos objetos, procesos y experiencias que sí se fabrican.","description":"Estudio de diseño en Ciudad de México con tres divisiones: Manufacturing (diseño para fabricación y maquila para marcas), ForBatch (para diseñadores que están haciendo sus piezas: diseño, desarrollo, fabricación y venta, de una a cientos) y design thinking (sistemas, plataformas, servicios y UI/UX). Design studio in Mexico City.","address":{"@type":"PostalAddress","addressLocality":"Ciudad de México","addressCountry":"MX"},"knowsAbout":["diseño industrial","diseño para fabricación","producción por lote","impresión 3D","cerámica","diseño de servicio","UI/UX"]},{"@type":"WebSite","@id":"https://iwi.com.mx/#web","url":"https://iwi.com.mx/","name":"iwi · estudio de diseño","inLanguage":["es-MX","en"],"publisher":{"@id":"https://iwi.com.mx/#org"}}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville&family=Courier+Prime&family=IBM+Plex+Sans+Condensed:wght@500&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--n:#1C2340;--y:#E4F000;--l:#BFFF00;--b:#FAFAF6;--g:rgba(28,35,64,.62);--h:rgba(28,35,64,.12);--f:"Helvetica Neue",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);background:var(--b);color:var(--n);-webkit-font-smoothing:antialiased}
+img{display:block;width:100%;height:100%;object-fit:cover}
+.w{max-width:1240px;margin:0 auto;padding:0 32px}
+.borrador{background:var(--n);color:#fff;font-size:12px;padding:8px 32px;text-align:center}
+nav{position:sticky;top:0;z-index:5;background:rgba(250,250,246,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--h)}
+nav .w{display:flex;align-items:center;justify-content:space-between;height:72px}
+nav .iwi{height:30px;width:auto;display:block}
+nav ul{display:flex;gap:28px;list-style:none;font-size:14px}
+nav a{color:inherit;text-decoration:none}
+nav a:hover{text-decoration:underline;text-underline-offset:4px}
+.hero{padding:96px 0 72px}
+.hero h1{font-size:clamp(44px,7.2vw,104px);line-height:.98;letter-spacing:-.045em;font-weight:500;max-width:1100px;margin-top:28px}
+.hero h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--y) 62%)}
+.hero p{font-size:clamp(18px,1.6vw,22px);line-height:1.45;color:var(--g);max-width:640px;margin-top:32px}
+.eti{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--g)}
+section{padding:80px 0;border-top:1px solid var(--h)}
+.cab{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:40px;gap:24px;flex-wrap:wrap}
+.cab h2{font-size:clamp(30px,3.6vw,48px);font-weight:500;letter-spacing:-.03em;line-height:1.05}
+/* sublogos con compensación óptica */
+.lock{display:inline-flex;align-items:center;gap:calc(var(--H)*.22);height:var(--H)}
+.lock .iwi{height:var(--H);width:auto;flex:none}
+.lock .t{transform:translateY(calc(var(--H)*.19));white-space:nowrap;line-height:1}
+.fb{font-family:"Baskervville",serif;font-size:calc(var(--H)*.86)}
+.mnf{font-family:"IBM Plex Sans Condensed",var(--f);font-weight:500;font-size:calc(var(--H)*.78);letter-spacing:.01em}
+.dt{font-family:"Caveat",cursive;font-weight:500;font-size:calc(var(--H)*.8);position:relative;display:inline-block}
+.dt .ul{position:absolute;left:0;bottom:calc(var(--H)*-.1);width:100%;height:calc(var(--H)*.16)}
+.from{position:relative;display:inline-block;width:calc(var(--H)*1.9);height:calc(var(--H)*.8)}
+.from span{position:absolute;left:0;bottom:0;opacity:0;transition:opacity .9s ease}
+.from span.on{opacity:1}
+.from .s1{font-family:"Baskervville",serif;font-size:calc(var(--H)*.86)}
+.from .s2{font-family:"IBM Plex Sans Condensed",var(--f);font-weight:500;font-size:calc(var(--H)*.78)}
+.from .s3{font-family:"Caveat",cursive;font-weight:500;font-size:calc(var(--H)*.86)}
+/* casos */
+.trabajos{display:grid;grid-template-columns:repeat(12,1fr);gap:56px 24px}
+.t{grid-column:span 6}
+.t.ancho{grid-column:span 12}
+.t .img{aspect-ratio:4/3;overflow:hidden;background:#EEEDE6}
+.t.ancho .img{aspect-ratio:16/7}
+.t .img img{transition:transform 1.2s cubic-bezier(.4,0,.2,1)}
+.t:hover .img img{transform:scale(1.03)}
+.t .meta{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.t h3{font-size:clamp(20px,2vw,28px);font-weight:500;letter-spacing:-.02em;line-height:1.15;margin-top:10px;max-width:640px}
+.psa{display:grid;grid-template-columns:88px 1fr;gap:6px 14px;margin-top:16px;font-size:15px;line-height:1.5;max-width:620px}
+.t.ancho .psa{grid-template-columns:88px 1fr 88px 1fr 88px 1fr;max-width:none}
+.psa dt{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--g);padding-top:3px}
+.psa dd{color:var(--n)}
+.chip{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border:1px solid var(--h)}
+.ia{display:flex;align-items:center;justify-content:center;text-align:center;border:1px dashed rgba(28,35,64,.35);background:repeating-linear-gradient(135deg,#F3F2EA 0 14px,#EFEEE5 14px 28px);color:var(--g);font-size:13px;line-height:1.5;padding:24px}
+/* divisiones */
+.divs{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.d{border-top:1px solid var(--n);padding-top:28px}
+.d p{font-size:16px;line-height:1.55;margin-top:24px}
+.d ul{list-style:none;margin-top:16px;font-size:14px;color:var(--g);line-height:1.9}
+.d ul li::before{content:"· "}
+.extra{margin-top:40px;padding-top:28px;border-top:1px solid var(--h);display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.extra p{font-size:15px;color:var(--g);max-width:560px;line-height:1.5}
+/* cómo pensamos */
+.pensar{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:start}
+.cita{font-size:clamp(28px,3.2vw,44px);line-height:1.1;letter-spacing:-.03em;font-weight:500}
+.cita span{display:block;color:var(--g);font-weight:300}
+.pasos{display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+.paso{border-top:1px solid var(--h);padding:22px 0 28px}
+.paso b{font-size:12px;font-weight:600;color:var(--g)}
+.paso h4{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-top:8px}
+.paso p{font-size:15px;line-height:1.5;color:var(--g);margin-top:8px}
+.contacto{background:var(--y);border:0}
+.contacto h2{font-size:clamp(40px,6vw,88px);font-weight:500;letter-spacing:-.045em;line-height:1}
+.contacto p{font-size:20px;line-height:1.45;margin-top:24px;max-width:620px}
+.btn{display:inline-flex;gap:24px;margin-top:32px;border:1px solid var(--n);border-radius:4px;padding:13px 18px;font-size:15px;font-weight:600;text-decoration:none;color:var(--n)}
+footer{padding:40px 0 56px;font-size:13px;color:var(--g)}
+footer .w{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+.pend{background:var(--l);padding:0 3px;color:var(--n)}
+@media (max-width:860px){
+  nav ul{display:none}
+  .t,.t.ancho{grid-column:span 12}
+  .t.ancho .psa{grid-template-columns:88px 1fr}
+  .divs,.pensar,.pasos{grid-template-columns:1fr}
+  .w{padding:0 16px}
+}
+.idioma{display:flex;gap:10px;margin-left:24px}.idioma button{background:none;border:0;padding:2px 0;font:inherit;font-size:13px;letter-spacing:.06em;cursor:pointer;opacity:.45;border-bottom:1px solid transparent;color:inherit}.idioma button.on{opacity:1;border-color:currentColor}
+.t .img.estudio{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:14px;background:var(--n);color:#fff;padding:12%;font-family:"Courier Prime","Courier New",ui-monospace,monospace;font-size:clamp(18px,2.2vw,28px)}
+.t .img.estudio i{display:block;width:44px;height:1px;background:var(--l)}
+.correo{font-size:15px;margin-left:14px;user-select:all}
+
+/* ===== por páginas (Carlos, 27 oct): una página a la vez, cada una con su espacio completo ===== */
+html,body{height:100%;overflow:hidden}
+nav{position:fixed;left:0;right:0;top:0;height:64px}
+nav .w{height:64px}
+nav ul a{position:relative;padding:4px 0}
+nav ul a.on::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:6px;background:var(--y);z-index:-1}
+nav ul a:hover{text-decoration:none}
+.pag{position:fixed;top:64px;left:0;right:0;bottom:0;overflow:auto;visibility:hidden;opacity:0;pointer-events:none;
+  transition:opacity .45s ease,visibility 0s linear .45s}
+.pag.on{visibility:visible;opacity:1;pointer-events:auto;transition:opacity .5s ease .2s}
+/* una pantalla a la vez: la que se va desaparece rápido antes de que llegue la otra, así nunca se enciman */
+.pag:not(.on){transition:opacity .2s ease,visibility 0s linear .2s}
+.pag .w{height:100%}
+/* entradas: cada página se mueve a su manera */
+@keyframes sube{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes lado{from{opacity:0;transform:translateX(calc(var(--dir,1)*48px))}to{opacity:1;transform:none}}
+@keyframes revela{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes acerca{from{transform:scale(1.12)}to{transform:scale(1)}}
+/* los cambios de color bajan de arriba hacia abajo, por debajo del degradado del menú (Carlos, 27 oct) */
+@keyframes llena{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes raya{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.pag.on .e{animation:sube .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0)*110ms + 120ms)}
+/* inicio */
+.inicio .w{display:flex;flex-direction:column;justify-content:center;padding-bottom:64px}
+.inicio h1{font-size:clamp(44px,7.6vw,112px);line-height:.98;letter-spacing:-.045em;font-weight:500;max-width:1150px;margin-top:24px}
+.inicio h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--y) 62%)}
+.gira{display:inline-block;position:relative;transition:opacity .45s ease,transform .45s ease}
+.gira.va{opacity:0;transform:translateY(-.25em)}
+.inicio p{font-size:clamp(18px,1.6vw,22px);line-height:1.45;color:var(--g);max-width:640px;margin-top:28px}
+.ir{display:inline-flex;gap:14px;margin-top:36px;font-size:15px;font-weight:600;color:var(--n);text-decoration:none;border-bottom:1px solid var(--n);padding-bottom:4px;align-self:flex-start}
+/* casos: foto y texto, una pieza a la vez */
+.caso{display:grid;grid-template-columns:7fr 5fr;gap:40px;padding:28px 32px 92px;max-width:1400px;margin:0 auto}
+.caso .foto{min-height:0}
+.caso .img{height:100%;aspect-ratio:auto!important;overflow:hidden;background:#EEEDE6}
+.caso.on .img{animation:revela 1.1s cubic-bezier(.6,0,.2,1) both}
+.caso.on .img img{animation:acerca 1.8s cubic-bezier(.2,.7,.2,1) both}
+.caso .txt{align-self:center}
+.caso.on .txt>*{animation:lado .8s cubic-bezier(.2,.7,.2,1) both}
+.caso.on .txt>*:nth-child(1){animation-delay:.25s}.caso.on .txt>*:nth-child(2){animation-delay:.35s}.caso.on .txt>*:nth-child(3){animation-delay:.45s}
+.caso h3{font-size:clamp(24px,2.6vw,38px);font-weight:500;letter-spacing:-.025em;line-height:1.1;margin-top:14px}
+.caso .meta{display:flex;gap:8px;flex-wrap:wrap}
+.caso .psa{grid-template-columns:88px 1fr!important;max-width:520px}
+.caso .img.estudio{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:18px;background:var(--n);color:#fff;padding:12%;font-family:"Courier Prime","Courier New",monospace;font-size:clamp(22px,2.6vw,36px)}
+.caso .img.estudio i{display:block;width:56px;height:1px;background:var(--l);transform-origin:left}
+.caso.on .img.estudio i{animation:raya 1s .6s both}
+.galeria{position:relative}
+.galeria img{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.galeria img.on{opacity:1}
+.galeria .nota{position:absolute;left:12px;bottom:10px;font-family:"Courier Prime",monospace;font-size:12px;color:#fff;background:rgba(28,35,64,.55);padding:2px 8px;border-radius:2px}
+/* qué hacemos: bento */
+@keyframes crece{from{opacity:0;transform:scale(.965)}to{opacity:1;transform:none}}
+.pag.on .b.e{animation:crece .8s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0)*90ms + 80ms)}
+.hacemos .bento{display:grid;grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;flex:1;min-height:0}
+.b{position:relative;display:flex;flex-direction:column;overflow:hidden;border-radius:6px;background:var(--b);border:1px solid var(--h);color:var(--n);text-decoration:none;min-height:0}
+.b-foto{flex:1;min-height:0;overflow:hidden;background:#EEEDE6}
+.b-foto img{transition:transform 1.2s cubic-bezier(.4,0,.2,1)}
+.b:hover .b-foto img{transform:scale(1.04)}
+.b-txt{padding:18px 20px 20px}
+.b p{font-size:15px;line-height:1.45;margin-top:12px;max-width:460px}
+.b ul{list-style:none;display:flex;flex-wrap:wrap;gap:2px 14px;margin-top:10px;font-size:13px;color:var(--g)}
+.b ul li::before{content:"· "}
+.b-ir{align-self:flex-start;display:inline-flex;gap:6px;margin-top:14px;font-size:13px;font-weight:600;border-bottom:1px solid currentColor;padding-bottom:2px}
+.b:hover .b-ir span:last-child{transform:translateX(3px)}.b-ir span:last-child{transition:transform .3s}
+.b-fb{grid-row:1/3}
+.b-mnf{grid-column:2/4;flex-direction:row}.b-mnf .b-foto{flex:1.1}.b-mnf .b-txt{flex:1;display:flex;flex-direction:column;justify-content:center}
+.b-dt,.b-from{border:0}.b-dt .b-txt,.b-from .b-txt{flex:1;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start}
+.b-dt{background:var(--n);color:#fff}.b-dt ul{color:rgba(255,255,255,.72)}
+.b-from{background:var(--y)}.b-from p{font-size:18px;max-width:260px}
+/* qué hacemos */
+.pag.hacemos{padding:0;border:0}
+.hacemos .w{display:flex;flex-direction:column;padding-top:28px;padding-bottom:28px}
+.hacemos h2{margin-bottom:16px!important}
+.hacemos h2,.pensamos h2{font-size:clamp(30px,3.6vw,48px);font-weight:500;letter-spacing:-.03em;line-height:1.05;margin-bottom:36px}
+.hacemos .d{transform-origin:top}
+/* cómo pensamos: los pasos pasan solos, como los lentes de microsteps */
+.pensamos .w{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:center;padding-bottom:80px}
+.pensamos .cita{font-size:clamp(30px,3.4vw,48px);line-height:1.08;letter-spacing:-.03em;font-weight:500}
+.pensamos .cita span{display:block;color:var(--g);font-weight:300}
+.serie{position:relative;min-height:260px}
+.serie .paso{position:absolute;inset:0;border:0;padding:0;opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.serie .paso.on{opacity:1;transform:none}
+.serie .paso b{font-family:"Courier Prime",monospace;font-size:15px;color:var(--g);font-weight:400}
+.serie .paso h4{font-size:clamp(40px,5vw,72px);font-weight:500;letter-spacing:-.04em;line-height:1;margin-top:14px}
+.serie .paso p{font-size:clamp(18px,1.6vw,22px);line-height:1.45;color:var(--g);margin-top:18px;max-width:520px}
+/* contacto: el amarillo sube y llena la página */
+.pag.contacto{background:transparent}
+.pag.contacto::before{content:"";position:fixed;top:64px;left:0;right:0;bottom:0;background:var(--y);z-index:-1}
+.pag.contacto.on::before{animation:llena 1.4s cubic-bezier(.5,0,.2,1) both}
+.contacto .w{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding-bottom:40px}
+.contacto h2{font-size:clamp(44px,7vw,104px);font-weight:500;letter-spacing:-.045em;line-height:1}
+.contacto p{font-size:20px;line-height:1.45;margin-top:24px;max-width:620px}
+.contacto .pie{display:flex;gap:28px;flex-wrap:wrap;align-items:center;margin-top:56px;font-size:13px;color:var(--g)}
+/* abajo: títulos para brincar (casos y pasos) */
+#barra{position:fixed;left:0;right:0;bottom:0;z-index:6;display:flex;align-items:center;gap:16px;padding:0 32px;height:64px;
+  background:linear-gradient(transparent,rgba(250,250,246,.96) 40%);opacity:0;pointer-events:none;transition:opacity .4s}
+#barra.on{opacity:1;pointer-events:auto}
+#barra .cuenta{font-family:"Courier Prime",monospace;font-size:13px;color:var(--g);min-width:52px}
+#barra .lista{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;flex:1;mask-image:linear-gradient(90deg,#000 88%,transparent)}
+#barra .lista::-webkit-scrollbar{display:none}
+#barra button{background:none;border:0;font:inherit;font-size:14px;color:var(--g);cursor:pointer;white-space:nowrap;padding:6px 0;position:relative}
+#barra button.on{color:var(--n)}
+#barra button.on::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:6px;background:var(--y);z-index:-1}
+#barra .flecha{font-size:20px;color:var(--n);padding:6px 4px}
+@media (max-width:860px){
+  nav ul{display:flex;gap:16px;font-size:13px}
+  nav .w{padding:0 16px;gap:12px}
+  nav .iwi{height:22px}
+  .idioma{margin-left:0}
+  nav{height:auto} nav .w{height:auto;min-height:56px;flex-wrap:wrap;padding-top:10px;padding-bottom:8px}
+  nav ul{order:3;width:100%;justify-content:space-between;white-space:nowrap;overflow-x:auto;scrollbar-width:none}nav ul::-webkit-scrollbar{display:none}nav ul a{white-space:nowrap}
+  .pag,.pag.contacto::before{top:92px}
+  .caso{grid-template-columns:1fr;grid-template-rows:36% auto;gap:16px;padding:14px 16px 76px}
+  .caso .psa{font-size:14px}
+  .hacemos .bento{grid-template-columns:1fr 1fr;grid-template-rows:1.15fr .9fr 1fr;gap:8px}
+  .b-fb{grid-column:1/3;grid-row:auto;flex-direction:row}.b-fb .b-foto{flex:.8}.b-fb .b-txt{flex:1}
+  .b-mnf{grid-column:1/3;flex-direction:row-reverse}.b-mnf .b-foto{flex:.8}
+  .b .lock{--H:24px!important}.b-from .lock{--H:30px!important}.b-dt .lock{--H:19px!important}
+  .b-txt{padding:12px 12px 12px}.b p{font-size:13px;margin-top:8px;line-height:1.38}.b ul{display:none}
+  .b-ir{margin-top:8px;font-size:12px}.b-from p{font-size:14px}
+  .hacemos .divs{gap:18px}.hacemos .d{padding-top:16px}.hacemos .d p{margin-top:12px;font-size:15px}.hacemos .d ul{display:none}.hacemos h2{margin-bottom:16px}.hacemos .extra{margin-top:20px;padding-top:16px}
+  .caso .txt{align-self:start}
+  .pensamos .w{grid-template-columns:1fr;gap:32px;align-content:center}
+  .serie{min-height:240px}
+  #barra{padding:0 16px}
+}
+@media (max-width:420px){nav ul{font-size:12px;gap:8px}}
+/* calma y acceso (tendencias 2026: movimiento que explica, accesibilidad como infraestructura) */
+:focus-visible{outline:2px solid var(--n);outline-offset:3px}
+#barra button{min-height:44px}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+}
+@media (max-width:860px) and (max-height:720px){.b p{font-size:12px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}.b-dt p{-webkit-line-clamp:3}.b-from p{-webkit-line-clamp:3}.b-mnf p{-webkit-line-clamp:2}.b-ir{margin-top:4px}.hacemos h2{font-size:24px;margin-bottom:8px!important}.hacemos .w{padding-top:12px;padding-bottom:12px}.caso{grid-template-rows:30% auto}.caso h3{font-size:21px;margin-top:8px}.caso .psa{margin-top:10px;font-size:13px;gap:4px 12px}.inicio h1{font-size:40px}}
+
+/* ===== fuerza ===== */
+/* inicio: tipo enorme y un collage que respira (retícula rota sólo aquí) */
+.inicio{overflow:hidden}
+.inicio .w{position:relative;z-index:2;pointer-events:none}
+.inicio .w a{pointer-events:auto}
+.inicio h1{font-size:clamp(48px,7vw,118px);max-width:58%}
+.inicio p{max-width:440px}
+.collage{position:absolute;right:3vw;top:5vh;bottom:6vh;width:44vw;z-index:1}
+.collage .m{position:absolute;margin:0;overflow:hidden;background:#EEEDE6;box-shadow:0 24px 60px rgba(28,35,64,.18);
+  transform:translate3d(calc(var(--px,0)*var(--prof)*-10px),calc(var(--py,0)*var(--prof)*-8px),0);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.collage .m img{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease}
+.collage .m img.on{opacity:1}
+.collage .m1{right:0;top:0;width:58%;height:78%}
+.collage .m2{left:0;top:30%;width:44%;height:52%}
+.collage .m3{right:16%;bottom:0;width:46%;height:30%}
+.pag.on .collage .m{animation:sube 1.1s cubic-bezier(.2,.7,.2,1) both}
+.pag.on .collage .m2{animation-delay:.15s}.pag.on .collage .m3{animation-delay:.3s}
+/* casos: la foto ocupa toda la página; el texto flota en vidrio encima (el vidrio explica la capa) */
+.caso{display:block!important;padding:0!important;max-width:none!important;position:fixed}
+.caso .foto{position:absolute;inset:-12px;transform:translate3d(calc(var(--px,0)*-12px),calc(var(--py,0)*-9px),0);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.caso .img{height:100%;border-radius:0}
+.caso .galeria .nota{top:24px;bottom:auto;left:24px}
+.caso .txt{position:absolute;left:32px;bottom:84px;width:min(540px,calc(100% - 64px));max-height:calc(100% - 120px);overflow:auto;
+  background:rgba(250,250,246,.82);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);
+  padding:24px 26px 22px;border-radius:10px;box-shadow:0 16px 48px rgba(28,35,64,.22)}
+.caso h3{font-size:clamp(26px,3.1vw,46px);letter-spacing:-.035em;line-height:1.02}
+.caso .img.estudio{padding:7% 8%;font-size:clamp(30px,4.4vw,68px);gap:24px;justify-content:flex-start;align-items:flex-end}
+@media (max-width:860px){.caso .img.estudio{padding:18px 20px;font-size:28px;gap:14px}}
+#barra{background:rgba(250,250,246,.74);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border-top:1px solid rgba(28,35,64,.08)}
+@media (max-width:860px){
+  .inicio h1{max-width:none;font-size:clamp(40px,11vw,56px)}
+  .inicio .w{justify-content:flex-end;padding-bottom:48px}
+  .collage{left:16px;right:16px;top:12px;bottom:auto;height:40%;width:auto}
+  .collage .m1{width:52%;height:100%}.collage .m2{width:40%;height:62%;top:8%}.collage .m3{width:42%;height:38%;right:40%;bottom:-6%}
+  .caso .txt{left:10px;right:10px;width:auto;bottom:70px;max-height:48%;padding:14px 16px 12px}
+  .caso h3{font-size:24px}
+  .caso .psa{font-size:13.5px}
+}
+@media (max-width:860px) and (max-height:720px){.collage{height:34%}.inicio p{display:none}}
+/* entrar en las imágenes: la que se va se acerca; la nueva llega desde un poco más cerca */
+.pag.sale .foto,.pag.sale .collage{transform:scale(1.18)!important;transition:transform .3s cubic-bezier(.5,0,.2,1)!important}
+.galeria img.on{animation:entra 2.4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes entra{from{transform:scale(1.12)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.collage .m,.caso .foto{transform:none!important}.galeria img.on{animation:none}}
+
+/* filosofía: una frase a la vez, enorme, y un aliento que se expande y se recoge detrás */
+.pag.filo{padding:0;border:0;overflow:hidden}
+.filo .w{display:flex!important;flex-direction:column;justify-content:center;align-items:stretch!important;padding-top:24px;padding-bottom:96px;position:relative;z-index:1}
+.filo .serie{width:100%}
+.filo .eti{margin-bottom:28px}
+.filo .serie{min-height:min(52vh,440px);max-width:1100px}
+.filo .serie .paso b{font-family:"Courier Prime",monospace;font-size:14px;font-weight:400;color:var(--y);letter-spacing:.04em}
+.filo .serie .paso h4{font-size:clamp(40px,6.4vw,104px);letter-spacing:-.045em;line-height:.98;margin-top:22px;max-width:15ch}
+.filo .serie .paso p{font-size:clamp(18px,1.7vw,24px);max-width:640px;margin-top:26px}
+.aliento{position:absolute;right:-12vw;top:50%;width:min(80vw,820px);aspect-ratio:1;transform:translateY(-50%);pointer-events:none;z-index:0}
+.aliento i{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(228,240,0,.22);animation:respira 8s ease-in-out infinite}
+.aliento i:nth-child(2){inset:12%;animation-delay:-2.6s;border-color:rgba(228,240,0,.14)}
+.aliento i:nth-child(3){inset:24%;animation-delay:-5.2s;border-color:rgba(228,240,0,.09);background:radial-gradient(closest-side,rgba(228,240,0,.06),transparent)}
+@keyframes respira{0%,100%{transform:scale(.9);opacity:.55}50%{transform:scale(1.04);opacity:1}}
+@media (max-width:860px){.filo .serie{min-height:340px}.filo .serie .paso h4{font-size:clamp(36px,10vw,52px)}.aliento{right:-40vw;width:120vw}}
+@media (prefers-reduced-motion:reduce){.aliento i{animation:none}}
+
+/* ===== azul iwi de fondo (Carlos, 27 oct): el azul del logo manda, letras claras, amarillo de acento ===== */
+:root{--n:#F4F3EE;--b:#1C2340;--g:rgba(244,243,238,.68);--h:rgba(244,243,238,.14);--azul:#1C2340}
+body{background:var(--azul);color:var(--n)}
+nav{background:rgba(28,35,64,.86)}
+nav svg path{fill:var(--n)}
+nav ul a.on::after{height:3px;bottom:-4px}
+.inicio h1 em{background:none;color:var(--y)}
+.ir{color:var(--y);border-color:var(--y)}
+.chip{border-color:rgba(244,243,238,.3);color:var(--n)}
+.caso .txt{background:rgba(22,28,52,.74);color:var(--n);box-shadow:0 16px 48px rgba(0,0,0,.35)}
+.caso .psa dd{color:var(--n)}
+#barra{background:rgba(22,28,52,.72);border-top-color:rgba(244,243,238,.1)}
+#barra button.on{color:var(--y)}#barra button.on::after{display:none}
+.collage .m{box-shadow:0 24px 70px rgba(0,0,0,.45);background:#263056}
+.b{background:#232B4C;border-color:rgba(244,243,238,.1);color:var(--n)}
+.b .lock svg path{fill:currentColor}
+.b .lock{color:var(--n)!important}.b-from .lock{color:#1C2340!important}
+.b-foto{background:#263056}
+.b-dt{background:#2B3460}
+.b-from{background:var(--y);color:#1C2340}.b-from .b-ir{color:#1C2340}
+.serie .paso h4{color:var(--n)}
+.pag.contacto,.pag.contacto .eti,.pag.contacto p,.pag.contacto .pie{color:#1C2340}
+.pag.contacto .btn{color:#1C2340;border-color:#1C2340}
+.contacto .pie svg path{fill:rgba(28,35,64,.62)}
+:focus-visible{outline-color:var(--y)}
+/* el menú sin línea ni caja (Carlos, 27 oct): iwi es un brandmark libre y más grande; arriba sólo un degradado
+   de más oscuro al tono de la página, que siempre está ahí y hace sentir el espacio sin delimitarlo */
+nav::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(9,12,28,.92) 0%,rgba(14,18,40,.55) 55%,rgba(28,35,64,0) 100%);transition:opacity 1.2s ease .2s;pointer-events:none}
+body[data-p="contacto"] nav::after{opacity:0}
+nav{background:transparent!important;border:0!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;height:132px!important;pointer-events:none}
+nav .w{height:auto!important;align-items:flex-start!important;padding-top:22px;pointer-events:none}
+nav a,nav button{pointer-events:auto}
+nav .iwi{height:46px!important}
+nav ul{padding-top:6px}
+nav .idioma{padding-top:4px}
+.pag,.pag.contacto::before{top:0!important}
+.caso,.pag.filo{overflow:hidden!important}
+.inicio .w{padding-top:120px}
+.collage{top:118px!important}
+.hacemos .w{padding-top:112px!important}
+.filo .w{padding-top:112px!important}
+.caso .galeria .nota{top:118px!important}
+.caso .img.estudio{padding-top:140px!important}
+nav::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(196,206,0,.9) 0%,rgba(214,224,0,.5) 55%,rgba(228,240,0,0) 100%);opacity:0;transition:opacity 1.2s ease .2s;pointer-events:none}
+nav .w{position:relative;z-index:1}
+body[data-p="contacto"] nav::before{opacity:1}
+nav a,nav button,nav svg path,.sello{transition:color .9s ease .3s,fill .9s ease .3s}
+body[data-p="contacto"] nav,body[data-p="contacto"] nav a,body[data-p="contacto"] nav button{color:#1C2340!important}
+body[data-p="contacto"] nav svg path{fill:#1C2340}
+body[data-p="contacto"] nav ul a.on::after{background:#1C2340}
+.contacto .w{padding-top:110px}
+@media (max-width:860px){
+  nav{height:150px!important}
+  nav .w{padding-top:14px;row-gap:10px}
+  nav .iwi{height:34px!important}
+  nav ul{padding-top:0}
+  .inicio .w{padding-top:150px}
+  .collage{top:118px!important;height:34%!important}
+  .hacemos .w{padding-top:104px!important}
+  .filo .w{padding-top:104px!important}
+  .caso .galeria .nota{top:104px!important}
+  .caso .img.estudio{padding-top:120px!important}
+}
+
+/* ===== intro ===== */
+/* en web: dos mitades iguales, texto e imagen, con aire al centro (Carlos, 27 oct; revisar grids después) */
+.pag.intro{overflow:hidden!important}
+.intro .w{display:grid!important;grid-template-columns:1fr 1fr;gap:6vw;align-items:center;padding-top:200px!important;padding-bottom:64px!important}
+.intro h1{max-width:none!important;line-height:1.02;letter-spacing:-.04em;white-space:nowrap}
+.intro h1 .dis{font-weight:700}
+.intro h1 .cosa,.intro h1 .nw{font-weight:300}
+.intro .cosa,.intro em.hace{display:inline-block;transition:opacity .9s ease,transform .9s cubic-bezier(.3,0,.2,1),filter .9s ease}
+.intro .sale{opacity:0;transform:translateY(.22em);filter:blur(6px)}
+.intro .llega{opacity:0;transform:translateY(-.22em);filter:blur(6px);transition:none!important}
+/* subrayado grueso: llega casi a media letra; el blanco encima del amarillo hace un poco de ruido a propósito */
+.intro em.hace{font-style:normal;font-weight:700;color:var(--n);background:linear-gradient(var(--y),var(--y)) no-repeat 0 86%/100% .4em}
+.intro p{max-width:460px}
+.sonido{margin-top:34px;display:inline-flex;align-items:center;gap:10px;background:none;border:0;color:var(--g);font:inherit;font-size:13px;letter-spacing:.06em;cursor:pointer;padding:6px 0}
+.sonido .ic{width:16px;height:12px;background:linear-gradient(currentColor,currentColor) 0 50%/2px 4px no-repeat,linear-gradient(currentColor,currentColor) 4px 50%/2px 8px no-repeat,linear-gradient(currentColor,currentColor) 8px 50%/2px 12px no-repeat,linear-gradient(currentColor,currentColor) 12px 50%/2px 6px no-repeat;opacity:.5}
+.sonido[aria-pressed="true"]{color:var(--y)}.sonido[aria-pressed="true"] .ic{opacity:1}
+/* la ventana: la imagen llega al borde; sólo los últimos pixeles se difuminan y una sombra suave la hace ventana. Sin línea. */
+.ventana{position:relative;display:block;aspect-ratio:auto;height:calc(100vh - 420px);justify-self:stretch;width:100%;max-width:none;color:var(--n);text-decoration:none;
+  box-shadow:0 30px 90px -20px rgba(4,6,16,.65),0 8px 30px -10px rgba(4,6,16,.5);border-radius:3px}
+.ventana .marco{position:absolute;inset:0;overflow:hidden;border-radius:3px;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 5px,#000 calc(100% - 5px),transparent),linear-gradient(to bottom,transparent,#000 5px,#000 calc(100% - 5px),transparent);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,#000 5px,#000 calc(100% - 5px),transparent),linear-gradient(to bottom,transparent,#000 5px,#000 calc(100% - 5px),transparent);mask-composite:intersect}
+.ventana img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity 2.4s ease,transform 8s cubic-bezier(.2,.7,.2,1)}
+.ventana img.on{opacity:1;transform:scale(1)}
+/* «ver»: un círculo que respira como huella; detrás, una sombra que se mueve con su forma */
+.voz{position:absolute;left:50%;top:50%;width:112px;height:112px;transform:translate(-50%,-50%);display:grid;place-items:center;opacity:.9;transition:opacity .6s}
+.voz .halo{position:absolute;inset:6px;border-radius:50%;background:radial-gradient(closest-side,rgba(10,14,30,.5),rgba(10,14,30,.22) 72%,transparent);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.voz svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.voz path{fill:none;stroke:rgba(255,255,255,.72);stroke-width:1;vector-effect:non-scaling-stroke}
+.voz path:nth-child(2){stroke:rgba(228,240,0,.6)}.voz path:nth-child(3){stroke:rgba(255,255,255,.32)}
+.toca{position:relative;font-family:"Courier Prime",monospace;font-size:13px;letter-spacing:.12em;color:#fff}
+.ventana:hover .voz{opacity:1}
+.pie-v{position:absolute;left:0;top:calc(100% + 14px);font-family:"Courier Prime",monospace;font-size:13px;color:var(--g);transition:opacity .9s}
+.pie-v.va{opacity:0}
+/* iwi crece; debajo, qué es */
+nav .iwi{height:88px!important}
+nav{height:190px!important}
+/* iwi vive solo; las tres líneas van arriba de la imagen, alineadas a su izquierda */
+.der{display:flex;flex-direction:column;gap:18px;min-width:0}
+.der .sello{display:flex;flex-direction:column;font-size:13px;line-height:1.35;letter-spacing:.03em;color:var(--g)}
+.der .sello b{font-weight:600;color:var(--n);font-size:15px;letter-spacing:0}
+/* menú menos tímido */
+nav ul{font-size:16px!important;font-weight:500;gap:34px!important}
+nav ul a{color:var(--n)}
+@media (max-width:860px){
+  nav{height:176px!important}
+  nav .iwi{height:52px!important}
+  .der{order:-1;gap:10px}
+  .der .sello{flex-direction:row;gap:10px;font-size:12px}.der .sello b{font-size:12px}
+  /* en móvil el menú completo se ve sin deslizar: si no cabe en un renglón, pasa a dos */
+  nav ul{font-size:14px!important;gap:6px 18px!important;flex-wrap:wrap;overflow:visible!important;justify-content:flex-start!important}
+  .intro .w{grid-template-columns:1fr;grid-template-rows:auto auto;gap:24px;align-content:start;padding-top:128px!important}
+  .ventana{height:40vh;width:auto;max-height:none;max-width:none;justify-self:stretch;aspect-ratio:auto}
+  .intro p{font-size:16px;margin-top:16px}
+  .sonido{margin-top:12px}
+  .pie-v{top:calc(100% + 8px);font-size:12px}
+  .voz{width:76px;height:76px}
+}
+@media (max-width:860px) and (max-height:720px){.ventana{height:31vh}.intro p{display:none}}
+@media (prefers-reduced-motion:reduce){.ventana img{transform:none!important}}
+
+:root{--m:36px;--g:24px;--n-col:12;--ancho:min(100vw,1440px);--col:calc((var(--ancho) - 2*var(--m) - 11*var(--g))/12)}
+@media (max-width:860px){:root{--m:18px;--g:12px;--n-col:4;--col:calc((100vw - 2*var(--m) - 3*var(--g))/4)}}
+.w,nav .w{max-width:1440px!important;margin-left:auto!important;margin-right:auto!important;padding-left:var(--m)!important;padding-right:var(--m)!important;box-sizing:border-box}
+/* menú: arranca en la columna 5; los enlaces corren con un medianil de separación */
+nav ul{position:absolute;left:calc(var(--m) + 4*(var(--col) + var(--g)));gap:var(--g)!important}
+nav .w{justify-content:flex-start!important}
+nav .idioma{margin-left:auto}
+/* inicio: texto en las columnas 1 a 6, ventana en las 7 a 12 */
+.intro .w{grid-template-columns:repeat(12,minmax(0,1fr))!important;column-gap:var(--g)!important}
+.intro .txt-i{grid-column:1/7}
+.intro .der{grid-column:7/13}
+/* casos: el panel cuelga un medianil afuera para que su texto caiga en la columna 1; ocupa 5 columnas */
+.caso .txt{left:calc(var(--m) - var(--g))!important;padding:var(--g)!important;width:calc(5*var(--col) + 6*var(--g))!important}
+.caso .psa{grid-template-columns:var(--col) 1fr!important;column-gap:var(--g)!important;max-width:none!important}
+#barra{padding-left:var(--m)!important;padding-right:var(--m)!important;gap:var(--g)!important}
+/* qué hacemos: el bento en columnas (ForBatch 1 a 4; Manufacturing 5 a 12; design thinking 5 a 8; from 9 a 12) */
+.hacemos .bento{grid-template-columns:repeat(12,minmax(0,1fr))!important;gap:var(--g)!important}
+.b-fb{grid-column:1/5!important;grid-row:1/3!important}
+.b-mnf{grid-column:5/13!important}
+.b-dt{grid-column:5/9!important}
+.b-from{grid-column:9/13!important}
+.contacto .pie .dir{color:inherit;text-decoration:underline;text-underline-offset:3px}
+/* en vertical: el contenido de estas páginas arranca en el renglón 2 (56 + 92 + 24 = 172), debajo de iwi, y deja 56 abajo */
+.hacemos .w,.filo .w,.contacto .w{padding-top:172px!important}
+.hacemos .w{padding-bottom:56px!important}
+@media (max-width:860px){
+  nav ul{position:static}
+  .hacemos .w,.filo .w,.contacto .w{padding-top:150px!important}
+  .intro .w{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+  .intro .txt-i,.intro .der{grid-column:1/5}
+  .caso .txt{width:calc(100% - 2*var(--m) + 2*var(--g))!important}
+  .hacemos .bento{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+  .b-fb,.b-mnf{grid-column:1/5!important;grid-row:auto!important}
+  .b-dt{grid-column:1/3!important}.b-from{grid-column:3/5!important}
+}
+
+:root{--mt:56px;--gv:24px;--nr:7;--row:calc((100vh - 2*var(--mt) - 6*var(--gv))/7);--r:calc(var(--row) + var(--gv))}
+@media (max-width:860px){:root{--mt:62px;--gv:12px;--nr:8;--row:calc((100vh - 2*var(--mt) - 7*var(--gv))/8)}}
+h1,h2,h3,h4{text-box:trim-start cap alphabetic}
+/* cabecera: iwi ocupa el renglón 1 */
+nav .w{padding-top:var(--mt)!important}
+nav{height:calc(var(--mt) + var(--row) + 40px)!important}
+nav .iwi{height:min(88px,var(--row))!important}
+/* inicio: la ventana usa columnas 7 a 12 y renglones 2 a 6, y deja el 7 de aire para su pie (usar el espacio
+   no es llenarlo, Carlos 28 oct); el sello se apoya en el fondo del renglón 1; el texto arranca en el renglón 4 */
+.intro .w{height:100vh;grid-template-rows:repeat(7,var(--row))!important;row-gap:var(--gv)!important;align-items:stretch!important;
+  padding-top:var(--mt)!important;padding-bottom:var(--mt)!important;box-sizing:border-box}
+.intro .txt-i{grid-row:4/8;align-self:start}
+.pag.intro,.pag.contacto,.pag.filo,.pag.hacemos{padding-top:0!important;padding-bottom:0!important}
+.intro h1{margin-top:0!important}
+.intro .der{grid-row:1/7;display:grid!important;grid-template-rows:var(--row) 1fr;row-gap:var(--gv)!important;gap:var(--gv)!important;min-height:0}
+.intro .der .sello{align-self:end;pointer-events:none}
+/* centrado óptico (Carlos, 28 oct): la imagen pesa más que el texto y, centrada a la cuenta, se siente arriba y aprieta
+   los textos de encima. Se baja un renglón cuando cabe; si abajo empieza a encimarse, sólo medio renglón */
+.intro .der{position:relative;top:calc(var(--r)/2)}
+.intro .ventana{height:100%!important;max-height:none!important;min-height:0}
+/* casos: la foto ya llena la página; el texto del panel termina en el fondo del renglón 6 */
+.caso .txt{bottom:calc(var(--mt) + var(--r) - var(--gv))!important;max-height:calc(5*var(--r) + 2*var(--gv))!important}
+/* qué hacemos: el título en el renglón 2 y el bento en los renglones 3 a 7 */
+.hacemos .w{display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(7,var(--row));gap:var(--gv)!important;
+  height:100vh;padding-top:var(--mt)!important;padding-bottom:var(--mt)!important;box-sizing:border-box}
+.hacemos h2{grid-column:1/13;grid-row:2;align-self:start}
+.hacemos .bento{grid-column:1/13;grid-row:3/8;grid-template-columns:subgrid!important;grid-template-rows:subgrid!important;flex:none}
+.b-fb{grid-row:1/6!important}
+.b-mnf{grid-row:1/4!important}
+.b-dt,.b-from{grid-row:4/6!important}
+/* cómo pensamos y contacto: arrancan en el renglón 2 */
+.filo .w,.contacto .w{justify-content:center!important;padding-top:calc(var(--mt) + var(--r))!important;padding-bottom:calc(var(--mt) + 8px)!important}
+/* contacto y filosofía: el bloque va al centro de los renglones 2 a 7, con aire entre título y texto */
+.pag.contacto .eti{color:rgba(28,35,64,.62)!important}
+.contacto h2{margin-bottom:8px}.contacto p{margin-top:28px!important}
+.filo .serie .paso h4{margin-bottom:8px}.filo .serie .paso p{margin-top:28px!important}
+/* línea base de 4: interlineados en múltiplos de 4 */
+.intro p,.serie .paso p{line-height:28px!important}
+.caso .psa dd,.caso .psa dt,.b p,.contacto p{line-height:20px}
+.contacto p{line-height:28px}
+@media (max-width:860px){
+  nav .w{padding-top:14px!important}
+  nav{height:calc(var(--mt) + var(--row))!important}
+  nav .iwi{height:34px!important}
+  .intro .w{grid-template-rows:repeat(8,var(--row))!important}
+  .intro .der{grid-row:2/5;grid-template-rows:auto 1fr}
+  .b p{font-size:13px!important;line-height:16px!important}
+  .intro .txt-i{grid-row:6/9}
+  .intro .ventana{height:100%!important}
+  .hacemos .w{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(8,var(--row))}
+  .hacemos h2{grid-column:1/5}
+  .hacemos .bento{grid-column:1/5;grid-row:3/9}
+  .b-fb{grid-row:1/3!important}.b-mnf{grid-row:3/5!important}.b-dt,.b-from{grid-row:5/7!important}
+  .intro p,.serie .paso p{line-height:24px!important}
+}
+
+nav .w{padding-top:36px!important}
+nav .iwi{height:136px!important}
+/* iwi crece sólo en el inicio; en las demás páginas regresa a 88 para no pisar los títulos del renglón 2 */
+nav .iwi{transition:height .9s cubic-bezier(.3,0,.2,1),fill .9s ease .3s}
+@media (min-width:861px){body:not([data-p="inicio"]) nav .iwi{height:88px!important}}
+@media (max-width:860px){body:not([data-p="inicio"]) nav .iwi{height:40px!important}}
+nav{height:calc(var(--mt) + var(--r) + 24px)!important}
+nav ul{display:grid!important;grid-template-columns:repeat(4,calc(var(--col) + var(--g)));gap:0!important;top:52px;font-size:16px!important;font-weight:400!important}
+nav .idioma{padding-top:15px!important;font-size:14px;letter-spacing:.03em}
+.intro .der{top:0!important;grid-row:2/7!important;display:block!important}
+.intro .der{position:relative!important}
+.intro .der .sello{position:absolute;left:calc(-6*(var(--col) + var(--g)) + 50px);top:62px;flex-direction:column!important;gap:0!important;font-size:14px;font-weight:400;letter-spacing:.03em;line-height:1.35;z-index:3}
+.intro .der .sello b{font-size:21px;font-weight:500;letter-spacing:.03em}
+.intro .der .sello span:last-child{font-size:15px;font-weight:300}
+.intro .ventana{height:calc(100% + var(--gv))!important}
+.intro .pie-v{top:calc(100% + var(--gv) + 18px)!important;font-size:15px!important}
+.intro .txt-i{grid-row:2/7!important;align-self:center!important}
+.intro h1 .dis{font-weight:700}.intro h1 .cosa{font-weight:300}
+.intro h1 .nw{font-size:.86em;font-weight:300}
+.intro h1 .verbo{font-style:italic;font-weight:700}
+.intro p{font-weight:300!important;font-size:23px!important;line-height:28px!important;max-width:calc(5*var(--col) + 4*var(--g))!important;margin-top:36px!important}
+.intro .sonido{position:absolute!important;left:var(--m);bottom:var(--mt);margin:0!important;font-size:14px;letter-spacing:.03em}
+@media (max-width:860px){
+  nav .w{padding-top:29px!important}
+  nav .iwi{height:62px!important}
+  nav ul{display:flex!important;grid-template-columns:none;gap:18px!important;font-size:14px!important;font-weight:500!important;margin-top:40px}
+  nav .idioma{padding-top:14px!important}
+  .intro .der{grid-row:2/6!important;display:grid!important;grid-template-rows:var(--row) 1fr}
+  .intro .der .sello{position:static;flex-direction:row!important;gap:10px!important;align-self:end;font-size:12px;font-weight:300}
+  .intro .der .sello b{font-size:14px}.intro .der .sello span:last-child{font-size:13px;font-weight:400}
+  .intro .ventana{height:100%!important}
+  .intro .pie-v{top:calc(100% + 12px)!important;font-size:12px!important}
+  .intro .txt-i{grid-row:6/9!important;align-self:end!important}
+  .intro h1 .nw{font-size:.94em}
+  .intro h1 .verbo{font-style:normal}
+  .intro p{font-size:15px!important;line-height:20px!important;max-width:none!important;margin-top:20px!important}
+  .intro .sonido{position:static!important;margin-top:20px!important}
+}
+/* color y letra de Figma (Carlos, 30 oct): todo el texto en claro pleno, sin grises; el verbo en amarillo
+   y su subrayado en claro, casi a media letra; el pie en Courier 15 a 130 %. En móvil el punto final va en claro */
+.intro h1,.intro p,.intro .sonido,.intro .der .sello,.intro .der .sello b,.intro .pie-v,nav ul a,nav .idioma,nav .idioma *{color:#F4F3EE!important}
+.intro .sonido .ic{opacity:1!important}
+/* ES y EN los dos en claro pleno; la que está activa sólo lleva su línea */
+nav .idioma button{opacity:1!important}
+.intro em.hace{color:#E4F000!important;background:linear-gradient(#F4F3EE,#F4F3EE) no-repeat 0 97%/100% .36em!important}
+.intro em.hace .verbo,.intro em.hace .pto{color:#E4F000}
+.intro .pie-v{line-height:1.3!important;letter-spacing:0}
+.intro .sonido{font-weight:400}
+.toca{color:#F4F3EE}
+nav .idioma{font-weight:400;line-height:1.35}
+/* posiciones medidas en el marco web: el texto entra 16 px desde el margen (x 52), baja 24 px respecto al centro
+   de la ventana, Sonido en x 50 y el pie a un medianil (24) debajo de la ventana */
+.intro .txt-i{padding-left:16px;margin-top:48px!important}
+.intro .sonido{left:calc(var(--m) + 14px)!important}
+.intro .pie-v{top:calc(100% + var(--gv))!important}
+@media (max-width:860px){
+  .intro em.hace{background:linear-gradient(#EEF2F8,#EEF2F8) no-repeat 0 100%/100% .4em!important}
+  .intro em.hace .pto{color:#F4F3EE}
+  .intro h1 .cosa{font-size:.97em}
+  .intro p{line-height:1.25!important}
+  .intro .der .sello b{font-weight:500}
+  /* marco móvil: menú en y 131, sello en 206, la ventana de 234 a 520 y el pie 12 abajo; el texto arranca medio
+     renglón dentro del renglón 6 y Sonido se queda al fondo */
+  nav ul{margin-top:30px!important}
+  .intro .der{grid-template-rows:calc(var(--row) - var(--gv)) 1fr!important;row-gap:var(--gv)!important}
+  .intro .ventana{height:calc(100% + var(--gv))!important}
+  .intro .txt-i{padding-left:0;margin-top:0!important;align-self:stretch!important;display:flex;flex-direction:column;padding-top:calc(var(--r)/2 + 18px)}
+  .intro .sonido{margin-top:auto!important;align-self:flex-start}
+}
+</style>
+
+<style>
+/* prueba: logo en espiral al pie de Contacto */
+.contacto .trama3d{position:absolute;left:0;right:0;bottom:0;height:clamp(130px,26vh,290px);z-index:1}
+.contacto .trama3d canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:pan-y}
+.contacto .w{padding-bottom:clamp(200px,34vh,370px)!important}
+@media (max-height:640px){.contacto .trama3d{height:110px}.contacto .w{padding-bottom:120px!important}}
+</style>
+</head>
+<body class="figma">
+<nav><div class="w">
+  <a href="#inicio" data-ir="inicio" aria-label="iwi, inicio"><svg class="iwi" viewBox="0 420 1614 560" aria-label="iwi" role="img"><path d="M 1513.5 876.679688 L 1531.269531 864.511719 C 1548.167969 855.480469 1568.640625 861.167969 1580.453125 876.851562 C 1585.386719 883.402344 1583.84375 891.808594 1578.414062 897.148438 C 1569.648438 905.777344 1560.386719 913.023438 1549.589844 919.363281 C 1497.429688 949.988281 1440.265625 968.269531 1381.449219 974.460938 L 1334.890625 974.6875 C 1293.242188 969.375 1249.769531 953.582031 1227.195312 911.398438 C 1188.71875 942.226562 1144.066406 963.007812 1097.734375 968.515625 L 1062.179688 968.347656 C 1027.4375 964.410156 995.085938 947.75 976.726562 913.699219 L 957.417969 929.15625 C 922.703125 956.9375 873.644531 973.644531 831.121094 964.074219 C 803.246094 957.804688 779.472656 941.015625 766.699219 911.515625 C 721.015625 946.816406 667.769531 973.179688 612.5625 965.984375 C 581.496094 961.09375 553.269531 945.457031 539.199219 912.675781 C 499.890625 941.453125 456.417969 962.257812 410.671875 968.242188 C 396.265625 970.125 382.0625 968.90625 367.617188 968.65625 C 331.265625 962.40625 299.472656 948.289062 280.472656 911.992188 C 261.933594 928.058594 242.535156 939.957031 221.519531 950.304688 C 192.046875 964.816406 161.324219 972.089844 129.332031 974.441406 C 96.710938 976.839844 57.273438 969.761719 27.441406 955.257812 C 19.335938 951.316406 11.988281 943.726562 11.082031 933.859375 C 10.035156 922.445312 18.359375 914.089844 27.492188 911.871094 C 40.296875 908.761719 52.6875 910.960938 63.074219 919.863281 C 90.707031 928.710938 118.644531 928.503906 147.066406 922.902344 C 194.023438 913.652344 233.816406 887.265625 268.996094 851.03125 C 271.023438 825.25 275.523438 800.8125 283.695312 776.148438 C 297.613281 734.132812 321.738281 675.304688 345.902344 641.136719 C 353.8125 629.953125 362.941406 620.832031 374.621094 615.417969 C 390.597656 608.015625 409.167969 610.367188 421.464844 624.351562 C 442.230469 647.96875 424.5 693.246094 412.171875 722.726562 C 391.0625 773.210938 365.179688 819.171875 332.429688 861.808594 C 329.003906 884.53125 340.722656 905.777344 360.148438 914.175781 C 388.09375 926.257812 431.828125 915.101562 458.554688 900.539062 L 475.996094 891.039062 C 496.386719 879.925781 514.558594 865.59375 531.144531 848.15625 L 535.503906 820.214844 C 542.566406 774.925781 574.652344 701.472656 596.925781 660.214844 C 605.753906 643.859375 615.328125 629.160156 627.441406 616.007812 C 638.628906 603.859375 653.839844 596.65625 669.050781 598.015625 C 682.980469 599.261719 695.429688 607.183594 701.320312 620.988281 C 712.125 646.316406 698.597656 683.96875 687.605469 710.230469 C 666.601562 760.394531 639.957031 806.457031 607.746094 848.359375 C 595.59375 864.164062 592.601562 861.507812 595.949219 885.800781 C 597.921875 900.109375 607.722656 911.664062 620.597656 914.273438 L 631.132812 915.363281 L 643.035156 914.222656 C 688.085938 905.496094 724.675781 877.855469 758.246094 843.664062 C 760.625 814.578125 766.941406 787.511719 775.945312 760.050781 C 789.550781 718.550781 809.1875 670.183594 831.722656 634.449219 C 847.351562 609.675781 870.824219 591.539062 897.226562 600.984375 C 928.160156 612.042969 926.628906 648.792969 917.027344 680.910156 C 897.996094 744.558594 862.019531 808.003906 822.667969 858.375 L 822.746094 879.261719 C 822.789062 890.40625 828.589844 900.351562 836.746094 907.050781 C 845.871094 914.554688 857.34375 914.925781 868.613281 912.488281 C 891.925781 907.445312 912.855469 895.714844 931.542969 879.5 C 942.695312 869.824219 952.734375 860.238281 961.953125 848.308594 C 962.292969 807.945312 969.316406 770.136719 981.085938 732.472656 C 992.648438 695.46875 1008.183594 650.40625 1030.257812 621.097656 C 1041.746094 605.84375 1058.386719 595.90625 1076.144531 597.851562 C 1091.269531 599.511719 1104.832031 608.722656 1110.550781 624.398438 C 1120.855469 652.644531 1108.449219 693.488281 1097.84375 722.488281 C 1084.054688 760.175781 1067.171875 795.515625 1047.136719 829.332031 L 1027.667969 859.660156 C 1027.246094 892.945312 1043.898438 914.128906 1073.367188 917.585938 C 1078.332031 918.167969 1082.898438 918.375 1087.765625 917.613281 C 1126.945312 911.480469 1166.113281 890.511719 1196.472656 862.273438 L 1210.820312 847.234375 L 1211.324219 823.316406 C 1213.960938 798.011719 1218.316406 774.042969 1225.332031 749.84375 C 1237.382812 708.273438 1259.664062 645.230469 1285.925781 615.355469 C 1298.9375 600.554688 1316.675781 593.59375 1334.574219 598.289062 C 1353.9375 603.371094 1366.414062 621.085938 1367.257812 643.734375 C 1368.523438 677.707031 1348.351562 730.429688 1333.507812 762.796875 C 1317.5 797.699219 1299.722656 830.183594 1277.71875 860.734375 C 1277.976562 885.554688 1290.714844 906.214844 1311.160156 915.601562 C 1322.296875 920.714844 1334.027344 922.359375 1346.074219 923.691406 L 1365.527344 923.597656 L 1391.445312 920.746094 C 1434.152344 913.910156 1474.964844 899.546875 1513.5 876.679688 " fill="#1C2340"/><path d="M 487.679688 541.597656 C 467.914062 580.09375 429.25 596.605469 401.324219 578.476562 C 373.398438 560.351562 366.785156 514.449219 386.554688 475.953125 C 406.320312 437.457031 444.984375 420.945312 472.910156 439.074219 C 500.835938 457.199219 507.449219 503.101562 487.679688 541.597656 " fill="#1C2340"/><path d="M 1416.417969 533.480469 C 1396.648438 571.976562 1357.984375 588.488281 1330.058594 570.363281 C 1302.136719 552.238281 1295.519531 506.335938 1315.289062 467.839844 C 1335.058594 429.34375 1373.722656 412.832031 1401.644531 430.957031 C 1429.570312 449.085938 1436.183594 494.988281 1416.417969 533.480469 " fill="#1C2340"/></svg></a>
+  <ul><li><a href="#caso-1" data-ir="caso-1" data-menu="casos">Trabajo</a></li><li><a href="#hacemos" data-ir="hacemos" data-menu="hacemos">Servicios</a></li><li><a href="#pensamos" data-ir="pensamos" data-menu="pensamos">Filosofía</a></li><li><a href="#contacto" data-ir="contacto" data-menu="contacto">Contacto</a></li></ul>
+  <div class="idioma" aria-label="Idioma / Language"><button type="button" data-i="es">ES</button><button type="button" data-i="en">EN</button></div>
+</div></nav>
+<section class="pag inicio intro" data-p="inicio"><div class="w"><div class="txt-i"><h1 class="e" style="--i:1"><b class="dis">Diseñamos</b> <span class="cosa">objetos</span><br><span class="nw">que <em class="hace"><span class="verbo">sí se fabrican</span><span class="pto">.</span></em></span></h1><p class="e" style="--i:2">Observamos cómo funciona algo, encontramos lo que falta y lo llevamos del boceto a la pieza terminada.</p><button type="button" class="sonido e" style="--i:3" aria-pressed="false"><span class="ic" aria-hidden="true"></span><span class="st">Sonido</span></button></div><div class="der e" style="--i:2"><div class="sello"><b>iwi</b><span>estudio de diseño.</span><span>CDMX</span></div><a class="ventana" href="#caso-7" data-ir="caso-7" aria-label="Ver el proyecto"><span class="marco"><img src="img/v-aros.jpg" alt="" data-g="0" data-caso="caso-7" data-pie="Aros · ForBatch" class="on"><img src="img/v-colima.jpg" alt="" data-g="0" data-caso="caso-1" data-pie="Cervecería de Colima · Manufacturing"><img src="img/v-lumika.jpg" alt="" data-g="0" data-caso="caso-9" data-pie="Lumika · ForBatch"><img src="img/v-tiburon.jpg" alt="" data-g="1" data-caso="caso-10" data-pie="Un lote de tiburones · impresión 3D"><img src="img/v-iaudit-1.jpg" alt="" data-g="1" data-caso="caso-2" data-pie="IAudit · design thinking"><img src="img/v-pulso-1.jpg" alt="" data-g="2" data-caso="caso-3" data-pie="Pulso · UI/UX"><img src="img/v-pulso-2.jpg" alt="" data-g="2" data-caso="caso-3" data-pie="Pulso · UI/UX"><img src="img/v-microsteps.jpg" alt="" data-g="3" data-caso="caso-4" data-pie="microsteps.mx"><img src="img/v-hielera.jpg" alt="" data-g="0" data-caso="caso-5" data-pie="Hielera · Manufacturing"><img src="img/v-esmaltes.jpg" alt="" data-g="0" data-caso="caso-8" data-pie="mööd · ForBatch"><img src="img/v-lanyard.jpg" alt="" data-g="0" data-caso="caso-6" data-pie="Lanyard · Manufacturing"><img src="img/v-iaudit-2.jpg" alt="" data-g="1" data-caso="caso-2" data-pie="IAudit · design thinking"><img src="img/v-pulso-3.jpg" alt="" data-g="2" data-caso="caso-3" data-pie="Pulso · UI/UX"></span><span class="voz" aria-hidden="true"><span class="halo"></span><svg viewBox="-50 -50 100 100"><path/><path/><path/></svg><span class="toca">ver</span></span><span class="pie-v"></span></a></div></div></section>
+<section class="pag caso" data-p="caso-1" data-grupo="casos" data-n="0"><div class="foto"><div class="img"><img src="img/servilletero-tres.jpg" alt="Materiales de punto de venta que cuentan de dónde viene la cerveza."></div></div><div class="txt">
+      <div class="meta"><span class="chip">Manufacturing</span><span class="chip">Cervecería de Colima</span></div><h3>Materiales de punto de venta que cuentan de dónde viene la cerveza.</h3>
+      <dl class="psa"><dt>Problema</dt><dd>La marca necesitaba objetos de bar que se reconocieran a distancia y aguantaran el uso diario.</dd><dt>Solución</dt><dd>Una familia de piezas de lámina y metal: servilleteros, hielera y destapador, con la identidad de la cervecería.</dd><dt>Alcance</dt><dd>Diseño, render y desarrollo para fabricar en serie.</dd></dl></div></section>
+<section class="pag caso" data-p="caso-2" data-grupo="casos" data-n="1"><div class="foto"><div class="img"><img src="img/bebbiaudit.jpg" alt="IAudit: recorrido del auditor y tablero de resultados con semáforo, con datos de ejemplo"></div></div><div class="txt">
+      <div class="meta"><span class="chip">design thinking</span><span class="chip">IAudit</span></div><h3>IAudit: saber cómo está cada bodega, sin adivinar.</h3>
+      <dl class="psa"><dt>Problema</dt><dd>Una red de bodegas y agencias sin una forma común de revisar inventario, servicios y retornos.</dd><dt>Solución</dt><dd>Una auditoría propia, inspirada en estándares tipo SMETA, con cinco pilares, recorrido en el celular y un semáforo de cuatro niveles.</dd><dt>Alcance</dt><dd>Propuesta: estándar interno para toda la red, con visitas, hallazgos con plazos y un tablero de resultados.</dd></dl></div></section>
+<section class="pag caso" data-p="caso-3" data-grupo="casos" data-n="2"><div class="foto"><div class="img"><img src="img/pulso.jpg" alt="Pulso: una bitácora que acompaña sin estorbar."></div></div><div class="txt">
+      <div class="meta"><span class="chip">design thinking</span><span class="chip">UI/UX</span><span class="chip">Pulso</span></div><h3>Pulso: una bitácora que acompaña sin estorbar.</h3>
+      <dl class="psa"><dt>Problema</dt><dd>Registrar un proceso de semanas sin que se sienta como un formulario clínico.</dd><dt>Solución</dt><dd>Una app con color que significa algo, luz que sigue el día y un registro que se siente como contacto.</dd><dt>Alcance</dt><dd>Diseño de producto digital completo, del sistema visual al prototipo navegable.</dd></dl></div></section>
+<section class="pag caso" data-p="caso-4" data-grupo="casos" data-n="3"><div class="foto"><div class="img"><a href="https://microsteps.mx" target="_blank" rel="noopener"><img src="img/microsteps.jpg" alt="microsteps.mx: Venus dibuja una flor en el cielo, sobre una foto de Orión"></a></div></div><div class="txt">
+      <div class="meta"><span class="chip">design thinking</span><span class="chip">microsteps</span></div><h3>microsteps.mx: una página que murmura.</h3>
+      <dl class="psa"><dt>Problema</dt><dd>Divulgar ciencia sin que suene a clase, y poner en la misma mesa a la ciencia, la espiritualidad y el chamanismo.</dd><dt>Solución</dt><dd>Una sola pantalla: una murmuración que sigue la regla real de los estorninos, las fotos de naturaleza de Carlos y un tema mirado con varios lentes.</dd><dt>Alcance</dt><dd>Concepto, dirección de arte, código, sonido y lanzamiento en microsteps.mx.</dd></dl></div></section>
+<section class="pag caso" data-p="caso-5" data-grupo="casos" data-n="4"><div class="foto"><div class="img"><img src="img/hielera-colima.jpg" alt="Hielera de punto de venta."></div></div><div class="txt">
+      <div class="meta"><span class="chip">Manufacturing</span><span class="chip">Cervecería de Colima</span></div><h3>Hielera de punto de venta.</h3>
+      <dl class="psa"><dt>Problema</dt><dd>Un objeto que trabaja en la calle y tiene que verse bien después de meses.</dd><dt>Solución</dt><dd>Cuerpo metálico, esquinas reforzadas y la marca como protagonista.</dd><dt>Alcance</dt><dd>Diseño y desarrollo para producción.</dd></dl></div></section>
+<section class="pag caso" data-p="caso-6" data-grupo="casos" data-n="5"><div class="foto"><div class="img"><img src="img/tubo.jpg" alt="Lanyard con tubo."></div></div><div class="txt">
+      <div class="meta"><span class="chip">Manufacturing</span><span class="chip">Amstel Ultra</span></div><h3>Lanyard con tubo.</h3>
+      <dl class="psa"><dt>Problema</dt><dd>Una pieza de marca que se lleva puesta y tiene que ser útil.</dd><dt>Solución</dt><dd>Cinta, broche y contenedor metálico en una sola pieza.</dd><dt>Alcance</dt><dd>Diseño y desarrollo para fabricación.</dd></dl></div></section>
+<section class="pag caso" data-p="caso-7" data-grupo="casos" data-n="6"><div class="foto"><div class="img galeria"><img src="img/aros-render-1.jpg" alt="Aros: anillos de cerámica apilados en colores distintos, con flores" data-etapa="Render" class="on"><img src="img/aros-render-2.jpg" alt="Aros: anillos de cerámica apilados en colores distintos, con flores" data-etapa="Render"><img src="img/aros-render-3.jpg" alt="Aros: anillos de cerámica apilados en colores distintos, con flores" data-etapa="Render"><img src="img/aros-render-4.jpg" alt="Aros: anillos de cerámica apilados en colores distintos, con flores" data-etapa="Render"><span class="nota">Render</span></div></div><div class="txt">
+      <div class="meta"><span class="chip">ForBatch</span><span class="chip">from</span></div><h3>Aros.</h3>
+      <dl class="psa"><dt>Problema</dt><dd>Un objeto de casa que no tenga que verse siempre igual.</dd><dt>Solución</dt><dd>Pieza modular de anillos que se apilan y se acomodan distinto cada vez.</dd><dt>Alcance</dt><dd>Diseño y prototipo, dentro de ForBatch.</dd></dl></div></section>
+<section class="pag caso" data-p="caso-8" data-grupo="casos" data-n="7"><div class="foto"><div class="img"><img src="img/esmaltes-1.jpg" alt="Plato de pruebas con los esmaltes del taller, en rueda de color"></div></div><div class="txt"><div class="meta"><span class="chip">ForBatch</span><span class="chip">mööd</span></div><h3>El color sale del horno.</h3><dl class="psa"><dt>Problema</dt><dd>Un esmalte en el frasco no se parece al que sale del horno.</dd><dt>Solución</dt><dd>Un plato de pruebas con cada esmalte del taller, quemado y marcado, para elegir color con la pieza real.</dd><dt>Alcance</dt><dd>La paleta de mööd, para armar un florero a tu mood en la tienda de ForBatch.</dd></dl></div></section>
+<section class="pag caso" data-p="caso-9" data-grupo="casos" data-n="8"><div class="foto"><div class="img galeria"><img src="img/lumika-3.jpg" alt="Lumika: colgantes en plata de gato y calabaza, y sus modelos 3D" data-etapa="Modelo 3D" class="on"><img src="img/lumika-1.jpg" alt="Lumika: colgantes en plata de gato y calabaza, y sus modelos 3D" data-etapa="Plata"><img src="img/lumika-2.jpg" alt="Lumika: colgantes en plata de gato y calabaza, y sus modelos 3D" data-etapa="Plata"><span class="nota">Modelo 3D</span></div></div><div class="txt"><div class="meta"><span class="chip">ForBatch</span><span class="chip">Lumika</span></div><h3>Lumika: del modelo 3D a la plata.</h3><dl class="psa"><dt>Problema</dt><dd>Una diseñadora con sus piezas dibujadas y sin taller para hacerlas.</dd><dt>Solución</dt><dd>Desarrollamos los modelos y los fabricamos en plata: el gato y la calabaza.</dd><dt>Alcance</dt><dd>Colaboración con Carolina Pérez Moreno: desarrollo, fabricación y venta en la tienda de ForBatch.</dd></dl></div></section>
+<section class="pag caso" data-p="caso-10" data-grupo="casos" data-n="9"><div class="foto"><div class="img galeria"><img src="img/lote-impresion.jpg" alt="Lote de tiburones ballena articulados, impresos en 3D" data-etapa="En la impresora" class="on"><img src="img/tiburon-1.jpg" alt="Lote de tiburones ballena articulados, impresos en 3D" data-etapa="El lote"><img src="img/tiburon-2.jpg" alt="Lote de tiburones ballena articulados, impresos en 3D" data-etapa="El lote"><img src="img/tiburon-3.jpg" alt="Lote de tiburones ballena articulados, impresos en 3D" data-etapa="El lote"><span class="nota">En la impresora</span></div></div><div class="txt"><div class="meta"><span class="chip">ForBatch</span><span class="chip">Impresión 3D</span></div><h3>Un lote de tiburones, de volada.</h3><dl class="psa"><dt>Problema</dt><dd>Hacían falta muchas piezas impresas en 3D, para ya.</dd><dt>Solución</dt><dd>Un tiburón ballena articulado, ajustado para imprimirse en lote.</dd><dt>Alcance</dt><dd>Ajuste del modelo, impresión y acabado de todo el lote.</dd></dl></div></section>
+<section class="pag caso" data-p="caso-11" data-grupo="casos" data-n="10"><div class="foto"><div class="img estudio" role="img" aria-label="El sistema del estudio: espacios, memoria y agentes"><span>espacios</span><i></i><span>memoria</span><i></i><span>agentes</span></div></div><div class="txt">
+      <div class="meta"><span class="chip">design thinking</span><span class="chip">iwi</span></div><h3>Cómo diseñamos el estudio.</h3>
+      <dl class="psa"><dt>Problema</dt><dd>Las ideas vivían repartidas en chats y se perdían antes de volverse entregas.</dd><dt>Solución</dt><dd>Una memoria común, un espacio por proyecto y agentes que trabajan en pareja: uno explora, otro ejecuta.</dd><dt>Alcance</dt><dd>Todo el estudio: divisiones, clientes y proyectos personales, con reglas comunes.</dd></dl></div></section>
+
+<section class="pag hacemos" data-p="hacemos"><div class="w">
+  <h2 class="e" style="--i:0">Servicios</h2>
+  <div class="bento">
+  <a class="b b-fb e" style="--i:1" href="forbatch/"><div class="b-foto"><img src="img/aros-render-1.jpg" alt=""></div><div class="b-txt"><div class="lock" style="--H:40px;color:#1C2340"><svg class="iwi" viewBox="0 420 1614 560" aria-label="iwi" role="img"><path d="M 1513.5 876.679688 L 1531.269531 864.511719 C 1548.167969 855.480469 1568.640625 861.167969 1580.453125 876.851562 C 1585.386719 883.402344 1583.84375 891.808594 1578.414062 897.148438 C 1569.648438 905.777344 1560.386719 913.023438 1549.589844 919.363281 C 1497.429688 949.988281 1440.265625 968.269531 1381.449219 974.460938 L 1334.890625 974.6875 C 1293.242188 969.375 1249.769531 953.582031 1227.195312 911.398438 C 1188.71875 942.226562 1144.066406 963.007812 1097.734375 968.515625 L 1062.179688 968.347656 C 1027.4375 964.410156 995.085938 947.75 976.726562 913.699219 L 957.417969 929.15625 C 922.703125 956.9375 873.644531 973.644531 831.121094 964.074219 C 803.246094 957.804688 779.472656 941.015625 766.699219 911.515625 C 721.015625 946.816406 667.769531 973.179688 612.5625 965.984375 C 581.496094 961.09375 553.269531 945.457031 539.199219 912.675781 C 499.890625 941.453125 456.417969 962.257812 410.671875 968.242188 C 396.265625 970.125 382.0625 968.90625 367.617188 968.65625 C 331.265625 962.40625 299.472656 948.289062 280.472656 911.992188 C 261.933594 928.058594 242.535156 939.957031 221.519531 950.304688 C 192.046875 964.816406 161.324219 972.089844 129.332031 974.441406 C 96.710938 976.839844 57.273438 969.761719 27.441406 955.257812 C 19.335938 951.316406 11.988281 943.726562 11.082031 933.859375 C 10.035156 922.445312 18.359375 914.089844 27.492188 911.871094 C 40.296875 908.761719 52.6875 910.960938 63.074219 919.863281 C 90.707031 928.710938 118.644531 928.503906 147.066406 922.902344 C 194.023438 913.652344 233.816406 887.265625 268.996094 851.03125 C 271.023438 825.25 275.523438 800.8125 283.695312 776.148438 C 297.613281 734.132812 321.738281 675.304688 345.902344 641.136719 C 353.8125 629.953125 362.941406 620.832031 374.621094 615.417969 C 390.597656 608.015625 409.167969 610.367188 421.464844 624.351562 C 442.230469 647.96875 424.5 693.246094 412.171875 722.726562 C 391.0625 773.210938 365.179688 819.171875 332.429688 861.808594 C 329.003906 884.53125 340.722656 905.777344 360.148438 914.175781 C 388.09375 926.257812 431.828125 915.101562 458.554688 900.539062 L 475.996094 891.039062 C 496.386719 879.925781 514.558594 865.59375 531.144531 848.15625 L 535.503906 820.214844 C 542.566406 774.925781 574.652344 701.472656 596.925781 660.214844 C 605.753906 643.859375 615.328125 629.160156 627.441406 616.007812 C 638.628906 603.859375 653.839844 596.65625 669.050781 598.015625 C 682.980469 599.261719 695.429688 607.183594 701.320312 620.988281 C 712.125 646.316406 698.597656 683.96875 687.605469 710.230469 C 666.601562 760.394531 639.957031 806.457031 607.746094 848.359375 C 595.59375 864.164062 592.601562 861.507812 595.949219 885.800781 C 597.921875 900.109375 607.722656 911.664062 620.597656 914.273438 L 631.132812 915.363281 L 643.035156 914.222656 C 688.085938 905.496094 724.675781 877.855469 758.246094 843.664062 C 760.625 814.578125 766.941406 787.511719 775.945312 760.050781 C 789.550781 718.550781 809.1875 670.183594 831.722656 634.449219 C 847.351562 609.675781 870.824219 591.539062 897.226562 600.984375 C 928.160156 612.042969 926.628906 648.792969 917.027344 680.910156 C 897.996094 744.558594 862.019531 808.003906 822.667969 858.375 L 822.746094 879.261719 C 822.789062 890.40625 828.589844 900.351562 836.746094 907.050781 C 845.871094 914.554688 857.34375 914.925781 868.613281 912.488281 C 891.925781 907.445312 912.855469 895.714844 931.542969 879.5 C 942.695312 869.824219 952.734375 860.238281 961.953125 848.308594 C 962.292969 807.945312 969.316406 770.136719 981.085938 732.472656 C 992.648438 695.46875 1008.183594 650.40625 1030.257812 621.097656 C 1041.746094 605.84375 1058.386719 595.90625 1076.144531 597.851562 C 1091.269531 599.511719 1104.832031 608.722656 1110.550781 624.398438 C 1120.855469 652.644531 1108.449219 693.488281 1097.84375 722.488281 C 1084.054688 760.175781 1067.171875 795.515625 1047.136719 829.332031 L 1027.667969 859.660156 C 1027.246094 892.945312 1043.898438 914.128906 1073.367188 917.585938 C 1078.332031 918.167969 1082.898438 918.375 1087.765625 917.613281 C 1126.945312 911.480469 1166.113281 890.511719 1196.472656 862.273438 L 1210.820312 847.234375 L 1211.324219 823.316406 C 1213.960938 798.011719 1218.316406 774.042969 1225.332031 749.84375 C 1237.382812 708.273438 1259.664062 645.230469 1285.925781 615.355469 C 1298.9375 600.554688 1316.675781 593.59375 1334.574219 598.289062 C 1353.9375 603.371094 1366.414062 621.085938 1367.257812 643.734375 C 1368.523438 677.707031 1348.351562 730.429688 1333.507812 762.796875 C 1317.5 797.699219 1299.722656 830.183594 1277.71875 860.734375 C 1277.976562 885.554688 1290.714844 906.214844 1311.160156 915.601562 C 1322.296875 920.714844 1334.027344 922.359375 1346.074219 923.691406 L 1365.527344 923.597656 L 1391.445312 920.746094 C 1434.152344 913.910156 1474.964844 899.546875 1513.5 876.679688 " fill="#1C2340"/><path d="M 487.679688 541.597656 C 467.914062 580.09375 429.25 596.605469 401.324219 578.476562 C 373.398438 560.351562 366.785156 514.449219 386.554688 475.953125 C 406.320312 437.457031 444.984375 420.945312 472.910156 439.074219 C 500.835938 457.199219 507.449219 503.101562 487.679688 541.597656 " fill="#1C2340"/><path d="M 1416.417969 533.480469 C 1396.648438 571.976562 1357.984375 588.488281 1330.058594 570.363281 C 1302.136719 552.238281 1295.519531 506.335938 1315.289062 467.839844 C 1335.058594 429.34375 1373.722656 412.832031 1401.644531 430.957031 C 1429.570312 449.085938 1436.183594 494.988281 1416.417969 533.480469 " fill="#1C2340"/></svg><span class="t fb">ForBatch</span></div><p>Para diseñadores que están haciendo sus piezas: diseñamos, desarrollamos, fabricamos y te ayudamos a vender, de una a cientos.</p><ul><li>Lotes pequeños</li><li>Marcas aliadas</li><li>Tienda, muy pronto</li></ul><span class="b-ir"><span>Ver ForBatch</span> <span>→</span></span></div></a>
+  <a class="b b-mnf e" style="--i:2" href="#caso-1" data-ir="caso-1"><div class="b-foto"><img src="img/servilletero-tres.jpg" alt=""></div><div class="b-txt"><div class="lock" style="--H:40px;color:#1C2340"><svg class="iwi" viewBox="0 420 1614 560" aria-label="iwi" role="img"><path d="M 1513.5 876.679688 L 1531.269531 864.511719 C 1548.167969 855.480469 1568.640625 861.167969 1580.453125 876.851562 C 1585.386719 883.402344 1583.84375 891.808594 1578.414062 897.148438 C 1569.648438 905.777344 1560.386719 913.023438 1549.589844 919.363281 C 1497.429688 949.988281 1440.265625 968.269531 1381.449219 974.460938 L 1334.890625 974.6875 C 1293.242188 969.375 1249.769531 953.582031 1227.195312 911.398438 C 1188.71875 942.226562 1144.066406 963.007812 1097.734375 968.515625 L 1062.179688 968.347656 C 1027.4375 964.410156 995.085938 947.75 976.726562 913.699219 L 957.417969 929.15625 C 922.703125 956.9375 873.644531 973.644531 831.121094 964.074219 C 803.246094 957.804688 779.472656 941.015625 766.699219 911.515625 C 721.015625 946.816406 667.769531 973.179688 612.5625 965.984375 C 581.496094 961.09375 553.269531 945.457031 539.199219 912.675781 C 499.890625 941.453125 456.417969 962.257812 410.671875 968.242188 C 396.265625 970.125 382.0625 968.90625 367.617188 968.65625 C 331.265625 962.40625 299.472656 948.289062 280.472656 911.992188 C 261.933594 928.058594 242.535156 939.957031 221.519531 950.304688 C 192.046875 964.816406 161.324219 972.089844 129.332031 974.441406 C 96.710938 976.839844 57.273438 969.761719 27.441406 955.257812 C 19.335938 951.316406 11.988281 943.726562 11.082031 933.859375 C 10.035156 922.445312 18.359375 914.089844 27.492188 911.871094 C 40.296875 908.761719 52.6875 910.960938 63.074219 919.863281 C 90.707031 928.710938 118.644531 928.503906 147.066406 922.902344 C 194.023438 913.652344 233.816406 887.265625 268.996094 851.03125 C 271.023438 825.25 275.523438 800.8125 283.695312 776.148438 C 297.613281 734.132812 321.738281 675.304688 345.902344 641.136719 C 353.8125 629.953125 362.941406 620.832031 374.621094 615.417969 C 390.597656 608.015625 409.167969 610.367188 421.464844 624.351562 C 442.230469 647.96875 424.5 693.246094 412.171875 722.726562 C 391.0625 773.210938 365.179688 819.171875 332.429688 861.808594 C 329.003906 884.53125 340.722656 905.777344 360.148438 914.175781 C 388.09375 926.257812 431.828125 915.101562 458.554688 900.539062 L 475.996094 891.039062 C 496.386719 879.925781 514.558594 865.59375 531.144531 848.15625 L 535.503906 820.214844 C 542.566406 774.925781 574.652344 701.472656 596.925781 660.214844 C 605.753906 643.859375 615.328125 629.160156 627.441406 616.007812 C 638.628906 603.859375 653.839844 596.65625 669.050781 598.015625 C 682.980469 599.261719 695.429688 607.183594 701.320312 620.988281 C 712.125 646.316406 698.597656 683.96875 687.605469 710.230469 C 666.601562 760.394531 639.957031 806.457031 607.746094 848.359375 C 595.59375 864.164062 592.601562 861.507812 595.949219 885.800781 C 597.921875 900.109375 607.722656 911.664062 620.597656 914.273438 L 631.132812 915.363281 L 643.035156 914.222656 C 688.085938 905.496094 724.675781 877.855469 758.246094 843.664062 C 760.625 814.578125 766.941406 787.511719 775.945312 760.050781 C 789.550781 718.550781 809.1875 670.183594 831.722656 634.449219 C 847.351562 609.675781 870.824219 591.539062 897.226562 600.984375 C 928.160156 612.042969 926.628906 648.792969 917.027344 680.910156 C 897.996094 744.558594 862.019531 808.003906 822.667969 858.375 L 822.746094 879.261719 C 822.789062 890.40625 828.589844 900.351562 836.746094 907.050781 C 845.871094 914.554688 857.34375 914.925781 868.613281 912.488281 C 891.925781 907.445312 912.855469 895.714844 931.542969 879.5 C 942.695312 869.824219 952.734375 860.238281 961.953125 848.308594 C 962.292969 807.945312 969.316406 770.136719 981.085938 732.472656 C 992.648438 695.46875 1008.183594 650.40625 1030.257812 621.097656 C 1041.746094 605.84375 1058.386719 595.90625 1076.144531 597.851562 C 1091.269531 599.511719 1104.832031 608.722656 1110.550781 624.398438 C 1120.855469 652.644531 1108.449219 693.488281 1097.84375 722.488281 C 1084.054688 760.175781 1067.171875 795.515625 1047.136719 829.332031 L 1027.667969 859.660156 C 1027.246094 892.945312 1043.898438 914.128906 1073.367188 917.585938 C 1078.332031 918.167969 1082.898438 918.375 1087.765625 917.613281 C 1126.945312 911.480469 1166.113281 890.511719 1196.472656 862.273438 L 1210.820312 847.234375 L 1211.324219 823.316406 C 1213.960938 798.011719 1218.316406 774.042969 1225.332031 749.84375 C 1237.382812 708.273438 1259.664062 645.230469 1285.925781 615.355469 C 1298.9375 600.554688 1316.675781 593.59375 1334.574219 598.289062 C 1353.9375 603.371094 1366.414062 621.085938 1367.257812 643.734375 C 1368.523438 677.707031 1348.351562 730.429688 1333.507812 762.796875 C 1317.5 797.699219 1299.722656 830.183594 1277.71875 860.734375 C 1277.976562 885.554688 1290.714844 906.214844 1311.160156 915.601562 C 1322.296875 920.714844 1334.027344 922.359375 1346.074219 923.691406 L 1365.527344 923.597656 L 1391.445312 920.746094 C 1434.152344 913.910156 1474.964844 899.546875 1513.5 876.679688 " fill="#1C2340"/><path d="M 487.679688 541.597656 C 467.914062 580.09375 429.25 596.605469 401.324219 578.476562 C 373.398438 560.351562 366.785156 514.449219 386.554688 475.953125 C 406.320312 437.457031 444.984375 420.945312 472.910156 439.074219 C 500.835938 457.199219 507.449219 503.101562 487.679688 541.597656 " fill="#1C2340"/><path d="M 1416.417969 533.480469 C 1396.648438 571.976562 1357.984375 588.488281 1330.058594 570.363281 C 1302.136719 552.238281 1295.519531 506.335938 1315.289062 467.839844 C 1335.058594 429.34375 1373.722656 412.832031 1401.644531 430.957031 C 1429.570312 449.085938 1436.183594 494.988281 1416.417969 533.480469 " fill="#1C2340"/></svg><span class="t mnf">Manufacturing</span></div><p>Diseño para fabricación y maquila para marcas, por proyecto.</p><ul><li>Diseño industrial y prototipo</li><li>Cotización y proveedores</li><li>Producción por lote</li></ul><span class="b-ir"><span>Ver casos</span> <span>→</span></span></div></a>
+  <a class="b b-dt e" style="--i:3" href="#caso-2" data-ir="caso-2"><div class="b-txt"><div class="lock" style="--H:40px;color:#fff"><svg class="iwi" viewBox="0 420 1614 560" aria-label="iwi" role="img"><path d="M 1513.5 876.679688 L 1531.269531 864.511719 C 1548.167969 855.480469 1568.640625 861.167969 1580.453125 876.851562 C 1585.386719 883.402344 1583.84375 891.808594 1578.414062 897.148438 C 1569.648438 905.777344 1560.386719 913.023438 1549.589844 919.363281 C 1497.429688 949.988281 1440.265625 968.269531 1381.449219 974.460938 L 1334.890625 974.6875 C 1293.242188 969.375 1249.769531 953.582031 1227.195312 911.398438 C 1188.71875 942.226562 1144.066406 963.007812 1097.734375 968.515625 L 1062.179688 968.347656 C 1027.4375 964.410156 995.085938 947.75 976.726562 913.699219 L 957.417969 929.15625 C 922.703125 956.9375 873.644531 973.644531 831.121094 964.074219 C 803.246094 957.804688 779.472656 941.015625 766.699219 911.515625 C 721.015625 946.816406 667.769531 973.179688 612.5625 965.984375 C 581.496094 961.09375 553.269531 945.457031 539.199219 912.675781 C 499.890625 941.453125 456.417969 962.257812 410.671875 968.242188 C 396.265625 970.125 382.0625 968.90625 367.617188 968.65625 C 331.265625 962.40625 299.472656 948.289062 280.472656 911.992188 C 261.933594 928.058594 242.535156 939.957031 221.519531 950.304688 C 192.046875 964.816406 161.324219 972.089844 129.332031 974.441406 C 96.710938 976.839844 57.273438 969.761719 27.441406 955.257812 C 19.335938 951.316406 11.988281 943.726562 11.082031 933.859375 C 10.035156 922.445312 18.359375 914.089844 27.492188 911.871094 C 40.296875 908.761719 52.6875 910.960938 63.074219 919.863281 C 90.707031 928.710938 118.644531 928.503906 147.066406 922.902344 C 194.023438 913.652344 233.816406 887.265625 268.996094 851.03125 C 271.023438 825.25 275.523438 800.8125 283.695312 776.148438 C 297.613281 734.132812 321.738281 675.304688 345.902344 641.136719 C 353.8125 629.953125 362.941406 620.832031 374.621094 615.417969 C 390.597656 608.015625 409.167969 610.367188 421.464844 624.351562 C 442.230469 647.96875 424.5 693.246094 412.171875 722.726562 C 391.0625 773.210938 365.179688 819.171875 332.429688 861.808594 C 329.003906 884.53125 340.722656 905.777344 360.148438 914.175781 C 388.09375 926.257812 431.828125 915.101562 458.554688 900.539062 L 475.996094 891.039062 C 496.386719 879.925781 514.558594 865.59375 531.144531 848.15625 L 535.503906 820.214844 C 542.566406 774.925781 574.652344 701.472656 596.925781 660.214844 C 605.753906 643.859375 615.328125 629.160156 627.441406 616.007812 C 638.628906 603.859375 653.839844 596.65625 669.050781 598.015625 C 682.980469 599.261719 695.429688 607.183594 701.320312 620.988281 C 712.125 646.316406 698.597656 683.96875 687.605469 710.230469 C 666.601562 760.394531 639.957031 806.457031 607.746094 848.359375 C 595.59375 864.164062 592.601562 861.507812 595.949219 885.800781 C 597.921875 900.109375 607.722656 911.664062 620.597656 914.273438 L 631.132812 915.363281 L 643.035156 914.222656 C 688.085938 905.496094 724.675781 877.855469 758.246094 843.664062 C 760.625 814.578125 766.941406 787.511719 775.945312 760.050781 C 789.550781 718.550781 809.1875 670.183594 831.722656 634.449219 C 847.351562 609.675781 870.824219 591.539062 897.226562 600.984375 C 928.160156 612.042969 926.628906 648.792969 917.027344 680.910156 C 897.996094 744.558594 862.019531 808.003906 822.667969 858.375 L 822.746094 879.261719 C 822.789062 890.40625 828.589844 900.351562 836.746094 907.050781 C 845.871094 914.554688 857.34375 914.925781 868.613281 912.488281 C 891.925781 907.445312 912.855469 895.714844 931.542969 879.5 C 942.695312 869.824219 952.734375 860.238281 961.953125 848.308594 C 962.292969 807.945312 969.316406 770.136719 981.085938 732.472656 C 992.648438 695.46875 1008.183594 650.40625 1030.257812 621.097656 C 1041.746094 605.84375 1058.386719 595.90625 1076.144531 597.851562 C 1091.269531 599.511719 1104.832031 608.722656 1110.550781 624.398438 C 1120.855469 652.644531 1108.449219 693.488281 1097.84375 722.488281 C 1084.054688 760.175781 1067.171875 795.515625 1047.136719 829.332031 L 1027.667969 859.660156 C 1027.246094 892.945312 1043.898438 914.128906 1073.367188 917.585938 C 1078.332031 918.167969 1082.898438 918.375 1087.765625 917.613281 C 1126.945312 911.480469 1166.113281 890.511719 1196.472656 862.273438 L 1210.820312 847.234375 L 1211.324219 823.316406 C 1213.960938 798.011719 1218.316406 774.042969 1225.332031 749.84375 C 1237.382812 708.273438 1259.664062 645.230469 1285.925781 615.355469 C 1298.9375 600.554688 1316.675781 593.59375 1334.574219 598.289062 C 1353.9375 603.371094 1366.414062 621.085938 1367.257812 643.734375 C 1368.523438 677.707031 1348.351562 730.429688 1333.507812 762.796875 C 1317.5 797.699219 1299.722656 830.183594 1277.71875 860.734375 C 1277.976562 885.554688 1290.714844 906.214844 1311.160156 915.601562 C 1322.296875 920.714844 1334.027344 922.359375 1346.074219 923.691406 L 1365.527344 923.597656 L 1391.445312 920.746094 C 1434.152344 913.910156 1474.964844 899.546875 1513.5 876.679688 " fill="#fff"/><path d="M 487.679688 541.597656 C 467.914062 580.09375 429.25 596.605469 401.324219 578.476562 C 373.398438 560.351562 366.785156 514.449219 386.554688 475.953125 C 406.320312 437.457031 444.984375 420.945312 472.910156 439.074219 C 500.835938 457.199219 507.449219 503.101562 487.679688 541.597656 " fill="#fff"/><path d="M 1416.417969 533.480469 C 1396.648438 571.976562 1357.984375 588.488281 1330.058594 570.363281 C 1302.136719 552.238281 1295.519531 506.335938 1315.289062 467.839844 C 1335.058594 429.34375 1373.722656 412.832031 1401.644531 430.957031 C 1429.570312 449.085938 1436.183594 494.988281 1416.417969 533.480469 " fill="#fff"/></svg><span class="t dt">design thinking<svg viewBox="0 0 300 10" preserveAspectRatio="none" class="ul"><path d="M2 6 C 80 2, 180 9, 298 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span></div><p>Sistemas, plataformas y servicios para resolver una necesidad. Observamos, encontramos lo que falta y lo diseñamos.</p><ul><li>Auditoría y diagnóstico</li><li>Diseño de servicio</li><li>UI/UX</li></ul><span class="b-ir"><span>Ver casos</span> <span>→</span></span></div></a>
+  <a class="b b-from e" style="--i:4" href="#caso-7" data-ir="caso-7"><div class="b-txt"><div class="lock" style="--H:44px;color:#1C2340"><svg class="iwi" viewBox="0 420 1614 560" aria-label="iwi" role="img"><path d="M 1513.5 876.679688 L 1531.269531 864.511719 C 1548.167969 855.480469 1568.640625 861.167969 1580.453125 876.851562 C 1585.386719 883.402344 1583.84375 891.808594 1578.414062 897.148438 C 1569.648438 905.777344 1560.386719 913.023438 1549.589844 919.363281 C 1497.429688 949.988281 1440.265625 968.269531 1381.449219 974.460938 L 1334.890625 974.6875 C 1293.242188 969.375 1249.769531 953.582031 1227.195312 911.398438 C 1188.71875 942.226562 1144.066406 963.007812 1097.734375 968.515625 L 1062.179688 968.347656 C 1027.4375 964.410156 995.085938 947.75 976.726562 913.699219 L 957.417969 929.15625 C 922.703125 956.9375 873.644531 973.644531 831.121094 964.074219 C 803.246094 957.804688 779.472656 941.015625 766.699219 911.515625 C 721.015625 946.816406 667.769531 973.179688 612.5625 965.984375 C 581.496094 961.09375 553.269531 945.457031 539.199219 912.675781 C 499.890625 941.453125 456.417969 962.257812 410.671875 968.242188 C 396.265625 970.125 382.0625 968.90625 367.617188 968.65625 C 331.265625 962.40625 299.472656 948.289062 280.472656 911.992188 C 261.933594 928.058594 242.535156 939.957031 221.519531 950.304688 C 192.046875 964.816406 161.324219 972.089844 129.332031 974.441406 C 96.710938 976.839844 57.273438 969.761719 27.441406 955.257812 C 19.335938 951.316406 11.988281 943.726562 11.082031 933.859375 C 10.035156 922.445312 18.359375 914.089844 27.492188 911.871094 C 40.296875 908.761719 52.6875 910.960938 63.074219 919.863281 C 90.707031 928.710938 118.644531 928.503906 147.066406 922.902344 C 194.023438 913.652344 233.816406 887.265625 268.996094 851.03125 C 271.023438 825.25 275.523438 800.8125 283.695312 776.148438 C 297.613281 734.132812 321.738281 675.304688 345.902344 641.136719 C 353.8125 629.953125 362.941406 620.832031 374.621094 615.417969 C 390.597656 608.015625 409.167969 610.367188 421.464844 624.351562 C 442.230469 647.96875 424.5 693.246094 412.171875 722.726562 C 391.0625 773.210938 365.179688 819.171875 332.429688 861.808594 C 329.003906 884.53125 340.722656 905.777344 360.148438 914.175781 C 388.09375 926.257812 431.828125 915.101562 458.554688 900.539062 L 475.996094 891.039062 C 496.386719 879.925781 514.558594 865.59375 531.144531 848.15625 L 535.503906 820.214844 C 542.566406 774.925781 574.652344 701.472656 596.925781 660.214844 C 605.753906 643.859375 615.328125 629.160156 627.441406 616.007812 C 638.628906 603.859375 653.839844 596.65625 669.050781 598.015625 C 682.980469 599.261719 695.429688 607.183594 701.320312 620.988281 C 712.125 646.316406 698.597656 683.96875 687.605469 710.230469 C 666.601562 760.394531 639.957031 806.457031 607.746094 848.359375 C 595.59375 864.164062 592.601562 861.507812 595.949219 885.800781 C 597.921875 900.109375 607.722656 911.664062 620.597656 914.273438 L 631.132812 915.363281 L 643.035156 914.222656 C 688.085938 905.496094 724.675781 877.855469 758.246094 843.664062 C 760.625 814.578125 766.941406 787.511719 775.945312 760.050781 C 789.550781 718.550781 809.1875 670.183594 831.722656 634.449219 C 847.351562 609.675781 870.824219 591.539062 897.226562 600.984375 C 928.160156 612.042969 926.628906 648.792969 917.027344 680.910156 C 897.996094 744.558594 862.019531 808.003906 822.667969 858.375 L 822.746094 879.261719 C 822.789062 890.40625 828.589844 900.351562 836.746094 907.050781 C 845.871094 914.554688 857.34375 914.925781 868.613281 912.488281 C 891.925781 907.445312 912.855469 895.714844 931.542969 879.5 C 942.695312 869.824219 952.734375 860.238281 961.953125 848.308594 C 962.292969 807.945312 969.316406 770.136719 981.085938 732.472656 C 992.648438 695.46875 1008.183594 650.40625 1030.257812 621.097656 C 1041.746094 605.84375 1058.386719 595.90625 1076.144531 597.851562 C 1091.269531 599.511719 1104.832031 608.722656 1110.550781 624.398438 C 1120.855469 652.644531 1108.449219 693.488281 1097.84375 722.488281 C 1084.054688 760.175781 1067.171875 795.515625 1047.136719 829.332031 L 1027.667969 859.660156 C 1027.246094 892.945312 1043.898438 914.128906 1073.367188 917.585938 C 1078.332031 918.167969 1082.898438 918.375 1087.765625 917.613281 C 1126.945312 911.480469 1166.113281 890.511719 1196.472656 862.273438 L 1210.820312 847.234375 L 1211.324219 823.316406 C 1213.960938 798.011719 1218.316406 774.042969 1225.332031 749.84375 C 1237.382812 708.273438 1259.664062 645.230469 1285.925781 615.355469 C 1298.9375 600.554688 1316.675781 593.59375 1334.574219 598.289062 C 1353.9375 603.371094 1366.414062 621.085938 1367.257812 643.734375 C 1368.523438 677.707031 1348.351562 730.429688 1333.507812 762.796875 C 1317.5 797.699219 1299.722656 830.183594 1277.71875 860.734375 C 1277.976562 885.554688 1290.714844 906.214844 1311.160156 915.601562 C 1322.296875 920.714844 1334.027344 922.359375 1346.074219 923.691406 L 1365.527344 923.597656 L 1391.445312 920.746094 C 1434.152344 913.910156 1474.964844 899.546875 1513.5 876.679688 " fill="#1C2340"/><path d="M 487.679688 541.597656 C 467.914062 580.09375 429.25 596.605469 401.324219 578.476562 C 373.398438 560.351562 366.785156 514.449219 386.554688 475.953125 C 406.320312 437.457031 444.984375 420.945312 472.910156 439.074219 C 500.835938 457.199219 507.449219 503.101562 487.679688 541.597656 " fill="#1C2340"/><path d="M 1416.417969 533.480469 C 1396.648438 571.976562 1357.984375 588.488281 1330.058594 570.363281 C 1302.136719 552.238281 1295.519531 506.335938 1315.289062 467.839844 C 1335.058594 429.34375 1373.722656 412.832031 1401.644531 430.957031 C 1429.570312 449.085938 1436.183594 494.988281 1416.417969 533.480469 " fill="#1C2340"/></svg><span class="t from"><span class="s1 on">from</span><span class="s2">from</span><span class="s3">from</span></span></div><p>Nuestras piezas propias, dentro de ForBatch.</p><span class="b-ir"><span>Ver casos</span> <span>→</span></span></div></a>
+</div>
+</div></section>
+<section class="pag pensamos filo" data-p="pensamos" data-grupo="pasos"><div class="aliento" aria-hidden="true"><i></i><i></i><i></i></div><div class="w"><div class="eti e" style="--i:0">Filosofía</div><div class="serie e" style="--i:1"><div class="paso" data-n="0"><b>I · El nombre</b><h4>iwi viene de iwigalá.</h4><p>En la cosmovisión rarámuri, iwigalá es el aliento vital que reside en el corazón.</p></div><div class="paso" data-n="1"><b>II · Una postura</b><h4>No es un gesto estético. Es una postura.</h4><p>Con la observación antes que con la intervención, con la unión antes que con la fragmentación.</p></div><div class="paso" data-n="2"><b>III · Todo ya fue creado</b><h4>No llegamos a inventar desde cero. Llegamos a escuchar.</h4><p>El mejor diseño no se nota como intervención: se siente como algo que siempre debió haber estado.</p></div><div class="paso" data-n="3"><b>IV · Lo que creemos</b><h4>El diseño no decora. Estructura.</h4><p>Empezar de menos no es una limitación. Es una postura.</p></div><div class="paso" data-n="4"><b>V · Lo que hacemos</b><h4>Pedimos permiso para entrar.</h4><p>Escuchamos, observamos, devolvemos una propuesta y damos un paso pequeño.</p></div><div class="paso" data-n="5"><b>VI · Hacia dónde</b><h4>Proyectos que dejan capacidad instalada, no dependencia.</h4><p>Un estudio que respira, que observa, y que da forma a lo que ya quiere existir.</p></div></div></div></section>
+<section class="pag contacto" data-p="contacto"><div class="w">
+  
+  <div class="eti e"  style="color:var(--n)">Ya estamos en línea</div>
+  <h2 class="e" style="margin-top:20px">¿Tienes algo<br>por hacer?</h2>
+  <p>Cuéntanos qué quieres fabricar, vender o resolver. Te respondemos con una primera idea, no con un formulario.</p>
+  <a class="btn" href="mailto:hola@iwi.com.mx"><span>Escríbenos</span><span>→</span></a> <span class="correo">hola@iwi.com.mx</span>
+
+  <div class="pie"><div class="lock" style="--H:16px;color:rgba(28,35,64,.62)"><svg class="iwi" viewBox="0 420 1614 560" aria-label="iwi" role="img"><path d="M 1513.5 876.679688 L 1531.269531 864.511719 C 1548.167969 855.480469 1568.640625 861.167969 1580.453125 876.851562 C 1585.386719 883.402344 1583.84375 891.808594 1578.414062 897.148438 C 1569.648438 905.777344 1560.386719 913.023438 1549.589844 919.363281 C 1497.429688 949.988281 1440.265625 968.269531 1381.449219 974.460938 L 1334.890625 974.6875 C 1293.242188 969.375 1249.769531 953.582031 1227.195312 911.398438 C 1188.71875 942.226562 1144.066406 963.007812 1097.734375 968.515625 L 1062.179688 968.347656 C 1027.4375 964.410156 995.085938 947.75 976.726562 913.699219 L 957.417969 929.15625 C 922.703125 956.9375 873.644531 973.644531 831.121094 964.074219 C 803.246094 957.804688 779.472656 941.015625 766.699219 911.515625 C 721.015625 946.816406 667.769531 973.179688 612.5625 965.984375 C 581.496094 961.09375 553.269531 945.457031 539.199219 912.675781 C 499.890625 941.453125 456.417969 962.257812 410.671875 968.242188 C 396.265625 970.125 382.0625 968.90625 367.617188 968.65625 C 331.265625 962.40625 299.472656 948.289062 280.472656 911.992188 C 261.933594 928.058594 242.535156 939.957031 221.519531 950.304688 C 192.046875 964.816406 161.324219 972.089844 129.332031 974.441406 C 96.710938 976.839844 57.273438 969.761719 27.441406 955.257812 C 19.335938 951.316406 11.988281 943.726562 11.082031 933.859375 C 10.035156 922.445312 18.359375 914.089844 27.492188 911.871094 C 40.296875 908.761719 52.6875 910.960938 63.074219 919.863281 C 90.707031 928.710938 118.644531 928.503906 147.066406 922.902344 C 194.023438 913.652344 233.816406 887.265625 268.996094 851.03125 C 271.023438 825.25 275.523438 800.8125 283.695312 776.148438 C 297.613281 734.132812 321.738281 675.304688 345.902344 641.136719 C 353.8125 629.953125 362.941406 620.832031 374.621094 615.417969 C 390.597656 608.015625 409.167969 610.367188 421.464844 624.351562 C 442.230469 647.96875 424.5 693.246094 412.171875 722.726562 C 391.0625 773.210938 365.179688 819.171875 332.429688 861.808594 C 329.003906 884.53125 340.722656 905.777344 360.148438 914.175781 C 388.09375 926.257812 431.828125 915.101562 458.554688 900.539062 L 475.996094 891.039062 C 496.386719 879.925781 514.558594 865.59375 531.144531 848.15625 L 535.503906 820.214844 C 542.566406 774.925781 574.652344 701.472656 596.925781 660.214844 C 605.753906 643.859375 615.328125 629.160156 627.441406 616.007812 C 638.628906 603.859375 653.839844 596.65625 669.050781 598.015625 C 682.980469 599.261719 695.429688 607.183594 701.320312 620.988281 C 712.125 646.316406 698.597656 683.96875 687.605469 710.230469 C 666.601562 760.394531 639.957031 806.457031 607.746094 848.359375 C 595.59375 864.164062 592.601562 861.507812 595.949219 885.800781 C 597.921875 900.109375 607.722656 911.664062 620.597656 914.273438 L 631.132812 915.363281 L 643.035156 914.222656 C 688.085938 905.496094 724.675781 877.855469 758.246094 843.664062 C 760.625 814.578125 766.941406 787.511719 775.945312 760.050781 C 789.550781 718.550781 809.1875 670.183594 831.722656 634.449219 C 847.351562 609.675781 870.824219 591.539062 897.226562 600.984375 C 928.160156 612.042969 926.628906 648.792969 917.027344 680.910156 C 897.996094 744.558594 862.019531 808.003906 822.667969 858.375 L 822.746094 879.261719 C 822.789062 890.40625 828.589844 900.351562 836.746094 907.050781 C 845.871094 914.554688 857.34375 914.925781 868.613281 912.488281 C 891.925781 907.445312 912.855469 895.714844 931.542969 879.5 C 942.695312 869.824219 952.734375 860.238281 961.953125 848.308594 C 962.292969 807.945312 969.316406 770.136719 981.085938 732.472656 C 992.648438 695.46875 1008.183594 650.40625 1030.257812 621.097656 C 1041.746094 605.84375 1058.386719 595.90625 1076.144531 597.851562 C 1091.269531 599.511719 1104.832031 608.722656 1110.550781 624.398438 C 1120.855469 652.644531 1108.449219 693.488281 1097.84375 722.488281 C 1084.054688 760.175781 1067.171875 795.515625 1047.136719 829.332031 L 1027.667969 859.660156 C 1027.246094 892.945312 1043.898438 914.128906 1073.367188 917.585938 C 1078.332031 918.167969 1082.898438 918.375 1087.765625 917.613281 C 1126.945312 911.480469 1166.113281 890.511719 1196.472656 862.273438 L 1210.820312 847.234375 L 1211.324219 823.316406 C 1213.960938 798.011719 1218.316406 774.042969 1225.332031 749.84375 C 1237.382812 708.273438 1259.664062 645.230469 1285.925781 615.355469 C 1298.9375 600.554688 1316.675781 593.59375 1334.574219 598.289062 C 1353.9375 603.371094 1366.414062 621.085938 1367.257812 643.734375 C 1368.523438 677.707031 1348.351562 730.429688 1333.507812 762.796875 C 1317.5 797.699219 1299.722656 830.183594 1277.71875 860.734375 C 1277.976562 885.554688 1290.714844 906.214844 1311.160156 915.601562 C 1322.296875 920.714844 1334.027344 922.359375 1346.074219 923.691406 L 1365.527344 923.597656 L 1391.445312 920.746094 C 1434.152344 913.910156 1474.964844 899.546875 1513.5 876.679688 " fill="rgba(28,35,64,.62)"/><path d="M 487.679688 541.597656 C 467.914062 580.09375 429.25 596.605469 401.324219 578.476562 C 373.398438 560.351562 366.785156 514.449219 386.554688 475.953125 C 406.320312 437.457031 444.984375 420.945312 472.910156 439.074219 C 500.835938 457.199219 507.449219 503.101562 487.679688 541.597656 " fill="rgba(28,35,64,.62)"/><path d="M 1416.417969 533.480469 C 1396.648438 571.976562 1357.984375 588.488281 1330.058594 570.363281 C 1302.136719 552.238281 1295.519531 506.335938 1315.289062 467.839844 C 1335.058594 429.34375 1373.722656 412.832031 1401.644531 430.957031 C 1429.570312 449.085938 1436.183594 494.988281 1416.417969 533.480469 " fill="rgba(28,35,64,.62)"/></svg><span class="t mnf">Manufacturing</span></div><div class="lock" style="--H:16px;color:rgba(28,35,64,.62)"><svg class="iwi" viewBox="0 420 1614 560" aria-label="iwi" role="img"><path d="M 1513.5 876.679688 L 1531.269531 864.511719 C 1548.167969 855.480469 1568.640625 861.167969 1580.453125 876.851562 C 1585.386719 883.402344 1583.84375 891.808594 1578.414062 897.148438 C 1569.648438 905.777344 1560.386719 913.023438 1549.589844 919.363281 C 1497.429688 949.988281 1440.265625 968.269531 1381.449219 974.460938 L 1334.890625 974.6875 C 1293.242188 969.375 1249.769531 953.582031 1227.195312 911.398438 C 1188.71875 942.226562 1144.066406 963.007812 1097.734375 968.515625 L 1062.179688 968.347656 C 1027.4375 964.410156 995.085938 947.75 976.726562 913.699219 L 957.417969 929.15625 C 922.703125 956.9375 873.644531 973.644531 831.121094 964.074219 C 803.246094 957.804688 779.472656 941.015625 766.699219 911.515625 C 721.015625 946.816406 667.769531 973.179688 612.5625 965.984375 C 581.496094 961.09375 553.269531 945.457031 539.199219 912.675781 C 499.890625 941.453125 456.417969 962.257812 410.671875 968.242188 C 396.265625 970.125 382.0625 968.90625 367.617188 968.65625 C 331.265625 962.40625 299.472656 948.289062 280.472656 911.992188 C 261.933594 928.058594 242.535156 939.957031 221.519531 950.304688 C 192.046875 964.816406 161.324219 972.089844 129.332031 974.441406 C 96.710938 976.839844 57.273438 969.761719 27.441406 955.257812 C 19.335938 951.316406 11.988281 943.726562 11.082031 933.859375 C 10.035156 922.445312 18.359375 914.089844 27.492188 911.871094 C 40.296875 908.761719 52.6875 910.960938 63.074219 919.863281 C 90.707031 928.710938 118.644531 928.503906 147.066406 922.902344 C 194.023438 913.652344 233.816406 887.265625 268.996094 851.03125 C 271.023438 825.25 275.523438 800.8125 283.695312 776.148438 C 297.613281 734.132812 321.738281 675.304688 345.902344 641.136719 C 353.8125 629.953125 362.941406 620.832031 374.621094 615.417969 C 390.597656 608.015625 409.167969 610.367188 421.464844 624.351562 C 442.230469 647.96875 424.5 693.246094 412.171875 722.726562 C 391.0625 773.210938 365.179688 819.171875 332.429688 861.808594 C 329.003906 884.53125 340.722656 905.777344 360.148438 914.175781 C 388.09375 926.257812 431.828125 915.101562 458.554688 900.539062 L 475.996094 891.039062 C 496.386719 879.925781 514.558594 865.59375 531.144531 848.15625 L 535.503906 820.214844 C 542.566406 774.925781 574.652344 701.472656 596.925781 660.214844 C 605.753906 643.859375 615.328125 629.160156 627.441406 616.007812 C 638.628906 603.859375 653.839844 596.65625 669.050781 598.015625 C 682.980469 599.261719 695.429688 607.183594 701.320312 620.988281 C 712.125 646.316406 698.597656 683.96875 687.605469 710.230469 C 666.601562 760.394531 639.957031 806.457031 607.746094 848.359375 C 595.59375 864.164062 592.601562 861.507812 595.949219 885.800781 C 597.921875 900.109375 607.722656 911.664062 620.597656 914.273438 L 631.132812 915.363281 L 643.035156 914.222656 C 688.085938 905.496094 724.675781 877.855469 758.246094 843.664062 C 760.625 814.578125 766.941406 787.511719 775.945312 760.050781 C 789.550781 718.550781 809.1875 670.183594 831.722656 634.449219 C 847.351562 609.675781 870.824219 591.539062 897.226562 600.984375 C 928.160156 612.042969 926.628906 648.792969 917.027344 680.910156 C 897.996094 744.558594 862.019531 808.003906 822.667969 858.375 L 822.746094 879.261719 C 822.789062 890.40625 828.589844 900.351562 836.746094 907.050781 C 845.871094 914.554688 857.34375 914.925781 868.613281 912.488281 C 891.925781 907.445312 912.855469 895.714844 931.542969 879.5 C 942.695312 869.824219 952.734375 860.238281 961.953125 848.308594 C 962.292969 807.945312 969.316406 770.136719 981.085938 732.472656 C 992.648438 695.46875 1008.183594 650.40625 1030.257812 621.097656 C 1041.746094 605.84375 1058.386719 595.90625 1076.144531 597.851562 C 1091.269531 599.511719 1104.832031 608.722656 1110.550781 624.398438 C 1120.855469 652.644531 1108.449219 693.488281 1097.84375 722.488281 C 1084.054688 760.175781 1067.171875 795.515625 1047.136719 829.332031 L 1027.667969 859.660156 C 1027.246094 892.945312 1043.898438 914.128906 1073.367188 917.585938 C 1078.332031 918.167969 1082.898438 918.375 1087.765625 917.613281 C 1126.945312 911.480469 1166.113281 890.511719 1196.472656 862.273438 L 1210.820312 847.234375 L 1211.324219 823.316406 C 1213.960938 798.011719 1218.316406 774.042969 1225.332031 749.84375 C 1237.382812 708.273438 1259.664062 645.230469 1285.925781 615.355469 C 1298.9375 600.554688 1316.675781 593.59375 1334.574219 598.289062 C 1353.9375 603.371094 1366.414062 621.085938 1367.257812 643.734375 C 1368.523438 677.707031 1348.351562 730.429688 1333.507812 762.796875 C 1317.5 797.699219 1299.722656 830.183594 1277.71875 860.734375 C 1277.976562 885.554688 1290.714844 906.214844 1311.160156 915.601562 C 1322.296875 920.714844 1334.027344 922.359375 1346.074219 923.691406 L 1365.527344 923.597656 L 1391.445312 920.746094 C 1434.152344 913.910156 1474.964844 899.546875 1513.5 876.679688 " fill="rgba(28,35,64,.62)"/><path d="M 487.679688 541.597656 C 467.914062 580.09375 429.25 596.605469 401.324219 578.476562 C 373.398438 560.351562 366.785156 514.449219 386.554688 475.953125 C 406.320312 437.457031 444.984375 420.945312 472.910156 439.074219 C 500.835938 457.199219 507.449219 503.101562 487.679688 541.597656 " fill="rgba(28,35,64,.62)"/><path d="M 1416.417969 533.480469 C 1396.648438 571.976562 1357.984375 588.488281 1330.058594 570.363281 C 1302.136719 552.238281 1295.519531 506.335938 1315.289062 467.839844 C 1335.058594 429.34375 1373.722656 412.832031 1401.644531 430.957031 C 1429.570312 449.085938 1436.183594 494.988281 1416.417969 533.480469 " fill="rgba(28,35,64,.62)"/></svg><span class="t fb">ForBatch</span></div><div class="lock" style="--H:16px;color:rgba(28,35,64,.62)"><svg class="iwi" viewBox="0 420 1614 560" aria-label="iwi" role="img"><path d="M 1513.5 876.679688 L 1531.269531 864.511719 C 1548.167969 855.480469 1568.640625 861.167969 1580.453125 876.851562 C 1585.386719 883.402344 1583.84375 891.808594 1578.414062 897.148438 C 1569.648438 905.777344 1560.386719 913.023438 1549.589844 919.363281 C 1497.429688 949.988281 1440.265625 968.269531 1381.449219 974.460938 L 1334.890625 974.6875 C 1293.242188 969.375 1249.769531 953.582031 1227.195312 911.398438 C 1188.71875 942.226562 1144.066406 963.007812 1097.734375 968.515625 L 1062.179688 968.347656 C 1027.4375 964.410156 995.085938 947.75 976.726562 913.699219 L 957.417969 929.15625 C 922.703125 956.9375 873.644531 973.644531 831.121094 964.074219 C 803.246094 957.804688 779.472656 941.015625 766.699219 911.515625 C 721.015625 946.816406 667.769531 973.179688 612.5625 965.984375 C 581.496094 961.09375 553.269531 945.457031 539.199219 912.675781 C 499.890625 941.453125 456.417969 962.257812 410.671875 968.242188 C 396.265625 970.125 382.0625 968.90625 367.617188 968.65625 C 331.265625 962.40625 299.472656 948.289062 280.472656 911.992188 C 261.933594 928.058594 242.535156 939.957031 221.519531 950.304688 C 192.046875 964.816406 161.324219 972.089844 129.332031 974.441406 C 96.710938 976.839844 57.273438 969.761719 27.441406 955.257812 C 19.335938 951.316406 11.988281 943.726562 11.082031 933.859375 C 10.035156 922.445312 18.359375 914.089844 27.492188 911.871094 C 40.296875 908.761719 52.6875 910.960938 63.074219 919.863281 C 90.707031 928.710938 118.644531 928.503906 147.066406 922.902344 C 194.023438 913.652344 233.816406 887.265625 268.996094 851.03125 C 271.023438 825.25 275.523438 800.8125 283.695312 776.148438 C 297.613281 734.132812 321.738281 675.304688 345.902344 641.136719 C 353.8125 629.953125 362.941406 620.832031 374.621094 615.417969 C 390.597656 608.015625 409.167969 610.367188 421.464844 624.351562 C 442.230469 647.96875 424.5 693.246094 412.171875 722.726562 C 391.0625 773.210938 365.179688 819.171875 332.429688 861.808594 C 329.003906 884.53125 340.722656 905.777344 360.148438 914.175781 C 388.09375 926.257812 431.828125 915.101562 458.554688 900.539062 L 475.996094 891.039062 C 496.386719 879.925781 514.558594 865.59375 531.144531 848.15625 L 535.503906 820.214844 C 542.566406 774.925781 574.652344 701.472656 596.925781 660.214844 C 605.753906 643.859375 615.328125 629.160156 627.441406 616.007812 C 638.628906 603.859375 653.839844 596.65625 669.050781 598.015625 C 682.980469 599.261719 695.429688 607.183594 701.320312 620.988281 C 712.125 646.316406 698.597656 683.96875 687.605469 710.230469 C 666.601562 760.394531 639.957031 806.457031 607.746094 848.359375 C 595.59375 864.164062 592.601562 861.507812 595.949219 885.800781 C 597.921875 900.109375 607.722656 911.664062 620.597656 914.273438 L 631.132812 915.363281 L 643.035156 914.222656 C 688.085938 905.496094 724.675781 877.855469 758.246094 843.664062 C 760.625 814.578125 766.941406 787.511719 775.945312 760.050781 C 789.550781 718.550781 809.1875 670.183594 831.722656 634.449219 C 847.351562 609.675781 870.824219 591.539062 897.226562 600.984375 C 928.160156 612.042969 926.628906 648.792969 917.027344 680.910156 C 897.996094 744.558594 862.019531 808.003906 822.667969 858.375 L 822.746094 879.261719 C 822.789062 890.40625 828.589844 900.351562 836.746094 907.050781 C 845.871094 914.554688 857.34375 914.925781 868.613281 912.488281 C 891.925781 907.445312 912.855469 895.714844 931.542969 879.5 C 942.695312 869.824219 952.734375 860.238281 961.953125 848.308594 C 962.292969 807.945312 969.316406 770.136719 981.085938 732.472656 C 992.648438 695.46875 1008.183594 650.40625 1030.257812 621.097656 C 1041.746094 605.84375 1058.386719 595.90625 1076.144531 597.851562 C 1091.269531 599.511719 1104.832031 608.722656 1110.550781 624.398438 C 1120.855469 652.644531 1108.449219 693.488281 1097.84375 722.488281 C 1084.054688 760.175781 1067.171875 795.515625 1047.136719 829.332031 L 1027.667969 859.660156 C 1027.246094 892.945312 1043.898438 914.128906 1073.367188 917.585938 C 1078.332031 918.167969 1082.898438 918.375 1087.765625 917.613281 C 1126.945312 911.480469 1166.113281 890.511719 1196.472656 862.273438 L 1210.820312 847.234375 L 1211.324219 823.316406 C 1213.960938 798.011719 1218.316406 774.042969 1225.332031 749.84375 C 1237.382812 708.273438 1259.664062 645.230469 1285.925781 615.355469 C 1298.9375 600.554688 1316.675781 593.59375 1334.574219 598.289062 C 1353.9375 603.371094 1366.414062 621.085938 1367.257812 643.734375 C 1368.523438 677.707031 1348.351562 730.429688 1333.507812 762.796875 C 1317.5 797.699219 1299.722656 830.183594 1277.71875 860.734375 C 1277.976562 885.554688 1290.714844 906.214844 1311.160156 915.601562 C 1322.296875 920.714844 1334.027344 922.359375 1346.074219 923.691406 L 1365.527344 923.597656 L 1391.445312 920.746094 C 1434.152344 913.910156 1474.964844 899.546875 1513.5 876.679688 " fill="rgba(28,35,64,.62)"/><path d="M 487.679688 541.597656 C 467.914062 580.09375 429.25 596.605469 401.324219 578.476562 C 373.398438 560.351562 366.785156 514.449219 386.554688 475.953125 C 406.320312 437.457031 444.984375 420.945312 472.910156 439.074219 C 500.835938 457.199219 507.449219 503.101562 487.679688 541.597656 " fill="rgba(28,35,64,.62)"/><path d="M 1416.417969 533.480469 C 1396.648438 571.976562 1357.984375 588.488281 1330.058594 570.363281 C 1302.136719 552.238281 1295.519531 506.335938 1315.289062 467.839844 C 1335.058594 429.34375 1373.722656 412.832031 1401.644531 430.957031 C 1429.570312 449.085938 1436.183594 494.988281 1416.417969 533.480469 " fill="rgba(28,35,64,.62)"/></svg><span class="t dt">design thinking<svg viewBox="0 0 300 10" preserveAspectRatio="none" class="ul"><path d="M2 6 C 80 2, 180 9, 298 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span></div><a class="dir" href="demos/">Demos</a><span>© 2026 iwi</span></div>
+</div><div class="trama3d" aria-hidden="true" data-d="M 1513.5 876.679688 L 1531.269531 864.511719 C 1548.167969 855.480469 1568.640625 861.167969 1580.453125 876.851562 C 1585.386719 883.402344 1583.84375 891.808594 1578.414062 897.148438 C 1569.648438 905.777344 1560.386719 913.023438 1549.589844 919.363281 C 1497.429688 949.988281 1440.265625 968.269531 1381.449219 974.460938 L 1334.890625 974.6875 C 1293.242188 969.375 1249.769531 953.582031 1227.195312 911.398438 C 1188.71875 942.226562 1144.066406 963.007812 1097.734375 968.515625 L 1062.179688 968.347656 C 1027.4375 964.410156 995.085938 947.75 976.726562 913.699219 L 957.417969 929.15625 C 922.703125 956.9375 873.644531 973.644531 831.121094 964.074219 C 803.246094 957.804688 779.472656 941.015625 766.699219 911.515625 C 721.015625 946.816406 667.769531 973.179688 612.5625 965.984375 C 581.496094 961.09375 553.269531 945.457031 539.199219 912.675781 C 499.890625 941.453125 456.417969 962.257812 410.671875 968.242188 C 396.265625 970.125 382.0625 968.90625 367.617188 968.65625 C 331.265625 962.40625 299.472656 948.289062 280.472656 911.992188 C 261.933594 928.058594 242.535156 939.957031 221.519531 950.304688 C 192.046875 964.816406 161.324219 972.089844 129.332031 974.441406 C 96.710938 976.839844 57.273438 969.761719 27.441406 955.257812 C 19.335938 951.316406 11.988281 943.726562 11.082031 933.859375 C 10.035156 922.445312 18.359375 914.089844 27.492188 911.871094 C 40.296875 908.761719 52.6875 910.960938 63.074219 919.863281 C 90.707031 928.710938 118.644531 928.503906 147.066406 922.902344 C 194.023438 913.652344 233.816406 887.265625 268.996094 851.03125 C 271.023438 825.25 275.523438 800.8125 283.695312 776.148438 C 297.613281 734.132812 321.738281 675.304688 345.902344 641.136719 C 353.8125 629.953125 362.941406 620.832031 374.621094 615.417969 C 390.597656 608.015625 409.167969 610.367188 421.464844 624.351562 C 442.230469 647.96875 424.5 693.246094 412.171875 722.726562 C 391.0625 773.210938 365.179688 819.171875 332.429688 861.808594 C 329.003906 884.53125 340.722656 905.777344 360.148438 914.175781 C 388.09375 926.257812 431.828125 915.101562 458.554688 900.539062 L 475.996094 891.039062 C 496.386719 879.925781 514.558594 865.59375 531.144531 848.15625 L 535.503906 820.214844 C 542.566406 774.925781 574.652344 701.472656 596.925781 660.214844 C 605.753906 643.859375 615.328125 629.160156 627.441406 616.007812 C 638.628906 603.859375 653.839844 596.65625 669.050781 598.015625 C 682.980469 599.261719 695.429688 607.183594 701.320312 620.988281 C 712.125 646.316406 698.597656 683.96875 687.605469 710.230469 C 666.601562 760.394531 639.957031 806.457031 607.746094 848.359375 C 595.59375 864.164062 592.601562 861.507812 595.949219 885.800781 C 597.921875 900.109375 607.722656 911.664062 620.597656 914.273438 L 631.132812 915.363281 L 643.035156 914.222656 C 688.085938 905.496094 724.675781 877.855469 758.246094 843.664062 C 760.625 814.578125 766.941406 787.511719 775.945312 760.050781 C 789.550781 718.550781 809.1875 670.183594 831.722656 634.449219 C 847.351562 609.675781 870.824219 591.539062 897.226562 600.984375 C 928.160156 612.042969 926.628906 648.792969 917.027344 680.910156 C 897.996094 744.558594 862.019531 808.003906 822.667969 858.375 L 822.746094 879.261719 C 822.789062 890.40625 828.589844 900.351562 836.746094 907.050781 C 845.871094 914.554688 857.34375 914.925781 868.613281 912.488281 C 891.925781 907.445312 912.855469 895.714844 931.542969 879.5 C 942.695312 869.824219 952.734375 860.238281 961.953125 848.308594 C 962.292969 807.945312 969.316406 770.136719 981.085938 732.472656 C 992.648438 695.46875 1008.183594 650.40625 1030.257812 621.097656 C 1041.746094 605.84375 1058.386719 595.90625 1076.144531 597.851562 C 1091.269531 599.511719 1104.832031 608.722656 1110.550781 624.398438 C 1120.855469 652.644531 1108.449219 693.488281 1097.84375 722.488281 C 1084.054688 760.175781 1067.171875 795.515625 1047.136719 829.332031 L 1027.667969 859.660156 C 1027.246094 892.945312 1043.898438 914.128906 1073.367188 917.585938 C 1078.332031 918.167969 1082.898438 918.375 1087.765625 917.613281 C 1126.945312 911.480469 1166.113281 890.511719 1196.472656 862.273438 L 1210.820312 847.234375 L 1211.324219 823.316406 C 1213.960938 798.011719 1218.316406 774.042969 1225.332031 749.84375 C 1237.382812 708.273438 1259.664062 645.230469 1285.925781 615.355469 C 1298.9375 600.554688 1316.675781 593.59375 1334.574219 598.289062 C 1353.9375 603.371094 1366.414062 621.085938 1367.257812 643.734375 C 1368.523438 677.707031 1348.351562 730.429688 1333.507812 762.796875 C 1317.5 797.699219 1299.722656 830.183594 1277.71875 860.734375 C 1277.976562 885.554688 1290.714844 906.214844 1311.160156 915.601562 C 1322.296875 920.714844 1334.027344 922.359375 1346.074219 923.691406 L 1365.527344 923.597656 L 1391.445312 920.746094 C 1434.152344 913.910156 1474.964844 899.546875 1513.5 876.679688  M 487.679688 541.597656 C 467.914062 580.09375 429.25 596.605469 401.324219 578.476562 C 373.398438 560.351562 366.785156 514.449219 386.554688 475.953125 C 406.320312 437.457031 444.984375 420.945312 472.910156 439.074219 C 500.835938 457.199219 507.449219 503.101562 487.679688 541.597656  M 1416.417969 533.480469 C 1396.648438 571.976562 1357.984375 588.488281 1330.058594 570.363281 C 1302.136719 552.238281 1295.519531 506.335938 1315.289062 467.839844 C 1335.058594 429.34375 1373.722656 412.832031 1401.644531 430.957031 C 1429.570312 449.085938 1436.183594 494.988281 1416.417969 533.480469 "><canvas></canvas></div></section>
+<div id="barra" aria-label="Brincar a"><span class="cuenta"></span><div class="lista"></div><button class="flecha" data-paso="-1" aria-label="Anterior">←</button><button class="flecha" data-paso="1" aria-label="Siguiente">→</button></div>
+<script>
+document.querySelectorAll('.from').forEach(function(f){var s=f.querySelectorAll('span'),i=0;setInterval(function(){s[i].classList.remove('on');i=(i+1)%s.length;s[i].classList.add('on')},2000)});
+</script>
+<script>
+/* páginas: una a la vez; el menú dice dónde estás; abajo, títulos para brincar */
+(function(){
+  var P=[].slice.call(document.querySelectorAll('.pag')), orden=P.map(function(p){return p.dataset.p});
+  var barra=document.getElementById('barra'), lista=barra.querySelector('.lista'), cuenta=barra.querySelector('.cuenta');
+  var CORTOS={es:["Colima", "IAudit", "Pulso", "microsteps", "Hielera", "Lanyard", "Aros", "mööd", "Lumika", "Tiburón", "El estudio"],en:["Colima","IAudit","Pulso","microsteps","Cooler","Lanyard","Rings","mööd","Lumika","Whale shark","The studio"]};
+  var PASOS={es:["El nombre","Una postura","Todo ya fue creado","Lo que creemos","Lo que hacemos","Hacia dónde"],en:["The name","A stance","Everything was already made","What we believe","What we do","Where we are going"]};
+  var GIRA={es:["objetos","procesos","experiencias","servicios"],en:["objects","processes","experiences","services"]};
+  var lang=function(){return document.documentElement.lang==='en'?'en':'es'};
+  var calma=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var actual=null, paso=0, pasos=[].slice.call(document.querySelectorAll('.serie .paso')), relojPasos=null;
+  function grupoDe(p){return p&&p.dataset.grupo}
+  function pintaBarra(){
+    var p=P[orden.indexOf(actual)], g=grupoDe(p);
+    barra.classList.toggle('on',!!g);
+    if(!g)return;
+    var nombres=g==='casos'?CORTOS[lang()]:PASOS[lang()], i=g==='casos'?+p.dataset.n:paso;
+    lista.innerHTML='';
+    nombres.forEach(function(t,k){var b=document.createElement('button');b.textContent=t;b.className=k===i?'on':'';if(k===i)b.setAttribute('aria-current','true');
+      b.addEventListener('click',function(){g==='casos'?ve('caso-'+(k+1)):ponPaso(k,true)});lista.appendChild(b)});
+    cuenta.textContent=String(i+1).padStart(2,'0')+' / '+String(nombres.length).padStart(2,'0');
+    var on=lista.querySelector('.on');if(on)on.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+  }
+  function ponPaso(k,mano){paso=(k+pasos.length)%pasos.length;pasos.forEach(function(p,j){p.classList.toggle('on',j===paso)});pintaBarra();
+    clearInterval(relojPasos);if(actual==='pensamos'&&!calma)relojPasos=setInterval(function(){ponPaso(paso+1)},mano?12000:6500)}
+  function ve(id,sinHistoria){
+    if(orden.indexOf(id)<0)id='inicio';
+    var de=orden.indexOf(actual),a=orden.indexOf(id);
+    document.documentElement.style.setProperty('--dir',a>=de?1:-1);
+    // al cambiar, la página que se va se acerca: entramos en la imagen
+    var va=P[de];if(va&&de!==a){va.classList.add('sale');setTimeout(function(){va.classList.remove('sale')},800)}
+    P.forEach(function(p){var on=p.dataset.p===id;p.classList.toggle('on',on);if(on)p.scrollTop=0});
+    actual=id;document.body.setAttribute('data-p',id);
+    var g=grupoDe(P[a]), menu=g==='casos'?'casos':id;
+    document.querySelectorAll('[data-menu]').forEach(function(m){var on=m.dataset.menu===menu;m.classList.toggle('on',on);if(on)m.setAttribute('aria-current','page');else m.removeAttribute('aria-current')});
+    P.forEach(function(p){p.setAttribute('aria-hidden',p.dataset.p===id?'false':'true')});
+    if(id==='pensamos')ponPaso(0);else clearInterval(relojPasos);
+    pintaBarra();
+    if(!sinHistoria&&location.hash!=='#'+id)history.pushState(null,'','#'+id);
+  }
+  function mueve(d){
+    var p=P[orden.indexOf(actual)];
+    if(grupoDe(p)==='pasos'){var k=paso+d;if(k>=0&&k<pasos.length)return ponPaso(k,true)}
+    var a=orden.indexOf(actual)+d;if(a>=0&&a<orden.length)ve(orden[a]);
+  }
+  document.querySelectorAll('[data-ir]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();ve(a.dataset.ir)})});
+  barra.querySelectorAll('[data-paso]').forEach(function(b){b.addEventListener('click',function(){mueve(+b.dataset.paso)})});
+  addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowDown')mueve(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')mueve(-1)});
+  var x0=null,y0=null;
+  addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+  addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)mueve(dx<0?1:-1);x0=null},{passive:true});
+  addEventListener('popstate',function(){ve(location.hash.slice(1),true)});
+  // galerías: las fotos se relevan solas mientras su caso está a la vista
+  if(!calma)setInterval(function(){document.querySelectorAll('.pag.on .galeria').forEach(function(g){var im=g.querySelectorAll('img'),k=0;
+    im.forEach(function(x,j){if(x.classList.contains('on'))k=j});im[k].classList.remove('on');var nx=im[(k+1)%im.length];nx.classList.add('on');
+    var n=g.querySelector('.nota'),e=nx.dataset.etapa||'';if(n)n.textContent=lang()==='en'?(ETAPA_EN[e]||e):e})},3200);
+  var ETAPA_EN={'Modelo 3D':'3D model','Plata':'Silver','En la impresora':'On the printer','El lote':'The batch','Render':'Render'};
+  // la palabra del inicio va cambiando
+  var gira=document.querySelector('.gira'),gi=0;
+  if(!calma)setInterval(function(){if(actual!=='inicio'||!gira)return;gira.classList.add('va');setTimeout(function(){gi=(gi+1)%GIRA.es.length;gira.textContent=GIRA[lang()][gi];gira.classList.remove('va')},450)},2600);
+  window.iwiIdioma=function(){if(gira)gira.textContent=GIRA[lang()][gi];if(actual)pintaBarra()};
+  ve(location.hash.slice(1)||'inicio',true);
+})();
+</script>
+<script>
+/* fuerza: las fotos responden un poco al cursor (o a la inclinación del dedo) y el collage se releva solo */
+(function(){
+  var calma=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;if(calma)return;
+  var raiz=document.documentElement;
+  addEventListener('pointermove',function(e){raiz.style.setProperty('--px',(e.clientX/innerWidth-.5).toFixed(3));raiz.style.setProperty('--py',(e.clientY/innerHeight-.5).toFixed(3))},{passive:true});
+  var k=0;setInterval(function(){var ms=document.querySelectorAll('.pag.on .collage .m');if(!ms.length)return;var m=ms[k%ms.length];k++;
+    var im=m.querySelectorAll('img'),j=0;im.forEach(function(x,i){if(x.classList.contains('on'))j=i});im[j].classList.remove('on');im[(j+1)%im.length].classList.add('on')},1700);
+})();
+</script><script>
+/* intro: la ventana pasa por todas las piezas, despacio; cuando cambia el tipo de trabajo cambia la frase:
+   la cosa entra con un clink de martillo, el verbo con un swoosh y su subrayado. Todo suave. */
+(function(){
+  var v=document.querySelector('.ventana');if(!v)return;
+  var im=[].slice.call(v.querySelectorAll('img')),pie=v.querySelector('.pie-v'),h1=document.querySelector('.intro h1'),cosa=h1.querySelector('.cosa'),
+      hace=h1.querySelector('em.hace'),verbo=h1.querySelector('.verbo'),bs=document.querySelector('.sonido'),col=document.querySelector('.intro .txt-i');
+  var calma=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FR={es:[['objetos','sí se fabrican'],['procesos','sí se cumplen'],['plataformas','sí se usan'],['experiencias','sí se viven']],
+          en:[['objects','actually get made'],['processes','actually get done'],['platforms','actually get used'],['experiences','actually get lived']]};
+  var lang=function(){return document.documentElement.lang==='en'?'en':'es'};
+  var i=0,g=0;
+  // el tamaño de la frase se ajusta a su columna con la palabra más larga, así nunca pasa de dos renglones
+  function ajusta(){var l=lang(),c=cosa.textContent,vb=verbo.textContent,ancho=col.clientWidth,max=0;
+    h1.style.fontSize='100px';
+    FR[l].forEach(function(f){cosa.textContent=f[0];verbo.textContent=f[1];var r=h1.scrollWidth;if(r>max)max=r});
+    cosa.textContent=c;verbo.textContent=vb;
+    var tope=document.body.classList.contains('figma')?(matchMedia('(max-width:860px)').matches?34:64):120,fs=Math.max(30,Math.min(tope,Math.floor(100*ancho/max*.98)));h1.style.fontSize=fs+'px'}
+  // sonido: sólo si se enciende, muy bajo
+  var ac=null,on=false;
+  function audio(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}return ac}
+  function clink(){if(!on||!audio())return;var t=ac.currentTime,o=ac.createGain();o.gain.setValueAtTime(0,t);o.gain.linearRampToValueAtTime(.022,t+.004);o.gain.exponentialRampToValueAtTime(.0001,t+.6);o.connect(ac.destination);
+    [2380,3290,5150].forEach(function(f,k){var s=ac.createOscillator();s.type='sine';s.frequency.value=f;var gg=ac.createGain();gg.gain.value=[1,.5,.25][k];s.connect(gg);gg.connect(o);s.start(t);s.stop(t+.65)})}
+  function swoosh(){if(!on||!audio())return;var t=ac.currentTime,n=ac.sampleRate*.6,b=ac.createBuffer(1,n,ac.sampleRate),d=b.getChannelData(0);for(var k=0;k<n;k++)d[k]=Math.random()*2-1;
+    var src=ac.createBufferSource();src.buffer=b;var f=ac.createBiquadFilter();f.type='bandpass';f.Q.value=1.2;f.frequency.setValueAtTime(420,t);f.frequency.exponentialRampToValueAtTime(2400,t+.55);
+    var o=ac.createGain();o.gain.setValueAtTime(0,t);o.gain.linearRampToValueAtTime(.014,t+.18);o.gain.exponentialRampToValueAtTime(.0001,t+.6);src.connect(f);f.connect(o);o.connect(ac.destination);src.start(t);
+    var c=ac.createOscillator(),cg=ac.createGain();c.frequency.value=1600;cg.gain.setValueAtTime(0,t);cg.gain.setValueAtTime(.012,t+.56);cg.gain.exponentialRampToValueAtTime(.0001,t+.6);c.connect(cg);cg.connect(ac.destination);c.start(t+.55);c.stop(t+.62)}
+  bs.addEventListener('click',function(e){e.stopPropagation();audio();on=!on;if(on&&ac&&ac.resume)ac.resume();bs.setAttribute('aria-pressed',String(on));if(on)clink()});
+  function ponPie(){var x=im[i];pie.textContent=x.dataset.pie;v.setAttribute('href','#'+x.dataset.caso);v.dataset.ir=x.dataset.caso}
+  // la palabra que se va cae y se difumina; la nueva llega de arriba y se enfoca. Primero la cosa (clink), luego el verbo con su subrayado (swoosh)
+  function cambia(el,txt,son,espera){setTimeout(function(){el.classList.add('sale');
+    setTimeout(function(){(el===hace?verbo:el).textContent=txt;el.classList.remove('sale');el.classList.add('llega');void el.offsetWidth;el.classList.remove('llega');son()},900)},espera)}
+  function frase(ng){var f=FR[lang()][ng];cambia(cosa,f[0],clink,0);cambia(hace,f[1],swoosh,900)}
+  function paso(){var antes=im[i];i=(i+1)%im.length;antes.classList.remove('on');im[i].classList.add('on');
+    pie.classList.add('va');setTimeout(function(){ponPie();pie.classList.remove('va')},900);
+    var ng=+im[i].dataset.g;if(ng!==g){g=ng;frase(g)}}
+  ponPie();ajusta();addEventListener('resize',ajusta);if(document.fonts)document.fonts.ready.then(ajusta);
+  var prev=window.iwiIdioma;window.iwiIdioma=function(l){if(prev)prev(l);var f=FR[lang()][g];cosa.textContent=f[0];verbo.textContent=f[1];ajusta()};
+  if(!calma)setInterval(function(){var p=document.body.getAttribute('data-p');if(!p||p==='inicio')paso()},5600);
+  // «ver»: tres anillos que respiran y se deforman apenas, como una huella
+  var ps=v.querySelectorAll('.voz path'),t0=performance.now();
+  function voz(t){var s=(t-t0)/1000;ps.forEach(function(p,k){var r=[30,36,42][k],d='';
+    for(var a=0;a<=64;a++){var th=a/64*Math.PI*2,rr=r+(1.4+k*.5)*Math.sin(3*th+s*(.45+k*.15)+k)+.9*Math.sin(5*th-s*.35*(k+1));
+      d+=(a?'L':'M')+(rr*Math.cos(th)).toFixed(2)+' '+(rr*Math.sin(th)).toFixed(2)}p.setAttribute('d',d+'Z')});
+    if(!calma)requestAnimationFrame(voz)}
+  requestAnimationFrame(voz);
+})();
+</script>
+<script>
+/* ES · EN: el texto en español es el original; el inglés sale de este diccionario */
+(function(){
+  var EN={"Sonido": "Sound", "ver": "see", "estudio de diseño.": "design studio.", "CDMX": "Mexico City", "iwi": "iwi", "Filosofía": "Philosophy", "I · El nombre": "I · The name", "II · Una postura": "II · A stance", "III · Todo ya fue creado": "III · Everything was already made", "IV · Lo que creemos": "IV · What we believe", "V · Lo que hacemos": "V · What we do", "VI · Hacia dónde": "VI · Where we are going", "iwi viene de iwigalá.": "iwi comes from iwigalá.", "En la cosmovisión rarámuri, iwigalá es el aliento vital que reside en el corazón.": "In the Rarámuri worldview, iwigalá is the vital breath that lives in the heart.", "No es un gesto estético. Es una postura.": "It is not an aesthetic gesture. It is a stance.", "Con la observación antes que con la intervención, con la unión antes que con la fragmentación.": "Observation before intervention, union before fragmentation.", "No llegamos a inventar desde cero. Llegamos a escuchar.": "We do not arrive to invent from scratch. We arrive to listen.", "El mejor diseño no se nota como intervención: se siente como algo que siempre debió haber estado.": "The best design does not feel like an intervention: it feels like something that should always have been there.", "El diseño no decora. Estructura.": "Design does not decorate. It structures.", "Empezar de menos no es una limitación. Es una postura.": "Starting from less is not a limitation. It is a stance.", "Pedimos permiso para entrar.": "We ask permission to come in.", "Escuchamos, observamos, devolvemos una propuesta y damos un paso pequeño.": "We listen, we observe, we bring back a proposal and we take one small step.", "Proyectos que dejan capacidad instalada, no dependencia.": "Projects that leave capacity behind, not dependence.", "Un estudio que respira, que observa, y que da forma a lo que ya quiere existir.": "A studio that breathes, observes, and gives shape to what already wants to exist.", "Demos": "Demos", "Servicios": "Services", "Filosofía": "Philosophy", "Ver casos": "See work", "Ver ForBatch": "See ForBatch", "Diseñamos": "We design", "que": "that", "Render": "Render", "El color sale del horno.": "Color comes out of the kiln.", "Un esmalte en el frasco no se parece al que sale del horno.": "A glaze in the jar looks nothing like what comes out of the kiln.", "Un plato de pruebas con cada esmalte del taller, quemado y marcado, para elegir color con la pieza real.": "A test plate with every glaze in the workshop, fired and labeled, to choose color from the real thing.", "La paleta de mööd, para armar un florero a tu mood en la tienda de ForBatch.": "The mööd palette, to build a vase for your mood in the ForBatch store.", "Lumika: del modelo 3D a la plata.": "Lumika: from 3D model to silver.", "Una diseñadora con sus piezas dibujadas y sin taller para hacerlas.": "A designer with her pieces drawn and no workshop to make them.", "Desarrollamos los modelos y los fabricamos en plata: el gato y la calabaza.": "We developed the models and made them in silver: the cat and the pumpkin.", "Colaboración con Carolina Pérez Moreno: desarrollo, fabricación y venta en la tienda de ForBatch.": "A collaboration with Carolina Pérez Moreno: development, making and sales in the ForBatch store.", "Un lote de tiburones, de volada.": "A batch of sharks, in a hurry.", "Hacían falta muchas piezas impresas en 3D, para ya.": "Many 3D printed pieces were needed, right away.", "Un tiburón ballena articulado, ajustado para imprimirse en lote.": "An articulated whale shark, adjusted to print as a batch.", "Ajuste del modelo, impresión y acabado de todo el lote.": "Model adjustment, printing and finishing for the whole batch.", "Impresión 3D": "3D printing", "Plata · modelo 3D": "Silver · 3D model", "Lumika: colgantes en plata de gato y calabaza, y sus modelos 3D": "Lumika: silver cat and pumpkin pendants, and their 3D models", "Lote de tiburones ballena articulados, impresos en 3D": "Batch of articulated whale sharks, 3D printed", "Plato de pruebas con los esmaltes del taller, en rueda de color": "Test plate with the workshop glazes, in a color wheel", "Aros: anillos de cerámica apilados en colores distintos, con flores": "Rings: stacked ceramic rings in different colors, with flowers", "Borrador de Diseño · 25 oct · no publicado. Lo marcado": "Design draft · Oct 25 · not published. Anything marked", "así": "like this", "espera confirmación de Carlos o permiso del cliente.": "is waiting for Carlos's confirmation or the client's permission.", "Trabajo": "Work", "Qué hacemos": "What we do", "Cómo pensamos": "How we think", "Contacto": "Contact", "iwi · estudio de diseño · Ciudad de México": "iwi · design studio · Mexico City", "Diseñamos objetos, procesos y experiencias que": "We design objects, processes and experiences that", "sí se fabrican.": "actually get made.", "Observamos cómo funciona algo, encontramos lo que falta y lo llevamos del boceto a la pieza terminada.": "We observe how something works, find what's missing and take it from sketch to finished piece.", "Texto provisional.": "Provisional text.", "Casos": "Cases", "Problema · solución · alcance": "Problem · solution · scope", "Cervecería de Colima": "Cervecería de Colima", "Materiales de punto de venta que cuentan de dónde viene la cerveza.": "Point-of-sale pieces that tell where the beer comes from.", "Problema": "Problem", "Solución": "Solution", "Alcance": "Scope", "La marca necesitaba objetos de bar que se reconocieran a distancia y aguantaran el uso diario.": "The brand needed bar objects that could be recognized from afar and survive daily use.", "Una familia de piezas de lámina y metal: servilleteros, hielera y destapador, con la identidad de la cervecería.": "A family of sheet-metal pieces: napkin holders, cooler and bottle opener, carrying the brewery's identity.", "Diseño, render y desarrollo para fabricar en serie.": "Design, rendering and development for mass production.", "por confirmar": "to be confirmed", "IAudit: saber cómo está cada bodega, sin adivinar.": "IAudit: knowing how every warehouse is doing, without guessing.", "Una red de bodegas y agencias sin una forma común de revisar inventario, servicios y retornos.": "A network of warehouses and agencies with no shared way to review inventory, services and returns.", "Una auditoría propia, inspirada en estándares tipo SMETA, con cinco pilares, recorrido en el celular y un semáforo de cuatro niveles.": "An in-house audit, inspired by SMETA-type standards, with five pillars, a walkthrough on the phone and a four-level traffic light.", "Propuesta: estándar interno para toda la red, con visitas, hallazgos con plazos y un tablero de resultados.": "Proposal: an internal standard for the whole network, with visits, findings with deadlines and a results dashboard.", "Pulso: una bitácora que acompaña sin estorbar.": "Pulso: a log that keeps you company without getting in the way.", "Registrar un proceso de semanas sin que se sienta como un formulario clínico.": "Recording a weeks-long process without it feeling like a clinical form.", "Una app con color que significa algo, luz que sigue el día y un registro que se siente como contacto.": "An app where color means something, light follows the day and logging feels like contact.", "Diseño de producto digital completo, del sistema visual al prototipo navegable.": "Full digital product design, from the visual system to the clickable prototype.", "microsteps.mx: una página que murmura.": "microsteps.mx: a page that murmurs.", "Divulgar ciencia sin que suene a clase, y poner en la misma mesa a la ciencia, la espiritualidad y el chamanismo.": "Sharing science without it sounding like a lecture, and bringing science, spirituality and shamanism to the same table.", "Una sola pantalla: una murmuración que sigue la regla real de los estorninos, las fotos de naturaleza de Carlos y un tema mirado con varios lentes.": "A single screen: a murmuration that follows the real rule of starlings, Carlos's nature photos and one topic seen through many lenses.", "Concepto, dirección de arte, código, sonido y lanzamiento en microsteps.mx.": "Concept, art direction, code, sound and launch at microsteps.mx.", "Hielera de punto de venta.": "Point-of-sale cooler.", "Un objeto que trabaja en la calle y tiene que verse bien después de meses.": "An object that works on the street and has to look good after months.", "Cuerpo metálico, esquinas reforzadas y la marca como protagonista.": "Metal body, reinforced corners and the brand front and center.", "Diseño y desarrollo para producción.": "Design and development for production.", "Lanyard con tubo.": "Lanyard with tube.", "Una pieza de marca que se lleva puesta y tiene que ser útil.": "A branded piece people wear, and it has to be useful.", "Cinta, broche y contenedor metálico en una sola pieza.": "Strap, clasp and metal container in a single piece.", "Diseño y desarrollo para fabricación.": "Design and development for manufacturing.", "Aros.": "Rings.", "Pieza modular de anillos que se apilan.": "A modular piece of stacking rings.", "Imagen por hacer": "Image to come", "El sistema del estudio: espacios, memoria y agentes": "The studio system: spaces, memory and agents", "Cómo diseñamos el estudio.": "How we designed the studio.", "Las ideas vivían repartidas en chats y se perdían antes de volverse entregas.": "Ideas lived scattered across chats and got lost before becoming deliverables.", "Una memoria común, un espacio por proyecto y agentes que trabajan en pareja: uno explora, otro ejecuta.": "A shared memory, one space per project and agents working in pairs: one explores, the other executes.", "Todo el estudio: divisiones, clientes y proyectos personales, con reglas comunes.": "The whole studio: divisions, clients and personal projects, under shared rules.", "Tres divisiones, un estudio": "Three divisions, one studio", "Diseño para fabricación y maquila para marcas, por proyecto.": "Design for manufacturing and contract production for brands, by project.", "Diseño industrial y prototipo": "Industrial design and prototyping", "Cotización y proveedores": "Quotes and suppliers", "Producción por lote": "Batch production", "Para diseñadores que están haciendo sus piezas: diseñamos, desarrollamos, fabricamos y te ayudamos a vender, de una a cientos.": "For designers making their own pieces: we design, develop, make and help you sell, from one to hundreds.", "Lotes pequeños": "Small batches", "Marcas aliadas": "Partner brands", "Tienda": "Shop", "por abrir": "coming soon", "Sistemas, plataformas y servicios para resolver una necesidad. Observamos, encontramos lo que falta y lo diseñamos.": "Systems, platforms and services that solve a need. We observe, find what's missing and design it.", "Auditoría y diagnóstico": "Audit and diagnosis", "Diseño de servicio": "Service design", "Nuestras piezas propias, dentro de ForBatch.": "Our own pieces, within ForBatch.", "Todo fue diseñado.": "Everything was designed.", "Comprenderlo transforma.": "Understanding it transforms.", "iwi viene del rarámuri, del iwigála: el aliento que todo lo conecta. Por eso miramos el sistema completo antes de tocar una parte. Small steps, deep changes.": "iwi comes from Rarámuri, from iwigála: the breath that connects everything. That's why we look at the whole system before touching a part. Small steps, deep changes.", "Texto por aprobar.": "Text pending approval.", "Escuchamos": "We listen", "Entendemos qué se necesita y por qué, con quien lo vive.": "We understand what's needed and why, with the people who live it.", "Observamos": "We observe", "Vemos el sistema completo: de lo general a lo particular y de regreso.": "We see the whole system: from the general to the particular and back.", "Devolvemos una propuesta": "We bring back a proposal", "Bocetos, prototipos y variantes para decidir con algo en la mano.": "Sketches, prototypes and variants, so decisions are made with something in hand.", "Un paso pequeño": "One small step", "Lo llevamos a la realidad un paso a la vez: fabricar, lanzar, medir.": "We bring it to life one step at a time: make, launch, measure.", "Metodología por escribir.": "Methodology to be written.", "Ya estamos en línea": "We're online", "¿Tienes algo": "Got something", "por hacer?": "to make?", "Cuéntanos qué quieres fabricar, vender o resolver. Te respondemos con una primera idea, no con un formulario.": "Tell us what you want to make, sell or solve. We'll reply with a first idea, not a form.", "Escríbenos": "Write to us", "correo por confirmar": "email to be confirmed", "iwi, inicio": "iwi, home", "IAudit: recorrido del auditor y tablero de resultados con semáforo, con datos de ejemplo": "IAudit: auditor walkthrough and results dashboard with traffic light, sample data", "microsteps.mx: Venus dibuja una flor en el cielo, sobre una foto de Orión": "microsteps.mx: Venus draws a flower in the sky, over a photo of Orion", "Tienda, muy pronto": "Shop, coming soon", "Un objeto de casa que no tenga que verse siempre igual.": "A home object that doesn't have to look the same every day.", "Pieza modular de anillos que se apilan y se acomodan distinto cada vez.": "A modular piece of rings that stack and rearrange differently each time.", "Diseño y prototipo, dentro de ForBatch.": "Design and prototype, within ForBatch.", "espacios": "spaces", "memoria": "memory", "agentes": "agents"};
+  var nodos=[],attrs=[];
+  var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null),n;
+  while(n=w.nextNode()){var t=n.textContent.trim().replace(/\s+/g,' ');if(EN[t])nodos.push({n:n,es:n.textContent,en:n.textContent.replace(n.textContent.trim(),EN[t])})}
+  document.querySelectorAll('[alt],[aria-label]').forEach(function(e){['alt','aria-label'].forEach(function(a){var v=e.getAttribute(a);if(v&&EN[v])attrs.push({e:e,a:a,es:v,en:EN[v]})})});
+  function pon(i){nodos.forEach(function(x){x.n.textContent=x[i]});attrs.forEach(function(x){x.e.setAttribute(x.a,x[i])});
+    document.documentElement.lang=i;if(window.iwiIdioma)window.iwiIdioma(i);document.querySelectorAll('.idioma button').forEach(function(b){b.classList.toggle('on',b.dataset.i===i)});try{localStorage.setItem('iwi-idioma',i)}catch(e){}}
+  var g=null;try{g=localStorage.getItem('iwi-idioma')}catch(e){}
+  document.querySelectorAll('.idioma button').forEach(function(b){b.addEventListener('click',function(){pon(b.dataset.i)})});
+  pon(g||'es');
+})();
+</script>
+
+<script>
+/* logo de iwi en 3D: cada punto de la trama vive sobre una espiral.
+   De frente (giro 0) se lee el logo tal cual; el giro deja ver el espiral.
+   El cursor gira poco; en reposo respira muy despacio. */
+(function(){
+  var caja=document.querySelector('.contacto .trama3d');if(!caja)return;
+  var cv=caja.querySelector('canvas'),cx=cv.getContext('2d');
+  var LOGO=new Path2D(caja.dataset.d),VX=0,VY=420,VW=1614,VH=560;
+  var quieto=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W=0,H=0,P=[],paso=6,giro=0,meta=0,incl=0,metaI=0,t0=performance.now(),va=false;
+  function arma(){
+    var r=caja.getBoundingClientRect();if(r.width<20||r.height<20)return;
+    var dpr=Math.min(devicePixelRatio||1,2);W=Math.round(r.width);H=Math.round(r.height);
+    cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
+    // el logo se alinea al borde izquierdo de la retícula (donde empiezan los textos) y cabe en la franja
+    var ref=document.querySelector('.contacto h2'),izq=ref?Math.max(16,ref.getBoundingClientRect().left-r.left):32;
+    var ancho=Math.min(W-izq*2,(H*.92)*VW/VH),esc=ancho/VW,alto=VH*esc;caja.dataset.izq=izq;caja.dataset.ancho=ancho;
+    paso=Math.max(4,Math.round(ancho/170));
+    var o=document.createElement('canvas');o.width=Math.ceil(ancho);o.height=Math.ceil(alto);
+    var ox=o.getContext('2d');ox.scale(esc,esc);ox.translate(-VX,-VY);ox.fill(LOGO);
+    var dt=ox.getImageData(0,0,o.width,o.height).data;P=[];
+    for(var y=paso/2;y<o.height;y+=paso)for(var x=paso/2;x<o.width;x+=paso){
+      var s=0,n=0;for(var j=-1;j<=1;j++)for(var k=-1;k<=1;k++){var px=Math.round(x+k*paso/3),py=Math.round(y+j*paso/3);if(px>=0&&py>=0&&px<o.width&&py<o.height){s+=dt[(py*o.width+px)*4+3];n++}}
+      var c=s/(n*255);if(c<.12)continue;
+      // u a lo largo del logo (-1 a 1), v de arriba abajo (-.5 a .5)
+      var u=x/o.width*2-1,v=y/o.height-.5;
+      // la espiral: cada vuelta del trazo es una vuelta de la hélice; la fase sigue a u
+      var fase=u*Math.PI*5.5;
+      P.push({x:x-o.width/2,y:y-o.height/2,z:Math.sin(fase)*alto*.30,c:c});
+    }
+    caja.dataset.alto=alto;
+    if(!va){va=true;cuadro()}
+  }
+  function cuadro(){
+    var t=(performance.now()-t0)/1000;
+    var respira=quieto?0:Math.sin(t*.3)*.035;
+    giro+=(meta+respira-giro)*.04;incl+=(metaI-incl)*.04;
+    cx.clearRect(0,0,W,H);cx.fillStyle='#1C2340';
+    var ca=Math.cos(giro),sa=Math.sin(giro),ci=Math.cos(incl),si=Math.sin(incl),foco=900;
+    var alto=+caja.dataset.alto||H,cxm=(+caja.dataset.izq||32)+(+caja.dataset.ancho||W)/2,cym=H-alto/2-4;
+    for(var k=0;k<P.length;k++){var p=P[k];
+      var X=p.x*ca+p.z*sa,Z=-p.x*sa+p.z*ca;var Y=p.y*ci-Z*si;Z=p.y*si+Z*ci;
+      var e=foco/(foco+Z);
+      // la profundidad se dice con la forma: el punto lejano es más chico, nunca más claro
+      var r=Math.min(paso*.36,Math.max(.6,p.c*paso*.38))*e;
+      cx.beginPath();cx.arc(cxm+X*e,cym+Y*e,r,0,6.2832);cx.fill()}
+    if(!quieto)requestAnimationFrame(cuadro);
+  }
+  function mueve(e){var r=cv.getBoundingClientRect();var nx=(e.clientX-r.left)/r.width*2-1,ny=(e.clientY-r.top)/r.height*2-1;meta=nx*.42;metaI=ny*.12;if(quieto)cuadro()}
+  cv.addEventListener('pointermove',mueve);
+  cv.addEventListener('pointerleave',function(){meta=0;metaI=0;if(quieto)setTimeout(cuadro,60)});
+  var tm;function rearma(){clearTimeout(tm);tm=setTimeout(arma,120)}
+  if(window.ResizeObserver)new ResizeObserver(rearma).observe(caja);addEventListener('resize',rearma);rearma();
+})();
+</script>
+</body>
+</html>
