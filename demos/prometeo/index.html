@@ -35,7 +35,8 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
 #cab{position:fixed;left:0;right:0;top:calc(max(14px,env(safe-area-inset-top)) + 14px);z-index:5;pointer-events:none}
 #cab .w{display:flex;align-items:center;justify-content:space-between}
 #cab .marca{font-size:20px;font-weight:500;letter-spacing:-.02em}
-#cab .marca span{color:var(--oro)}
+#cab .marca{display:flex;align-items:center;gap:10px}#cab .marca .iso{height:30px;width:auto;display:block}
+.portada-iso{height:clamp(56px,7vw,92px);width:auto;display:block;filter:drop-shadow(0 0 18px rgba(249,54,45,.35))}
 #cab .ctl{display:flex;gap:6px;pointer-events:auto}
 #cab button,.flecha{background:rgba(25,23,20,.35);border:1px solid rgba(240,238,230,.22);color:var(--perg);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 #cab button:hover,.flecha:hover{border-color:var(--perg)}
@@ -127,12 +128,12 @@ b{font-weight:700}
 </head>
 <body>
 <canvas id="aurora" aria-hidden="true"></canvas>
-<canvas id="parvada" aria-hidden="true"></canvas>
+<canvas id="rayos" aria-hidden="true"></canvas>
 <div id="toque" aria-hidden="true"></div>
 
 <div id="barras" aria-hidden="true"></div>
 <header id="cab"><div class="w">
-  <div class="marca">prometeo <span style="color:var(--suave);font-weight:300">· iwi</span></div>
+  <div class="marca"><img class="iso" src="isotipo.png" alt="Prometeo"><span style="color:var(--suave);font-weight:300">· iwi</span></div>
   <div class="ctl">
     <button id="b-atras" type="button" aria-label="Anterior"><svg viewBox="0 0 16 16"><path d="M10.5 2 4.5 8l6 6 1-1-5-5 5-5z"/></svg></button>
     <button id="b-pausa" type="button" aria-label="Pausa"><svg viewBox="0 0 16 16"><path class="pa" d="M4 2h3v12H4zM9 2h3v12H9z"/></svg></button>
@@ -145,15 +146,16 @@ b{font-weight:700}
 
 <main aria-live="polite">
 <section class="esc" data-luz="#7A2E14,#3A1E12" data-forma="libre"><div class="w">
-  <p class="eti mono e c-full" style="--i:0">iwi para Prometeo</p>
-  <h1 class="gigante e c-full" style="--i:1"><span class="l">Un solo</span> fuego<span class="oro">.</span></h1>
-  <p class="cita serif e c-8" style="--i:2">Su equipo ya trabaja con IA. Hagamos que todos hablen el mismo idioma.</p>
+  <img class="portada-iso e c-full" style="--i:0" src="isotipo.png" alt="">
+  <p class="eti mono e c-full" style="--i:.4">iwi para Prometeo IT Solutions</p>
+  <h1 class="enorme e c-full" style="--i:1"><span class="l">Un solo</span> fuego<span class="oro">.</span></h1>
+  <p class="cita serif e c-8" style="--i:2">Ustedes dan control a los casinos. Démosle lo mismo a su equipo.</p>
 </div></section>
 
 <section class="esc" data-luz="#3A2A22,#5A2A18" data-forma="dispersa"><div class="w">
   <p class="eti mono e c-full" style="--i:0">El problema</p>
-  <h2 class="grande e c-10" style="--i:1"><span class="l">Cinco personas, cinco IAs,</span> cinco definiciones de «jugador VIP».</h2>
-  <p class="lee mono e c-6" style="--i:3">Cada área usa la IA a su manera. Los conceptos cambian de un equipo a otro, los métodos no se comparten y los resultados no se pueden comparar.</p>
+  <h2 class="grande e c-10" style="--i:1"><span class="l">Siete productos, cuatro países,</span> un mismo cliente con muchos nombres.</h2>
+  <p class="lee mono e c-6" style="--i:3">Promos, Promos+, Ruta, Live, Wallet, Binglot, Kiosko. Cada equipo trabaja con su IA y nombra distinto a la tarjeta de juego, a la producción o a la lealtad. Los métodos no se comparten y los resultados no se pueden comparar.</p>
   <p class="lee e c-6" style="--i:4;color:var(--perg)"><b>La IA multiplica lo que ya hay. También el desorden.</b></p>
 </div></section>
 
@@ -161,7 +163,7 @@ b{font-weight:700}
   <p class="eti mono e c-full" style="--i:0">El proceso · design thinking</p>
   <div class="fila cuatro c-full">
     <div class="e o" style="--i:1"><span class="n mono">01</span><h3>Escuchar</h3><p class="mono">Conversaciones cortas con cada área: cómo trabajan hoy con IA y dónde se traban.</p></div>
-    <div class="e" style="--i:1.6"><span class="n mono">02</span><h3>Nombrar</h3><p class="mono">Un glosario vivo: jugador, visita, VIP, reactivación, campaña. Una sola definición para todos.</p></div>
+    <div class="e" style="--i:1.6"><span class="n mono">02</span><h3>Nombrar</h3><p class="mono">Un glosario vivo: cliente, tarjeta de juego, producción, lealtad, campaña. Una sola definición para todos.</p></div>
     <div class="e" style="--i:2.2"><span class="n mono">03</span><h3>Acordar</h3><p class="mono">El método: cómo se le pide a la IA, cómo se revisa y cómo se entrega.</p></div>
     <div class="e" style="--i:2.8"><span class="n mono">04</span><h3>Medir</h3><p class="mono">Los mismos indicadores para todo el equipo, en un solo tablero.</p></div>
   </div>
@@ -239,48 +241,26 @@ b{font-weight:700}
       g.addColorStop(0,'rgba('+c+',.95)');g.addColorStop(.45,'rgba('+c+',.35)');g.addColorStop(1,'rgba('+c+',0)');ax.fillStyle=g;ax.fillRect(0,0,w,h)});
   }
 
-  // ===== la parvada (de microsteps): cada punto sigue a sus vecinos; la forma cambia con la pantalla
-  var P=document.getElementById('parvada'),px=P.getContext('2d'),dpr=Math.min(2,devicePixelRatio||1);
-  var parvada={forma:'libre'},N,X,Y,VX,VY,Z,G,W,H;
-  function arma(){W=innerWidth;H=innerHeight;P.width=W*dpr;P.height=H*dpr;px.setTransform(dpr,0,0,dpr,0,0);A.width=Math.ceil(W/8);A.height=Math.ceil(H/8);
-    N=W<760?420:950;X=new Float32Array(N);Y=new Float32Array(N);VX=new Float32Array(N);VY=new Float32Array(N);Z=new Float32Array(N);G=new Uint8Array(N);
-    for(var i=0;i<N;i++){var a=Math.random()*6.283,r=Math.random()*Math.min(W,H)*.3;X[i]=W*.62+Math.cos(a)*r;Y[i]=H*.5+Math.sin(a)*r;var c=Math.random()*6.283;VX[i]=Math.cos(c);VY[i]=Math.sin(c);Z[i]=Math.random();G[i]=i%3}}
+  // ===== rayos (Carlos, 3 nov): haces de luz de fuego que salen de un punto fuera de la pantalla y se mecen despacio;
+  // el punto de origen cambia un poco con cada pantalla
+  var P=document.getElementById('rayos'),px=P.getContext('2d'),dpr=Math.min(2,devicePixelRatio||1),W,H;
+  var parvada={forma:'libre'},ORI={libre:[.88,-.18],dispersa:[.12,-.2],tres:[.5,-.3],circulo:[.9,-.1],junta:[.7,-.22]},ox=.88,oy=-.18;
+  function arma(){W=innerWidth;H=innerHeight;P.width=W*dpr;P.height=H*dpr;px.setTransform(dpr,0,0,dpr,0,0);A.width=Math.ceil(W/8);A.height=Math.ceil(H/8)}
   arma();addEventListener('resize',arma);
-  var cel=40,cab,sg=new Int32Array(1),tq=0;
-  function anclas(f,t){var cx=W*(W<760?.5:.66),cy=H*(W<760?.62:.5),R=Math.min(W,H),o=[];
-    for(var q=0;q<3;q++){var a=q*2.094+t*.0025,x,y;
-      if(f==='tres'){if(W<760){x=W*(.2+q*.3);y=H*.86}else{x=W*.84+Math.cos(t*.006+q)*R*.04;y=H*(.28+q*.22)}x+=Math.cos(t*.01+q)*R*.03;y+=Math.sin(t*.012+q*2)*R*.03}
-      else if(f==='junta'){x=cx+Math.cos(a)*R*.04;y=cy+Math.sin(a)*R*.04}
-      else if(f==='dispersa'){x=W*(.2+.6*((Math.sin(t*.002+q*2.3)+1)/2));y=H*(.2+.6*((Math.cos(t*.0017+q*1.7)+1)/2))}
-      else if(f==='circulo'||f==='pulso'){x=cx;y=cy}
-      else if(f==='rio'){x=((t*1.2+q*W/3)%(W+200))-100;y=H*.82+Math.sin(t*.01+q)*30}
-      else{x=cx+Math.sin(t*.0042)*W*.16+Math.cos(a)*R*.12;y=cy+Math.cos(t*.0033)*H*.14+Math.sin(a)*R*.1}
-      o.push([x,y])}return o}
-  function paso(t){
-    var f=parvada.forma,cols=Math.ceil(W/cel)+1,filas=Math.ceil(H/cel)+1;
-    if(!cab||cab.length!==cols*filas)cab=new Int32Array(cols*filas);if(sg.length!==N)sg=new Int32Array(N);cab.fill(-1);
-    for(var i=0;i<N;i++){var c=((X[i]/cel)|0)+((Y[i]/cel)|0)*cols;if(c>=0&&c<cab.length){sg[i]=cab[c];cab[c]=i}}
-    var an=anclas(f,t),vmax=(f==='junta'||f==='pulso')?1.3:f==='rio'?2.4:1.9,vmin=vmax*.45,R=Math.min(W,H);
-    for(i=0;i<N;i++){var x=X[i],y=Y[i],ax=0,ay=0,cx=0,cy=0,sx=0,sy=0,k=0,gx=(x/cel)|0,gy=(y/cel)|0;
-      for(var dy=-1;dy<=1;dy++)for(var dx=-1;dx<=1;dx++){var xx=gx+dx,yy=gy+dy;if(xx<0||yy<0||xx>=cols||yy>=filas)continue;
-        for(var j=cab[xx+yy*cols];j!==-1&&k<12;j=sg[j]){if(j===i)continue;var ddx=X[j]-x,ddy=Y[j]-y,d2=ddx*ddx+ddy*ddy;if(d2>cel*cel)continue;
-          ax+=VX[j];ay+=VY[j];cx+=ddx;cy+=ddy;k++;if(d2<324&&d2>0){sx-=ddx/d2;sy-=ddy/d2}}}
-      var vx=VX[i],vy=VY[i];
-      if(k){vx+=(ax/k-vx)*.07;vy+=(ay/k-vy)*.07;vx+=cx/k*.003;vy+=cy/k*.003}
-      vx+=sx*1.6;vy+=sy*1.6;
-      var g=G[i],qx=an[g][0]-x,qy=an[g][1]-y,qd=Math.sqrt(qx*qx+qy*qy)+1;
-      if(f==='circulo'||f==='pulso'){var r0=R*(f==='pulso'?.2+.06*Math.sin(t*.02):.24)*(.8+g*.15),ff=(qd-r0)*.0012;vx+=qx/qd*ff*5+(-qy/qd)*.03;vy+=qy/qd*ff*5+(qx/qd)*.03}
-      else{var fz=f==='tres'?.035:f==='junta'?.03:f==='dispersa'?.014:.022;vx+=qx/qd*fz;vy+=qy/qd*fz}
-      var v=Math.sqrt(vx*vx+vy*vy)||1;if(v>vmax){vx=vx/v*vmax;vy=vy/v*vmax}else if(v<vmin){vx=vx/v*vmin;vy=vy/v*vmin}
-      VX[i]=vx;VY[i]=vy;x+=vx;y+=vy;if(x<-20)x+=W+40;if(x>W+20)x-=W+40;if(y<-20)y+=H+40;if(y>H+20)y-=H+40;X[i]=x;Y[i]=y}
-  }
-  function dibuja(){px.clearRect(0,0,W,H);
-    for(var i=0;i<N;i++){var z=Z[i],r=.9+z*1.8;px.fillStyle=i%9===0?'rgba(240,122,58,'+(.5+z*.5)+')':'rgba(240,238,230,'+(.25+z*.6)+')';px.beginPath();px.arc(X[i],Y[i],r,0,6.283);px.fill()}}
+  var RAY=[];for(var r=0;r<9;r++)RAY.push({a:(r-4)*.11,w:.025+Math.random()*.05,f:.3+Math.random()*.6,o:Math.random()*6.28,al:.05+Math.random()*.07});
+  function paso(){}
+  function dibuja(t){var o=ORI[parvada.forma]||ORI.libre;ox+=(o[0]-ox)*.01;oy+=(o[1]-oy)*.01;
+    var x0=ox*W,y0=oy*H,L=Math.hypot(W,H)*1.4,base=Math.atan2(H*.6-y0,W*.45-x0),tt=t*.001;
+    px.clearRect(0,0,W,H);px.globalCompositeOperation='lighter';
+    RAY.forEach(function(r){var a=base+r.a+Math.sin(tt*.25*r.f+r.o)*.04,w=r.w*(1+.25*Math.sin(tt*.6*r.f+r.o)),al=calma?r.al:r.al*(.7+.3*Math.sin(tt*.8*r.f+r.o*2));
+      var g=px.createLinearGradient(x0,y0,x0+Math.cos(a)*L,y0+Math.sin(a)*L);g.addColorStop(0,'rgba(255,190,110,'+(al*1.6).toFixed(3)+')');g.addColorStop(.45,'rgba(240,122,58,'+al.toFixed(3)+')');g.addColorStop(1,'rgba(240,122,58,0)');
+      px.fillStyle=g;px.beginPath();px.moveTo(x0,y0);px.lineTo(x0+Math.cos(a-w)*L,y0+Math.sin(a-w)*L);px.lineTo(x0+Math.cos(a+w)*L,y0+Math.sin(a+w)*L);px.closePath();px.fill()});
+    px.globalCompositeOperation='source-over'}
 
   // ===== un solo reloj: el avance de las barras, la aurora y la parvada
   function bucle(now){var dt=Math.min(64,now-ult);ult=now;
     if(!pausa&&!sost&&act>=0){trans+=dt;var p=Math.min(1,trans/DUR[act]);B[act].style.transform='scaleX('+p+')';if(p>=1){if(act===n-1){ponPausa(true)}else sig()}}
-    tq++;pintaAurora(now);if(!calma||tq%3===0){paso(tq);}dibuja();
+    pintaAurora(now);dibuja(now);
     requestAnimationFrame(bucle)}
   ir(0);requestAnimationFrame(bucle);
 })();
