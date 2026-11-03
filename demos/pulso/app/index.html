@@ -873,6 +873,13 @@ html.reticula body::after{content:"";position:fixed;top:0;bottom:0;left:max(40px
       if(ya)return;b.classList.add('on');var v=SER[b.dataset.s],corte=v.slice().sort(function(a,c){return c-a})[3];
       v.forEach(function(x,i){if(x>=corte){var c=tela.querySelector('.tel-'+b.dataset.s+' circle[data-i="'+i+'"]');if(c)c.classList.add('logro');var t=tela.querySelector('.tel-etiqueta[data-i="'+i+'"]');if(t)t.classList.add('logro')}})}});
     var mi=document.getElementById('telaMini');if(mi)mi.innerHTML=h.replace(/telV/g,'telVm');
+    // la telaraña chiquita respira (Carlos, 3 nov): cada dimensión se mueve un poco a su ritmo y,
+    // cuando la figura se expande, el degradado de los cuerpos crece con ella
+    if(mi&&!window._telaViva&&!matchMedia('(prefers-reduced-motion: reduce)').matches){window._telaViva=1;var t0=performance.now();
+      (function late(){var t=(performance.now()-t0)/1000,v=U.map(function(u,i){return Math.max(1,u-.3+.3*Math.sin(t*.8+i*.9))}),m=0;
+        v.forEach(function(x){m+=x});m/=v.length;var pg=mi.querySelector('.tel-ultimo polygon');if(pg)pg.setAttribute('points',pol(v));
+        var g=mi.querySelector('g[mask]');if(g){var s=.93+(m-3.2)*.12;g.setAttribute('transform','translate('+C+' '+C+') scale('+s.toFixed(3)+') translate('+(-C)+' '+(-C)+')');g.style.opacity=(.75+(m-3.2)*.35).toFixed(2)}
+        requestAnimationFrame(late)})()}
     // cada vez que entras, el último día crece desde el inicio
     var u=document.querySelector('#tela .tel-ultimo');new MutationObserver(function(){var v=document.querySelector('.vista[data-v="proceso"]');if(v&&v.classList.contains('on')){u.classList.remove('crece');void u.getBBox();u.classList.add('crece')}}).observe(document.querySelector('.vista[data-v="proceso"]'),{attributes:true,attributeFilter:['class']});
   })();
