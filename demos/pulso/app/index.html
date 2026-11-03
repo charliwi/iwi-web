@@ -303,10 +303,24 @@ button{cursor:pointer}
 .ico .an{fill:none;stroke:rgba(242,237,227,.22);stroke-width:1.2}
 .ico .hor{stroke:rgba(242,237,227,.7);stroke-width:1.4}
 .ico .disco{fill:#FFE7B8}.ico .rayos line{stroke:#FFE7B8;stroke-width:2;stroke-linecap:round}
-.amanece .astro{animation:sube 7s ease-in-out infinite}.anochece .astro{animation:baja 7s ease-in-out infinite}
-.anochece .disco{fill:#F0B48A}.anochece .rayos line{stroke:#F0B48A}
-@keyframes sube{0%{transform:translateY(26px)}55%,100%{transform:translateY(-12px)}}
-@keyframes baja{0%,20%{transform:translateY(-12px)}100%{transform:translateY(26px)}}
+.amanece .astro{animation:sube 8s ease-in-out infinite}.anochece .astro{animation:baja 8s ease-in-out infinite}
+.amanece .disco{animation:col-sube 8s ease-in-out infinite}.anochece .disco{animation:col-baja 8s ease-in-out infinite}
+.amanece .rayos{animation:rayo-sube 8s ease-in-out infinite}.anochece .rayos{animation:rayo-baja 8s ease-in-out infinite}
+.anochece .rayos line{stroke:#F0B48A}
+/* sin brincos: el sol sube desde abajo del horizonte coloreándose; arriba se desvanece antes de volver a empezar
+   (el reinicio pasa escondido bajo la línea). El anochecer, al revés. */
+@keyframes sube{0%{transform:translateY(26px);opacity:1}60%{transform:translateY(-12px);opacity:1}82%{transform:translateY(-12px);opacity:1}96%,100%{transform:translateY(-12px);opacity:0}}
+@keyframes baja{0%{transform:translateY(-12px);opacity:0}14%{transform:translateY(-12px);opacity:1}24%{transform:translateY(-12px)}100%{transform:translateY(26px);opacity:1}}
+@keyframes col-sube{0%{fill:#C9573A}35%{fill:#E8915A}60%,100%{fill:#FFE7B8}}
+@keyframes col-baja{0%,24%{fill:#F7C995}70%{fill:#E07A4A}100%{fill:#A8402E}}
+@keyframes rayo-sube{0%,30%{opacity:0}60%,100%{opacity:1}}
+@keyframes rayo-baja{0%,24%{opacity:1}60%,100%{opacity:0}}
+.fila[hidden]{display:none}
+.faro .torre polygon,.faro .torre line,.faro .torre rect,.faro .torre polyline{fill:none;stroke:rgba(242,237,227,.85);stroke-width:1.5;stroke-linejoin:round}
+.faro .luz{fill:#FFE7B8;filter:drop-shadow(0 0 3px rgba(255,231,184,.9))}
+.faro .haz-g{transform-origin:0 -10.5px;transform-box:view-box;animation:haz 7s ease-in-out infinite}
+@keyframes haz{0%{transform:scaleX(1);opacity:.9}45%{transform:scaleX(-1);opacity:.9}50%{transform:scaleX(-1);opacity:.5}95%{transform:scaleX(1);opacity:.5}100%{transform:scaleX(1);opacity:.9}}
+.intencion-txt{font-size:24px!important;line-height:1.3!important;font-weight:300;color:var(--t1)!important;margin-top:18px}
 .fila.hecha .astro{animation:none}
 .ico .sem{fill:none;stroke:rgba(242,237,227,.55);stroke-width:1.3}.ico .sem.ok{fill:rgba(167,203,173,.7);stroke:none}
 .ico.mini text{display:none}.ico.mini .tel-inicio,.ico.mini .tel-promedio,.ico.mini .tel-eje,.ico.mini .tel-ultimo circle{display:none}
@@ -428,9 +442,10 @@ html.reticula body::after{content:"";position:fixed;top:0;bottom:0;left:max(40px
         <div class="semana"><div><i class="s"></i>L</div><div><i class="d"></i>M</div><div><i class="s"></i>M</div><div><i class="s"></i>J</div><div><i class="d"></i>V</div><div><i class="s"></i>S</div><div class="hoy"><i id="hoyPunto"></i>D</div></div>
         <div class="filas">
           <div class="fila" id="fP" data-ir="proceso" style="cursor:pointer;order:2"><span class="ico-f"><svg class="ico mini" id="telaMini" viewBox="-24 -24 388 388" aria-hidden="true"></svg></span><div><strong>Mi proceso</strong><small>86 % adherencia · 7 tomas · ánimo 3.8</small></div><span style="margin-left:auto;color:var(--t3)">→</span></div>
-          <div class="fila" id="fA"><span class="ico-f"><svg class="ico amanece" viewBox="-50 -50 100 100" aria-hidden="true"><defs><clipPath id="cp-amanece"><rect x="-50" y="-50" width="100" height="58"/></clipPath><radialGradient id="rg-amanece" cx="50%" cy="58%" r="55%"><stop offset="0" stop-color="#F2C879" stop-opacity=".75"/><stop offset=".6" stop-color="#C96F4A" stop-opacity=".25"/><stop offset="1" stop-color="#C96F4A" stop-opacity="0"/></radialGradient></defs><circle r="44" fill="url(#rg-amanece)"/><circle r="44" class="an"/><circle r="30" class="an"/><g clip-path="url(#cp-amanece)"><g class="astro"><circle r="9" class="disco"/><g class="rayos"><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(0)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(45)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(90)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(135)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(180)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(225)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(270)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(315)"/></g></g></g><line x1="-44" y1="8" x2="44" y2="8" class="hor"/></svg></span><div><strong>Abrir mi día</strong><small id="fAs">Pendiente · ánimo y toma</small></div><span class="ok" id="okA"></span></div>
-          <div class="fila" id="fChq" style="cursor:pointer;order:3"><span class="ico-f"><svg class="ico" viewBox="-50 -50 100 100" aria-hidden="true"><circle r="44" class="an"/><circle r="30" class="an"/><circle cx="0.0" cy="-30.0" r="4" class="sem ok"/><circle cx="30.0" cy="0.0" r="4" class="sem ok"/><circle cx="0.0" cy="30.0" r="4" class="sem ok"/><circle cx="-30.0" cy="0.0" r="4" class="sem"/></svg></span><div><strong>Chequeo de las 4 semanas</strong><small>Unos 10 minutos · tienes hasta el 28 oct</small></div><span style="margin-left:auto;color:var(--t3)">→</span></div>
-          <div class="fila esp" id="fC"><span class="ico-f"><svg class="ico anochece" viewBox="-50 -50 100 100" aria-hidden="true"><defs><clipPath id="cp-anochece"><rect x="-50" y="-50" width="100" height="58"/></clipPath><radialGradient id="rg-anochece" cx="50%" cy="58%" r="55%"><stop offset="0" stop-color="#C98A6A" stop-opacity=".75"/><stop offset=".6" stop-color="#4A2E5A" stop-opacity=".25"/><stop offset="1" stop-color="#4A2E5A" stop-opacity="0"/></radialGradient></defs><circle r="44" fill="url(#rg-anochece)"/><circle r="44" class="an"/><circle r="30" class="an"/><g clip-path="url(#cp-anochece)"><g class="astro"><circle r="9" class="disco"/><g class="rayos"><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(0)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(45)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(90)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(135)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(180)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(225)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(270)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(315)"/></g></g></g><line x1="-44" y1="8" x2="44" y2="8" class="hor"/></svg></span><div><strong>Cerrar mi día</strong><small id="fCs">Después de la apertura</small></div><span class="ok" id="okC"></span></div>
+          <div class="fila" id="fA"><span class="ico-f"><svg class="ico amanece" viewBox="-50 -50 100 100" aria-hidden="true"><defs><linearGradient id="lg-amanece" gradientUnits="userSpaceOnUse" x1="0" y1="-50" x2="0" y2="9"><stop offset=".72" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient><mask id="cp-amanece"><rect x="-50" y="-50" width="100" height="100" fill="url(#lg-amanece)"/></mask><radialGradient id="rg-amanece" cx="50%" cy="58%" r="55%"><stop offset="0" stop-color="#F2C879" stop-opacity=".75"/><stop offset=".6" stop-color="#C96F4A" stop-opacity=".25"/><stop offset="1" stop-color="#C96F4A" stop-opacity="0"/></radialGradient></defs><circle r="44" fill="url(#rg-amanece)"/><circle r="44" class="an"/><circle r="30" class="an"/><g mask="url(#cp-amanece)"><g class="astro"><circle r="9" class="disco"/><g class="rayos"><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(0)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(45)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(90)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(135)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(180)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(225)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(270)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(315)"/></g></g></g><line x1="-44" y1="8" x2="44" y2="8" class="hor"/></svg></span><div><strong>Abrir mi día</strong><small id="fAs">Pendiente · ánimo y toma</small></div><span class="ok" id="okA"></span></div>
+          <div class="fila" id="fI" data-ir="intencion" style="cursor:pointer;order:3"><span class="ico-f"><svg class="ico faro" viewBox="-50 -50 100 100" aria-hidden="true"><defs><linearGradient id="haz" x1="0" x2="1"><stop offset="0" stop-color="#FFE7B8" stop-opacity=".85"/><stop offset="1" stop-color="#FFE7B8" stop-opacity="0"/></linearGradient><radialGradient id="rg-faro" cx="50%" cy="40%" r="55%"><stop offset="0" stop-color="#F2C879" stop-opacity=".35"/><stop offset="1" stop-color="#2B3A6A" stop-opacity="0"/></radialGradient></defs><circle r="44" fill="url(#rg-faro)"/><circle r="44" class="an"/><circle r="30" class="an"/><g class="haz-g"><polygon class="haz" points="0,-12 44,-21 44,-3" fill="url(#haz)"/></g><g class="torre"><polygon points="-7.5,24 7.5,24 4.5,-6 -4.5,-6"/><line x1="-6.6" y1="15" x2="6.6" y2="15"/><line x1="-5.6" y1="5" x2="5.6" y2="5"/><rect x="-5" y="-15" width="10" height="9"/><polyline points="-6.5,-15 0,-21 6.5,-15"/></g><circle class="luz" cx="0" cy="-10.5" r="2.6"/><line x1="-44" y1="24" x2="44" y2="24" class="hor"/></svg></span><div><strong>Tu intención</strong><small>«Volver a mi cuerpo y estar presente»</small></div><span style="margin-left:auto;color:var(--t3)">→</span></div>
+          <div class="fila" id="fChq" hidden style="cursor:pointer;order:4"><span class="ico-f"><svg class="ico" viewBox="-50 -50 100 100" aria-hidden="true"><circle r="44" class="an"/><circle r="30" class="an"/><circle cx="0.0" cy="-30.0" r="4" class="sem ok"/><circle cx="30.0" cy="0.0" r="4" class="sem ok"/><circle cx="0.0" cy="30.0" r="4" class="sem ok"/><circle cx="-30.0" cy="0.0" r="4" class="sem"/></svg></span><div><strong>Chequeo de las 4 semanas</strong><small>Unos 10 minutos · tienes hasta el 28 oct</small></div><span style="margin-left:auto;color:var(--t3)">→</span></div>
+          <div class="fila esp" id="fC"><span class="ico-f"><svg class="ico anochece" viewBox="-50 -50 100 100" aria-hidden="true"><defs><linearGradient id="lg-anochece" gradientUnits="userSpaceOnUse" x1="0" y1="-50" x2="0" y2="9"><stop offset=".72" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient><mask id="cp-anochece"><rect x="-50" y="-50" width="100" height="100" fill="url(#lg-anochece)"/></mask><radialGradient id="rg-anochece" cx="50%" cy="58%" r="55%"><stop offset="0" stop-color="#C98A6A" stop-opacity=".75"/><stop offset=".6" stop-color="#4A2E5A" stop-opacity=".25"/><stop offset="1" stop-color="#4A2E5A" stop-opacity="0"/></radialGradient></defs><circle r="44" fill="url(#rg-anochece)"/><circle r="44" class="an"/><circle r="30" class="an"/><g mask="url(#cp-anochece)"><g class="astro"><circle r="9" class="disco"/><g class="rayos"><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(0)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(45)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(90)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(135)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(180)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(225)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(270)"/><line x1="0" y1="-13" x2="0" y2="-17" transform="rotate(315)"/></g></g></g><line x1="-44" y1="8" x2="44" y2="8" class="hor"/></svg></span><div><strong>Cerrar mi día</strong><small id="fCs">Después de la apertura</small></div><span class="ok" id="okC"></span></div>
         </div>
       </div>
       <div class="portales">
@@ -539,6 +554,19 @@ html.reticula body::after{content:"";position:fixed;top:0;bottom:0;left:max(40px
     <div class="pie"><button class="btn" id="volverListo"><span>Volver al inicio</span><span>→</span></button></div>
   </section>
 
+
+  <!-- TU INTENCIÓN -->
+  <section class="vista" data-v="intencion">
+    <div class="cuerpo">
+      <div class="abajo">
+        <div class="eti">Tu proceso · desde el 8 oct</div>
+        <div class="tit"><span class="l">Tu</span><br><span class="f">intención.</span></div>
+        <p class="txt intencion-txt">«Volver a mi cuerpo y estar presente con mis hijos, sin prisa.»</p>
+        <p class="txt" style="font-size:13px;color:var(--t2)">La escribiste al empezar. Puedes recalibrarla cuando quieras; la anterior se guarda con su fecha.</p>
+      </div>
+    </div>
+    <div class="pie"><button class="btn" data-ir="inicio"><span>Volver al inicio</span><span>→</span></button><button class="liga" data-ir="inicio">Recalibrar</button></div>
+  </section>
 
   <!-- CHEQUEO · clínico -->
   <section class="vista clin" data-v="chequeo">
@@ -661,6 +689,7 @@ html.reticula body::after{content:"";position:fixed;top:0;bottom:0;left:max(40px
     proceso: {c1:'#2E5C35',c2:'#3A4A86',x1:50,y1:108,x2:76,y2:96,h:'9:46'},
     chequeo: {c1:'#102840',c2:'#102840',x1:50,y1:-40,x2:50,y2:-40,h:'9:50',clinico:1}, // clínico: plano
     meds:    {c1:'#102840',c2:'#102840',x1:50,y1:-40,x2:50,y2:-40,h:'9:48',clinico:1},
+    intencion: {c1:'#1F2E52',c2:'#4A3A2A',x1:72,y1:16,x2:30,y2:96,h:'9:41'},
     brujula: {c1:'#4A2E5A',c2:'#2B2350',x1:20,y1:20,x2:50,y2:6,h:'19:05'},
     mapa:    {c1:'#2A1C52',c2:'#4A2A7A',x1:70,y1:10,x2:40,y2:-6,h:'22:30'},
     perfil:  {c1:'#2E5C35',c2:'#3A3A2A',x1:82,y1:10,x2:60,y2:-4,h:'9:47'}
