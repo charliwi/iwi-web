@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lumika · ForBatch</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,200..900&display=swap" rel="stylesheet">
+<style>
+:root{--n:#1C2340;--y:#E4F000;--f:"Helvetica Neue",Helvetica,Arial,sans-serif;--s:"Source Serif 4",Georgia,serif;--d:#0b0a24}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth}
+body{background:var(--d);color:#fff;font-family:var(--f);-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit}
+nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:18px 32px;z-index:5}
+nav a{color:#fff;text-decoration:none;font-size:13px;letter-spacing:.08em}
+.logo{font-family:var(--s);font-size:26px}.logo span{font-weight:200}.logo b{font-weight:700}
+.dico{background:linear-gradient(120deg,#1a1052,#3b1d9a,#6a2fb0,#d0489e,#ff9a6b,#3fa4d8,#1a1052);background-size:400% 400%;animation:dico 22s ease-in-out infinite}
+@keyframes dico{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero{position:relative;height:100vh;min-height:560px;overflow:hidden}
+.hero .dico{position:absolute;inset:0;opacity:.85}.hero .vel{position:absolute;inset:0;background:radial-gradient(80% 70% at 50% 40%,transparent 0%,rgba(8,6,30,.78) 100%)}
+#cielo{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+.centro{position:absolute;left:32px;bottom:48px;z-index:2;max-width:620px;pointer-events:none}
+.eti{font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.75;font-weight:700}
+h1,h2{font-family:var(--s);font-weight:200;letter-spacing:-.02em;line-height:.98}
+h1{font-size:clamp(46px,8vw,112px);margin-top:10px}h2{font-size:clamp(34px,5vw,68px)}
+h1 b,h2 b{font-weight:700}h1 u,h2 u{text-decoration:underline;text-decoration-color:var(--y);text-decoration-thickness:.07em;text-underline-offset:.14em}
+.cred{position:absolute;right:32px;top:72px;z-index:2;font-size:12px;opacity:.7;text-align:right;line-height:1.5}
+.ctrl{position:absolute;right:32px;bottom:48px;display:flex;gap:10px;z-index:2}
+.bt{font:12px var(--f);letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,.7);background:rgba(10,8,40,.35);color:#fff;border-radius:4px;padding:10px 16px;cursor:pointer;text-decoration:none;display:inline-block;backdrop-filter:blur(6px)}
+.bt:hover{background:#fff;color:var(--n)}.bt.p{background:var(--y);border-color:var(--y);color:var(--n)}.bt.p:hover{background:#fff}
+.bt[disabled]{opacity:.4;cursor:default}
+/* configurador */
+.conf{padding:110px 32px 90px;max-width:1320px;margin:0 auto}
+.conf h2{margin:12px 0 34px}
+.cuerpo{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:start}
+.escena{position:relative;aspect-ratio:4/3;border-radius:4px;overflow:hidden;border:1px solid rgba(255,255,255,.18);touch-action:none}
+.escena .dico{position:absolute;inset:0;opacity:.55}.escena .vel{position:absolute;inset:0;background:radial-gradient(70% 70% at 50% 45%,transparent 0%,rgba(8,6,30,.7) 100%)}
+#lienzo{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+.pista{position:absolute;left:16px;bottom:12px;font-size:12px;opacity:.75;pointer-events:none}
+.grupo{padding:16px 0;border-top:1px solid rgba(255,255,255,.18)}
+.grupo label{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.7;margin-bottom:10px;font-weight:700}
+.op{display:flex;gap:8px;flex-wrap:wrap}.op button{font:12px var(--f);letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.35);background:none;color:#fff;border-radius:4px;padding:7px 12px;cursor:pointer}
+.op button[aria-pressed=true]{background:#fff;color:var(--n);border-color:#fff}
+.sw{display:flex;flex-wrap:wrap;gap:7px}.sw button{width:28px;height:28px;border-radius:50%;border:2px solid transparent;cursor:pointer;outline:none}
+.sw button[aria-pressed=true]{border-color:#fff;box-shadow:0 0 0 2px var(--d) inset}
+.res{font-size:14px;opacity:.85;margin:16px 0 4px;min-height:44px}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+/* historia e instalación */
+.hist{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;padding:0 32px 100px;max-width:1320px;margin:0 auto;align-items:center}
+.hist .foto{border-radius:4px;overflow:hidden;aspect-ratio:7/5}.hist img{width:100%;height:100%;object-fit:cover;display:block}
+.hist p{opacity:.85;max-width:44ch;margin-top:14px}.hist small{display:block;opacity:.6;margin-top:10px;font-size:12px}
+.inst{padding:90px 32px;max-width:1320px;margin:0 auto;border-top:1px solid rgba(255,255,255,.18);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.inst p{opacity:.85;max-width:50ch;margin:14px 0 22px}
+footer{padding:30px 32px;font-size:12px;opacity:.6;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+@media(max-width:900px){.cuerpo,.hist,.inst{grid-template-columns:1fr}.conf,.hist,.inst{padding-left:20px;padding-right:20px}nav{padding:14px 20px}.centro{left:20px;right:20px;bottom:116px}.ctrl{left:20px;right:20px;bottom:36px}.cred{display:none}}
+@media(prefers-reduced-motion:reduce){.dico{animation:none}}
+
+.fbbar{position:sticky;top:0;z-index:20;background:#1C2340;color:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+.fbbar .w1{max-width:1320px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:58px;flex-wrap:wrap}
+.fbbar a{color:#fff;text-decoration:none}
+.fbbar .home{font-family:"Source Serif 4",Georgia,serif;font-size:24px}.fbbar .home span{font-weight:200}.fbbar .home b{font-weight:700}
+.fbbar ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.fbbar li a{display:block;font-size:13px;letter-spacing:.04em;padding:6px 12px;border-radius:4px;opacity:.85}
+.fbbar li a:hover{background:rgba(255,255,255,.12);opacity:1}
+.fbbar li a[aria-current=page]{background:#E4F000;color:#1C2340;opacity:1;font-weight:700}
+.fbmig{background:rgba(28,35,64,.96);color:rgba(255,255,255,.75);font:12px "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.04em}
+.fbmig .w1{max-width:1320px;margin:0 auto;padding:8px 28px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.fbmig a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.4);text-underline-offset:3px}
+.fbbar .sello{display:block;margin-left:6px}.fbbar .sello svg{height:20px;width:auto;display:block}.fbbar .sello path{fill:#E4F000}.fbmig .sep{opacity:.5}.fbmig .sub{margin-left:auto;display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:700px){.fbbar .w1,.fbmig .w1{padding-left:16px;padding-right:16px}.fbmig .sub{margin-left:0;width:100%}}
+</style></head><body id="top">
+<header class="fbbar"><div class="w1"><a class="home" href="../"><span>For</span><b>Batch</b></a><ul><li><a href="../tiendas/">Tiendas</a></li><li><a href="../lumika/" aria-current=page>Lumika</a></li><li><a href="../barrovivo/">BarroVivo</a></li><li><a href="../mood/">mööd</a></li><li><a href="../moy/">Moy</a></li></ul><a class="sello" href="https://iwi.com.mx/" target="_blank" rel="noopener" aria-label="iwi"><svg class="iwisvg" viewBox="0 420 1614 560" aria-label="iwi" role="img"><path d="M 1513.5 876.679688 L 1531.269531 864.511719 C 1548.167969 855.480469 1568.640625 861.167969 1580.453125 876.851562 C 1585.386719 883.402344 1583.84375 891.808594 1578.414062 897.148438 C 1569.648438 905.777344 1560.386719 913.023438 1549.589844 919.363281 C 1497.429688 949.988281 1440.265625 968.269531 1381.449219 974.460938 L 1334.890625 974.6875 C 1293.242188 969.375 1249.769531 953.582031 1227.195312 911.398438 C 1188.71875 942.226562 1144.066406 963.007812 1097.734375 968.515625 L 1062.179688 968.347656 C 1027.4375 964.410156 995.085938 947.75 976.726562 913.699219 L 957.417969 929.15625 C 922.703125 956.9375 873.644531 973.644531 831.121094 964.074219 C 803.246094 957.804688 779.472656 941.015625 766.699219 911.515625 C 721.015625 946.816406 667.769531 973.179688 612.5625 965.984375 C 581.496094 961.09375 553.269531 945.457031 539.199219 912.675781 C 499.890625 941.453125 456.417969 962.257812 410.671875 968.242188 C 396.265625 970.125 382.0625 968.90625 367.617188 968.65625 C 331.265625 962.40625 299.472656 948.289062 280.472656 911.992188 C 261.933594 928.058594 242.535156 939.957031 221.519531 950.304688 C 192.046875 964.816406 161.324219 972.089844 129.332031 974.441406 C 96.710938 976.839844 57.273438 969.761719 27.441406 955.257812 C 19.335938 951.316406 11.988281 943.726562 11.082031 933.859375 C 10.035156 922.445312 18.359375 914.089844 27.492188 911.871094 C 40.296875 908.761719 52.6875 910.960938 63.074219 919.863281 C 90.707031 928.710938 118.644531 928.503906 147.066406 922.902344 C 194.023438 913.652344 233.816406 887.265625 268.996094 851.03125 C 271.023438 825.25 275.523438 800.8125 283.695312 776.148438 C 297.613281 734.132812 321.738281 675.304688 345.902344 641.136719 C 353.8125 629.953125 362.941406 620.832031 374.621094 615.417969 C 390.597656 608.015625 409.167969 610.367188 421.464844 624.351562 C 442.230469 647.96875 424.5 693.246094 412.171875 722.726562 C 391.0625 773.210938 365.179688 819.171875 332.429688 861.808594 C 329.003906 884.53125 340.722656 905.777344 360.148438 914.175781 C 388.09375 926.257812 431.828125 915.101562 458.554688 900.539062 L 475.996094 891.039062 C 496.386719 879.925781 514.558594 865.59375 531.144531 848.15625 L 535.503906 820.214844 C 542.566406 774.925781 574.652344 701.472656 596.925781 660.214844 C 605.753906 643.859375 615.328125 629.160156 627.441406 616.007812 C 638.628906 603.859375 653.839844 596.65625 669.050781 598.015625 C 682.980469 599.261719 695.429688 607.183594 701.320312 620.988281 C 712.125 646.316406 698.597656 683.96875 687.605469 710.230469 C 666.601562 760.394531 639.957031 806.457031 607.746094 848.359375 C 595.59375 864.164062 592.601562 861.507812 595.949219 885.800781 C 597.921875 900.109375 607.722656 911.664062 620.597656 914.273438 L 631.132812 915.363281 L 643.035156 914.222656 C 688.085938 905.496094 724.675781 877.855469 758.246094 843.664062 C 760.625 814.578125 766.941406 787.511719 775.945312 760.050781 C 789.550781 718.550781 809.1875 670.183594 831.722656 634.449219 C 847.351562 609.675781 870.824219 591.539062 897.226562 600.984375 C 928.160156 612.042969 926.628906 648.792969 917.027344 680.910156 C 897.996094 744.558594 862.019531 808.003906 822.667969 858.375 L 822.746094 879.261719 C 822.789062 890.40625 828.589844 900.351562 836.746094 907.050781 C 845.871094 914.554688 857.34375 914.925781 868.613281 912.488281 C 891.925781 907.445312 912.855469 895.714844 931.542969 879.5 C 942.695312 869.824219 952.734375 860.238281 961.953125 848.308594 C 962.292969 807.945312 969.316406 770.136719 981.085938 732.472656 C 992.648438 695.46875 1008.183594 650.40625 1030.257812 621.097656 C 1041.746094 605.84375 1058.386719 595.90625 1076.144531 597.851562 C 1091.269531 599.511719 1104.832031 608.722656 1110.550781 624.398438 C 1120.855469 652.644531 1108.449219 693.488281 1097.84375 722.488281 C 1084.054688 760.175781 1067.171875 795.515625 1047.136719 829.332031 L 1027.667969 859.660156 C 1027.246094 892.945312 1043.898438 914.128906 1073.367188 917.585938 C 1078.332031 918.167969 1082.898438 918.375 1087.765625 917.613281 C 1126.945312 911.480469 1166.113281 890.511719 1196.472656 862.273438 L 1210.820312 847.234375 L 1211.324219 823.316406 C 1213.960938 798.011719 1218.316406 774.042969 1225.332031 749.84375 C 1237.382812 708.273438 1259.664062 645.230469 1285.925781 615.355469 C 1298.9375 600.554688 1316.675781 593.59375 1334.574219 598.289062 C 1353.9375 603.371094 1366.414062 621.085938 1367.257812 643.734375 C 1368.523438 677.707031 1348.351562 730.429688 1333.507812 762.796875 C 1317.5 797.699219 1299.722656 830.183594 1277.71875 860.734375 C 1277.976562 885.554688 1290.714844 906.214844 1311.160156 915.601562 C 1322.296875 920.714844 1334.027344 922.359375 1346.074219 923.691406 L 1365.527344 923.597656 L 1391.445312 920.746094 C 1434.152344 913.910156 1474.964844 899.546875 1513.5 876.679688 " fill="#1C2340"/><path d="M 487.679688 541.597656 C 467.914062 580.09375 429.25 596.605469 401.324219 578.476562 C 373.398438 560.351562 366.785156 514.449219 386.554688 475.953125 C 406.320312 437.457031 444.984375 420.945312 472.910156 439.074219 C 500.835938 457.199219 507.449219 503.101562 487.679688 541.597656 " fill="#1C2340"/><path d="M 1416.417969 533.480469 C 1396.648438 571.976562 1357.984375 588.488281 1330.058594 570.363281 C 1302.136719 552.238281 1295.519531 506.335938 1315.289062 467.839844 C 1335.058594 429.34375 1373.722656 412.832031 1401.644531 430.957031 C 1429.570312 449.085938 1436.183594 494.988281 1416.417969 533.480469 " fill="#1C2340"/></svg></a></div></header><div class="fbmig"><div class="w1"><a href="../">ForBatch</a><span class="sep">›</span><a href="../tiendas/">Tiendas</a><span class="sep">›</span><b>Lumika</b><div class="sub"><a href="#arma">Constelaciones</a><a href="#proceso">Proceso</a><a href="#historia">Historia</a><a href="#fotos">Instalación</a><a href="#top">↑ Arriba</a></div></div></div>
+
+<header class="hero">
+<div class="dico"></div><div class="vel"></div><canvas id="cielo"></canvas>
+<div class="cred">Constelación<br>Carolina Pérez-Moreno<br>con Brian Skalak · Second Sight Visuals</div>
+<div class="centro"><span class="eti">Tienda Lumika</span><h1>Conecta <b>los</b> <u>puntos</u>.</h1></div>
+<div class="ctrl"><button class="bt" id="borraC">Borrar</button><button class="bt" id="otroC">Otro cielo</button><a class="bt p" href="#arma">Arma la tuya ↓</a></div>
+</header>
+
+<section class="conf" id="arma">
+<span class="eti">Producto</span><h2><b>Constelaciones</b>, tu cielo <u>armado</u></h2>
+<div class="cuerpo">
+<div><div class="escena" id="escena"><div class="dico"></div><div class="vel"></div><canvas id="lienzo"></canvas><span class="pista" id="pista">Toca para poner una estrella. Arrastra para moverla.</span></div></div>
+<div>
+<div class="grupo"><label>Kit</label><div class="op" id="kits"></div></div>
+<div class="grupo"><label>Forma de la estrella seleccionada</label><div class="op" id="formas"></div></div>
+<div class="grupo"><label>Tamaño</label><div class="op" id="tams"></div></div>
+<div class="grupo"><label>Color del filamento</label><div class="sw" id="cols"></div></div>
+<p class="res" id="res"></p>
+<div class="acc"><button class="bt" id="mezcla">Mezclar</button><button class="bt" id="quita">Quitar estrella</button><button class="bt" id="limpia">Empezar de nuevo</button><a class="bt p" id="pide" href="#">Pedir esta constelación</a></div>
+</div></div>
+</section>
+
+<section class="hist" id="proceso-b"><div class="foto"><img src="../img/lote-impresion.jpg" alt="Un lote de piezas imprimiéndose en la máquina" loading="lazy"></div>
+<div><span class="eti" id="proceso">Proceso de fabricación</span><h2>Impresas <b>en lote</b></h2><p>Cada estrella se imprime en filamento 3D, en lotes pequeños.</p><small>Foto de ejemplo: un lote de tiburones ballena en la impresora. Aquí irá la de las estrellas.</small></div></section>
+
+<section class="inst" id="historia"><div><span class="eti">Historia</span><h2>De la <b>instalación</b> a tu <u>pared</u></h2><p>Constelación nació como una escultura de luz de Carolina Pérez-Moreno y Brian Skalak, con película dicroica y proyección: «conecta los puntos». Constelaciones son sus estrellas, impresas en filamento 3D, para armar tu propio cielo.</p></div><div class="dico" style="aspect-ratio:4/3;border-radius:4px"></div></section>
+<section class="inst" id="fotos"><div><span class="eti">La instalación</span><h2>Luz que <b>se camina</b></h2><p>Constelación también es una escultura dicroica con proyección, hecha por Carolina Pérez-Moreno y Brian Skalak. Se puede llevar a un espacio.</p><a class="bt p" href="mailto:hola@iwi.com.mx?subject=Instalaci%C3%B3n%20Constelaci%C3%B3n">Preguntar por la instalación</a></div><div class="dico" style="aspect-ratio:4/3;border-radius:4px;opacity:.9"></div></section>
+<footer><span>Lumika · en ForBatch · <a href="../tiendas/">volver a las tiendas</a></span><span>Constelación: Carolina Pérez-Moreno y Brian Skalak</span></footer>
+
+<script>
+/* ---- cielo de la portada: conecta los puntos ---- */
+(()=>{const cv=document.getElementById('cielo'),x=cv.getContext('2d');let W,H,est=[],lin=[],sel=null,dpr=Math.min(devicePixelRatio||1,2);
+function tam(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
+function cielo(){est=[];const n=Math.round(W*H/16000)+22;for(let i=0;i<n;i++)est.push({x:Math.random()*W,y:Math.random()*H*.85+H*.04,r:Math.random()*2.2+.8,t:Math.random()*6.28,v:.4+Math.random()*1.2});lin=[];sel=null}
+function cerca(px,py){let b=null,d=28;est.forEach((e,i)=>{const k=Math.hypot(e.x-px,e.y-py);if(k<d){d=k;b=i}});return b}
+cv.addEventListener('pointerdown',ev=>{const r=cv.getBoundingClientRect(),i=cerca(ev.clientX-r.left,ev.clientY-r.top);if(i==null){sel=null;return}if(sel==null)sel=i;else if(sel!==i){lin.push([sel,i,performance.now()]);sel=i}});
+document.getElementById('borraC').onclick=()=>{lin=[];sel=null};document.getElementById('otroC').onclick=cielo;
+function pinta(t){x.clearRect(0,0,W,H);lin.forEach(l=>{const a=est[l[0]],b=est[l[1]],k=Math.min(1,(t-l[2])/500);x.strokeStyle='rgba(255,255,255,.85)';x.lineWidth=1.2;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(a.x+(b.x-a.x)*k,a.y+(b.y-a.y)*k);x.stroke()});
+ est.forEach((e,i)=>{const p=.55+.45*Math.sin(t/700*e.v+e.t);x.fillStyle='rgba(255,255,255,'+(.5+.5*p)+')';x.beginPath();x.arc(e.x,e.y,e.r*(i===sel?2.2:1)*(.85+.3*p),0,6.28);x.fill();if(i===sel){x.strokeStyle='#E4F000';x.lineWidth=1.5;x.beginPath();x.arc(e.x,e.y,11,0,6.28);x.stroke()}});requestAnimationFrame(pinta)}
+addEventListener('resize',()=>{tam();cielo()});tam();cielo();requestAnimationFrame(pinta)})();
+
+/* ---- configurador de estrellas ---- */
+(()=>{
+const COLS=['#7C4DFF','#3F51FF','#1FB6FF','#19D3C5','#7BE495','#E4F000','#FFB300','#FF7A45','#FF4D8D','#D13FD9','#C0C7D1','#F2F2F2','#1C2340','#B9915C'];
+const FORMAS=[{n:'4 puntas',p:4,k:.42},{n:'5 puntas',p:5,k:.45},{n:'6 puntas',p:6,k:.5},{n:'Destello',p:4,k:.2}];
+const TAMS=[{n:'Chica',r:.034},{n:'Mediana',r:.052},{n:'Grande',r:.075}];
+const KITS=[3,5,7];
+const cv=document.getElementById('lienzo'),x=cv.getContext('2d'),esc=document.getElementById('escena');
+let W,H,dpr=Math.min(devicePixelRatio||1,2),kit=5,es=[],sel=-1,arr=null;
+function tam(){const r=esc.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
+function radio(e){return TAMS[e.t].r*W}
+function mk(px,py){return {x:px/W,y:py/H,f:1,t:1,c:COLS[Math.floor(Math.random()*COLS.length)]}}
+function hit(px,py){for(let i=es.length-1;i>=0;i--){const e=es[i];if(Math.hypot(e.x*W-px,e.y*H-py)<Math.max(radio(e),18))return i}return -1}
+function grupo(id,items,get,set,nombre){const el=document.getElementById(id);el.innerHTML='';items.forEach((it,i)=>{const b=document.createElement('button');b.textContent=nombre(it);b.setAttribute('aria-pressed',get()===i);b.onclick=()=>set(i);el.appendChild(b)})}
+function ui(){
+ const el=document.getElementById('kits');el.innerHTML='';KITS.forEach(k=>{const b=document.createElement('button');b.textContent=k+' estrellas';b.setAttribute('aria-pressed',k===kit);b.onclick=()=>{kit=k;if(es.length>kit){es.length=kit;if(sel>=kit)sel=kit-1}ui()};el.appendChild(b)});
+ const s=sel>=0?es[sel]:null;
+ grupo('formas',FORMAS,()=>s?s.f:-1,i=>{if(s){s.f=i;ui()}},f=>f.n);
+ grupo('tams',TAMS,()=>s?s.t:-1,i=>{if(s){s.t=i;ui()}},t=>t.n);
+ const sw=document.getElementById('cols');sw.innerHTML='';COLS.forEach(c=>{const b=document.createElement('button');b.style.background=c;b.setAttribute('aria-label','Color '+c);b.setAttribute('aria-pressed',!!s&&s.c===c);b.onclick=()=>{if(s){s.c=c;ui()}};sw.appendChild(b)});
+ const hechas=es.length;document.getElementById('res').textContent=hechas?`${hechas} de ${kit} estrellas. `+(hechas<kit?'Toca el cielo para poner las que faltan.':'Kit completo. Toca una para cambiarla.'):`Kit de ${kit} estrellas. Toca el cielo para poner la primera.`;
+ const cuerpo=`Kit de ${kit} estrellas (${hechas} puestas):\n`+es.map((e,i)=>`${i+1}. ${FORMAS[e.f].n}, ${TAMS[e.t].n.toLowerCase()}, color ${e.c}`).join('\n')+'\n\nPosiciones: '+es.map(e=>`(${Math.round(e.x*100)},${Math.round(e.y*100)})`).join(' ');
+ const a=document.getElementById('pide');a.href='mailto:hola@iwi.com.mx?subject='+encodeURIComponent('Constelación: kit de '+kit+' estrellas')+'&body='+encodeURIComponent(cuerpo);
+ a.style.opacity=hechas?1:.4;a.style.pointerEvents=hechas?'auto':'none';
+ document.getElementById('pista').style.display=hechas?'none':'block'}
+function estrella(e,t){const f=FORMAS[e.f],R=radio(e),cx=e.x*W,cy=e.y*H,n=f.p*2;const g=x.createRadialGradient(cx-R*.3,cy-R*.3,R*.1,cx,cy,R*1.2);g.addColorStop(0,'#ffffff');g.addColorStop(.35,e.c);g.addColorStop(1,shade(e.c,-.45));
+ x.save();x.shadowColor=e.c;x.shadowBlur=R*.9;x.fillStyle=g;x.beginPath();for(let i=0;i<n;i++){const a=-Math.PI/2+i*Math.PI/f.p,r=i%2?R*f.k:R;x.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r)}x.closePath();x.fill();x.restore();
+ x.strokeStyle='rgba(255,255,255,.35)';x.lineWidth=1;x.stroke()}
+function shade(h,p){const n=parseInt(h.slice(1),16);let r=n>>16,g=n>>8&255,b=n&255;const f=p<0?0:255,t=Math.abs(p);r=Math.round((f-r)*t+r);g=Math.round((f-g)*t+g);b=Math.round((f-b)*t+b);return `rgb(${r},${g},${b})`}
+function pinta(t){x.clearRect(0,0,W,H);
+ for(let k=0;k<26;k++){const px=(k*97%100)/100*W,py=(k*53%100)/100*H,p=.4+.4*Math.sin(t/900+k);x.fillStyle=`rgba(255,255,255,${p*.5})`;x.beginPath();x.arc(px,py,1.1,0,6.28);x.fill()}
+ x.strokeStyle='rgba(255,255,255,.8)';x.lineWidth=1.2;x.setLineDash([5,5]);x.beginPath();es.forEach((e,i)=>i?x.lineTo(e.x*W,e.y*H):x.moveTo(e.x*W,e.y*H));x.stroke();x.setLineDash([]);
+ es.forEach((e,i)=>{estrella(e,t);if(i===sel){x.strokeStyle='#E4F000';x.lineWidth=1.6;x.beginPath();x.arc(e.x*W,e.y*H,radio(e)+8,0,6.28);x.stroke()}});
+ requestAnimationFrame(pinta)}
+cv.addEventListener('pointerdown',ev=>{const r=cv.getBoundingClientRect(),px=ev.clientX-r.left,py=ev.clientY-r.top,i=hit(px,py);
+ if(i>=0){sel=i;arr=i;cv.setPointerCapture(ev.pointerId)}else if(es.length<kit){es.push(mk(px,py));sel=es.length-1;arr=sel;cv.setPointerCapture(ev.pointerId)}ui()});
+cv.addEventListener('pointermove',ev=>{if(arr==null)return;const r=cv.getBoundingClientRect(),e=es[arr];e.x=Math.min(.96,Math.max(.04,(ev.clientX-r.left)/W));e.y=Math.min(.94,Math.max(.06,(ev.clientY-r.top)/H))});
+const fin=()=>{if(arr!=null){arr=null;ui()}};cv.addEventListener('pointerup',fin);cv.addEventListener('pointercancel',fin);
+document.getElementById('mezcla').onclick=()=>{es=[];for(let i=0;i<kit;i++){const e=mk(0,0);e.x=.12+Math.random()*.76;e.y=.14+Math.random()*.7;e.f=Math.floor(Math.random()*FORMAS.length);e.t=Math.floor(Math.random()*TAMS.length);es.push(e)}sel=0;ui()};
+document.getElementById('quita').onclick=()=>{if(sel>=0){es.splice(sel,1);sel=es.length?Math.min(sel,es.length-1):-1;ui()}};
+document.getElementById('limpia').onclick=()=>{es=[];sel=-1;ui()};
+addEventListener('resize',tam);tam();ui();requestAnimationFrame(pinta)})();
+</script></body></html>
