@@ -5,109 +5,102 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Propuesta para bloqe</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#ecebe7;--card:#f7f6f3;--ink:#1d1d1b;--mu:#5f5e5a;--line:#d3d1cb;--ac:#2f5d50;--acs:#dfe9e4;--hd:#1d1d1b}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141413;--card:#1e1e1c;--ink:#ecebe7;--mu:#a5a39d;--line:#34332f;--ac:#8fc1b1;--acs:#203530}}
-:root[data-theme="dark"]{--bg:#141413;--card:#1e1e1c;--ink:#ecebe7;--mu:#a5a39d;--line:#34332f;--ac:#8fc1b1;--acs:#203530}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Archivo","Helvetica Neue",Arial,sans-serif}
-.w{max-width:960px;margin:0 auto;padding:0 16px}
-.top{background:var(--hd);color:#fff}.top .w{display:flex;justify-content:space-between;align-items:center;padding-top:14px;padding-bottom:14px;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
-.top b{font-weight:700;letter-spacing:.2em}
-.hero{padding:64px 0 40px;border-bottom:1px solid var(--line)}
-.k{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);font-weight:700}
-h1{font-size:46px;line-height:1.04;font-weight:300;margin:10px 0 18px;max-width:780px}h1 b{font-weight:700}
-@media (max-width:600px){h1{font-size:32px}.hero{padding:40px 0 28px}}
-.lead{font-size:20px;color:var(--mu);max-width:700px;margin:0}
-section{padding:44px 0;border-bottom:1px solid var(--line)}
-h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 18px;color:var(--ac)}
-h3{font-size:24px;font-weight:600;margin:0 0 10px;line-height:1.2}
-p{margin:0 0 12px;max-width:720px}
-.dos{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media (max-width:720px){.dos{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--line);padding:18px}
-.card .k{margin-bottom:6px}
-.antes b,.despues b{display:block;font-size:30px;font-weight:300;line-height:1.1;margin:4px 0 8px}
-.despues{border-left:3px solid var(--ac)}
-.pasos{counter-reset:p;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media (max-width:760px){.pasos{grid-template-columns:1fr 1fr}}
-.pasos div{counter-increment:p;border-top:2px solid var(--ac);padding-top:10px;font-size:15px}
-.pasos div::before{content:counter(p,decimal-leading-zero);display:block;font-size:13px;color:var(--ac);font-weight:700;letter-spacing:.1em}
-.pasos b{display:block;margin:2px 0 4px}
-.cta{display:inline-block;background:var(--ac);color:#fff;text-decoration:none;padding:12px 18px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:14px;margin-top:8px}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cta{color:#141413}}
-.exp{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}@media (max-width:760px){.exp{grid-template-columns:1fr}}
-.exp .card{font-size:15px}.exp .card b{display:block;font-size:17px;margin-bottom:4px}
-.q{color:var(--mu);font-style:italic;font-size:14px;margin-top:6px}
-ul{margin:0;padding-left:20px;max-width:720px}li{margin:4px 0}
-.nota{font-size:13px;color:var(--mu)}
-footer{padding:28px 0 40px;font-size:13px;color:var(--mu)}
-@media print{body{background:#fff;font-size:13px}.top{-webkit-print-color-adjust:exact;print-color-adjust:exact}section{padding:22px 0;break-inside:avoid}.hero{padding:28px 0 18px}h1{font-size:32px}.cta{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+:root{--bg:#EEEDEA;--card:#F7F6F3;--ink:#111111;--ac:#2F5D50;--m:36px;--g:24px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121413;--card:#1B1E1C;--ink:#EEEDEA;--ac:#8FC1B1}}
+:root[data-theme="dark"]{--bg:#121413;--card:#1B1E1C;--ink:#EEEDEA;--ac:#8FC1B1}
+*{box-sizing:border-box}
+html{scroll-snap-type:y mandatory}
+body{margin:0;background:var(--bg);color:var(--ink);font:300 16px/24px "Helvetica Neue",Helvetica,Arial,sans-serif}
+.tx{font-family:"Courier Prime","Courier New",monospace;font-weight:400}
+.lam{min-height:100vh;scroll-snap-align:start;padding:56px var(--m);display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--g);align-content:center;position:relative;max-width:1440px;margin:0 auto}
+.pie{position:absolute;left:var(--m);right:var(--m);bottom:24px;display:flex;justify-content:space-between;font-size:12px;line-height:24px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.iwi{height:24px;width:auto;color:var(--ink);display:block}
+.et{font-size:12px;line-height:24px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ac);margin:0 0 24px}
+h1{font-size:72px;line-height:72px;font-weight:300;margin:0 0 48px;letter-spacing:-.01em}h1 b,h2 b{font-weight:700}
+h2{font-size:48px;line-height:48px;font-weight:300;margin:0 0 48px}
+h3{font-size:16px;line-height:24px;font-weight:700;margin:0}
+p{margin:0 0 24px}
+.c1{grid-column:1/8}.c2{grid-column:1/13}.ci{grid-column:1/7}.cd{grid-column:7/13}
+.lead{font-size:20px;line-height:32px}
+.caja{background:var(--card);padding:24px;border-radius:4px}
+.caja.ac{box-shadow:inset 3px 0 0 var(--ac)}
+.grande{font-size:40px;line-height:48px;font-weight:300;margin:0 0 24px}.grande b{font-weight:700}
+.pasos{grid-column:1/13;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--g);margin-bottom:48px}
+.pasos div{border-top:1px solid var(--ink);padding-top:24px}
+.pasos .n{font-weight:700;font-size:12px;letter-spacing:.14em;color:var(--ac)}
+.btn{display:inline-block;border:1px solid var(--ink);color:var(--ink);text-decoration:none;padding:11px 24px;border-radius:4px;font-size:13px;line-height:24px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.btn:hover{border-color:var(--ac);color:var(--ac)}
+.exp{grid-column:1/13;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--g)}
+.exp .caja{min-height:168px}.exp .q{margin:12px 0 0;font-style:italic}
+ul{margin:0;padding:0;list-style:none}li{padding:12px 0;border-top:1px solid var(--ink)}li:last-child{border-bottom:1px solid var(--ink)}
+li b{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:700}
+#ret{position:fixed;inset:0;pointer-events:none;display:none;z-index:9;max-width:1440px;margin:0 auto;padding:0 var(--m);background-image:repeating-linear-gradient(to bottom,transparent 0 23px,rgba(217,80,80,.25) 23px 24px)}
+#ret div{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--g);height:100%}#ret span{background:rgba(217,80,80,.08)}
+body.g #ret{display:block}
+@media (max-width:820px){:root{--m:18px;--g:12px}.lam{min-height:auto;padding:48px var(--m) 72px;align-content:start}html{scroll-snap-type:none}
+ h1{font-size:40px;line-height:48px}h2{font-size:32px;line-height:36px}.c1,.ci,.cd{grid-column:1/13}.cd{margin-top:24px}
+ .pasos{grid-template-columns:1fr 1fr}.exp{grid-template-columns:1fr}.exp .caja{min-height:0}}
+@page{size:11in 8.5in;margin:0}
+@media print{html{scroll-snap-type:none}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.lam{height:8.5in;min-height:0;break-after:page;page-break-after:always;max-width:none}#ret{display:none!important}}
 </style>
 </head>
 <body>
-<div class="top"><div class="w"><span><b>iwi</b> · para bloqe</span><span>Propuesta · noviembre 2026</span></div></div>
+<div id="ret"><div><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
 
-<div class="w">
-<div class="hero">
-  <div class="k">Checo, esto es lo que vimos</div>
-  <h1>Que cotizar <b>no te saque de vender</b>.</h1>
-  <p class="lead">Dictas desde el teléfono el proyecto, el departamento y el descuento, y te llega la cotización en PDF, lista para el cliente. Sin abrir la computadora ni tocar el Excel.</p>
-</div>
-
-<section>
-  <h2>Lo que nos contaste</h2>
-  <div class="dos">
-    <div class="card antes"><div class="k">Hoy</div><b>Unos 10 minutos por cotización</b>Calculas en el Excel (fórmulas y macros, sin botones), copias el resultado, le das formato y lo mandas. Cada ajuste de escenario es volver a empezar.</div>
-    <div class="card despues"><div class="k">Lo que proponemos</div><b>Una frase</b>«Bosque 504, 4 % de descuento, 30 70, para Laura Pérez.» El agente aplica tus reglas, te enseña la cotización para tu visto bueno y la entrega en PDF.</div>
+<section class="lam">
+  <div class="c1">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:72px"><svg class="iwi" viewBox="0 420 1614 560" aria-label="iwi" role="img"><path d="M 1513.5 876.679688 L 1531.269531 864.511719 C 1548.167969 855.480469 1568.640625 861.167969 1580.453125 876.851562 C 1585.386719 883.402344 1583.84375 891.808594 1578.414062 897.148438 C 1569.648438 905.777344 1560.386719 913.023438 1549.589844 919.363281 C 1497.429688 949.988281 1440.265625 968.269531 1381.449219 974.460938 L 1334.890625 974.6875 C 1293.242188 969.375 1249.769531 953.582031 1227.195312 911.398438 C 1188.71875 942.226562 1144.066406 963.007812 1097.734375 968.515625 L 1062.179688 968.347656 C 1027.4375 964.410156 995.085938 947.75 976.726562 913.699219 L 957.417969 929.15625 C 922.703125 956.9375 873.644531 973.644531 831.121094 964.074219 C 803.246094 957.804688 779.472656 941.015625 766.699219 911.515625 C 721.015625 946.816406 667.769531 973.179688 612.5625 965.984375 C 581.496094 961.09375 553.269531 945.457031 539.199219 912.675781 C 499.890625 941.453125 456.417969 962.257812 410.671875 968.242188 C 396.265625 970.125 382.0625 968.90625 367.617188 968.65625 C 331.265625 962.40625 299.472656 948.289062 280.472656 911.992188 C 261.933594 928.058594 242.535156 939.957031 221.519531 950.304688 C 192.046875 964.816406 161.324219 972.089844 129.332031 974.441406 C 96.710938 976.839844 57.273438 969.761719 27.441406 955.257812 C 19.335938 951.316406 11.988281 943.726562 11.082031 933.859375 C 10.035156 922.445312 18.359375 914.089844 27.492188 911.871094 C 40.296875 908.761719 52.6875 910.960938 63.074219 919.863281 C 90.707031 928.710938 118.644531 928.503906 147.066406 922.902344 C 194.023438 913.652344 233.816406 887.265625 268.996094 851.03125 C 271.023438 825.25 275.523438 800.8125 283.695312 776.148438 C 297.613281 734.132812 321.738281 675.304688 345.902344 641.136719 C 353.8125 629.953125 362.941406 620.832031 374.621094 615.417969 C 390.597656 608.015625 409.167969 610.367188 421.464844 624.351562 C 442.230469 647.96875 424.5 693.246094 412.171875 722.726562 C 391.0625 773.210938 365.179688 819.171875 332.429688 861.808594 C 329.003906 884.53125 340.722656 905.777344 360.148438 914.175781 C 388.09375 926.257812 431.828125 915.101562 458.554688 900.539062 L 475.996094 891.039062 C 496.386719 879.925781 514.558594 865.59375 531.144531 848.15625 L 535.503906 820.214844 C 542.566406 774.925781 574.652344 701.472656 596.925781 660.214844 C 605.753906 643.859375 615.328125 629.160156 627.441406 616.007812 C 638.628906 603.859375 653.839844 596.65625 669.050781 598.015625 C 682.980469 599.261719 695.429688 607.183594 701.320312 620.988281 C 712.125 646.316406 698.597656 683.96875 687.605469 710.230469 C 666.601562 760.394531 639.957031 806.457031 607.746094 848.359375 C 595.59375 864.164062 592.601562 861.507812 595.949219 885.800781 C 597.921875 900.109375 607.722656 911.664062 620.597656 914.273438 L 631.132812 915.363281 L 643.035156 914.222656 C 688.085938 905.496094 724.675781 877.855469 758.246094 843.664062 C 760.625 814.578125 766.941406 787.511719 775.945312 760.050781 C 789.550781 718.550781 809.1875 670.183594 831.722656 634.449219 C 847.351562 609.675781 870.824219 591.539062 897.226562 600.984375 C 928.160156 612.042969 926.628906 648.792969 917.027344 680.910156 C 897.996094 744.558594 862.019531 808.003906 822.667969 858.375 L 822.746094 879.261719 C 822.789062 890.40625 828.589844 900.351562 836.746094 907.050781 C 845.871094 914.554688 857.34375 914.925781 868.613281 912.488281 C 891.925781 907.445312 912.855469 895.714844 931.542969 879.5 C 942.695312 869.824219 952.734375 860.238281 961.953125 848.308594 C 962.292969 807.945312 969.316406 770.136719 981.085938 732.472656 C 992.648438 695.46875 1008.183594 650.40625 1030.257812 621.097656 C 1041.746094 605.84375 1058.386719 595.90625 1076.144531 597.851562 C 1091.269531 599.511719 1104.832031 608.722656 1110.550781 624.398438 C 1120.855469 652.644531 1108.449219 693.488281 1097.84375 722.488281 C 1084.054688 760.175781 1067.171875 795.515625 1047.136719 829.332031 L 1027.667969 859.660156 C 1027.246094 892.945312 1043.898438 914.128906 1073.367188 917.585938 C 1078.332031 918.167969 1082.898438 918.375 1087.765625 917.613281 C 1126.945312 911.480469 1166.113281 890.511719 1196.472656 862.273438 L 1210.820312 847.234375 L 1211.324219 823.316406 C 1213.960938 798.011719 1218.316406 774.042969 1225.332031 749.84375 C 1237.382812 708.273438 1259.664062 645.230469 1285.925781 615.355469 C 1298.9375 600.554688 1316.675781 593.59375 1334.574219 598.289062 C 1353.9375 603.371094 1366.414062 621.085938 1367.257812 643.734375 C 1368.523438 677.707031 1348.351562 730.429688 1333.507812 762.796875 C 1317.5 797.699219 1299.722656 830.183594 1277.71875 860.734375 C 1277.976562 885.554688 1290.714844 906.214844 1311.160156 915.601562 C 1322.296875 920.714844 1334.027344 922.359375 1346.074219 923.691406 L 1365.527344 923.597656 L 1391.445312 920.746094 C 1434.152344 913.910156 1474.964844 899.546875 1513.5 876.679688 " fill="currentColor"/><path d="M 487.679688 541.597656 C 467.914062 580.09375 429.25 596.605469 401.324219 578.476562 C 373.398438 560.351562 366.785156 514.449219 386.554688 475.953125 C 406.320312 437.457031 444.984375 420.945312 472.910156 439.074219 C 500.835938 457.199219 507.449219 503.101562 487.679688 541.597656 " fill="currentColor"/><path d="M 1416.417969 533.480469 C 1396.648438 571.976562 1357.984375 588.488281 1330.058594 570.363281 C 1302.136719 552.238281 1295.519531 506.335938 1315.289062 467.839844 C 1335.058594 429.34375 1373.722656 412.832031 1401.644531 430.957031 C 1429.570312 449.085938 1436.183594 494.988281 1416.417969 533.480469 " fill="currentColor"/></svg><span class="et" style="margin:0;color:var(--ink)">para bloqe</span></div>
+    <div class="et">Checo, esto es lo que vimos</div>
+    <h1>Que cotizar <b>no te saque de vender.</b></h1>
+    <p class="tx lead">Dictas desde el teléfono el proyecto, el departamento y el descuento, y te llega la cotización en PDF, lista para el cliente. Sin abrir la computadora ni tocar el Excel.</p>
   </div>
+  <div class="pie"><span>Propuesta · noviembre 2026</span><span>1 / 5</span></div>
 </section>
 
-<section>
-  <h2>Cómo funcionaría</h2>
+<section class="lam">
+  <div class="c2"><div class="et">Lo que nos contaste</div><h2>De diez minutos <b>a una frase.</b></h2></div>
+  <div class="ci caja"><div class="et">Hoy</div><p class="grande">Unos <b>10 minutos</b> por cotización</p><p class="tx" style="margin:0">Calculas en el Excel (fórmulas y macros, sin botones), copias el resultado, le das formato y lo mandas. Cada ajuste de escenario es volver a empezar.</p></div>
+  <div class="cd caja ac"><div class="et">Lo que proponemos</div><p class="grande"><b>Una frase</b></p><p class="tx" style="margin:0">«Bosque 504, 4 % de descuento, 30 70, para Laura Pérez.» El agente aplica tus reglas, te enseña la cotización para tu visto bueno y la entrega en PDF.</p></div>
+  <div class="pie"><span>bloqe · iwi</span><span>2 / 5</span></div>
+</section>
+
+<section class="lam">
+  <div class="c2"><div class="et">Cómo funcionaría</div><h2>Dictas, calcula, <b>revisas, entregas.</b></h2></div>
   <div class="pasos">
-    <div><b>Dictas</b>Proyecto, departamento, descuento, esquema de pago y cliente, desde el teléfono.</div>
-    <div><b>Calcula</b>Con las reglas de tu Excel: lista de precios, topes de descuento, enganche, mensualidades y entrega.</div>
-    <div><b>Revisas</b>Ves la cotización antes de mandarla. Si un descuento pasa el tope, te lo marca.</div>
-    <div><b>Entregas</b>PDF con tu formato. Queda registro de qué se cotizó, a quién y cuándo.</div>
+    <div><div class="n">01</div><h3>Dictas</h3><p class="tx">Proyecto, departamento, descuento, esquema de pago y cliente, desde el teléfono.</p></div>
+    <div><div class="n">02</div><h3>Calcula</h3><p class="tx">Con las reglas de tu Excel: lista de precios, topes de descuento, enganche, mensualidades y entrega.</p></div>
+    <div><div class="n">03</div><h3>Revisas</h3><p class="tx">Ves la cotización antes de mandarla. Si un descuento pasa el tope, te lo marca.</p></div>
+    <div><div class="n">04</div><h3>Entregas</h3><p class="tx">PDF con tu formato. Queda registro de qué se cotizó, a quién y cuándo.</p></div>
   </div>
-  <p style="margin-top:22px">Hicimos una demo para que lo veas funcionando. Es una simulación con proyectos y precios inventados: no usa tu Excel ni tus datos.</p>
-  <a class="cta" href="https://iwi.com.mx/demos/bloqe/demo/">Ver la demo</a>
+  <div class="c1"><p class="tx">Hicimos una demo para que lo veas funcionando. Es una simulación con proyectos y precios inventados: no usa tu Excel ni tus datos.</p><a class="btn" href="https://iwi.com.mx/demos/bloqe/demo/">Ver la demo →</a></div>
+  <div class="pie"><span>bloqe · iwi</span><span>3 / 5</span></div>
 </section>
 
-<section>
-  <h2>Hacia dónde puede crecer</h2>
-  <p>La cotización es la puerta. Con la misma lógica (tus reglas, una frase, un documento listo) se pueden ir sumando piezas. Son ideas para platicar, no promesas: tú nos dices cuáles te duelen.</p>
-  <div class="exp" style="margin-top:14px">
-    <div class="card"><b>Contratos</b>Del apartado al contrato con los datos de la cotización ya llenos, sobre tu plantilla y con revisión legal.<div class="q">¿Cuánto tiempo se te va hoy en llenarlos?</div></div>
-    <div class="card"><b>Inventario vivo</b>Qué está disponible, apartado o vendido, visible para tu equipo de ventas sin mandar el Excel.<div class="q">¿Quién lo actualiza hoy?</div></div>
-    <div class="card"><b>Seguimiento de prospectos</b>A quién se le cotizó qué, cuándo vence y a quién hay que volver a llamar.<div class="q">¿Lo llevas en el Excel, en WhatsApp o de memoria?</div></div>
-    <div class="card"><b>Escenarios para inversionistas</b>Corridas de precio y flujo por proyecto, con el mismo dictado.<div class="q">¿Te los piden seguido?</div></div>
-    <div class="card"><b>Reporte de ventas</b>Cuánto se vendió, a qué descuento promedio y qué falta, por proyecto y por semana.</div>
-    <div class="card"><b>Tu equipo</b>Que tus vendedores coticen igual que tú, con los mismos topes, y tú sólo autorices lo que pasa de ahí.</div>
+<section class="lam">
+  <div class="c2"><div class="et">Hacia dónde puede crecer</div><h2>La cotización <b>es la puerta.</b></h2>
+  <p class="tx" style="max-width:760px">Con la misma lógica (tus reglas, una frase, un documento listo) se pueden ir sumando piezas. Son ideas para platicar, no promesas: tú nos dices cuáles te duelen.</p></div>
+  <div class="exp">
+    <div class="caja"><h3>Contratos</h3><p class="tx" style="margin:0">Del apartado al contrato con los datos de la cotización ya llenos, sobre tu plantilla y con revisión legal.</p><p class="tx q">¿Cuánto tiempo se te va hoy en llenarlos?</p></div>
+    <div class="caja"><h3>Inventario vivo</h3><p class="tx" style="margin:0">Qué está disponible, apartado o vendido, visible para tu equipo sin mandar el Excel.</p><p class="tx q">¿Quién lo actualiza hoy?</p></div>
+    <div class="caja"><h3>Seguimiento de prospectos</h3><p class="tx" style="margin:0">A quién se le cotizó qué, cuándo vence y a quién hay que volver a llamar.</p><p class="tx q">¿Lo llevas en el Excel, en WhatsApp o de memoria?</p></div>
+    <div class="caja"><h3>Escenarios para inversionistas</h3><p class="tx" style="margin:0">Corridas de precio y flujo por proyecto, con el mismo dictado.</p><p class="tx q">¿Te los piden seguido?</p></div>
+    <div class="caja"><h3>Reporte de ventas</h3><p class="tx" style="margin:0">Cuánto se vendió, a qué descuento promedio y qué falta, por proyecto y por semana.</p><p class="tx q">¿Cada cuánto lo revisas?</p></div>
+    <div class="caja"><h3>Tu equipo</h3><p class="tx" style="margin:0">Que tus vendedores coticen igual que tú, con los mismos topes, y tú sólo autorices lo que pasa de ahí.</p><p class="tx q">¿Cuántos cotizan hoy?</p></div>
   </div>
+  <div class="pie"><span>bloqe · iwi</span><span>4 / 5</span></div>
 </section>
 
-<section>
-  <h2>Cómo trabajamos</h2>
-  <p>En iwi usamos el mismo método en cada proyecto: escuchar cómo trabajas hoy, hacer un prototipo rápido, probarlo contra tu realidad y acompañarte hasta que se vuelve costumbre.</p>
-  <ul>
-    <li><b>Primero tu Excel.</b> Leemos sus fórmulas y macros. Antes de usarlo con un cliente, comparamos lo que da el agente contra cotizaciones que ya hiciste.</li>
-    <li><b>Por etapas.</b> Primero la cotización. Lo demás, cuando la primera ya te esté ahorrando tiempo.</li>
-    <li><b>Tú decides.</b> Nada sale a un cliente sin tu visto bueno.</li>
-  </ul>
+<section class="lam">
+  <div class="ci"><div class="et">Cómo trabajamos</div><h2>Así funciona <b>hoy en iwi.</b></h2>
+    <p class="tx">El mismo método en cada proyecto: escuchar cómo trabajas hoy, hacer un prototipo rápido, probarlo contra tu realidad y acompañarte hasta que se vuelve costumbre.</p>
+    <ul class="tx"><li><b>Primero tu Excel.</b> Leemos sus fórmulas y macros. Antes de usarlo con un cliente, comparamos lo que da el agente contra cotizaciones que ya hiciste.</li><li><b>Por etapas.</b> Primero la cotización. Lo demás, cuando la primera ya te esté ahorrando tiempo.</li><li><b>Tú decides.</b> Nada sale a un cliente sin tu visto bueno.</li></ul></div>
+  <div class="cd"><div class="et">Para arrancar nos haría falta</div><h2>Cuatro cosas <b>y media hora.</b></h2>
+    <ul class="tx"><li>Una copia de tu Excel actual.</li><li>Saber dónde vive hoy: tu computadora, OneDrive o SharePoint.</li><li>Tus reglas de descuento y quién autoriza arriba del tope.</li><li>Una cotización real que ya hayas mandado, como modelo del PDF.</li><li>Media hora para verlo juntos.</li></ul></div>
+  <div class="pie"><span>iwi.com.mx · la demo es una simulación con datos inventados</span><span>5 / 5</span></div>
 </section>
 
-<section>
-  <h2>Para arrancar nos haría falta</h2>
-  <ul>
-    <li>Una copia de tu Excel actual.</li>
-    <li>Saber dónde vive hoy: tu computadora, OneDrive o SharePoint.</li>
-    <li>Tus reglas de descuento y quién autoriza arriba del tope.</li>
-    <li>Una cotización real que ya hayas mandado, como modelo del PDF.</li>
-    <li>Media hora para verlo juntos.</li>
-  </ul>
-</section>
-
-<footer>iwi · design thinking aplicado · iwi.com.mx<br><span class="nota">La demo es una simulación con datos inventados.</span></footer>
-</div>
+<script>addEventListener("keydown",e=>{if((e.key==="g"||e.key==="G")&&!e.metaKey&&!e.ctrlKey&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName))document.body.classList.toggle("g")})</script>
 </body>
 </html>
