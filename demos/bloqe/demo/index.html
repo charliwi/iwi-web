@@ -55,8 +55,20 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 footer{max-width:1100px;margin:0 auto;padding:0 16px 30px;color:var(--mu);font-size:12px}
 @media print{.sim,.top,header,.noprint,footer{display:none!important}main{display:block;padding:0}body{background:#fff}.card{border:0;padding:0}.pdf{border:0}}
 </style>
-</head>
+<style>
+/* barra del micrositio (Diseño): Helvetica, botones de línea, sin medios tonos */
+.mbar{position:sticky;top:0;z-index:50;background:#111;color:#EEEDEA;font:13px/1 "Helvetica Neue",Helvetica,Arial,sans-serif}
+.mbar .in{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.mbar .nom{font-weight:700;letter-spacing:-.01em;margin-right:auto;font-size:15px}
+.mbar a{color:#EEEDEA!important;background:none!important;text-decoration:none;padding:8px 12px!important;margin:0!important;font-size:13px!important;border:1px solid transparent;border-radius:999px}
+.mbar a:hover{border-color:#EEEDEA}
+.mbar a[aria-current=page]{border-color:#EEEDEA;font-weight:700}
+.mbar a.pdf{border-color:#EEEDEA}
+.mbar a:focus-visible{outline:2px solid #EEEDEA;outline-offset:2px}
+@media print{.mbar{display:none!important}}
+</style></head>
 <body>
+<nav class="mbar" aria-label="bloqe"><div class="in"><span class="nom">bloqe</span><a href="../">Propuesta</a><a href="../demo/" aria-current=page>Demo</a><a class="pdf" href="../261105_Propuesta_bloqe.pdf" download="Propuesta bloqe.pdf">Descargar PDF ↓</a></div></nav>
 <div class="sim">Simulación · proyecto, unidades, precios y personas ficticios · los cálculos no están validados</div>
 <div class="top"><div class="in"><span class="logo">COTIZA <b>·</b> VOZ</span><nav class="tabs"><button class="on" data-v="cot">Cotizar</button><button data-v="inv">Inventario</button><button data-v="como">Cómo funciona</button></nav><span class="tg">Demo preparada por iwi</span></div></div>
 

@@ -45,8 +45,20 @@ body.g #ret{display:block}
 @page{size:11in 8.5in;margin:0}
 @media print{html{scroll-snap-type:none}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.lam{height:8.5in;min-height:0;break-after:page;page-break-after:always;max-width:none}#ret{display:none!important}}
 </style>
-</head>
+<style>
+/* barra del micrositio (Diseño): Helvetica, botones de línea, sin medios tonos */
+.mbar{position:sticky;top:0;z-index:50;background:#111;color:#EEEDEA;font:13px/1 "Helvetica Neue",Helvetica,Arial,sans-serif}
+.mbar .in{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.mbar .nom{font-weight:700;letter-spacing:-.01em;margin-right:auto;font-size:15px}
+.mbar a{color:#EEEDEA!important;background:none!important;text-decoration:none;padding:8px 12px!important;margin:0!important;font-size:13px!important;border:1px solid transparent;border-radius:999px}
+.mbar a:hover{border-color:#EEEDEA}
+.mbar a[aria-current=page]{border-color:#EEEDEA;font-weight:700}
+.mbar a.pdf{border-color:#EEEDEA}
+.mbar a:focus-visible{outline:2px solid #EEEDEA;outline-offset:2px}
+@media print{.mbar{display:none!important}}
+</style></head>
 <body>
+<nav class="mbar" aria-label="bloqe"><div class="in"><span class="nom">bloqe</span><a href="" aria-current=page>Propuesta</a><a href="demo/">Demo</a><a class="pdf" href="261105_Propuesta_bloqe.pdf" download="Propuesta bloqe.pdf">Descargar PDF ↓</a></div></nav>
 <div id="ret"><div><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
 
 <section class="lam">
