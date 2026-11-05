@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Propuesta para bloqe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ecebe7;--card:#f7f6f3;--ink:#1d1d1b;--mu:#5f5e5a;--line:#d3d1cb;--ac:#2f5d50;--acs:#dfe9e4;--hd:#1d1d1b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141413;--card:#1e1e1c;--ink:#ecebe7;--mu:#a5a39d;--line:#34332f;--ac:#8fc1b1;--acs:#203530}}
+:root[data-theme="dark"]{--bg:#141413;--card:#1e1e1c;--ink:#ecebe7;--mu:#a5a39d;--line:#34332f;--ac:#8fc1b1;--acs:#203530}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Archivo","Helvetica Neue",Arial,sans-serif}
+.w{max-width:960px;margin:0 auto;padding:0 16px}
+.top{background:var(--hd);color:#fff}.top .w{display:flex;justify-content:space-between;align-items:center;padding-top:14px;padding-bottom:14px;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.top b{font-weight:700;letter-spacing:.2em}
+.hero{padding:64px 0 40px;border-bottom:1px solid var(--line)}
+.k{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);font-weight:700}
+h1{font-size:46px;line-height:1.04;font-weight:300;margin:10px 0 18px;max-width:780px}h1 b{font-weight:700}
+@media (max-width:600px){h1{font-size:32px}.hero{padding:40px 0 28px}}
+.lead{font-size:20px;color:var(--mu);max-width:700px;margin:0}
+section{padding:44px 0;border-bottom:1px solid var(--line)}
+h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 18px;color:var(--ac)}
+h3{font-size:24px;font-weight:600;margin:0 0 10px;line-height:1.2}
+p{margin:0 0 12px;max-width:720px}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media (max-width:720px){.dos{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);padding:18px}
+.card .k{margin-bottom:6px}
+.antes b,.despues b{display:block;font-size:30px;font-weight:300;line-height:1.1;margin:4px 0 8px}
+.despues{border-left:3px solid var(--ac)}
+.pasos{counter-reset:p;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media (max-width:760px){.pasos{grid-template-columns:1fr 1fr}}
+.pasos div{counter-increment:p;border-top:2px solid var(--ac);padding-top:10px;font-size:15px}
+.pasos div::before{content:counter(p,decimal-leading-zero);display:block;font-size:13px;color:var(--ac);font-weight:700;letter-spacing:.1em}
+.pasos b{display:block;margin:2px 0 4px}
+.cta{display:inline-block;background:var(--ac);color:#fff;text-decoration:none;padding:12px 18px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:14px;margin-top:8px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cta{color:#141413}}
+.exp{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}@media (max-width:760px){.exp{grid-template-columns:1fr}}
+.exp .card{font-size:15px}.exp .card b{display:block;font-size:17px;margin-bottom:4px}
+.q{color:var(--mu);font-style:italic;font-size:14px;margin-top:6px}
+ul{margin:0;padding-left:20px;max-width:720px}li{margin:4px 0}
+.nota{font-size:13px;color:var(--mu)}
+footer{padding:28px 0 40px;font-size:13px;color:var(--mu)}
+@media print{body{background:#fff;font-size:13px}.top{-webkit-print-color-adjust:exact;print-color-adjust:exact}section{padding:22px 0;break-inside:avoid}.hero{padding:28px 0 18px}h1{font-size:32px}.cta{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="top"><div class="w"><span><b>iwi</b> · para bloqe</span><span>Propuesta · noviembre 2026</span></div></div>
+
+<div class="w">
+<div class="hero">
+  <div class="k">Checo, esto es lo que vimos</div>
+  <h1>Que cotizar <b>no te saque de vender</b>.</h1>
+  <p class="lead">Dictas desde el teléfono el proyecto, el departamento y el descuento, y te llega la cotización en PDF, lista para el cliente. Sin abrir la computadora ni tocar el Excel.</p>
+</div>
+
+<section>
+  <h2>Lo que nos contaste</h2>
+  <div class="dos">
+    <div class="card antes"><div class="k">Hoy</div><b>Unos 10 minutos por cotización</b>Calculas en el Excel (fórmulas y macros, sin botones), copias el resultado, le das formato y lo mandas. Cada ajuste de escenario es volver a empezar.</div>
+    <div class="card despues"><div class="k">Lo que proponemos</div><b>Una frase</b>«Bosque 504, 4 % de descuento, 30 70, para Laura Pérez.» El agente aplica tus reglas, te enseña la cotización para tu visto bueno y la entrega en PDF.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Cómo funcionaría</h2>
+  <div class="pasos">
+    <div><b>Dictas</b>Proyecto, departamento, descuento, esquema de pago y cliente, desde el teléfono.</div>
+    <div><b>Calcula</b>Con las reglas de tu Excel: lista de precios, topes de descuento, enganche, mensualidades y entrega.</div>
+    <div><b>Revisas</b>Ves la cotización antes de mandarla. Si un descuento pasa el tope, te lo marca.</div>
+    <div><b>Entregas</b>PDF con tu formato. Queda registro de qué se cotizó, a quién y cuándo.</div>
+  </div>
+  <p style="margin-top:22px">Hicimos una demo para que lo veas funcionando. Es una simulación con proyectos y precios inventados: no usa tu Excel ni tus datos.</p>
+  <a class="cta" href="https://iwi.com.mx/demos/bloqe/demo/">Ver la demo</a>
+</section>
+
+<section>
+  <h2>Hacia dónde puede crecer</h2>
+  <p>La cotización es la puerta. Con la misma lógica (tus reglas, una frase, un documento listo) se pueden ir sumando piezas. Son ideas para platicar, no promesas: tú nos dices cuáles te duelen.</p>
+  <div class="exp" style="margin-top:14px">
+    <div class="card"><b>Contratos</b>Del apartado al contrato con los datos de la cotización ya llenos, sobre tu plantilla y con revisión legal.<div class="q">¿Cuánto tiempo se te va hoy en llenarlos?</div></div>
+    <div class="card"><b>Inventario vivo</b>Qué está disponible, apartado o vendido, visible para tu equipo de ventas sin mandar el Excel.<div class="q">¿Quién lo actualiza hoy?</div></div>
+    <div class="card"><b>Seguimiento de prospectos</b>A quién se le cotizó qué, cuándo vence y a quién hay que volver a llamar.<div class="q">¿Lo llevas en el Excel, en WhatsApp o de memoria?</div></div>
+    <div class="card"><b>Escenarios para inversionistas</b>Corridas de precio y flujo por proyecto, con el mismo dictado.<div class="q">¿Te los piden seguido?</div></div>
+    <div class="card"><b>Reporte de ventas</b>Cuánto se vendió, a qué descuento promedio y qué falta, por proyecto y por semana.</div>
+    <div class="card"><b>Tu equipo</b>Que tus vendedores coticen igual que tú, con los mismos topes, y tú sólo autorices lo que pasa de ahí.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Cómo trabajamos</h2>
+  <p>En iwi usamos el mismo método en cada proyecto: escuchar cómo trabajas hoy, hacer un prototipo rápido, probarlo contra tu realidad y acompañarte hasta que se vuelve costumbre.</p>
+  <ul>
+    <li><b>Primero tu Excel.</b> Leemos sus fórmulas y macros. Antes de usarlo con un cliente, comparamos lo que da el agente contra cotizaciones que ya hiciste.</li>
+    <li><b>Por etapas.</b> Primero la cotización. Lo demás, cuando la primera ya te esté ahorrando tiempo.</li>
+    <li><b>Tú decides.</b> Nada sale a un cliente sin tu visto bueno.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Para arrancar nos haría falta</h2>
+  <ul>
+    <li>Una copia de tu Excel actual.</li>
+    <li>Saber dónde vive hoy: tu computadora, OneDrive o SharePoint.</li>
+    <li>Tus reglas de descuento y quién autoriza arriba del tope.</li>
+    <li>Una cotización real que ya hayas mandado, como modelo del PDF.</li>
+    <li>Media hora para verlo juntos.</li>
+  </ul>
+</section>
+
+<footer>iwi · design thinking aplicado · iwi.com.mx<br><span class="nota">La demo es una simulación con datos inventados.</span></footer>
+</div>
+</body>
+</html>
