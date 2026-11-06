@@ -226,19 +226,6 @@ b{font-weight:700}
   </div>
 </div></section>
 
-<section class="esc" data-luz="#2A3A4A,#5A3A2A" data-forma="circulo"><div class="w">
-  <p class="eti mono e c-full" style="--i:0">SEGURIDAD</p>
-  <h2 class="media e c-8" style="--i:1">Tus llaves no las ve nadie. Ni los agentes.</h2>
-  <div class="fila cinco c-full">
-    <div class="e o" style="--i:2"><h3>Llaves que nadie ve</h3><p>Las contraseñas viven en el entorno o en tu computadora; ningún agente las lee ni las escribe.</p></div>
-    <div class="e" style="--i:2.5"><h3>Una puerta, una llave por IA</h3><p>Claude, ChatGPT y Gemini entran por la misma puerta, cada una con su llave. Si una se filtra, se apaga sólo esa.</p></div>
-    <div class="e" style="--i:3"><h3>Todo queda firmado</h3><p>Cada escritura lleva el nombre de quien la hizo.</p></div>
-    <div class="e" style="--i:3.5"><h3>Un guardián</h3><p>Cada cambio se revisa antes de entrar; las llaves y los datos bancarios no pasan.</p></div>
-    <div class="e" style="--i:4"><h3>Lo más posible en tu dispositivo</h3><p>Lo sensible se queda en tu máquina. Hacia allá vamos.</p></div>
-  </div>
-  <p class="lee mono e c-8" style="--i:5;font-size:clamp(14px,1.2vw,17px)">Así funciona hoy la casa de iwi, salvo el último punto, que es el rumbo.</p>
-</div></section>
-
 <section class="esc" data-luz="#5A3A6A,#8A5A2E" data-forma="circulo"><div class="w">
   <p class="eti mono e c-full" style="--i:0">SIETE PRINCIPIOS, DEBAJO DE LAS REGLAS</p>
   <ol class="prin c-10">
@@ -321,7 +308,7 @@ b{font-weight:700}
   function pintaAurora(tt){
     var w=A.width,h=A.height;['c1','c2'].forEach(function(k,i){var c=aurora[k],m=aurora['m'+(i+1)];for(var j=0;j<3;j++)c[j]+=(m[j]-c[j])*.02});
     ax.fillStyle='#191714';ax.fillRect(0,0,w,h);
-    var s=tt*.00006,L=[[.22+.12*Math.sin(s*1.3),.78+.1*Math.cos(s),aurora.c1],[.8+.1*Math.cos(s*1.1),.22+.12*Math.sin(s*.9),aurora.c2]];
+    var s=tt*.000054,L=[[.22+.12*Math.sin(s*1.3),.78+.1*Math.cos(s),aurora.c1],[.8+.1*Math.cos(s*1.1),.22+.12*Math.sin(s*.9),aurora.c2]];
     L.forEach(function(l){var g=ax.createRadialGradient(l[0]*w,l[1]*h,0,l[0]*w,l[1]*h,Math.max(w,h)*.62);var c=l[2].map(Math.round).join(',');
       g.addColorStop(0,'rgba('+c+',.95)');g.addColorStop(.45,'rgba('+c+',.35)');g.addColorStop(1,'rgba('+c+',0)');ax.fillStyle=g;ax.fillRect(0,0,w,h)});
   }
@@ -347,7 +334,7 @@ b{font-weight:700}
     var f=parvada.forma,cols=Math.ceil(W/cel)+1,filas=Math.ceil(H/cel)+1;
     if(!cab||cab.length!==cols*filas)cab=new Int32Array(cols*filas);if(sg.length!==N)sg=new Int32Array(N);cab.fill(-1);
     for(var i=0;i<N;i++){var c=((X[i]/cel)|0)+((Y[i]/cel)|0)*cols;if(c>=0&&c<cab.length){sg[i]=cab[c];cab[c]=i}}
-    var an=anclas(f,t),vmax=(f==='junta'||f==='pulso')?1.3:f==='rio'?2.4:1.9,vmin=vmax*.45,R=Math.min(W,H);
+    var an=anclas(f,t),vmax=.9*((f==='junta'||f==='pulso')?1.3:f==='rio'?2.4:1.9),vmin=vmax*.45,R=Math.min(W,H);
     for(i=0;i<N;i++){var x=X[i],y=Y[i],ax=0,ay=0,cx=0,cy=0,sx=0,sy=0,k=0,gx=(x/cel)|0,gy=(y/cel)|0;
       for(var dy=-1;dy<=1;dy++)for(var dx=-1;dx<=1;dx++){var xx=gx+dx,yy=gy+dy;if(xx<0||yy<0||xx>=cols||yy>=filas)continue;
         for(var j=cab[xx+yy*cols];j!==-1&&k<12;j=sg[j]){if(j===i)continue;var ddx=X[j]-x,ddy=Y[j]-y,d2=ddx*ddx+ddy*ddy;if(d2>cel*cel)continue;
@@ -362,12 +349,12 @@ b{font-weight:700}
       VX[i]=vx;VY[i]=vy;x+=vx;y+=vy;if(x<-20)x+=W+40;if(x>W+20)x-=W+40;if(y<-20)y+=H+40;if(y>H+20)y-=H+40;X[i]=x;Y[i]=y}
   }
   function dibuja(){px.clearRect(0,0,W,H);
-    for(var i=0;i<N;i++){var z=Z[i],r=.9+z*1.8;px.fillStyle=i%9===0?'rgba(217,119,87,'+(.5+z*.5)+')':'rgba(240,238,230,'+(.25+z*.6)+')';px.beginPath();px.arc(X[i],Y[i],r,0,6.283);px.fill()}}
+    for(var i=0;i<N;i++){var z=Z[i],r=.9+z*1.8;px.fillStyle=i%9===0?'rgba(217,119,87,'+(.9*(.5+z*.5))+')':'rgba(240,238,230,'+(.9*(.25+z*.6))+')';px.beginPath();px.arc(X[i],Y[i],r,0,6.283);px.fill()}}
 
   // ===== un solo reloj: el avance de las barras, la aurora y la parvada
   function bucle(now){var dt=Math.min(64,now-ult);ult=now;
     if(!pausa&&!sost&&act>=0){trans+=dt;var p=Math.min(1,trans/DUR[act]);B[act].style.transform='scaleX('+p+')';if(p>=1){if(act===n-1){ponPausa(true)}else sig()}}
-    tq++;pintaAurora(now);if(!calma||tq%3===0){paso(tq);}dibuja();
+    tq++;pintaAurora(now);if(!calma||tq%3===0){paso(tq*.9);}dibuja();
     requestAnimationFrame(bucle)}
   ir(0);requestAnimationFrame(bucle);
 })();
