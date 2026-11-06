@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>alkimia · atención compartida</title>
-<meta name="description" content="Alkimia: un equipo de agentes que escucha, recuerda lo que importa y se corrige. Una demo de iwi.">
+<title>alkimia · un sistema de IA para tu negocio</title>
+<meta name="description" content="alkimia: un sistema de IA que trabaja contigo en tu negocio. Una demo de iwi.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Instrument+Serif:ital@0;1&family=Courier+Prime&display=swap">
 <style>
@@ -119,6 +119,88 @@ b{font-weight:700}
 #pie .w{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.08em;color:var(--tenue)}
 #pie a{color:var(--tenue);text-decoration:none;pointer-events:auto}
 #toque{position:fixed;inset:0;z-index:3}
+/* el mazo */
+.td-root{position:absolute;inset:0;touch-action:none;outline:none;cursor:pointer;pointer-events:auto}
+.td-scene{position:absolute;inset:0;transform-style:preserve-3d}
+.td-card{position:absolute;left:50%;top:var(--td-top);width:var(--td-w);height:var(--td-h);margin-left:calc(var(--td-w)/-2);
+  transform-origin:50% 100%;transform-style:preserve-3d;backface-visibility:visible;will-change:transform;
+  border-radius:calc(var(--td-h)*.035);overflow:hidden;background:var(--perg);color:var(--tinta);
+  box-shadow:0 0 0 1px rgba(240,238,230,.15);--u:calc(var(--td-h)/100)}
+.td-card::after{content:"";position:absolute;inset:0;pointer-events:none;background:#000;opacity:var(--td-shade,0)}
+.td-root:focus-visible{box-shadow:inset 0 0 0 2px var(--oro)}
+
+/* la tarjeta: unidad = 1 % de su alto */
+.t{position:absolute;inset:0;opacity:var(--td-txt,1);padding:calc(var(--u)*7) calc(var(--u)*8);display:flex;flex-direction:column}
+.t .ca{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:calc(var(--u)*3.5);border-bottom:1px solid var(--tinta)}
+.t .ca .lg{font-size:calc(var(--u)*6.4);font-weight:500;letter-spacing:-.03em}
+.t .ca .lg span{color:var(--oro)}
+.t .ca .que{font-size:calc(var(--u)*3.6);font-weight:700;letter-spacing:.16em}
+.t .ca .que i{font-style:normal;font-weight:400;letter-spacing:.06em;margin-left:calc(var(--u)*2.4)}
+.t .cu{flex:1;display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*3.5)}
+.t .gr{font-size:calc(var(--u)*9);font-weight:500;letter-spacing:-.035em;line-height:1.04}
+.t .gr em{font-style:normal;color:var(--oro)}
+.t .ex{font-family:"Courier Prime","Courier New",monospace;font-size:calc(var(--u)*5.2);line-height:1.35}
+.t .cita{font-family:"Courier Prime","Courier New",monospace;font-size:calc(var(--u)*7.2);line-height:1.3}
+.t .cita{min-height:4.2em}
+.t .cita.tecleo::after{content:"";display:inline-block;width:.5ch;height:1em;background:var(--oro);margin-left:2px;vertical-align:-.12em;animation:parpadea 1s steps(1) infinite}
+@keyframes parpadea{50%{opacity:0}}
+.t .fi{display:flex;justify-content:space-between;gap:calc(var(--u)*4);padding:calc(var(--u)*2.2) 0;border-top:1px solid rgba(25,23,20,.25);font-size:calc(var(--u)*5)}
+.t .fi:first-child{border-top:0}
+.t .fi b{font-weight:600}
+.t .fi .ok{color:var(--oro);font-weight:700}
+.t .adj{align-self:flex-start;display:inline-flex;gap:calc(var(--u)*2);align-items:center;border:1px solid var(--tinta);border-radius:calc(var(--u)*10);padding:calc(var(--u)*1.6) calc(var(--u)*4);font-size:calc(var(--u)*4.2);font-weight:600}
+.t .adj::before{content:"";width:calc(var(--u)*2.4);height:calc(var(--u)*3);border:1.5px solid currentColor;border-radius:2px}
+.t .pi{font-size:calc(var(--u)*3.8);font-weight:700;letter-spacing:.14em;padding-top:calc(var(--u)*3);border-top:1px solid var(--tinta);display:flex;justify-content:space-between}
+.t .pi span{color:var(--oro)}
+.t .pu{display:inline-block;width:calc(var(--u)*3.2);height:calc(var(--u)*3.2);border-radius:50%;background:var(--oro);margin-right:calc(var(--u)*2.4);vertical-align:.05em}
+.t .lst{display:grid;grid-template-columns:auto 1fr;column-gap:calc(var(--u)*4);row-gap:calc(var(--u)*1.6);align-items:baseline}
+.t .lst b{font-size:calc(var(--u)*11);font-weight:700;letter-spacing:-.04em;line-height:1}
+.t .lst span{font-size:calc(var(--u)*5.2)}
+.t .lst .o{color:var(--oro)}
+.td-card[data-f]{background:var(--fondo)}
+.td-card[data-f="0"]{--fondo:radial-gradient(ellipse at 8% 0%,#F7EADF 0%,transparent 55%),radial-gradient(ellipse at 100% 110%,rgba(217,119,87,.55) 0%,transparent 55%),radial-gradient(ellipse at 70% 40%,rgba(212,162,127,.35) 0%,transparent 60%),#F0EEE6}
+.td-card[data-f="1"]{--fondo:radial-gradient(ellipse at 100% 0%,rgba(212,162,127,.6) 0%,transparent 55%),radial-gradient(ellipse at 0% 100%,rgba(217,119,87,.3) 0%,transparent 50%),#F0EEE6}
+.td-card[data-f="2"]{--fondo:radial-gradient(ellipse at 0% 0%,rgba(217,119,87,.35) 0%,transparent 50%),radial-gradient(ellipse at 90% 90%,rgba(212,162,127,.55) 0%,transparent 60%),#F2EDE4}
+.td-card[data-f="3"]{--fondo:radial-gradient(ellipse at 85% 15%,rgba(217,119,87,.5) 0%,transparent 55%),radial-gradient(ellipse at 10% 100%,rgba(25,23,20,.12) 0%,transparent 55%),#F0EEE6}
+.td-card[data-f="4"]{--fondo:radial-gradient(ellipse at 20% 100%,rgba(212,162,127,.7) 0%,transparent 60%),radial-gradient(ellipse at 100% 0%,rgba(217,119,87,.25) 0%,transparent 50%),#EFE8DC}
+.td-card[data-f="5"]{--fondo:radial-gradient(ellipse at 100% 100%,rgba(217,119,87,.45) 0%,transparent 55%),radial-gradient(ellipse at 0% 0%,rgba(212,162,127,.5) 0%,transparent 55%),#F0EEE6}
+.td-card[data-f="6"]{--fondo:radial-gradient(ellipse at 50% 120%,rgba(217,119,87,.5) 0%,transparent 60%),radial-gradient(ellipse at 0% 0%,#F8F2EA 0%,transparent 50%),#EDE6DA}
+.td-card[data-f="7"]{--fondo:radial-gradient(ellipse at 0% 50%,rgba(212,162,127,.55) 0%,transparent 55%),radial-gradient(ellipse at 100% 0%,rgba(217,119,87,.4) 0%,transparent 50%),#F0EEE6}
+.td-card.cierre{--fondo:radial-gradient(ellipse at 20% 15%,#E8A07F 0%,transparent 55%),radial-gradient(ellipse at 90% 100%,#9E4F33 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,#D4A27F 0%,transparent 55%),#D97757;color:var(--tinta)}
+.cierre .t .gr em{color:var(--perg)}
+.cierre .t .ca .lg span{color:var(--perg)}
+
+
+/* ===== alkimia en 7 pantallas (Diseño, 6 nov) */
+:root{--tinta:#191714}
+/* la cita de la tarjeta no hereda la cita de la presentación */
+.td-card .t .cita{color:var(--tinta)}
+.e.mono,.mono.e{font-family:"Courier Prime","Courier New",monospace}
+p.pie7{font-family:"Courier Prime","Courier New",monospace;font-size:clamp(16px,1.5vw,21px);line-height:1.45;color:var(--perg)}
+.tres3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--g)}
+.tres3>div{border-top:1px solid rgba(240,238,230,.4);padding-top:18px;display:flex;flex-direction:column;gap:10px}
+.tres3>div.o{border-top-color:var(--oro)}
+.tres3 h3{font-size:clamp(24px,2.6vw,40px);font-weight:500;letter-spacing:-.03em;line-height:1}
+.tres3 p{font-size:clamp(16px,1.35vw,20px);line-height:1.4;color:var(--perg)}
+.tres3 .n{font-family:"Courier Prime",monospace;font-size:13px;letter-spacing:.14em;color:var(--oro)}
+@media (max-width:760px){.tres3{grid-template-columns:1fr;gap:14px}.tres3>div{padding-top:10px;gap:4px}}
+/* ejemplo obvio: lo que dices, en máquina de escribir, y lo que pasa */
+.ejemplo{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;font-family:"Courier Prime","Courier New",monospace;font-size:clamp(16px,1.45vw,20px);line-height:1.45;color:var(--perg);border-left:2px solid var(--oro);padding-left:18px}
+.ejemplo q{quotes:"«" "»"}
+.ejemplo .fl{color:var(--oro)}
+.ejemplo .paso{white-space:nowrap}
+@media (max-width:760px){.ejemplo .paso{white-space:normal}}
+/* la pantalla del mazo: texto a la izquierda, el mazo a la derecha */
+.dia .w{grid-template-rows:auto}
+.dia .txt3{grid-column:1/span 5;display:flex;flex-direction:column;gap:24px;align-self:center}
+.dia .txt3 h2{min-height:3em;transition:opacity .5s ease,filter .5s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.dia .txt3 h2.cambia{opacity:0;filter:blur(6px);transform:translateY(-8px)}
+.dia .cuenta{font-family:"Courier Prime",monospace;font-size:13px;letter-spacing:.14em}
+.dia .cuenta b{color:var(--oro);font-weight:700}
+.dia .caja{grid-column:6/-1;position:relative;height:min(72vh,660px)}
+@media (max-width:760px){.dia .txt3{grid-column:1/-1;gap:10px}.dia .txt3 h2{min-height:2.1em}.dia .caja{grid-column:1/-1;height:52vh}}
+body.quieta #parvada{opacity:.3;transition:opacity 1.2s}
+#parvada{transition:opacity 1.2s}
 @media (prefers-reduced-motion:reduce){.e{transition-duration:.01s!important;transition-delay:0s!important}.esc.on .giro .iwi.gira{animation-duration:.01s;animation-delay:0s}}
 </style>
 </head>
@@ -144,130 +226,222 @@ b{font-weight:700}
 <section class="esc" data-luz="#4A2A7A,#8A3F28" data-forma="libre"><div class="w">
   <p class="eti mono e c-full" style="--i:0">IWI PRESENTA</p>
   <h1 class="gigante e c-full" style="--i:1">alkimia<span class="oro">.</span></h1>
-  <p class="cita serif e c-8" style="--i:2">Un equipo de agentes que escucha, recuerda lo que importa y se corrige.</p>
-</div></section>
-
-<section class="esc" data-luz="#8A3F28,#7A5A34" data-forma="junta"><div class="w">
-  <h1 class="enorme e c-10" style="--i:0">No es conciencia.</h1>
-  <h1 class="enorme e c-10" style="--i:2"><b class="oro">Es atención compartida.</b></h1>
-  <p class="cita serif e c-8" style="--i:4">Lo dices una vez y se convierte en trabajo.</p>
+  <h2 class="media e c-8" style="--i:2">Un sistema de IA que trabaja contigo en tu negocio.</h2>
+  <p class="pie7 e c-8" style="--i:3.2">No es un chat. Es un equipo que se acuerda de todo.</p>
 </div></section>
 
 <section class="esc" data-luz="#3A3530,#4A3A5A" data-forma="dispersa"><div class="w">
   <p class="eti mono e c-full" style="--i:0">EL PROBLEMA</p>
-  <h2 class="grande e c-10" style="--i:1">Un asistente responde. Un negocio necesita que las cosas pasen.</h2>
-  <p class="lee e c-6" style="--i:3">Hablas con tu IA en mil lugares: el teléfono, la computadora, por voz en el coche. Cada chat empieza de cero y vuelve a preguntar lo que ya se decidió.</p>
-  <p class="lee e c-6" style="--i:4;color:var(--perg)"><b>Terminas siendo la memoria y el mensajero de tus propias herramientas.</b></p>
+  <h2 class="grande e c-10" style="--i:1">Un asistente te contesta. <span class="oro">Tu negocio necesita que las cosas pasen.</span></h2>
+  <div class="tres3 c-full">
+    <div class="e" style="--i:2.6"><span class="n">01</span><p>Le preguntas, te responde, y mañana ya no se acuerda.</p></div>
+    <div class="e" style="--i:3.2"><span class="n">02</span><p>Lo que sigue (mandar, cobrar, dar seguimiento) lo sigues haciendo tú.</p></div>
+    <div class="e o" style="--i:3.8"><span class="n">03</span><p>Tu negocio no es una pregunta: es todo lo que pasa entre una cosa y otra.</p></div>
+  </div>
+</div></section>
+
+<section class="esc dia" data-luz="#8A3F28,#7A5A34" data-forma="rio" data-mazo="1"><div class="w">
+  <div class="txt3">
+    <p class="eti mono e" style="--i:0">ASÍ SE VE UN DÍA</p>
+    <h2 class="media e" style="--i:.6" id="nota3">Lo dices una vez.</h2>
+    <p class="cuenta e" style="--i:1"><b id="n3">01</b> / <span id="tot3">09</span></p>
+  </div>
+  <div class="caja e" style="--i:.4"><div class="td-root" id="mazo" role="region" aria-roledescription="carrusel" aria-label="Un día con alkimia" tabindex="0"><div class="td-scene"></div></div></div>
 </div></section>
 
 <section class="esc" data-luz="#4A3A6A,#8A3F28" data-forma="tres"><div class="w">
-  <p class="eti mono e c-full" style="--i:0">EL NOMBRE LLEVA DENTRO A LOS TRES</p>
-  <div class="nombre c-full">
-    <div class="pal e" style="--i:1"><span>Al</span>kimia</div><div class="rol e" style="--i:1.4"><b>Al</b> escucha</div>
-    <div class="pal e" style="--i:2.4">al<span>Kim</span>ia</div><div class="rol e" style="--i:2.8"><b>Kim</b> orquesta</div>
-    <div class="pal e" style="--i:3.8">alki<span>Mia</span></div><div class="rol e" style="--i:4.2"><b>Mia</b> ejecuta</div>
+  <p class="eti mono e c-full" style="--i:0">CÓMO FUNCIONA</p>
+  <h2 class="grande e c-10" style="--i:1">Tú hablas. El sistema escucha, reparte y hace.</h2>
+  <div class="tres3 c-full">
+    <div class="e" style="--i:2.4"><h3>Escucha.</h3><p>Le hablas como a una persona, por voz o por escrito, desde el teléfono.</p></div>
+    <div class="e" style="--i:3"><h3>Reparte.</h3><p>Cada tema tiene quien lo atiende: ventas, finanzas, compras, diseño. Se pasan las cosas entre ellos.</p></div>
+    <div class="e o" style="--i:3.6"><h3>Hace.</h3><p>Cotiza, escribe, da seguimiento y te avisa. Lo importante espera tu sí.</p></div>
   </div>
-  <p class="cita serif e c-8" style="--i:5.4">Se enciman en una sola palabra: así trabajan.</p>
-</div></section>
-
-<section class="esc" data-luz="#3A4A7A,#8A3F28" data-forma="tres"><div class="w">
-  <p class="eti mono e c-full" style="--i:0">TRES PAPELES BASE</p>
-  <div class="fila tres1 c-full">
-    <div class="e" style="--i:1"><span class="n mono">ESCUCHA</span><h3>Al</h3><p>Recibe tu voz y guarda lo que piensas en voz alta, sin perder una palabra.</p></div>
-    <div class="e" style="--i:2"><span class="n mono">ORQUESTA</span><h3>Kim</h3><p>Reparte cada orden a su dueño, verifica y es el único canal que comunica hacia fuera.</p></div>
-    <div class="e" style="--i:3"><span class="n mono">EJECUTA</span><h3>Mia</h3><p>Hace lo que no tiene dueño y mantiene el orden de fondo.</p></div>
-  </div>
-  <p class="cita serif e c-8" style="--i:4.5">Alrededor, un agente por área. Lo que lo hace funcionar no es un modelo más listo: es la estructura.</p>
-</div></section>
-
-<section class="esc" data-luz="#2A5A5A,#5A4A3A" data-forma="rio"><div class="w">
-  <p class="eti mono e c-full" style="--i:0">EL LOOP</p>
-  <h2 class="media e c-8" style="--i:1">Hablas donde estés; la orden encuentra a su dueño.</h2>
-  <div class="fila cinco c-full">
-    <div class="e" style="--i:2"><span class="n mono">1</span><h3>Dices algo</h3><p>Voz o texto, en cualquier chat. Una vez.</p></div>
-    <div class="e" style="--i:2.6"><span class="n mono">2</span><h3>Se escucha</h3><p>La frase textual, la fecha y su dueño.</p></div>
-    <div class="e" style="--i:3.2"><span class="n mono">3</span><h3>Se recuerda</h3><p>Un registro que todos leen antes de preguntar.</p></div>
-    <div class="e" style="--i:3.8"><span class="n mono">4</span><h3>Se hace</h3><p>El dueño verifica la frase de origen y lo ejecuta.</p></div>
-    <div class="e o" style="--i:4.4"><span class="n mono">5</span><h3 class="oro">Kim comunica</h3><p>Correos y envíos salen de un solo agente.</p></div>
-  </div>
+  <p class="ejemplo e c-full" style="--i:4.6"><q>Mándale a Laura la cotización de 200 piezas.</q> <span class="fl">→</span> <span class="paso">Ventas la arma,</span> <span class="paso">Finanzas revisa el margen,</span> <span class="paso">tú das el sí,</span> <span class="paso">sale el correo.</span></p>
 </div></section>
 
 <section class="esc" data-luz="#3A2A52,#7A4A30" data-forma="pulso"><div class="w">
-  <p class="eti mono e c-full" style="--i:0">MEMORIA</p>
-  <h2 class="media e c-8" style="--i:1">El sistema recuerda aunque ningún agente recuerde.</h2>
-  <div class="fila cuatro c-full">
-    <div class="e" style="--i:2"><h3>La casa</h3><p>Reglas, decisiones con fecha, el estado de cada espacio.</p></div>
-    <div class="e" style="--i:2.6"><h3>Los archivos</h3><p>Lo pesado y todo número, en casas separadas.</p></div>
-    <div class="e" style="--i:3.2"><h3>La operación</h3><p>Proyectos, tareas y ventas, donde el equipo ya trabaja.</p></div>
-    <div class="e o" style="--i:3.8"><h3 class="oro">El cerebro</h3><p>Las órdenes que todos leen antes de preguntarte algo.</p></div>
+  <p class="eti mono e c-full" style="--i:0">CÓMO CRECE Y RECUERDA</p>
+  <h2 class="grande e c-10" style="--i:1">Cada día sabe más de tu negocio.</h2>
+  <div class="tres3 c-full">
+    <div class="e" style="--i:2.4"><span class="n">01</span><p>Recuerda lo que decidiste, con fecha, y por qué.</p></div>
+    <div class="e" style="--i:3"><span class="n">02</span><p>No le vuelves a explicar quién es Laura ni cuánto le diste de descuento la última vez.</p></div>
+    <div class="e o" style="--i:3.6"><span class="n">03</span><p>Cuando un tema crece, se separa y gana su propio responsable. Tú decides cuándo.</p></div>
   </div>
-  <p class="cita serif e c-8" style="--i:5">Cada fricción se vuelve una regla con fecha.</p>
-</div></section>
-
-<section class="esc" data-luz="#2A4A5A,#7A4A30" data-forma="tres"><div class="w">
-  <p class="eti mono e c-full" style="--i:0">CÓMO CRECE</p>
-  <h2 class="media e c-8" style="--i:1">Exceso de contexto, no de agentes.</h2>
-  <div class="fila c-full">
-    <div class="e o" style="--i:2"><h3>Todo se guarda</h3><p>El contexto se conserva completo; a cada tarea le llega sólo lo que necesita.</p></div>
-    <div class="e" style="--i:2.6"><h3>Se divide cuando hace falta</h3><p>Si un tema se repite y carga demasiado, el equipo propone separarlo en un agente nuevo. Lo decides tú; nunca es automático.</p></div>
-    <div class="e" style="--i:3.2"><h3>Los nombres pueden cambiar</h3><p>Un producto empieza con un nombre y luego tiene otro. El cambio es ordenado y nada se rompe.</p></div>
-  </div>
-  <p class="cita serif e c-8" style="--i:4.2">Como piezas de Tetris bien acomodadas: mover una no tira las demás.</p>
-</div></section>
-
-<section class="esc" data-luz="#4A5A3A,#2A5A5A" data-forma="dispersa"><div class="w">
-  <p class="eti mono e c-full" style="--i:0">LO QUE NO SE VE</p>
-  <h2 class="media e c-8" style="--i:1">Lo obvio son los agentes. Lo valioso está entre ellos.</h2>
-  <div class="fila cuatro c-full">
-    <div class="e" style="--i:2"><h3>La atención es lo más escaso.</h3><p>Buen agente pregunta sólo lo que es tuyo decidir.</p></div>
-    <div class="e" style="--i:2.6"><h3>Tu molestia es el sensor.</h3><p>El sistema aprende cuando alguien siente que algo está mal.</p></div>
-    <div class="e" style="--i:3.2"><h3>La confianza sale de decir «no salió».</h3><p>Más que de los aciertos.</p></div>
-    <div class="e" style="--i:3.8"><h3>Recordar es elegir qué no guardar.</h3><p>Esas fronteras protegen a quien no está.</p></div>
-  </div>
-</div></section>
-
-<section class="esc" data-luz="#5A3A6A,#8A5A2E" data-forma="circulo"><div class="w">
-  <p class="eti mono e c-full" style="--i:0">SIETE PRINCIPIOS, DEBAJO DE LAS REGLAS</p>
-  <ol class="prin c-10">
-    <li class="e" style="--i:1">Cuida la atención de las personas.</li>
-    <li class="e" style="--i:1.4">Di la verdad sobre lo que hiciste y lo que no.</li>
-    <li class="e" style="--i:1.8">Protege a quien no está presente.</li>
-    <li class="e" style="--i:2.2">Lo que es de otro, se le pasa.</li>
-    <li class="e" style="--i:2.6">Lo irreversible, con calma.</li>
-    <li class="e" style="--i:3">Todo está conectado.</li>
-    <li class="e" style="--i:3.4">Que todo nutra.</li>
-  </ol>
-  <p class="cita serif e c-8" style="--i:4.4">Las reglas cambian; los principios se quedan.</p>
+  <p class="ejemplo e c-full" style="--i:4.6"><q>¿Qué le cotizamos a Laura en marzo?</q> <span class="fl">→</span> <span class="paso">La respuesta, con el correo y la fecha.</span></p>
 </div></section>
 
 <section class="esc" data-luz="#7A5A34,#3A4A7A" data-forma="junta"><div class="w">
-  <div class="pieza c-full">
-    <div class="mat e" style="--i:0"><small class="mono">KIT BASE</small><em>al<span>kim</span>ia<span>.</span></em></div>
-    <div class="txt">
-      <p class="eti mono e" style="--i:1">EL PRODUCTO</p>
-      <h2 class="media e" style="--i:1.5">Alkimia, kit base</h2>
-      <div class="m mono e" style="--i:2"><span>Tres papeles</span><span>Crece un agente a la vez</span></div>
-      <ul class="e" style="--i:2.6"><li>Al, Kim y Mia, listos para tu negocio</li><li>Una casa con tus reglas, tus límites y tus dueños</li><li>El cerebro: lo dices una vez y queda escrito</li><li>Lo instalamos con tu equipo</li></ul>
-      <a class="btn e" style="--i:3.4" href="https://wa.me/525518502277?text=Hola%20Charlie%2C%20quiero%20instalar%20Alkimia." target="_blank" rel="noopener">Quiero instalarlo</a>
-    </div>
+  <p class="eti mono e c-full" style="--i:0">QUÉ TE LLEVAS</p>
+  <h2 class="grande e c-10" style="--i:1">Lo instalamos contigo, en tu negocio.</h2>
+  <div class="tres3 c-full">
+    <div class="e" style="--i:2.4"><span class="n">01</span><h3>Taller.</h3><p>Entiendes cómo funciona y lo usas desde el primer día.</p></div>
+    <div class="e" style="--i:3"><span class="n">02</span><h3>Instalación.</h3><p>Lo armamos con tus áreas, tus clientes y tu forma de trabajar.</p></div>
+    <div class="e o" style="--i:3.6"><span class="n">03</span><h3>Acompañamiento.</h3><p>Lo ajustamos mientras crece.</p></div>
   </div>
+  <p class="pie7 e c-full" style="--i:4.6">Tus datos son tuyos. Nada sale sin tu sí.</p>
 </div></section>
 
-<section class="esc" data-luz="#8A3F28,#4A2A7A" data-forma="junta"><div class="w">
-  <h1 class="gigante e c-full" style="--i:0">alkimia<span class="oro">.</span></h1>
-  <p class="cita serif e c-8" style="--i:1.5">No es conciencia. Es atención compartida.</p>
-  <p class="lee mono e c-full" style="--i:2.5;font-size:15px;letter-spacing:.06em">Carlos Mayne · iwi · <a href="mailto:carlos@iwi.com.mx" style="color:var(--oro)">carlos@iwi.com.mx</a></p>
+<section class="esc" data-luz="#8A3F28,#4A2A7A" data-forma="circulo"><div class="w">
+  <h1 class="enorme e c-10" style="--i:0">Tú lo dices una vez. <span class="oro">El sistema hace el resto.</span></h1>
+  <a class="btn e" style="--i:2;grid-column:1/-1;justify-self:start" href="https://wa.me/525518502277?text=Hola%20Charlie%2C%20quiero%20instalar%20Alkimia." target="_blank" rel="noopener">Quiero instalarlo</a>
+  <p class="pie7 e c-full" style="--i:3">alkimia<span class="oro">.</span> por iwi</p>
 </div></section>
 </main>
 
+<div id="tarjetas" hidden>
+  <template data-nota="Lo dices una vez." data-f="0">
+    <div class="t"><div class="ca"><span class="lg">alkimia<span>.</span></span><span class="que">TÚ DICES<i>9:02</i></span></div>
+      <div class="cu"><p class="cita">Cotiza a Laura con precio de lista, revisa el margen y, si alcanza, mándale 4 % de descuento.</p></div>
+      <div class="pi">UNA SOLA VEZ<span>●</span></div></div>
+  </template>
+  <template data-nota="Arma la cotización y cuida el margen." data-f="1">
+    <div class="t"><div class="ca"><span class="lg">alkimia<span>.</span></span><span class="que">COTIZACIÓN<i>9:02</i></span></div>
+      <div class="cu"><div>
+        <div class="fi"><span>Para</span><b>Laura</b></div>
+        <div class="fi"><span>Precio</span><b>De lista</b></div>
+        <div class="fi"><span>Margen</span><b class="ok">Alcanza</b></div>
+        <div class="fi"><span>Descuento</span><b>4 %</b></div>
+      </div></div>
+      <div class="pi">LISTA EN 40 SEGUNDOS<span>●</span></div></div>
+  </template>
+  <template data-nota="Escribe el correo con tu tono." data-f="2">
+    <div class="t"><div class="ca"><span class="lg">alkimia<span>.</span></span><span class="que">CORREO<i>9:03</i></span></div>
+      <div class="cu">
+        <div class="fi"><span>Para</span><b>Laura</b></div>
+        <p class="ex">Hola, Laura: te comparto la cotización con un 4 % de descuento. Quedo pendiente de tus comentarios.</p>
+        <span class="adj">cotizacion-laura.pdf</span>
+      </div></div>
+  </template>
+  <template data-nota="Lo manda cuando tú dices que sí y se queda pendiente." data-f="3">
+    <div class="t"><div class="ca"><span class="lg">alkimia<span>.</span></span><span class="que">ENVIADO<i>9:03</i></span></div>
+      <div class="cu"><p class="gr"><span class="pu"></span>Cotización enviada a Laura.</p>
+        <p class="ex">Estoy pendiente de su respuesta y te aviso.</p></div>
+      <div class="pi">EN SEGUIMIENTO<span>●</span></div></div>
+  </template>
+  <template data-nota="Mientras, Finanzas manda lo suyo." data-f="4">
+    <div class="t"><div class="ca"><span class="lg">alkimia<span>.</span></span><span class="que">FINANZAS<i>9:20</i></span></div>
+      <div class="cu"><p class="gr">Llegó el estado de resultados del mes.</p>
+        <span class="adj">estado-de-resultados-octubre.pdf</span>
+        <p class="ex">Lo guardé en su carpeta.</p></div></div>
+  </template>
+  <template data-nota="Y Compras, su reporte." data-f="5">
+    <div class="t"><div class="ca"><span class="lg">alkimia<span>.</span></span><span class="que">COMPRAS<i>9:34</i></span></div>
+      <div class="cu"><p class="gr">Compras mandó su reporte mensual.</p>
+        <span class="adj">reporte-compras-octubre.pdf</span>
+        <p class="ex">Lo guardé junto al de Finanzas.</p></div></div>
+  </template>
+  <template data-nota="Revisa tu bandeja por ti." data-f="6">
+    <div class="t"><div class="ca"><span class="lg">alkimia<span>.</span></span><span class="que">TU BANDEJA<i>10:00</i></span></div>
+      <div class="cu"><p class="ex">Revisé tus 23 correos.</p>
+        <div class="lst"><b class="o">3</b><span>te necesitan hoy</span><b>12</b><span>sólo informan</span><b>8</b><span>pueden esperar</span></div></div></div>
+  </template>
+  <template data-nota="Y te avisa cuando pasa algo." data-f="7">
+    <div class="t"><div class="ca"><span class="lg">alkimia<span>.</span></span><span class="que">SEGUIMIENTO<i>10:12</i></span></div>
+      <div class="cu"><p class="gr"><span class="pu"></span>Laura abrió la cotización.</p>
+        <p class="ex">Si mañana no contesta, le escribo y te aviso.</p></div>
+      <div class="pi">TE AVISO<span>●</span></div></div>
+  </template>
+  <template data-nota="Te acompaña todo el día." data-f="8" data-clase="cierre">
+    <div class="t"><div class="ca"><span class="lg">alkimia<span>.</span></span><span class="que">TODO EL DÍA</span></div>
+      <div class="cu"><p class="gr">Tú lo dices una vez. El sistema lo hace, <em>lo sigue y te avisa.</em></p></div>
+      <div class="pi" style="letter-spacing:.04em">un sistema de iwi<span></span></div></div>
+  </template>
+</div>
+
+
 <footer id="pie"><div class="w mono"><span>una demo de <a href="/">iwi</a></span><span id="num"></span></div></footer>
 
+
+<script>
+/* El mazo de la pantalla 3 (física del patrón «tumble deck» de 21st.dev, en JS simple).
+   Sólo corre mientras su pantalla está al frente. Al terminar la novena tarjeta pasa a la siguiente pantalla. */
+window.MAZO=(function(){
+  var root=document.getElementById('mazo'),scene=root.querySelector('.td-scene');
+  var tpls=[].slice.call(document.querySelectorAll('#tarjetas template')),n=tpls.length;
+  var ASPECT=innerWidth<760?1.15:1.45,DEPTH=2,PASO=3400,POR=240;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('tot3').textContent=String(n).padStart(2,'0');
+  function c01(v){return v<0?0:v>1?1:v}
+  function wrap(k,m){return ((k%m)+m)%m}
+  function cae(t){var u=c01(t),l=.78;if(u<=l){var k=u/l;return -90*k*k*k}var q=(u-l)/(1-l);return -90+6*Math.sin(Math.PI*q)*(1-q)}
+  function avanza(p){var i=Math.floor(p),f=p-i,k=c01((f-.28)/.6);return i+k*k*(3-2*k)}
+  function pose(k,p){var t=p-k,lift=(k-Math.floor(p)+3)*.6;
+    if(t>=1)return{a:-90,z:0,l:lift,o:t<3?1:0,flat:1};
+    if(t>0)return{a:cae(t),z:0,l:lift,o:1,flat:0};
+    var r=k-avanza(p);return{a:0,z:-Math.max(r,0),l:0,o:c01(DEPTH+1-r),flat:0}}
+  var pool=DEPTH+5,cards=[],slotK=[],pos=0,target=0,gap=40,h=200;
+  for(var j=0;j<pool;j++){var d=document.createElement('div');d.className='td-card';scene.appendChild(d);cards.push(d)}
+  var nota=document.getElementById('nota3'),num=document.getElementById('n3'),ultimo=-1,activo=false,pausa=false,barra=null,alFin=null,tm,escribiendo=false;
+  function paint(){
+    var base=Math.floor(pos)-2;
+    for(var j=0;j<pool;j++){var el=cards[j],k=base+wrap(j-base,pool);
+      if(slotK[j]!==k){slotK[j]=k;var tp=tpls[wrap(k,n)];el.innerHTML='';el.appendChild(tp.content.cloneNode(true));el.classList.toggle('cierre',tp.dataset.clase==='cierre');el.dataset.f=tp.dataset.f;var ci=el.querySelector('.cita');if(ci){ci.dataset.t=ci.textContent;ci.textContent=''}}
+      var p=pose(k,pos);
+      el.style.transform='translate3d(0,'+(-p.l)+'px,'+(p.z*gap)+'px) rotateX('+p.a+'deg)';
+      el.style.opacity=p.o;el.style.visibility=p.o>0?'visible':'hidden';
+      el.style.setProperty('--td-shade',p.flat?.1:(-p.a/90)*.1);
+      el.style.setProperty('--td-txt',p.flat?0:c01(1-(-p.a-40)/40))}
+    var frente=wrap(Math.round(pos),n);
+    if(frente!==ultimo){ultimo=frente;var tx=tpls[frente].dataset.nota;nota.classList.add('cambia');clearTimeout(nota._t);nota._t=setTimeout(function(){nota.textContent=tx;nota.classList.remove('cambia')},420);num.textContent=String(frente+1).padStart(2,'0');
+      if(barra)barra.style.transform='scaleX('+((frente+1)/n)+')';if(frente===0&&activo)escribe()}
+  }
+  function fit(){
+    var W=root.clientWidth,H=root.clientHeight;if(W<20||H<20)return;
+    h=Math.max(60,Math.min(W*.86/ASPECT,H*.48,500));
+    var w=h*ASPECT,top=H*.52-.62*h;gap=.24*h;
+    scene.style.perspective=(6*h)+'px';scene.style.perspectiveOrigin='50% '+(top-1.66*h)+'px';
+    root.style.setProperty('--td-w',w+'px');root.style.setProperty('--td-h',h+'px');root.style.setProperty('--td-top',top+'px');
+    paint()}
+  new ResizeObserver(fit).observe(root);fit();
+  var corre=false,last=0,idle;
+  function sigue(t){var dt=Math.min((t-(last||t))/1000,.05);last=t;
+    pos+=(target-pos)*(1-Math.exp(-dt*5));
+    if(Math.abs(target-pos)<2e-3){pos=target;corre=false;last=0;paint();return}
+    paint();requestAnimationFrame(sigue)}
+  function empuja(to){target=Math.max(Math.round(pos)-3,Math.min(Math.round(pos)+3,to));
+    if(reduce){pos=target;paint()}else if(!corre){corre=true;requestAnimationFrame(sigue)}}
+  function asienta(b){empuja(b>0?Math.floor(target+.7):b<0?Math.ceil(target-.7):Math.round(target))}
+  function paso(dir){empuja(Math.round(target)+dir);reloj()}
+  function reloj(){clearTimeout(tm);if(!activo||pausa||escribiendo)return;
+    // al llegar a la última tarjeta, deja leerla y pasa a la siguiente pantalla
+    if(wrap(Math.round(target),n)===n-1){tm=setTimeout(function(){if(alFin)alFin()},PASO+1200);return}
+    tm=setTimeout(function(){paso(1)},PASO)}
+  function escribe(){
+    var k=Math.round(target),el=null;for(var j=0;j<pool;j++)if(slotK[j]===k)el=cards[j];
+    var ci=el&&el.querySelector('.cita');if(!ci)return;var t=ci.dataset.t||'',i=0;
+    escribiendo=true;clearTimeout(tm);ci.textContent='';ci.classList.add('tecleo');
+    (function letra(){if(!activo||slotK[cards.indexOf(el)]!==k||Math.round(target)!==k){escribiendo=false;ci.classList.remove('tecleo');ci.textContent=t;reloj();return}
+      if(pausa){setTimeout(letra,200);return}
+      if(reduce)i=t.length;ci.textContent=t.slice(0,++i);
+      if(i<t.length)setTimeout(letra,/[ ,.]/.test(t[i-1])?90:38);
+      else{ci.classList.remove('tecleo');escribiendo=false;clearTimeout(tm);if(!pausa&&activo)tm=setTimeout(function(){paso(1)},1600)}})()}
+  root.addEventListener('wheel',function(e){e.preventDefault();
+    var d=(Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY)*(e.deltaMode===1?16:1);
+    empuja(target+d/POR);clearTimeout(idle);idle=setTimeout(function(){asienta(Math.sign(d));reloj()},140)},{passive:false});
+  var drag=null,arrastro=false;
+  root.addEventListener('pointerdown',function(e){e.stopPropagation();if(e.button)return;drag={id:e.pointerId,y:e.clientY,tr:0,l:0};arrastro=false});
+  root.addEventListener('pointermove',function(e){if(!drag||e.pointerId!==drag.id)return;var dy=drag.y-e.clientY;drag.y=e.clientY;drag.tr+=Math.abs(dy);if(dy)drag.l=Math.sign(dy);
+    if(drag.tr>6&&!arrastro){arrastro=true;root.setPointerCapture(e.pointerId)}if(arrastro)empuja(target+dy/(h*1.1))});
+  function suelta(e){e.stopPropagation();if(!drag||e.pointerId!==drag.id)return;if(arrastro){asienta(drag.l);reloj()}drag=null}
+  root.addEventListener('pointerup',suelta);root.addEventListener('pointercancel',suelta);
+  root.addEventListener('click',function(){if(arrastro)return;
+    if(wrap(Math.round(target),n)===n-1){if(alFin)alFin()}else paso(1)});
+  return{
+    // entra: arranca desde la primera tarjeta, con la instrucción escribiéndose
+    entra:function(b,fin){barra=b;alFin=fin;activo=true;clearTimeout(tm);
+      var k=Math.ceil(pos/n)*n;pos=target=k;slotK=[];ultimo=-1;fit();setTimeout(function(){if(activo&&!escribiendo)escribe()},900)},
+    sale:function(){activo=false;clearTimeout(tm)},
+    pausa:function(p){pausa=p;if(!p)reloj();else clearTimeout(tm)}
+  };
+})();
+</script>
 <script>
 (function(){
   var E=[].slice.call(document.querySelectorAll('.esc')),n=E.length,act=-1,trans=0,pausa=false,sost=false,ult=performance.now();
   var calma=matchMedia('(prefers-reduced-motion: reduce)').matches;
   // cada pantalla dura según lo que hay que leer: 5 s más un cuarto de segundo por palabra
-  var DUR=E.map(function(s){var p=s.textContent.trim().split(/\s+/).length;return Math.min(17000,5200+p*260)});
+  var DUR=E.map(function(s){if(s.dataset.mazo)return Infinity;var p=s.textContent.trim().split(/\s+/).length;return Math.min(17000,5200+p*260)});
   var barras=document.getElementById('barras');
   E.forEach(function(){var i=document.createElement('i');i.appendChild(document.createElement('b'));barras.appendChild(i)});
   var B=[].slice.call(barras.querySelectorAll('b'));
@@ -281,9 +455,10 @@ b{font-weight:700}
     B.forEach(function(b,i){b.style.transform='scaleX('+(i<k?1:0)+')'});
     document.getElementById('num').textContent=String(k+1).padStart(2,'0')+' / '+String(n).padStart(2,'0');
     var c=s.dataset.luz.split(',');aurora.meta(c[0],c[1]);parvada.forma=s.dataset.forma;
+    document.body.classList.toggle('quieta',!!s.dataset.mazo);if(window.MAZO){if(s.dataset.mazo)MAZO.entra(B[k],function(){if(act===k&&!pausa)sig()});else MAZO.sale()}
     if(k===n-1)setTimeout(function(){},0);
   }
-  function ponPausa(p){pausa=p;document.body.classList.toggle('pausa',p);
+  function ponPausa(p){pausa=p;if(window.MAZO)MAZO.pausa(p);document.body.classList.toggle('pausa',p);
     var b=document.getElementById('b-pausa');b.setAttribute('aria-label',p?'Seguir':'Pausa');
     b.querySelector('path').setAttribute('d',p?'M4 2l10 6-10 6z':'M4 2h3v12H4zM9 2h3v12H9z')}
   function sig(){if(act===n-1){ir(0);ponPausa(false)}else ir(act+1)}
@@ -317,7 +492,7 @@ b{font-weight:700}
   var P=document.getElementById('parvada'),px=P.getContext('2d'),dpr=Math.min(2,devicePixelRatio||1);
   var parvada={forma:'libre'},N,X,Y,VX,VY,Z,G,W,H;
   function arma(){W=innerWidth;H=innerHeight;P.width=W*dpr;P.height=H*dpr;px.setTransform(dpr,0,0,dpr,0,0);A.width=Math.ceil(W/8);A.height=Math.ceil(H/8);
-    N=W<760?420:950;X=new Float32Array(N);Y=new Float32Array(N);VX=new Float32Array(N);VY=new Float32Array(N);Z=new Float32Array(N);G=new Uint8Array(N);
+    N=W<760?220:560;X=new Float32Array(N);Y=new Float32Array(N);VX=new Float32Array(N);VY=new Float32Array(N);Z=new Float32Array(N);G=new Uint8Array(N);
     for(var i=0;i<N;i++){var a=Math.random()*6.283,r=Math.random()*Math.min(W,H)*.3;X[i]=W*.62+Math.cos(a)*r;Y[i]=H*.5+Math.sin(a)*r;var c=Math.random()*6.283;VX[i]=Math.cos(c);VY[i]=Math.sin(c);Z[i]=Math.random();G[i]=i%3}}
   arma();addEventListener('resize',arma);
   var cel=40,cab,sg=new Int32Array(1),tq=0;
@@ -330,11 +505,17 @@ b{font-weight:700}
       else if(f==='rio'){x=((t*1.2+q*W/3)%(W+200))-100;y=H*.82+Math.sin(t*.01+q)*30}
       else{x=cx+Math.sin(t*.0042)*W*.16+Math.cos(a)*R*.12;y=cy+Math.cos(t*.0033)*H*.14+Math.sin(a)*R*.1}
       o.push([x,y])}return o}
+  var ZR=[];
+  function zonas(){ZR=[];if(act<0)return;var pd=W<760?10:20;
+    [].forEach.call(E[act].querySelectorAll('h1,h2,h3,p,.tres3>div,.btn,.caja,.ejemplo'),function(el){var r=el.getBoundingClientRect();if(r.width&&r.height)ZR.push([r.left-pd,r.top-pd,r.right+pd,r.bottom+pd])});
+    ZR.push([0,0,W,90],[0,H-60,W,H])}
+  setInterval(zonas,400);
+  function dentro(x,y){for(var z=0;z<ZR.length;z++){var q=ZR[z];if(x>q[0]&&x<q[2]&&y>q[1]&&y<q[3])return q}return null}
   function paso(t){
     var f=parvada.forma,cols=Math.ceil(W/cel)+1,filas=Math.ceil(H/cel)+1;
     if(!cab||cab.length!==cols*filas)cab=new Int32Array(cols*filas);if(sg.length!==N)sg=new Int32Array(N);cab.fill(-1);
     for(var i=0;i<N;i++){var c=((X[i]/cel)|0)+((Y[i]/cel)|0)*cols;if(c>=0&&c<cab.length){sg[i]=cab[c];cab[c]=i}}
-    var an=anclas(f,t),vmax=.9*((f==='junta'||f==='pulso')?1.3:f==='rio'?2.4:1.9),vmin=vmax*.45,R=Math.min(W,H);
+    var an=anclas(f,t),vmax=.55*((f==='junta'||f==='pulso')?1.3:f==='rio'?2.4:1.9),vmin=vmax*.45,R=Math.min(W,H);
     for(i=0;i<N;i++){var x=X[i],y=Y[i],ax=0,ay=0,cx=0,cy=0,sx=0,sy=0,k=0,gx=(x/cel)|0,gy=(y/cel)|0;
       for(var dy=-1;dy<=1;dy++)for(var dx=-1;dx<=1;dx++){var xx=gx+dx,yy=gy+dy;if(xx<0||yy<0||xx>=cols||yy>=filas)continue;
         for(var j=cab[xx+yy*cols];j!==-1&&k<12;j=sg[j]){if(j===i)continue;var ddx=X[j]-x,ddy=Y[j]-y,d2=ddx*ddx+ddy*ddy;if(d2>cel*cel)continue;
@@ -345,11 +526,13 @@ b{font-weight:700}
       var g=G[i],qx=an[g][0]-x,qy=an[g][1]-y,qd=Math.sqrt(qx*qx+qy*qy)+1;
       if(f==='circulo'||f==='pulso'){var r0=R*(f==='pulso'?.2+.06*Math.sin(t*.02):.24)*(.8+g*.15),ff=(qd-r0)*.0012;vx+=qx/qd*ff*5+(-qy/qd)*.03;vy+=qy/qd*ff*5+(qx/qd)*.03}
       else{var fz=f==='tres'?.035:f==='junta'?.03:f==='dispersa'?.014:.022;vx+=qx/qd*fz;vy+=qy/qd*fz}
+      var zq=dentro(x,y);if(zq){var dl=x-zq[0],dr=zq[2]-x,du=y-zq[1],dd=zq[3]-y,mn=Math.min(dl,dr,du,dd),em=.22;
+        if(mn===dl)vx-=em;else if(mn===dr)vx+=em;else if(mn===du)vy-=em;else vy+=em}
       var v=Math.sqrt(vx*vx+vy*vy)||1;if(v>vmax){vx=vx/v*vmax;vy=vy/v*vmax}else if(v<vmin){vx=vx/v*vmin;vy=vy/v*vmin}
       VX[i]=vx;VY[i]=vy;x+=vx;y+=vy;if(x<-20)x+=W+40;if(x>W+20)x-=W+40;if(y<-20)y+=H+40;if(y>H+20)y-=H+40;X[i]=x;Y[i]=y}
   }
   function dibuja(){px.clearRect(0,0,W,H);
-    for(var i=0;i<N;i++){var z=Z[i],r=.9+z*1.8;px.fillStyle=i%9===0?'rgba(217,119,87,'+(.9*(.5+z*.5))+')':'rgba(240,238,230,'+(.9*(.25+z*.6))+')';px.beginPath();px.arc(X[i],Y[i],r,0,6.283);px.fill()}}
+    for(var i=0;i<N;i++){var z=Z[i],r=.8+z*1.4,va=dentro(X[i],Y[i])?.12:.7;px.fillStyle=i%9===0?'rgba(217,119,87,'+(va*(.5+z*.5))+')':'rgba(240,238,230,'+(va*(.25+z*.6))+')';px.beginPath();px.arc(X[i],Y[i],r,0,6.283);px.fill()}}
 
   // ===== un solo reloj: el avance de las barras, la aurora y la parvada
   function bucle(now){var dt=Math.min(64,now-ult);ult=now;
