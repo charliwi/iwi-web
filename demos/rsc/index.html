@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Simulador de ventas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ecebe7;--card:#f7f6f3;--ink:#1d1d1b;--line:#d3d1cb;--ac:#2f5d50;--acs:#dfe9e4;--warn:#a4521a;--warns:#f6e4d6;--hd:#1d1d1b;--neg:#a4521a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141413;--card:#1e1e1c;--ink:#ecebe7;--line:#34332f;--acs:#203530;--warns:#3a271a}}
+:root[data-theme="dark"]{--bg:#141413;--card:#1e1e1c;--ink:#ecebe7;--line:#34332f;--acs:#203530;--warns:#3a271a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/24px "Helvetica Neue",Helvetica,Arial,sans-serif}
+[hidden]{display:none!important}
+.sim{background:var(--warn);color:#fff;text-align:center;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:5px 16px}
+.top{background:var(--hd);color:#fff}.top .in{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{font-weight:700;letter-spacing:.16em;font-size:20px}.logo b{color:#8fc1b1}
+.tabs{display:flex;gap:4px;margin-left:18px;flex-wrap:wrap}.tabs button{background:transparent;border:0;color:#ddd;font:inherit;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;cursor:pointer;border-bottom:2px solid transparent}.tabs button.on{color:#8fc1b1;border-color:#8fc1b1}
+.tg{margin-left:auto;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#bbb}
+@media (max-width:640px){.tg{display:none}.tabs{margin-left:0}}
+header{padding:20px 16px 8px;max-width:1100px;margin:0 auto}
+.k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);font-weight:700}
+h1{margin:4px 0;font-size:40px;line-height:48px;font-weight:300;color:var(--ac);text-transform:uppercase}
+@media (max-width:520px){h1{font-size:28px;line-height:34px}}
+h2{font-size:15px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.06em}
+.sub,.note{font-family:"Courier Prime","Courier New",monospace}.sub{font-size:15px;max-width:760px}
+main{max-width:1100px;margin:0 auto;padding:8px 16px 40px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:860px){main{grid-template-columns:1fr}}
+.full{grid-column:1/-1}
+.card{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--ac);padding:16px;min-width:0}
+label{display:block;font-size:12.5px}
+input,select{width:100%;margin-top:3px;padding:7px 9px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+input[type=range]{padding:0;border:0;accent-color:var(--ac)}
+.wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px}td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+td input,td select{margin:0;padding:4px 6px;min-width:70px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}@media (max-width:700px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{background:var(--bg);border-top:3px solid var(--ac);padding:10px 12px}.kpi b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac)}
+.kpi span{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.alerta{background:var(--warns);color:var(--warn);padding:8px 10px;font-size:13px;margin:10px 0}
+.note{font-size:12px;margin-top:8px}
+.st{font-size:11px;padding:2px 8px;font-weight:700;text-transform:uppercase}.s-a{background:var(--warns);color:var(--warn)}
+svg text{fill:var(--ink);font:11px "Helvetica Neue",Helvetica,Arial,sans-serif}
+.ley{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;margin-top:6px}.ley i{display:inline-block;width:12px;height:12px;margin-right:5px;vertical-align:-2px}
+.flujo{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}@media (max-width:700px){.flujo{grid-template-columns:1fr 1fr}}
+.flujo div{background:var(--card);border-top:3px solid var(--ac);padding:12px;font-size:13.5px}.flujo b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac)}
+footer{max-width:1100px;margin:0 auto;padding:0 16px 30px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="sim">Simulación · unidades, precios y costos ficticios · se reemplazan con tu Excel</div>
+<div class="top"><div class="in"><span class="logo">SIMULA <b>·</b> VENTAS</span><nav class="tabs"><button class="on" data-v="ren">Rentabilidad</button><button data-v="flu">Flujo</button><button data-v="des">Descuentos</button><button data-v="como">Cómo seguimos</button></nav><span class="tg">Demo preparada por iwi</span></div></div>
+
+<div id="v-ren">
+<header>
+  <div class="k">Desarrollo inmobiliario · 4 departamentos y un local por vender</div>
+  <h1>¿Cuánto deja cada venta?</h1>
+  <div class="sub">Mueve precio, descuento y mes de venta de cada unidad. El simulador recalcula ingreso, utilidad y margen contra el presupuesto global de la obra.</div>
+</header>
+<main>
+<section class="card full">
+  <div class="kpis">
+    <div class="kpi"><b>Ingreso esperado</b><span id="kIng"></span></div>
+    <div class="kpi"><b>Costo total</b><span id="kCos"></span></div>
+    <div class="kpi"><b>Utilidad</b><span id="kUti"></span></div>
+    <div class="kpi"><b>Margen</b><span id="kMar"></span></div>
+  </div>
+  <div id="alertas"></div>
+</section>
+<section class="card full">
+  <h2>Unidades</h2>
+  <div class="wrap"><table id="tUni"></table></div>
+  <div class="note">El costo total sale del presupuesto global (abajo). En la versión real, precios, superficies y costos vienen de tu Excel consolidado.</div>
+</section>
+<section class="card">
+  <h2>Presupuesto global de la obra</h2>
+  <div class="wrap"><table id="tPre"></table></div>
+</section>
+<section class="card">
+  <h2>Esquema de cobro</h2>
+  <label>Cómo pagan los compradores<select id="esq"></select></label>
+  <label style="margin-top:10px">Mes de entrega de la obra<input id="entrega" type="number" min="3" max="24" value="12"></label>
+  <div class="note">Con esto se arma el flujo: cuándo entra el enganche, las mensualidades y el pago contra entrega.</div>
+</section>
+</main>
+</div>
+
+<div id="v-flu" hidden>
+<header><div class="k">Pagos y cobros, mes a mes</div><h1>¿Alcanza la caja?</h1><div class="sub">Lo que sale (avance de obra) contra lo que entra (cobros de las ventas). La línea es la caja acumulada: si baja de cero, ese mes hace falta financiamiento.</div></header>
+<main>
+<section class="card full">
+  <svg id="graf" viewBox="0 0 900 300" width="100%" role="img" aria-label="Flujo mensual"></svg>
+  <div class="ley"><span><i style="background:var(--ac)"></i>Cobros</span><span><i style="background:var(--warn)"></i>Pagos de obra</span><span><i style="background:var(--ink)"></i>Caja acumulada</span></div>
+  <div id="flAl"></div>
+</section>
+<section class="card full"><h2>Tabla mensual</h2><div class="wrap"><table id="tFlu"></table></div></section>
+</main>
+</div>
+
+<div id="v-des" hidden>
+<header><div class="k">Qué pasa si bajas el precio</div><h1>Descuento contra margen</h1><div class="sub">El mismo descuento aplicado a todas las unidades por vender. Sirve para saber hasta dónde se puede negociar sin perder el margen mínimo.</div></header>
+<main>
+<section class="card">
+  <label>Margen mínimo que quieres cuidar: <b id="mmV"></b><input id="mm" type="range" min="5" max="35" step="1" value="18"></label>
+  <div class="wrap" style="margin-top:12px"><table id="tDes"></table></div>
+</section>
+<section class="card">
+  <h2>Lectura</h2>
+  <div id="lectura" class="sub"></div>
+</section>
+</main>
+</div>
+
+<div id="v-como" hidden>
+<header><div class="k">Siguiente paso</div><h1>Con tus números reales</h1><div class="sub">Esta demo corre con datos de ejemplo. Con tu Excel consolidado la armamos con tus unidades, tu presupuesto y tus cobros, y te la regresamos para que compares antes y después.</div></header>
+<main style="grid-template-columns:1fr">
+<section>
+  <div class="flujo">
+    <div><b>1 · Excel</b>Nos compartes el consolidado: presupuesto global, estimaciones semanales, pagos y cobros.</div>
+    <div><b>2 · Lo leemos</b>Revisamos fórmulas y supuestos; no inventamos cifras. Lo que no esté claro, te lo preguntamos.</div>
+    <div><b>3 · Simulador</b>Tus 4 departamentos y el local, con tus precios y tu flujo real.</div>
+    <div><b>4 · Decides</b>Precio, descuento y ritmo de venta, viendo el efecto en margen y caja.</div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2>Lo que necesitamos de tu lado</h2>
+    <table>
+      <tr><td>El Excel consolidado (copia)</td><td><span class="st s-a">pendiente</span></td></tr>
+      <tr><td>Precio de lista y superficie de cada unidad</td><td><span class="st s-a">pendiente</span></td></tr>
+      <tr><td>Esquemas de pago que ofrecen</td><td><span class="st s-a">pendiente</span></td></tr>
+      <tr><td>Descuento máximo que autorizan</td><td><span class="st s-a">pendiente</span></td></tr>
+    </table>
+  </div>
+</section>
+</main>
+</div>
+
+<footer>Demo de iwi. Todo lo que aparece es de ejemplo: no usa datos ni archivos reales.</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const mx=v=>(v<0?"−":"")+Math.abs(v).toLocaleString("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0});
+const mxk=v=>(v<0?"−":"")+"$"+(Math.abs(v)/1e6).toFixed(1)+"M";
+// Datos de ejemplo
+const U=[
+ {id:"Depto 1",m2:78,precio:3900000,desc:0,mes:2,estado:"por vender"},
+ {id:"Depto 2",m2:82,precio:4100000,desc:3,mes:4,estado:"por vender"},
+ {id:"Depto 3",m2:95,precio:4850000,desc:0,mes:6,estado:"por vender"},
+ {id:"Depto 4",m2:110,precio:5600000,desc:5,mes:9,estado:"por vender"},
+ {id:"Local",m2:64,precio:3600000,desc:0,mes:11,estado:"por vender"}
+];
+const P=[["Terreno",3200000,0],["Obra negra",6400000,1],["Acabados",3900000,6],["Instalaciones",1600000,4],["Proyecto y permisos",900000,0],["Comercialización",500000,2]];
+const ESQ={"30-70":{n:"30% enganche · 70% a la entrega",eng:30,mens:0},"20-50-30":{n:"20% enganche · 50% en mensualidades · 30% a la entrega",eng:20,mens:50},"contado":{n:"Contado",eng:100,mens:0}};
+$("esq").innerHTML=Object.keys(ESQ).map(k=>`<option value="${k}">${ESQ[k].n}</option>`).join("");
+const DUR=10; // meses de obra en los que se reparte cada partida (ejemplo)
+
+function costo(){return P.reduce((s,p)=>s+p[1],0)}
+function ingreso(extra=0){return U.reduce((s,u)=>s+u.precio*(1-(Math.min(100,u.desc+extra))/100),0)}
+
+function pintaUni(){
+  $("tUni").innerHTML=`<tr><th>Unidad</th><th class="n">m²</th><th class="n">Precio de lista</th><th class="n">Descuento %</th><th class="n">Mes de venta</th><th class="n">Precio final</th><th class="n">Por m²</th></tr>`+
+  U.map((u,i)=>`<tr><td>${u.id}</td><td class="n">${u.m2}</td><td class="n"><input data-i="${i}" data-k="precio" type="number" step="50000" value="${u.precio}"></td><td class="n"><input data-i="${i}" data-k="desc" type="number" step="0.5" min="0" max="30" value="${u.desc}"></td><td class="n"><input data-i="${i}" data-k="mes" type="number" min="0" max="24" value="${u.mes}"></td><td class="n" id="pf${i}"></td><td class="n" id="pm${i}"></td></tr>`).join("");
+  $("tUni").querySelectorAll("input").forEach(el=>el.oninput=()=>{U[el.dataset.i][el.dataset.k]=parseFloat(el.value)||0;todo()});
+  $("tPre").innerHTML=`<tr><th>Partida</th><th class="n">Monto</th><th class="n">Empieza en mes</th></tr>`+
+  P.map((p,i)=>`<tr><td>${p[0]}</td><td class="n"><input data-i="${i}" data-c="1" type="number" step="50000" value="${p[1]}"></td><td class="n"><input data-i="${i}" data-c="2" type="number" min="0" max="20" value="${p[2]}"></td></tr>`).join("")+`<tr><td><b>Total</b></td><td class="n" id="pTot"></td><td></td></tr>`;
+  $("tPre").querySelectorAll("input").forEach(el=>el.oninput=()=>{P[el.dataset.i][el.dataset.c]=parseFloat(el.value)||0;todo()});
+}
+
+function flujo(){
+  const ent=Math.max(3,parseInt($("entrega").value)||12), e=ESQ[$("esq").value], N=ent+3;
+  const sale=Array(N+1).fill(0), entra=Array(N+1).fill(0);
+  P.forEach(p=>{ if(p[2]===0&&(p[0]==="Terreno"||p[0]==="Proyecto y permisos")){sale[0]+=p[1];return} const ini=Math.min(p[2],N), meses=Math.max(1,Math.min(DUR,ent-ini)); for(let m=ini;m<ini+meses&&m<=N;m++) sale[m]+=p[1]/meses; });
+  U.forEach(u=>{ const pf=u.precio*(1-u.desc/100), m0=Math.min(u.mes,N); entra[m0]+=pf*e.eng/100;
+    if(e.mens){ const ms=Math.max(1,ent-m0); for(let m=m0+1;m<=ent&&m<=N;m++) entra[m]+=pf*e.mens/100/ms; }
+    const rest=100-e.eng-e.mens; if(rest>0) entra[Math.max(ent,m0)<=N?Math.max(ent,m0):N]+=pf*rest/100; });
+  let acc=0; return sale.map((s,m)=>{acc+=entra[m]-s;return {m,entra:entra[m],sale:s,acc}});
+}
+
+function grafica(f){
+  const W=900,H=300,L=60,B=30,T=14, max=Math.max(...f.map(x=>Math.max(x.entra,x.sale))), amin=Math.min(0,...f.map(x=>x.acc)), amax=Math.max(0,...f.map(x=>x.acc));
+  const top=Math.max(max,amax), bot=Math.min(0,amin), y=v=>T+(top-v)/(top-bot)*(H-T-B), bw=(W-L-10)/f.length;
+  let s=`<line x1="${L}" x2="${W-10}" y1="${y(0)}" y2="${y(0)}" stroke="currentColor" opacity=".4"/>`;
+  [top,top/2,0,bot].filter((v,i,a)=>a.indexOf(v)===i).forEach(v=>s+=`<text x="${L-6}" y="${y(v)+4}" text-anchor="end">${mxk(v)}</text>`);
+  f.forEach((x,i)=>{const cx=L+i*bw; s+=`<rect x="${cx+bw*.12}" y="${y(x.entra)}" width="${bw*.36}" height="${y(0)-y(x.entra)}" fill="var(--ac)"/><rect x="${cx+bw*.52}" y="${y(x.sale)}" width="${bw*.36}" height="${y(0)-y(x.sale)}" fill="var(--warn)"/><text x="${cx+bw/2}" y="${H-10}" text-anchor="middle">${x.m}</text>`});
+  s+=`<polyline fill="none" stroke="var(--ink)" stroke-width="2" points="${f.map((x,i)=>`${L+i*bw+bw/2},${y(x.acc)}`).join(" ")}"/>`;
+  $("graf").innerHTML=s;
+}
+
+function todo(){
+  const c=costo(), ing=ingreso(), ut=ing-c, mar=ing?ut/ing*100:0;
+  $("kIng").textContent=mx(ing);$("kCos").textContent=mx(c);$("kUti").textContent=mx(ut);$("kMar").textContent=mar.toFixed(1)+"%";
+  $("kUti").style.color=ut<0?"var(--neg)":"";
+  U.forEach((u,i)=>{const pf=u.precio*(1-u.desc/100);$("pf"+i).textContent=mx(pf);$("pm"+i).textContent=mx(pf/u.m2)});
+  $("pTot").textContent=mx(c);
+  const al=[]; if(mar<parseFloat($("mm").value)) al.push(`El margen (${mar.toFixed(1)}%) está debajo del mínimo que quieres cuidar (${$("mm").value}%).`);
+  U.forEach(u=>{if(u.desc>8)al.push(`${u.id}: ${u.desc}% de descuento. Revisa quién lo autoriza.`)});
+  $("alertas").innerHTML=al.map(a=>`<div class="alerta">${a}</div>`).join("");
+  const f=flujo(); grafica(f);
+  $("tFlu").innerHTML=`<tr><th>Mes</th><th class="n">Cobros</th><th class="n">Pagos de obra</th><th class="n">Neto</th><th class="n">Caja acumulada</th></tr>`+f.map(x=>`<tr><td>${x.m}</td><td class="n">${mx(x.entra)}</td><td class="n">${mx(x.sale)}</td><td class="n">${mx(x.entra-x.sale)}</td><td class="n" style="${x.acc<0?"color:var(--neg);font-weight:700":""}">${mx(x.acc)}</td></tr>`).join("");
+  const peor=f.reduce((a,b)=>b.acc<a.acc?b:a);
+  $("flAl").innerHTML=peor.acc<0?`<div class="alerta">El punto más bajo de caja es en el mes ${peor.m}: ${mx(peor.acc)}. Ese es el financiamiento que haría falta con este ritmo de ventas.</div>`:`<div class="note">Con este ritmo de ventas la caja no baja de cero.</div>`;
+  const mm=parseFloat($("mm").value); $("mmV").textContent=mm+"%";
+  let lim=null; const filas=[0,2,4,6,8,10,12,15].map(d=>{const i2=ingreso(d),u2=i2-c,m2=i2?u2/i2*100:0; if(m2>=mm)lim=d; return `<tr><td>${d}% adicional</td><td class="n">${mx(i2)}</td><td class="n">${mx(u2)}</td><td class="n" style="${m2<mm?"color:var(--neg);font-weight:700":""}">${m2.toFixed(1)}%</td></tr>`});
+  $("tDes").innerHTML=`<tr><th>Descuento</th><th class="n">Ingreso</th><th class="n">Utilidad</th><th class="n">Margen</th></tr>`+filas.join("");
+  $("lectura").textContent=lim===null?`Con los precios actuales ya estás debajo del ${mm}% de margen: antes de negociar, revisa costos o precio de lista.`:`Puedes dar hasta ${lim}% de descuento adicional en todas las unidades y seguir arriba del ${mm}% de margen. Más que eso, cada punto se come utilidad directa.`;
+}
+["esq","entrega","mm"].forEach(id=>$(id).addEventListener("input",todo));
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));["ren","flu","des","como"].forEach(v=>$("v-"+v).hidden=v!==b.dataset.v)});
+pintaUni(); todo();
+</script>
+</body>
+</html>
