@@ -122,7 +122,7 @@ nav.tabs a{font:700 14px/18px var(--sans);padding:11px 2px;border-radius:10px}
   <div class="banda"><b>Datos de ejemplo</b><span>Obras y cifras inventadas</span></div>
   <main id="vista"></main>
 </div>
-<a class="platicale" id="platicale" href="#pregunta"><span class="orb" aria-hidden="true"></span>Platícale</a>
+<a class="platicale" id="platicale" href="#pregunta"><span class="orb" aria-hidden="true"></span><span>Platícale<small style="display:block;font:400 12px/14px var(--typ);opacity:.75;margin-top:3px">simulado</small></span></a>
 <nav class="tabs" aria-label="Secciones"><div>
   <a href="#hoy">Hoy</a><a href="#obras">Obras</a><a href="#pregunta">Pregunta</a><a href="#capacidad">Capacidad</a><a href="#panorama">Panorama</a>
 </div></nav>
@@ -299,13 +299,39 @@ function pintaCap() {
 }
 
 function panorama() {
-  return `<header><div class="marca">Panorama · en preparación</div><h1>¿Hacia dónde va <b>la obra</b>?</h1>
-    <p>Aquí va el panorama de construcción y precio de terrenos en México, para decidir dónde reinvertir. Cada dato llevará su fecha, su fuente y su alcance, y lo que es hipótesis irá separado de lo que es hecho.</p></header>
-    <div class="card"><b>Lo que traerá</b><ol class="pasos" style="margin-top:12px">
-      <li>Dónde crece más la construcción de vivienda, por estado y ciudad, con la fuente oficial y el periodo.</li>
-      <li>Cómo se mueve el precio del suelo y de la vivienda en las zonas que te interesan.</li>
-      <li>Qué es hecho y qué es hipótesis, por separado, y qué faltaría saber antes de comprar terreno.</li></ol></div>
-    <p class="sub">Ninguna cifra aquí todavía: preferimos dejar el hueco a poner un dato sin fuente.</p>`;
+<<<<<<< HEAD
+  /* Datos de Mía (orden 83, 14 nov): reportados en prensa que cita los boletines; ninguno verificado aún en su fuente primaria. */
+  const DATOS = [
+    ["La construcción creció 10.6 % anual real.", "Agosto de 2026 · nacional", "INEGI, Encuesta Nacional de Empresas Constructoras"],
+    ["La obra crece más en Estado de México, Querétaro e Hidalgo.", "Junio y julio de 2026 · por estado", "INEGI, ENEC e Indicador Mensual de la Actividad Industrial por Entidad"],
+    ["La vivienda con crédito subió 7 % anual; más en Tamaulipas, Quintana Roo y Jalisco, menos en Ciudad de México.", "Tercer trimestre de 2026 · por estado", "SHF, Índice de Precios de la Vivienda"],
+    ["Construir cuesta más: precios al productor de la construcción +6.23 % anual.", "Octubre de 2026 · nacional", "INEGI, Índice Nacional de Precios Productor"],
+  ];
+  return `<header><div class="marca">Panorama · México</div><h1>Para dónde va <b>la onda</b>.</h1>
+    <p>Datos públicos reportados en prensa. Todos están <b>por confirmar</b> en su fuente oficial antes de usarlos para decidir.</p></header>
+    ${DATOS.map(([d, cuando, fuente]) => `<div class="card"><div class="fila"><span class="nombre" style="font-size:17px">${esc(d)}</span></div>
+      <div class="sub" style="margin-top:6px">${esc(cuando)} · ${esc(fuente)}</div><span class="chip aviso" style="margin-top:8px">por confirmar</span></div>`).join("")}
+    <h2>Hipótesis, no hecho</h2>
+    <div class="card"><p style="margin:0">Buena parte del crecimiento de 2026 parece venir de obra pública. Eso no significa más mercado para la obra chica privada.</p></div>
+    <h2>Sobre los terrenos</h2>
+    <div class="card"><p>No hay un dato público comparable del precio del terreno por metro cuadrado entre ciudades. Y el precio solo no basta: cuentan los servicios, el uso de suelo, la demanda, qué tan rápido se vende y los papeles del predio.</p>
+      <p style="margin:0"><b>¿Qué ciudades estás considerando?</b> Con eso buscamos terrenos zona por zona.</p></div>`;
+=======
+  /* Texto de alkimia sobre el hallazgo de Mía (14 nov): datos públicos reportados en prensa, por confirmar en su fuente. */
+  const D = [
+    ["La construcción creció <b>10.6 % anual real</b> en agosto de 2026.", "Nacional · agosto de 2026 · INEGI, ENEC"],
+    ["En 2026 la obra crece más en <b>Estado de México, Querétaro e Hidalgo</b>.", "Estatal · junio y julio de 2026 · INEGI, ENEC e IMAIEF"],
+    ["La vivienda con crédito subió <b>7 % anual</b> al tercer trimestre de 2026; más en Tamaulipas, Quintana Roo y Jalisco, menos en Ciudad de México.", "Nacional y estatal · 3er trimestre de 2026 · SHF, Índice de Precios de la Vivienda"],
+    ["Construir cuesta más: precios al productor de la construcción <b>+6.23 % anual</b> en octubre de 2026.", "Nacional · octubre de 2026 · INEGI, INPP"]];
+  return `<header><div class="marca">Panorama</div><h1>Para dónde va <b>la onda</b>.</h1></header>
+    <div class="card" style="background:var(--ink);color:var(--bg)"><p style="margin:0;font-weight:700">Datos públicos reportados en prensa; por confirmar en su fuente.</p></div>
+    ${D.map(([t, f], i) => `<div class="card"><div class="fila" style="align-items:flex-start"><span style="font:300 30px/30px var(--sans);color:var(--acento)">${i + 1}</span><span class="chip aviso">por confirmar</span></div>
+      <p style="font:400 19px/28px var(--sans);margin:8px 0 6px">${t}</p><div class="sub">${f}</div></div>`).join("")}
+    <div class="card atn aviso"><div class="sub" style="margin-bottom:4px"><b>Hipótesis</b></div><p style="font:400 18px/27px var(--sans);margin:0">Buena parte del crecimiento viene de obra pública; no significa más mercado para obra chica privada.</p></div>
+    <div class="card atn alerta"><div class="sub" style="margin-bottom:4px"><b>Ojo</b></div><p style="font:400 18px/27px var(--sans);margin:0">No hay un dato público comparable del precio del terreno por metro cuadrado. Y el precio solo no basta: cuentan servicios, uso de suelo, demanda y papeles del predio.</p></div>
+    <h2>Siguiente paso</h2>
+    <div class="card"><p class="nombre" style="margin:0 0 12px">¿Qué ciudades estás considerando?</p><p style="margin:0">Con eso buscamos terrenos zona por zona.</p></div>`;
+>>>>>>> 4828544 (Diseño: demo de obras, panorama «Para dónde va la onda» con los datos públicos de Mía por confirmar, y «Platícale» rotulado simulado (orden 83))
 }
 
 /* «Hoy» (Diseño): lo que necesita atención de todas las obras, primero lo más urgente */
