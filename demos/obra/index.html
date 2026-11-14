@@ -109,10 +109,11 @@ details summary::after{content:" →"}details[open] summary::after{content:" ↓
 nav.tabs{padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px))}
 nav.tabs div{max-width:520px;grid-template-columns:repeat(5,1fr)}
 nav.tabs a{font:700 14px/18px var(--sans);padding:11px 2px;border-radius:10px}
-.platicale{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:31;display:flex;align-items:center;gap:10px;text-decoration:none;border-radius:999px;background:var(--ink);color:var(--bg);font:700 18px/1 var(--sans);padding:12px 22px 12px 12px;box-shadow:0 10px 26px rgba(25,23,20,.28)}
-.platicale .orb{width:32px;height:32px;border-radius:50%;background:conic-gradient(#8C5ADC,#FF46AA,#FF6E28,#FFBE3C,#1EDC78,#2878FF,#8C5ADC);animation:gira 6s linear infinite}
+.platicale{position:fixed;right:max(14px,calc(50% - 246px));bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:31;display:flex;align-items:center;gap:10px;text-decoration:none;border-radius:999px;background:var(--ink);color:var(--bg);font:700 16px/1 var(--sans);padding:8px 16px 8px 8px;box-shadow:0 8px 20px rgba(25,23,20,.25)}
+.platicale .orb{width:28px;height:28px;border-radius:50%;background:conic-gradient(#8C5ADC,#FF46AA,#FF6E28,#FFBE3C,#1EDC78,#2878FF,#8C5ADC);animation:gira 6s linear infinite}
 @keyframes gira{to{transform:rotate(360deg)}}
 .platicale[hidden]{display:none}
+.platicale{transition:opacity .25s,transform .25s}.platicale.fuera{opacity:0;transform:translateY(16px);pointer-events:none}
 #vista svg text{font-size:14px}
 @media (prefers-reduced-motion:reduce){.platicale .orb{animation:none}}
 </style>
@@ -350,6 +351,10 @@ function vista() {
   if (!sec) scrollTo(0, 0);
 }
 addEventListener("hashchange", vista);
+/* Diseño: «Platícale» se esconde mientras bajas y vuelve al subir o al detenerte, para no tapar tarjetas */
+(function () { let y0 = scrollY, t = null; const b = document.getElementById("platicale"); if (!b) return;
+  addEventListener("scroll", () => { const y = scrollY; if (y > y0 + 4 && y > 80) b.classList.add("fuera"); else if (y < y0 - 4) b.classList.remove("fuera"); y0 = y;
+    clearTimeout(t); t = setTimeout(() => b.classList.remove("fuera"), 900); }, { passive: true }); })();
 document.addEventListener("keydown", (e) => { if (e.key === "g" && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) document.body.classList.toggle("reticula"); });
 vista();
 </script>
