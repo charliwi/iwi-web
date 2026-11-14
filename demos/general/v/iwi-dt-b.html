@@ -1,0 +1,151 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>iwi Design Thinking · recorrido B</title>
+<style>
+/* Recorrido B animado (orden 78; Carlos, 12 nov: «Va el look, que avance, veo resultados y defino»). Look de los cinco cuadros.
+   Apertura con el dato del IDEO IQ Report 2026 citado en pantalla. Sin clientes ni precios. render(t) determinista, 1280×720. */
+@font-face{font-family:"Caveat";src:url(fuentes/caveat-500.ttf);font-weight:500}
+@font-face{font-family:"Courier Prime";src:url(fuentes/courierprime-400.ttf)}
+*{box-sizing:border-box;margin:0}
+html,body{width:1280px;height:720px;overflow:hidden;background:#FAFAF6;color:#1C2340;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+ background-image:linear-gradient(rgba(28,35,64,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(28,35,64,.05) 1px,transparent 1px);background-size:24px 24px}
+.esc{position:absolute;inset:0;opacity:0}
+.lock{display:inline-flex;align-items:center;gap:calc(var(--H)*.22);height:var(--H);color:#1C2340}
+.lock .iwi{height:var(--H);width:auto;flex:none}
+.lock .t{transform:translateY(calc(var(--H)*.19));white-space:nowrap;line-height:1;font-family:"Caveat",cursive;font-weight:500;font-size:calc(var(--H)*.8);position:relative;display:inline-block}
+.lock .ul{position:absolute;left:0;bottom:calc(var(--H)*-.1);width:100%;height:calc(var(--H)*.16)}
+#firma{position:absolute;left:48px;bottom:34px}
+#tira{position:absolute;left:48px;right:48px;top:32px;display:flex;align-items:center;gap:22px;font:600 12px 'Helvetica Neue';letter-spacing:.12em;text-transform:uppercase;color:rgba(28,35,64,.45)}
+#tira b{color:#1C2340}#tira span{padding-bottom:3px;border-bottom:3px solid transparent}#tira span.on{color:#1C2340;border-bottom-color:#E4F000}
+.paso{position:absolute;left:48px;top:96px}
+.paso .n{font:400 15px 'Courier Prime',monospace;color:rgba(28,35,64,.6)}
+.paso .w{font:700 84px/1 'Helvetica Neue';letter-spacing:-3px;margin-top:8px}
+.paso .d{font:400 18px/1.5 'Courier Prime',monospace;color:rgba(28,35,64,.75);margin-top:16px;width:400px}
+.nota{position:absolute;width:168px;min-height:150px;padding:16px 14px;font:500 25px/1.15 'Caveat',cursive;color:#1C2340;box-shadow:0 8px 18px rgba(28,35,64,.16)}
+.nota small{display:block;font:600 11px 'Helvetica Neue';letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin-bottom:8px}
+.y{background:#F3F28A}.r{background:#F7C6C0}.a{background:#C9DCF2}.v{background:#CDEBCF}.n2{background:#F4F3EE}
+.col{position:absolute;top:150px;width:200px;font:700 14px 'Helvetica Neue';letter-spacing:.12em;text-transform:uppercase;border-bottom:2px solid #1C2340;padding-bottom:8px}
+.pt{position:absolute;width:16px;height:16px;border-radius:50%;background:#C8102E}
+.mono{font-family:'Courier Prime',monospace}
+.resalta{background:linear-gradient(transparent 62%,#E4F000 62%);background-size:var(--p,0%) 100%;background-repeat:no-repeat}
+</style></head><body>
+<div id="tira"><b>Design thinking aplicado a la IA</b><span id="t1">01 Escuchar</span><span id="t2">02 Mapear</span><span id="t3">03 Un primer caso real</span><span id="t4">04 Unificar</span><span id="t5">05 Acompañar y medir</span></div>
+<div id="firma"><div class="lock" style="--H:24px"><svg class="iwi" viewBox="0 420 1614 560" aria-label="iwi" role="img"><path d="M 1513.5 876.679688 L 1531.269531 864.511719 C 1548.167969 855.480469 1568.640625 861.167969 1580.453125 876.851562 C 1585.386719 883.402344 1583.84375 891.808594 1578.414062 897.148438 C 1569.648438 905.777344 1560.386719 913.023438 1549.589844 919.363281 C 1497.429688 949.988281 1440.265625 968.269531 1381.449219 974.460938 L 1334.890625 974.6875 C 1293.242188 969.375 1249.769531 953.582031 1227.195312 911.398438 C 1188.71875 942.226562 1144.066406 963.007812 1097.734375 968.515625 L 1062.179688 968.347656 C 1027.4375 964.410156 995.085938 947.75 976.726562 913.699219 L 957.417969 929.15625 C 922.703125 956.9375 873.644531 973.644531 831.121094 964.074219 C 803.246094 957.804688 779.472656 941.015625 766.699219 911.515625 C 721.015625 946.816406 667.769531 973.179688 612.5625 965.984375 C 581.496094 961.09375 553.269531 945.457031 539.199219 912.675781 C 499.890625 941.453125 456.417969 962.257812 410.671875 968.242188 C 396.265625 970.125 382.0625 968.90625 367.617188 968.65625 C 331.265625 962.40625 299.472656 948.289062 280.472656 911.992188 C 261.933594 928.058594 242.535156 939.957031 221.519531 950.304688 C 192.046875 964.816406 161.324219 972.089844 129.332031 974.441406 C 96.710938 976.839844 57.273438 969.761719 27.441406 955.257812 C 19.335938 951.316406 11.988281 943.726562 11.082031 933.859375 C 10.035156 922.445312 18.359375 914.089844 27.492188 911.871094 C 40.296875 908.761719 52.6875 910.960938 63.074219 919.863281 C 90.707031 928.710938 118.644531 928.503906 147.066406 922.902344 C 194.023438 913.652344 233.816406 887.265625 268.996094 851.03125 C 271.023438 825.25 275.523438 800.8125 283.695312 776.148438 C 297.613281 734.132812 321.738281 675.304688 345.902344 641.136719 C 353.8125 629.953125 362.941406 620.832031 374.621094 615.417969 C 390.597656 608.015625 409.167969 610.367188 421.464844 624.351562 C 442.230469 647.96875 424.5 693.246094 412.171875 722.726562 C 391.0625 773.210938 365.179688 819.171875 332.429688 861.808594 C 329.003906 884.53125 340.722656 905.777344 360.148438 914.175781 C 388.09375 926.257812 431.828125 915.101562 458.554688 900.539062 L 475.996094 891.039062 C 496.386719 879.925781 514.558594 865.59375 531.144531 848.15625 L 535.503906 820.214844 C 542.566406 774.925781 574.652344 701.472656 596.925781 660.214844 C 605.753906 643.859375 615.328125 629.160156 627.441406 616.007812 C 638.628906 603.859375 653.839844 596.65625 669.050781 598.015625 C 682.980469 599.261719 695.429688 607.183594 701.320312 620.988281 C 712.125 646.316406 698.597656 683.96875 687.605469 710.230469 C 666.601562 760.394531 639.957031 806.457031 607.746094 848.359375 C 595.59375 864.164062 592.601562 861.507812 595.949219 885.800781 C 597.921875 900.109375 607.722656 911.664062 620.597656 914.273438 L 631.132812 915.363281 L 643.035156 914.222656 C 688.085938 905.496094 724.675781 877.855469 758.246094 843.664062 C 760.625 814.578125 766.941406 787.511719 775.945312 760.050781 C 789.550781 718.550781 809.1875 670.183594 831.722656 634.449219 C 847.351562 609.675781 870.824219 591.539062 897.226562 600.984375 C 928.160156 612.042969 926.628906 648.792969 917.027344 680.910156 C 897.996094 744.558594 862.019531 808.003906 822.667969 858.375 L 822.746094 879.261719 C 822.789062 890.40625 828.589844 900.351562 836.746094 907.050781 C 845.871094 914.554688 857.34375 914.925781 868.613281 912.488281 C 891.925781 907.445312 912.855469 895.714844 931.542969 879.5 C 942.695312 869.824219 952.734375 860.238281 961.953125 848.308594 C 962.292969 807.945312 969.316406 770.136719 981.085938 732.472656 C 992.648438 695.46875 1008.183594 650.40625 1030.257812 621.097656 C 1041.746094 605.84375 1058.386719 595.90625 1076.144531 597.851562 C 1091.269531 599.511719 1104.832031 608.722656 1110.550781 624.398438 C 1120.855469 652.644531 1108.449219 693.488281 1097.84375 722.488281 C 1084.054688 760.175781 1067.171875 795.515625 1047.136719 829.332031 L 1027.667969 859.660156 C 1027.246094 892.945312 1043.898438 914.128906 1073.367188 917.585938 C 1078.332031 918.167969 1082.898438 918.375 1087.765625 917.613281 C 1126.945312 911.480469 1166.113281 890.511719 1196.472656 862.273438 L 1210.820312 847.234375 L 1211.324219 823.316406 C 1213.960938 798.011719 1218.316406 774.042969 1225.332031 749.84375 C 1237.382812 708.273438 1259.664062 645.230469 1285.925781 615.355469 C 1298.9375 600.554688 1316.675781 593.59375 1334.574219 598.289062 C 1353.9375 603.371094 1366.414062 621.085938 1367.257812 643.734375 C 1368.523438 677.707031 1348.351562 730.429688 1333.507812 762.796875 C 1317.5 797.699219 1299.722656 830.183594 1277.71875 860.734375 C 1277.976562 885.554688 1290.714844 906.214844 1311.160156 915.601562 C 1322.296875 920.714844 1334.027344 922.359375 1346.074219 923.691406 L 1365.527344 923.597656 L 1391.445312 920.746094 C 1434.152344 913.910156 1474.964844 899.546875 1513.5 876.679688 " fill="currentColor"/><path d="M 487.679688 541.597656 C 467.914062 580.09375 429.25 596.605469 401.324219 578.476562 C 373.398438 560.351562 366.785156 514.449219 386.554688 475.953125 C 406.320312 437.457031 444.984375 420.945312 472.910156 439.074219 C 500.835938 457.199219 507.449219 503.101562 487.679688 541.597656 " fill="currentColor"/><path d="M 1416.417969 533.480469 C 1396.648438 571.976562 1357.984375 588.488281 1330.058594 570.363281 C 1302.136719 552.238281 1295.519531 506.335938 1315.289062 467.839844 C 1335.058594 429.34375 1373.722656 412.832031 1401.644531 430.957031 C 1429.570312 449.085938 1436.183594 494.988281 1416.417969 533.480469 " fill="currentColor"/></svg><span class="t">design thinking<svg viewBox="0 0 300 10" preserveAspectRatio="none" class="ul"><path d="M2 6 C 80 2, 180 9, 298 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span></div></div>
+
+<!-- 0 · dato -->
+<div class="esc" id="s0">
+ <div id="pct" style="position:absolute;left:96px;top:120px;font:700 230px/1 'Helvetica Neue';letter-spacing:-10px">0 %</div>
+ <div id="f0" style="position:absolute;left:100px;top:380px;width:900px;font:300 34px/1.25 'Helvetica Neue'">de los líderes dice que su empresa ya adoptó la IA con éxito para atender a sus clientes.</div>
+ <div id="q0" style="position:absolute;left:100px;top:510px;width:820px;border-left:4px solid #E4F000;padding-left:18px;font:500 34px/1.15 'Caveat',cursive">«El diferenciador no es el acceso a la tecnología. Es la base de comportamiento debajo.»</div>
+ <div class="mono" id="src" style="position:absolute;right:56px;bottom:40px;font-size:14px;color:rgba(28,35,64,.6)">Fuente: IDEO IQ Report 2026 · 266 líderes de 100 de las empresas más grandes</div></div>
+
+<!-- 1 · portada -->
+<div class="esc" id="s1"><div style="position:absolute;left:96px;top:190px">
+ <div style="font:700 92px/1 'Helvetica Neue';letter-spacing:-3.5px">Integración de IA<br>en tu <span class="resalta" id="hl">empresa.</span></div>
+ <div class="mono" id="sub1" style="font-size:22px;margin-top:34px;color:rgba(28,35,64,.75)">Design thinking aplicado a la IA. Así se ve.</div></div>
+ <div class="nota y" id="pn1" style="right:120px;top:120px"><small>Soporte</small>Cada quien con su chat</div>
+ <div class="nota a" id="pn2" style="right:250px;top:330px"><small>Dirección</small>¿Quién está haciendo qué?</div></div>
+
+<!-- 2 · escuchar -->
+<div class="esc" id="s2"><div class="paso"><div class="n">01 · Design thinking aplicado a la IA</div><div class="w">Escuchar</div><div class="d">Cada persona platica, por voz y desde el celular, qué hace, con qué y dónde se traba.</div></div>
+ <div id="esc_notas"></div>
+ <div id="voz" style="position:absolute;left:640px;top:560px;display:flex;align-items:center;gap:12px;background:#fff;border:1px solid rgba(28,35,64,.15);border-radius:6px;padding:10px 14px;box-shadow:0 6px 16px rgba(28,35,64,.1)">
+  <canvas class="mini" width="56" height="56" style="width:28px;height:28px"></canvas><div id="onda" style="display:flex;gap:3px;align-items:center;height:26px"></div><span class="mono" style="font-size:13px">nota de voz · <span id="vt">0:00</span></span></div></div>
+
+<!-- 3 · mapear -->
+<div class="esc" id="s3"><div class="paso"><div class="n">02 · Design thinking aplicado a la IA</div><div class="w">Mapear</div><div class="d">Un solo mapa: quién hace qué, cómo, con qué IA y dónde se atora.</div></div>
+ <div class="col" id="h0" style="left:560px">Quién</div><div class="col" id="h1" style="left:790px">Con qué</div><div class="col" id="h2" style="left:1020px;border-color:#C8102E;color:#C8102E">Dónde se traba</div>
+ <svg width="1280" height="720" style="position:absolute;left:0;top:0"><g stroke="#1C2340" stroke-width="1.5" fill="none" opacity=".45" id="lin"><path d="M750 240 L800 240"/><path d="M980 240 L1030 240"/><path d="M750 350 L800 350"/><path d="M750 460 L800 460"/><path d="M980 460 L1030 460"/></g></svg>
+ <div id="mapa"></div><div class="pt" id="pt1" style="left:1206px;top:190px"></div><div class="pt" id="pt2" style="left:1206px;top:410px"></div></div>
+
+<!-- 4 · caso real -->
+<div class="esc" id="s4"><div class="paso"><div class="n">03 · Design thinking aplicado a la IA</div><div class="w">Un primer<br>caso real</div><div class="d">Elegimos con el dueño lo que más duele hoy y lo dejamos funcionando con sus datos.</div></div>
+ <div class="nota r" id="eleg" style="left:560px;top:120px;width:190px"><small>Elegido</small>Cotizar tarda días</div>
+ <div id="lap" style="position:absolute;left:640px;top:250px;width:580px;height:360px;background:#1C2340;border-radius:10px;padding:14px">
+  <div style="background:#fff;border-radius:4px;height:100%;padding:18px 20px">
+   <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:18px">Cotización · ejemplo</b><span style="background:#E4F000;font:700 12px 'Helvetica Neue';padding:4px 9px;border-radius:4px">Primera versión</span></div>
+   <div class="mono" style="font-size:13px;color:rgba(28,35,64,.6);margin:6px 0 14px">Dictada por voz · lista para revisar</div>
+   <div id="rows"></div>
+   <div style="display:flex;gap:10px;margin-top:16px;align-items:center"><span id="si" style="background:#1C2340;color:#fff;font:700 13px 'Helvetica Neue';padding:9px 14px;border-radius:4px">Sí, mándala</span><span style="border:2px solid #1C2340;font:700 13px 'Helvetica Neue';padding:7px 12px;border-radius:4px">Ajustar</span><span id="env" class="mono" style="font-size:14px;color:#2E5C35;opacity:0">✓ Enviada</span></div></div></div></div>
+
+<!-- 5 · unificar -->
+<div class="esc" id="s5"><div class="paso"><div class="n">04 · Design thinking aplicado a la IA</div><div class="w">Unificar</div><div class="d">Una sola forma de pedir, revisar y entregar. Cada quien con su llave.</div></div>
+ <svg width="1280" height="720" style="position:absolute;left:0;top:0" id="uniSvg"></svg>
+ <div id="uniNotas"></div>
+ <div id="forma" style="position:absolute;left:930px;top:200px;width:290px;background:#fff;border:1px solid rgba(28,35,64,.15);border-radius:6px;padding:20px 22px;box-shadow:0 8px 20px rgba(28,35,64,.08)">
+  <b style="font-size:19px">Una sola forma</b><div id="chk" style="margin-top:10px;font-size:16px;line-height:2.1"></div></div></div>
+
+<!-- 6 · acompañar -->
+<div class="esc" id="s6"><div class="paso"><div class="n">05 · Design thinking aplicado a la IA</div><div class="w">Acompañar<br>y medir</div><div class="d">Un retro corto al día y ajustes cada mes. Por dentro, el motor es alkimia.</div></div>
+ <canvas id="grande" width="560" height="560" style="position:absolute;left:600px;top:150px;width:330px;height:330px"></canvas>
+ <div class="mono" id="mot" style="position:absolute;left:650px;top:500px;font-size:16px;color:rgba(28,35,64,.75);width:300px">El motor, alkimia: escucha los retros y ajusta.</div>
+ <div id="retros"></div></div>
+
+<!-- 7 · promesa -->
+<div class="esc" id="s7"><div style="position:absolute;left:96px;top:200px;width:1100px;font:700 70px/1.06 'Helvetica Neue';letter-spacing:-2.5px">En unas semanas, tu equipo trabaja con IA <span class="resalta" id="hl7">de una sola forma.</span></div>
+ <div class="mono" id="s7d" style="position:absolute;left:100px;top:440px;font-size:22px;color:rgba(28,35,64,.75)">Con tu contexto y contigo al mando.</div></div>
+
+<!-- 8 · cierre -->
+<div class="esc" id="s8"><div style="position:absolute;left:0;right:0;top:200px;text-align:center;font:300 52px/1.15 'Helvetica Neue';letter-spacing:-1.5px">Empecemos con una plática<br>sobre <b style="font-weight:700">un problema real.</b></div>
+ <div style="position:absolute;left:0;right:0;top:400px;display:flex;justify-content:center"><div class="lock" style="--H:58px"><svg class="iwi" viewBox="0 420 1614 560" aria-label="iwi" role="img"><path d="M 1513.5 876.679688 L 1531.269531 864.511719 C 1548.167969 855.480469 1568.640625 861.167969 1580.453125 876.851562 C 1585.386719 883.402344 1583.84375 891.808594 1578.414062 897.148438 C 1569.648438 905.777344 1560.386719 913.023438 1549.589844 919.363281 C 1497.429688 949.988281 1440.265625 968.269531 1381.449219 974.460938 L 1334.890625 974.6875 C 1293.242188 969.375 1249.769531 953.582031 1227.195312 911.398438 C 1188.71875 942.226562 1144.066406 963.007812 1097.734375 968.515625 L 1062.179688 968.347656 C 1027.4375 964.410156 995.085938 947.75 976.726562 913.699219 L 957.417969 929.15625 C 922.703125 956.9375 873.644531 973.644531 831.121094 964.074219 C 803.246094 957.804688 779.472656 941.015625 766.699219 911.515625 C 721.015625 946.816406 667.769531 973.179688 612.5625 965.984375 C 581.496094 961.09375 553.269531 945.457031 539.199219 912.675781 C 499.890625 941.453125 456.417969 962.257812 410.671875 968.242188 C 396.265625 970.125 382.0625 968.90625 367.617188 968.65625 C 331.265625 962.40625 299.472656 948.289062 280.472656 911.992188 C 261.933594 928.058594 242.535156 939.957031 221.519531 950.304688 C 192.046875 964.816406 161.324219 972.089844 129.332031 974.441406 C 96.710938 976.839844 57.273438 969.761719 27.441406 955.257812 C 19.335938 951.316406 11.988281 943.726562 11.082031 933.859375 C 10.035156 922.445312 18.359375 914.089844 27.492188 911.871094 C 40.296875 908.761719 52.6875 910.960938 63.074219 919.863281 C 90.707031 928.710938 118.644531 928.503906 147.066406 922.902344 C 194.023438 913.652344 233.816406 887.265625 268.996094 851.03125 C 271.023438 825.25 275.523438 800.8125 283.695312 776.148438 C 297.613281 734.132812 321.738281 675.304688 345.902344 641.136719 C 353.8125 629.953125 362.941406 620.832031 374.621094 615.417969 C 390.597656 608.015625 409.167969 610.367188 421.464844 624.351562 C 442.230469 647.96875 424.5 693.246094 412.171875 722.726562 C 391.0625 773.210938 365.179688 819.171875 332.429688 861.808594 C 329.003906 884.53125 340.722656 905.777344 360.148438 914.175781 C 388.09375 926.257812 431.828125 915.101562 458.554688 900.539062 L 475.996094 891.039062 C 496.386719 879.925781 514.558594 865.59375 531.144531 848.15625 L 535.503906 820.214844 C 542.566406 774.925781 574.652344 701.472656 596.925781 660.214844 C 605.753906 643.859375 615.328125 629.160156 627.441406 616.007812 C 638.628906 603.859375 653.839844 596.65625 669.050781 598.015625 C 682.980469 599.261719 695.429688 607.183594 701.320312 620.988281 C 712.125 646.316406 698.597656 683.96875 687.605469 710.230469 C 666.601562 760.394531 639.957031 806.457031 607.746094 848.359375 C 595.59375 864.164062 592.601562 861.507812 595.949219 885.800781 C 597.921875 900.109375 607.722656 911.664062 620.597656 914.273438 L 631.132812 915.363281 L 643.035156 914.222656 C 688.085938 905.496094 724.675781 877.855469 758.246094 843.664062 C 760.625 814.578125 766.941406 787.511719 775.945312 760.050781 C 789.550781 718.550781 809.1875 670.183594 831.722656 634.449219 C 847.351562 609.675781 870.824219 591.539062 897.226562 600.984375 C 928.160156 612.042969 926.628906 648.792969 917.027344 680.910156 C 897.996094 744.558594 862.019531 808.003906 822.667969 858.375 L 822.746094 879.261719 C 822.789062 890.40625 828.589844 900.351562 836.746094 907.050781 C 845.871094 914.554688 857.34375 914.925781 868.613281 912.488281 C 891.925781 907.445312 912.855469 895.714844 931.542969 879.5 C 942.695312 869.824219 952.734375 860.238281 961.953125 848.308594 C 962.292969 807.945312 969.316406 770.136719 981.085938 732.472656 C 992.648438 695.46875 1008.183594 650.40625 1030.257812 621.097656 C 1041.746094 605.84375 1058.386719 595.90625 1076.144531 597.851562 C 1091.269531 599.511719 1104.832031 608.722656 1110.550781 624.398438 C 1120.855469 652.644531 1108.449219 693.488281 1097.84375 722.488281 C 1084.054688 760.175781 1067.171875 795.515625 1047.136719 829.332031 L 1027.667969 859.660156 C 1027.246094 892.945312 1043.898438 914.128906 1073.367188 917.585938 C 1078.332031 918.167969 1082.898438 918.375 1087.765625 917.613281 C 1126.945312 911.480469 1166.113281 890.511719 1196.472656 862.273438 L 1210.820312 847.234375 L 1211.324219 823.316406 C 1213.960938 798.011719 1218.316406 774.042969 1225.332031 749.84375 C 1237.382812 708.273438 1259.664062 645.230469 1285.925781 615.355469 C 1298.9375 600.554688 1316.675781 593.59375 1334.574219 598.289062 C 1353.9375 603.371094 1366.414062 621.085938 1367.257812 643.734375 C 1368.523438 677.707031 1348.351562 730.429688 1333.507812 762.796875 C 1317.5 797.699219 1299.722656 830.183594 1277.71875 860.734375 C 1277.976562 885.554688 1290.714844 906.214844 1311.160156 915.601562 C 1322.296875 920.714844 1334.027344 922.359375 1346.074219 923.691406 L 1365.527344 923.597656 L 1391.445312 920.746094 C 1434.152344 913.910156 1474.964844 899.546875 1513.5 876.679688 " fill="currentColor"/><path d="M 487.679688 541.597656 C 467.914062 580.09375 429.25 596.605469 401.324219 578.476562 C 373.398438 560.351562 366.785156 514.449219 386.554688 475.953125 C 406.320312 437.457031 444.984375 420.945312 472.910156 439.074219 C 500.835938 457.199219 507.449219 503.101562 487.679688 541.597656 " fill="currentColor"/><path d="M 1416.417969 533.480469 C 1396.648438 571.976562 1357.984375 588.488281 1330.058594 570.363281 C 1302.136719 552.238281 1295.519531 506.335938 1315.289062 467.839844 C 1335.058594 429.34375 1373.722656 412.832031 1401.644531 430.957031 C 1429.570312 449.085938 1436.183594 494.988281 1416.417969 533.480469 " fill="currentColor"/></svg><span class="t">design thinking<svg viewBox="0 0 300 10" preserveAspectRatio="none" class="ul"><path d="M2 6 C 80 2, 180 9, 298 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span></div></div>
+ <div class="mono" style="position:absolute;left:0;right:0;top:510px;text-align:center;font-size:18px;color:rgba(28,35,64,.6)">con alkimia como motor</div></div>
+<script>
+const $=id=>document.getElementById(id),cl=(v,a,b)=>Math.max(a,Math.min(b,v)),seg=(t,a,b)=>cl((t-a)/(b-a),0,1),ease=x=>1-Math.pow(1-x,3);
+const E={s0:[0,14.6],s1:[14.6,22.9],s2:[22.9,32.7],s3:[32.7,41.4],s4:[41.4,49.9],s5:[49.9,58.5],s6:[58.5,66.5],s7:[66.5,74.6],s8:[74.6,83]};
+function esc(id,t){const [a,b]=E[id],p=Math.min(seg(t,a,a+.5),1-seg(t,b-.4,b));$(id).style.opacity=p}
+// nota que cae: aparece girando y se asienta
+function cae(el,t,a,rot){const p=seg(t,a,a+.55),e=ease(p);el.style.opacity=seg(t,a,a+.2);el.style.transform=`translateY(${(1-e)*-40}px) rotate(${rot+(1-e)*rot*3}deg) scale(${1+.08*(1-e)})`;return p}
+function escribe(el,txt,t,a,b){el.lastChild.textContent=txt.slice(0,Math.ceil(txt.length*seg(t,a,b)))}
+const EN=[['y','Ventas','Las cotizaciones viven en mi correo',640,110,-3],['r','Soporte','Copiamos respuestas del chat',830,140,4],['a','Finanzas','Tres Excel distintos para lo mismo',1020,105,-2],['v','Operación','Nadie sabe qué IA usa el otro',700,330,3],['y','Dirección','Quiero ver todo en un lugar',900,350,-4]];
+$('esc_notas').innerHTML=EN.map((n,i)=>`<div class="nota ${n[0]}" id="en${i}" style="left:${n[3]}px;top:${n[4]}px"><small>${n[1]}</small><span></span></div>`).join('');
+$('onda').innerHTML='<i style="display:block;width:3px;border-radius:2px;background:#1C2340"></i>'.repeat(28);
+const MP=[['y','Ventas',570,195,180],['r','Soporte',570,305,180],['a','Finanzas',570,415,180],['n2','Correo + chat',800,195,180],['n2','Chat de IA',800,305,180],['n2','Excel x3',800,415,180],['r','Cotizar tarda días',1030,195,190],['r','Cifras no cuadran',1030,415,190]];
+$('mapa').innerHTML=MP.map((n,i)=>`<div class="nota ${n[0]}" id="mp${i}" style="left:${n[2]}px;top:${n[3]}px;min-height:90px;width:${n[4]}px;font-size:22px">${n[1]}</div>`).join('');
+const RW=[['Producto A','12 pzas','✓ lista'],['Producto B','5 pzas','✓ lista'],['Envío','1','✓ incluido']];
+$('rows').innerHTML=RW.map((r,i)=>`<div id="rw${i}" style="display:grid;grid-template-columns:1fr 70px 90px;padding:9px 0;border-top:1px solid rgba(28,35,64,.12);font-size:14px"><span>${r[0]}</span><span class="mono">${r[1]}</span><span class="mono" style="text-align:right">${r[2]}</span></div>`).join('');
+const UN=[['y','Ventas',560,170],['r','Soporte',560,280],['a','Finanzas',560,390],['v','Operación',560,500]];
+$('uniNotas').innerHTML=UN.map((n,i)=>`<div class="nota ${n[0]}" id="un${i}" style="left:${n[2]}px;top:${n[3]}px;min-height:80px;width:170px;font-size:22px">${n[1]}</div>`).join('');
+$('uniSvg').innerHTML=UN.map((n,i)=>`<path id="ul${i}" d="M730 ${n[3]+40} C 820 ${n[3]+40}, 840 330, 930 330" fill="none" stroke="#1C2340" stroke-width="2.5"/>`).join('');
+const CK=['Cómo se pide','Cómo se revisa','Cómo se entrega','Cada quien con su llave'];
+$('chk').innerHTML=CK.map((c,i)=>`<div id="ck${i}">✓ ${c}</div>`).join('');
+const RT=[['v','Retro · lunes','Hoy cotizamos en 10 min',990,110,3],['y','Retro · martes','Falta el formato de envío',1040,300,-3],['a','Ajuste · mes 1','Formato de envío listo',990,490,2]];
+$('retros').innerHTML=RT.map((n,i)=>`<div class="nota ${n[0]}" id="rt${i}" style="left:${n[3]}px;top:${n[4]}px"><small>${n[1]}</small><span></span></div>`).join('');
+// mini murmuración
+const rnd=(i,k)=>{let h=Math.imul(i+1,0x9E3779B1)^Math.imul(k+7,0x85EBCA77);h^=h>>>15;h=Math.imul(h,0x2C1B3C6D);h^=h>>>12;h=Math.imul(h,0x297A2D39);h^=h>>>15;return (h>>>0)/4294967296};
+const PAL=[[150,60,255],[255,70,170],[255,110,40],[255,190,60],[30,200,120],[40,120,255],[150,60,255]];
+const pal=f=>{f=((f%1)+1)%1*(PAL.length-1);const i=Math.floor(f),p=f-i,A=PAL[i],B=PAL[i+1];return A.map((v,k)=>Math.round(v+(B[k]-v)*p))};
+function miniMur(c,t,sem,n,abre){const g=c.getContext('2d'),W=c.width,cx=W/2,r=W*.36;g.clearRect(0,0,W,W);const k=abre===undefined?1:abre;
+ for(let i=0;i<(n||420);i++){const u=rnd(i+sem,1),v=rnd(i+sem,2),w=rnd(i+sem,3),z=2*u-1,a=v*6.2832+t*(.8+.6*Math.sin(z*3+t*.4))*(i%3?1:-1.2);
+  const s=Math.sqrt(1-z*z),am=1+.2*Math.sin(3*a+t*1.7)*s+.14*Math.sin(4*z+t*2.3)+.08*Math.sin(5*a-t*1.4),rho=r*am*(.45+.55*Math.cbrt(w));
+  let x=cx+s*Math.cos(a)*rho,y=cx+(s*Math.sin(a)*.9-z*.35)*rho;const fx=cx+(rnd(i,4)-.5)*W*1.1,fy=cx+(rnd(i,5)-.5)*W*1.1;x=fx+(x-fx)*k;y=fy+(y-fy)*k;
+  const d=(z+1)/2,col=pal(a*.16+z*.3+t*.1+rnd(i,8)*.1);g.fillStyle=`rgba(${col},${(.45+.55*d)*(.3+.7*k)})`;const sz=(1+1.5*d)*W/56;g.fillRect(x-sz/2,y-sz/2,sz,sz)}}
+window.render=function(t){for(const k in E)esc(k,t);
+ $('firma').style.opacity=t<74.4?seg(t,14.6,15.2):1-seg(t,74.4,74.8);
+ const pasoAct=t>=58.5?5:t>=49.9?4:t>=41.4?3:t>=32.7?2:t>=22.9?1:0;$('tira').style.opacity=(t>22.6&&t<66.6)?Math.min(seg(t,22.6,23.1),1-seg(t,66.1,66.6)):0;
+ for(let i=1;i<=5;i++)$('t'+i).classList.toggle('on',i===pasoAct);
+ // 0
+ $('pct').textContent=Math.round(41*ease(seg(t,.6,2.6)))+' %';$('f0').style.opacity=seg(t,2.2,2.9);$('q0').style.opacity=seg(t,8.3,9);$('src').style.opacity=seg(t,1,1.6);
+ // 1
+ $('hl').style.setProperty('--p',(100*ease(seg(t,16.2,17.2)))+'%');$('sub1').style.opacity=seg(t,18.6,19.3);cae($('pn1'),t,16.6,4);cae($('pn2'),t,17.4,-5);
+ // 2
+ EN.forEach((n,i)=>{const a=25.0+i*1.05;cae($('en'+i),t,a,n[5]);escribe($('en'+i),n[2],t,a+.3,a+1.1)});
+ const hab=t>24&&t<31.8;[...$('onda').children].forEach((b,j)=>{const k=hab?(.25+.75*Math.abs(Math.sin(j*.7+t*9)*Math.sin(j*.23+t*3))):.15;b.style.height=(4+k*20)+'px'});
+ $('vt').textContent='0:'+String(Math.min(42,Math.floor(seg(t,24,31.8)*42))).padStart(2,'0');$('voz').style.opacity=seg(t,23.6,24.1);
+ document.querySelectorAll('canvas.mini').forEach((c,k)=>miniMur(c,t,k*997));
+ // 3
+ ['h0','h1','h2'].forEach((h,i)=>{$(h).style.opacity=seg(t,33.4+i*.3,33.8+i*.3)});
+ MP.forEach((n,i)=>cae($('mp'+i),t,34.2+(i%3)*.5+Math.floor(i/3)*1.2,0));$('lin').style.opacity=.45*seg(t,38,38.6);
+ ['pt1','pt2'].forEach((p,i)=>{const on=t>38.8+i*.4;$(p).style.opacity=on?1:0;$(p).style.boxShadow=`0 0 0 ${4+4*Math.abs(Math.sin(t*3))}px rgba(200,16,46,.18)`});
+ // 4
+ cae($('eleg'),t,42.2,-4);const lp=ease(seg(t,43,43.7));$('lap').style.opacity=lp;$('lap').style.transform=`translateY(${(1-lp)*30}px)`;
+ RW.forEach((r,i)=>{$('rw'+i).style.opacity=seg(t,44.2+i*.6,44.6+i*.6)});const pr=t>47.4&&t<47.8;$('si').style.transform=`scale(${pr?.94:1})`;$('env').style.opacity=seg(t,47.8,48.2);
+ // 5
+ UN.forEach((n,i)=>{cae($('un'+i),t,50.6+i*.3,0);const p=$('ul'+i),L=260;p.style.strokeDasharray=L;p.style.strokeDashoffset=L*(1-ease(seg(t,52+i*.3,53.2+i*.3)))});
+ const fo=ease(seg(t,52.6,53.2));$('forma').style.opacity=fo;$('forma').style.transform=`translateY(${(1-fo)*16}px)`;CK.forEach((c,i)=>$('ck'+i).style.opacity=seg(t,53.8+i*.8,54.2+i*.8));
+ // 6
+ if(t>58&&t<67){miniMur($('grande'),t,7,2600,ease(seg(t,60.6,62.4)))}$('mot').style.opacity=seg(t,62.6,63.2);
+ RT.forEach((n,i)=>{const a=59.4+i*1.3;cae($('rt'+i),t,a,n[5]);escribe($('rt'+i),n[2],t,a+.3,a+1)});
+ // 7
+ $('hl7').style.setProperty('--p',(100*ease(seg(t,69.4,70.6)))+'%');$('s7d').style.opacity=seg(t,71.2,71.8);
+};
+render(+(new URLSearchParams(location.search).get('t')||3));
+</script><script>(function(){var D=90,t0=performance.now();function z(){document.documentElement.style.zoom=Math.min(1,innerWidth/1280)}z();addEventListener('resize',z);
+function f(){var t=((performance.now()-t0)/1000)%D;try{window.render&&window.render(t)}catch(e){}requestAnimationFrame(f)}requestAnimationFrame(f)})();</script></body></html>

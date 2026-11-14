@@ -1,0 +1,114 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>iwi Design Thinking · estilo recorte (prueba)</title>
+<style>
+/* Prueba de estilo «parecido a IDEO IQ, no igual» (orden 78; Carlos, 12 nov, en el chat de alkimia). Brief: espacios/alquimia/entregas/2026-11-12_orden-78-estilo-ideo-brief.md.
+   Tomamos la manera (recorte de papel con grano, el cuerpo como símbolo, registros que alternan, marcatexto, el número dentro de la figura).
+   Cambiamos el alfabeto: oreja y onda (Escuchar), hilos entre tarjetas (Mapear), mano con barro (Un primer caso real), muchas manos sobre una pieza (Unificar), murmuración (Acompañar y medir).
+   Paleta de alkimia (arcilla, kraft, marfil, noche cálida) con un acento propio de marcatexto (rosa fosforescente); nada del lima ni del azul de IDEO. Tipografía nuestra. */
+@font-face{font-family:"Courier Prime";src:url(fuentes/courierprime-400.ttf)}
+@font-face{font-family:"Caveat";src:url(fuentes/caveat-500.ttf);font-weight:500}
+*{box-sizing:border-box;margin:0}
+body{background:#0E0C0A;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;padding:0}
+.p{position:relative;width:1280px;height:720px;overflow:hidden;margin-bottom:10px}
+.claro{background:#F0EEE6;color:#191714}.pleno-k{background:#D4A27F;color:#191714}.pleno-a{background:#D97757;color:#191714}.noche{background:#191714;color:#F0EEE6}
+.p svg.arte{position:absolute;inset:0}
+.txt{position:absolute;left:64px;bottom:72px;width:520px}
+.txt .n{font:400 14px 'Courier Prime',monospace;letter-spacing:.08em;opacity:.7}
+.txt h2{font:300 64px/1.02 'Helvetica Neue';letter-spacing:-2px;margin-top:10px}
+.txt h2 b{font-weight:700}
+.txt p{font:400 17px/1.5 'Courier Prime',monospace;margin-top:14px;opacity:.85}
+.mk{background:linear-gradient(transparent 58%,#FF5FA2 58%,#FF5FA2 92%,transparent 92%);padding:0 4px}
+.grano{position:absolute;inset:0;pointer-events:none;opacity:.35;mix-blend-mode:multiply}
+.noche .grano{mix-blend-mode:screen;opacity:.18}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+ <!-- borde recortado a mano y grano de papel -->
+ <filter id="corte" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="3" result="r"/><feDisplacementMap in="SourceGraphic" in2="r" scale="7"/></filter>
+ <filter id="papel" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" seed="8" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 .1  0 0 0 0 .08  0 0 0 0 .06  0 0 0 .55 0"/></filter>
+ <filter id="salpica"><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="2" result="t"/><feComponentTransfer in="t" result="m"><feFuncA type="discrete" tableValues="0 0 0 0 0 0 0 0 1"/></feComponentTransfer><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>
+<path id="manoP" d="M0 260 L 20 10 C 22 -20 45 -30 60 -10 L 72 60 L 80 -80 C 82 -110 112 -110 114 -80 L 120 40 L 130 -100 C 132 -130 162 -130 164 -100 L 168 45 L 184 -70 C 188 -98 216 -96 216 -68 L 212 80 C 230 40 250 10 280 20 C 300 28 292 55 280 75 C 240 140 230 200 220 260 Z"/></defs></svg>
+
+<!-- 0 · dato dentro de la figura -->
+<div class="p claro"><svg class="arte" viewBox="0 0 1280 720">
+ <g filter="url(#corte)">
+  <path d="M760 360 m-250 0 a250 250 0 1 0 500 0 a250 250 0 1 0 -500 0" fill="#D97757"/>
+  <g fill="none" stroke="#191714" stroke-width="22" stroke-linecap="round"><path d="M640 300 q20 60 0 120"/><path d="M690 250 q45 110 0 220"/><path d="M740 200 q70 160 0 320"/></g>
+  <path d="M560 260 C 500 260 470 330 500 380 C 520 410 540 420 540 460 C 540 500 590 510 610 480" fill="none" stroke="#F0EEE6" stroke-width="26" stroke-linecap="round"/>
+ </g>
+ <rect x="510" y="110" width="500" height="500" fill="#D97757" filter="url(#salpica)" opacity=".5"/>
+ <text x="850" y="410" font-family="Helvetica Neue,Helvetica,Arial" font-weight="700" font-size="128" fill="#F0EEE6" text-anchor="middle" letter-spacing="-6">41 %</text>
+</svg>
+ <div class="txt" style="bottom:auto;top:96px;width:440px"><div class="n">EL DATO</div><h2 style="font-size:50px">Sólo <span class="mk"><b>41 %</b></span> de los líderes dice que su empresa adoptó IA con éxito para atender a sus clientes.</h2><p>Fuente: IDEO IQ Report 2026, encuesta a 266 líderes de 100 grandes empresas.</p></div>
+ <svg class="grano" width="1280" height="720"><rect width="100%" height="100%" filter="url(#papel)"/></svg></div>
+
+<!-- 1 · escuchar (claro) -->
+<div class="p claro"><svg class="arte" viewBox="0 0 1280 720"><g filter="url(#corte)">
+ <path d="M1280 120 C 1060 90 900 210 900 380 C 900 470 960 520 1000 560 C 1040 600 1030 660 1080 700 C 1140 740 1280 720 1280 720 Z" fill="#D4A27F"/>
+ <path d="M1180 250 C 1080 240 1020 310 1030 390 C 1036 440 1080 450 1080 500" fill="none" stroke="#191714" stroke-width="20" stroke-linecap="round"/>
+ <g fill="none" stroke="#D97757" stroke-width="16" stroke-linecap="round"><path d="M820 300 q-30 80 0 160"/><path d="M760 250 q-55 130 0 260"/><path d="M700 200 q-80 180 0 360"/></g></g>
+ <g filter="url(#corte)"><rect x="620" y="560" width="150" height="34" rx="4" fill="#191714"/></g></svg>
+ <div class="txt"><div class="n">01 · DESIGN THINKING APLICADO A LA IA</div><h2><span class="mk"><b>Escuchar</b></span> antes de proponer.</h2><p>Cada persona platica, por voz, qué hace y dónde se traba.</p></div>
+ <svg class="grano" width="1280" height="720"><rect width="100%" height="100%" filter="url(#papel)"/></svg></div>
+
+<!-- 2 · mapear (pleno kraft) -->
+<div class="p pleno-k"><svg class="arte" viewBox="0 0 1280 720">
+ <g fill="none" stroke="#191714" stroke-width="4"><path d="M790 160 C 880 220 900 260 1010 230"/><path d="M790 160 C 760 300 820 360 860 420"/><path d="M1010 230 C 1060 330 1000 400 860 420"/><path d="M860 420 C 960 520 1080 500 1120 560"/><path d="M1010 230 C 1120 240 1150 320 1160 380"/></g>
+ <g filter="url(#corte)"><rect x="700" y="100" width="180" height="120" fill="#F0EEE6" transform="rotate(-4 790 160)"/><rect x="930" y="170" width="160" height="120" fill="#F0EEE6" transform="rotate(3 1010 230)"/>
+  <rect x="770" y="360" width="180" height="120" fill="#F0EEE6" transform="rotate(2 860 420)"/><rect x="1050" y="500" width="150" height="110" fill="#D97757" transform="rotate(-3 1120 560)"/><rect x="1100" y="330" width="120" height="100" fill="#F0EEE6" transform="rotate(5 1160 380)"/></g>
+ <g fill="#191714"><circle cx="720" cy="112" r="8"/><circle cx="945" cy="180" r="8"/><circle cx="785" cy="370" r="8"/><circle cx="1062" cy="512" r="8"/><circle cx="1112" cy="340" r="8"/></g>
+ <g font-family="Caveat" font-size="30" fill="#191714"><text x="730" y="175">Ventas</text><text x="955" y="245">Soporte</text><text x="800" y="435">Finanzas</text><text x="1075" y="570">¡se traba!</text><text x="1120" y="395">Excel</text></g></svg>
+ <div class="txt"><div class="n">02 · DESIGN THINKING APLICADO A LA IA</div><h2>Un solo <span class="mk"><b>mapa</b></span>.</h2><p>Quién hace qué, cómo, con qué IA y dónde se atora.</p></div>
+ <svg class="grano" width="1280" height="720"><rect width="100%" height="100%" filter="url(#papel)"/></svg></div>
+
+<!-- 3 · primer caso real (noche) -->
+<div class="p noche"><svg class="arte" viewBox="0 0 1280 720">
+ <g fill="#F0EEE6" opacity=".55" font-family="Courier Prime" font-size="22"><text x="700" y="90">*</text><text x="1180" y="140">*</text><text x="980" y="70">*</text><text x="1220" y="420">*</text><text x="660" y="300">*</text><text x="1100" y="260">*</text></g>
+ <g filter="url(#corte)">
+  <path id="mano" d="M760 720 L 780 470 C 782 440 805 430 820 450 L 832 520 L 840 380 C 842 350 872 350 874 380 L 880 500 L 890 360 C 892 330 922 330 924 360 L 928 505 L 944 390 C 948 362 976 364 976 392 L 972 540 C 990 500 1010 470 1040 480 C 1060 488 1052 515 1040 535 C 1000 600 990 660 980 720 Z" fill="#D4A27F"/>
+  <path d="M860 330 C 840 260 900 200 960 220 C 1020 236 1040 300 1000 340 C 970 370 890 372 860 330 Z" fill="#D97757"/></g>
+ <rect x="830" y="180" width="240" height="220" fill="#D97757" filter="url(#salpica)" opacity=".6"/></svg>
+ <div class="txt"><div class="n">03 · DESIGN THINKING APLICADO A LA IA</div><h2>Un primer <span class="mk"><b>caso real</b></span>.</h2><p>Lo que más duele hoy, funcionando con sus datos.</p></div>
+ <svg class="grano" width="1280" height="720"><rect width="100%" height="100%" filter="url(#papel)"/></svg></div>
+
+<!-- 4 · unificar (pleno arcilla) -->
+<div class="p pleno-a"><svg class="arte" viewBox="0 0 1280 720"><g filter="url(#corte)">
+ <circle cx="920" cy="360" r="120" fill="#F0EEE6"/>
+ <use href="#manoU" transform="translate(920 360) rotate(0) translate(-920 -360)"/>
+ </g>
+ <g filter="url(#corte)" id="manos"></g></svg>
+ <div class="txt"><div class="n">04 · DESIGN THINKING APLICADO A LA IA</div><h2><span class="mk"><b>Una sola</b></span> forma de trabajar.</h2><p>Cómo se pide, se revisa y se entrega. Cada quien con su llave.</p></div>
+ <svg class="grano" width="1280" height="720"><rect width="100%" height="100%" filter="url(#papel)"/></svg></div>
+
+<!-- 4b · cómo trabaja contigo (kraft) -->
+<div class="p pleno-k"><svg class="arte" viewBox="0 0 1280 720">
+ <g filter="url(#corte)">
+  <use href="#manoP" fill="#191714" transform="translate(760 190) rotate(-25) scale(.5)"/>
+  <use href="#manoP" fill="#E8492F" transform="translate(1040 150) rotate(20) scale(.5)"/>
+  <use href="#manoP" fill="#F0EEE6" transform="translate(1110 420) rotate(70) scale(.45)"/>
+  <rect x="820" y="120" width="230" height="440" fill="#191714"/>
+  <rect x="840" y="140" width="190" height="420" fill="#F0EEE6"/>
+  <circle cx="1005" cy="350" r="9" fill="#191714"/>
+ </g>
+ <g font-family="Caveat" font-size="34" fill="#191714"><text x="640" y="640">habla</text><text x="800" y="640">→ se hace</text><text x="990" y="640">→ vuelve resumido</text><text x="1060" y="690">→ apruebas</text></g>
+</svg>
+ <div class="txt"><div class="n">CÓMO TRABAJA CONTIGO</div><h2><span class="mk"><b>Una sola puerta</b></span>, un equipo detrás.</h2><p>Hablas, autorizas qué conectar y ves resultados. Detrás, un cerebro y varias IA que ven lo mismo. Mañana vuelves y sigues donde estabas.</p></div>
+ <svg class="grano" width="1280" height="720"><rect width="100%" height="100%" filter="url(#papel)"/></svg></div>
+
+<!-- 5 · acompañar (noche) -->
+<div class="p noche"><canvas id="mur" width="1280" height="720" style="position:absolute;inset:0"></canvas>
+ <svg class="arte" viewBox="0 0 1280 720"><g fill="#F0EEE6" opacity=".5" font-family="Courier Prime" font-size="20"><text x="680" y="110">*</text><text x="1200" y="180">*</text><text x="1150" y="600">*</text><text x="720" y="620">*</text></g></svg>
+ <div class="txt"><div class="n">05 · DESIGN THINKING APLICADO A LA IA</div><h2>Acompañar <span class="mk"><b>y medir</b></span>.</h2><p>Un retro corto al día. Cada mes: qué pasa afuera de tu sector. El motor, alkimia, escucha y ajusta.</p></div>
+ <svg class="grano" width="1280" height="720"><rect width="100%" height="100%" filter="url(#papel)"/></svg></div>
+<script>
+// cuatro manos desde los bordes que tocan una sola pieza (Unificar)
+const mano=`M0 260 L 20 10 C 22 -20 45 -30 60 -10 L 72 60 L 80 -80 C 82 -110 112 -110 114 -80 L 120 40 L 130 -100 C 132 -130 162 -130 164 -100 L 168 45 L 184 -70 C 188 -98 216 -96 216 -68 L 212 80 C 230 40 250 10 280 20 C 300 28 292 55 280 75 C 240 140 230 200 220 260 Z`;
+const M=[[920,180,180,'#D4A27F'],[1100,360,270,'#F0EEE6'],[920,540,0,'#191714'],[740,360,90,'#D4A27F']];
+document.getElementById('manos').innerHTML=M.map(m=>`<path d="${mano}" fill="${m[3]}" transform="translate(${m[0]} ${m[1]}) rotate(${m[2]}) translate(-140 -10) scale(.62)"/>`).join('');
+// murmuración (Acompañar y medir), paleta alkimia
+const rnd=(i,k)=>{let h=Math.imul(i+1,0x9E3779B1)^Math.imul(k+7,0x85EBCA77);h^=h>>>15;h=Math.imul(h,0x2C1B3C6D);h^=h>>>12;h=Math.imul(h,0x297A2D39);h^=h>>>15;return (h>>>0)/4294967296};
+const PAL=[[217,119,87],[212,162,127],[240,238,230],[255,95,162],[217,119,87]];
+const pal=f=>{f=((f%1)+1)%1*(PAL.length-1);const i=Math.floor(f),p=f-i,A=PAL[i],B=PAL[i+1];return A.map((v,k)=>Math.round(v+(B[k]-v)*p))};
+(function(){const g=document.getElementById('mur').getContext('2d'),cx=920,cy=360,r=190,t=3.2;
+ for(let i=0;i<5200;i++){const u=rnd(i,1),v=rnd(i,2),w=rnd(i,3);let z=2*u-1;const a=v*6.2832+t*(.55+.7*Math.sin(z*3.1+t*.35))*(i%3?1:-1.3);
+  const s=Math.sqrt(1-z*z),am=1+.18*Math.sin(3*a+t*1.6)*s+.13*Math.sin(4.2*z+t*2.2)+.09*Math.sin(5*a-2*z-t*1.3),rho=r*am*(.5+.5*Math.cbrt(w));
+  const x=cx+s*Math.cos(a)*rho,y=cy+(s*Math.sin(a)*.9-z*.4)*rho,d=(z+1)/2,c=pal(a*.16+z*.35+rnd(i,8)*.2);g.fillStyle=`rgba(${c},${.3+.7*d})`;const sz=1.4+2.4*d;g.fillRect(x-sz/2,y-sz/2,sz,sz)}})();
+</script></body></html>

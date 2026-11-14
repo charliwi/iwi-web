@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Piloto de rutas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* DISENO-BASE: Helvetica 700/300, Courier Prime para lo que explica, línea de 24 px. Paleta de Auditoría de campo (Carlos, 13 nov). */
+:root{--bg:#EEF3F9;--surface:#FFFFFF;--ink:#1C2340;--ink2:#55607A;--line:#9DB0C6;--grid:#D9E2EC;--acento:#0E8C99;--ruta:#B4C0CF;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;--typ:"Courier Prime","Courier New",Courier,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121829;--surface:#1B2338;--ink:#EEF3F9;--ink2:#A9B5C8;--line:#5C6F8A;--grid:#2A3450;--acento:#3CB6C2;--ruta:#4A5672}}
+:root[data-theme="dark"]{--bg:#121829;--surface:#1B2338;--ink:#EEF3F9;--ink2:#A9B5C8;--line:#5C6F8A;--grid:#2A3450;--acento:#3CB6C2;--ruta:#4A5672}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/24px var(--sans)}
+main{max-width:1104px;margin:0 auto;padding:48px 16px 96px}
+h1{font:300 32px/48px var(--sans);letter-spacing:-.02em;margin:0 0 8px}h1 b{font-weight:700}
+h2{font:700 13px/24px var(--sans);letter-spacing:.04em;text-transform:uppercase;margin:48px 0 16px}
+p,.typ{font:400 14px/24px var(--typ);margin:0 0 16px;color:var(--ink2)}
+.conmuta{display:inline-flex;border:2px solid var(--ink);border-radius:2px;margin:16px 0 24px}
+.conmuta button{font:700 12px/24px var(--sans);letter-spacing:.04em;min-height:44px;padding:10px 20px;border:0;background:transparent;color:var(--ink);cursor:pointer}
+.conmuta button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:0 0 32px}
+.tile{background:var(--surface);border:1px solid var(--grid);border-radius:4px;padding:16px}
+.tile .et{font:700 12px/24px var(--sans);letter-spacing:.04em;color:var(--ink2)}
+.tile .v{font:300 40px/48px var(--sans);letter-spacing:-.02em}
+.tile .c{font:400 13px/24px var(--typ);color:var(--ink2)}
+.tile .c b{color:var(--ink);font-weight:700}
+.rejilla{display:grid;grid-template-columns:minmax(0,2fr) minmax(220px,1fr);gap:24px}
+@media (max-width:760px){.rejilla{grid-template-columns:1fr}}
+.mapa{background:var(--surface);border:1px solid var(--grid);border-radius:4px;position:relative}
+svg{display:block;width:100%;height:auto}
+.lista{display:flex;flex-direction:column;gap:4px;max-height:560px;overflow:auto}
+.lista button{display:grid;grid-template-columns:44px 1fr auto;gap:8px;align-items:center;text-align:left;font:400 13px/20px var(--sans);min-height:44px;padding:8px 10px;border:1px solid var(--grid);border-radius:2px;background:var(--surface);color:var(--ink);cursor:pointer}
+.lista button[aria-pressed="true"]{border:2px solid var(--acento)}
+.lista .n{font-weight:700}.lista .h{color:var(--ink2);font:400 12px/16px var(--typ)}.lista .k{font:400 12px/16px var(--typ);color:var(--ink2);text-align:right}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font:400 12px/18px var(--typ);padding:8px 10px;border-radius:2px;max-width:240px;display:none;z-index:2}
+.ley{display:flex;gap:16px;flex-wrap:wrap;font:400 12px/24px var(--typ);color:var(--ink2);margin:8px 0 0}
+.ley i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+table{width:100%;border-collapse:collapse;font:400 13px/24px var(--sans)}
+th{font:700 12px/24px var(--sans);letter-spacing:.04em;text-align:left;border-bottom:2px solid var(--ink);padding:0 8px}
+td{border-bottom:1px solid var(--grid);padding:8px;vertical-align:top}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+ol{font:400 14px/24px var(--typ);color:var(--ink2);padding-left:24px}
+.oculto{display:none}
+</style>
+</head>
+<body>
+<main>
+  <h1><b>Piloto de rutas</b> · empresa de servicios de agua</h1>
+  <p>Un día de trabajo con datos inventados: 15 técnicos independientes, 52 órdenes de servicio en una ciudad de 24 × 16 km, cada una con su ventana de horario y la habilidad que pide. Comparamos cómo lo asignaría un despachador a mano contra lo que encuentra un optimizador real (OR-Tools).</p>
+
+  <div class="conmuta" role="group" aria-label="Plan">
+    <button aria-pressed="false" data-p="antes">Antes · a mano</button>
+    <button aria-pressed="true" data-p="despues">Después · optimizado</button>
+  </div>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="rejilla">
+    <div>
+      <div class="mapa" id="mapa"><svg id="svg" role="img" aria-label="Mapa de rutas del plan seleccionado"></svg><div class="tip" id="tip"></div></div>
+      <div class="ley"><span><i style="background:var(--acento);border-radius:50%"></i>orden del técnico elegido</span><span><i style="background:var(--ink2);border-radius:50%"></i>otras órdenes</span><span><i style="background:var(--ink)"></i>casa del técnico</span><span><i style="background:var(--ruta);height:2px;vertical-align:3px"></i>rutas de los demás</span></div>
+    </div>
+    <div>
+      <h2 style="margin-top:0">Técnicos</h2>
+      <div class="lista" id="lista"></div>
+    </div>
+  </div>
+
+  <h2>Agenda del técnico elegido</h2>
+  <div style="overflow-x:auto"><table><thead><tr><th>Folio</th><th>Servicio</th><th>Ventana</th><th class="num">Llega</th><th class="num">Termina</th><th>Estado</th></tr></thead><tbody id="agenda"></tbody></table></div>
+
+  <h2>Cómo se hizo</h2>
+  <p><b>Antes:</b> la ciudad se parte en cinco zonas; cada orden va al técnico de su zona con esa habilidad y menos carga, y cada quien las atiende en orden de horario y de llamada. Si no le alcanza la jornada, la orden se pospone.</p>
+  <p><b>Después:</b> un solver de ruteo (OR-Tools) acomoda las mismas órdenes respetando la habilidad de cada técnico, su casa como salida y regreso, la ventana de cada cliente y la jornada de 8:00 a 18:00, y minimiza los kilómetros. Mismo día, mismas órdenes, mismos técnicos.</p>
+  <p>Ojo: para minimizar kilómetros, el solver junta el trabajo en menos técnicos y deja a otros libres. Si a los técnicos independientes se les paga por visita, se le pide un mínimo o un reparto parejo por técnico y vuelve a acomodar; cuesta algunos kilómetros más.</p>
+  <p id="solver"></p>
+  <p>Distancias por calles aproximadas y velocidad de 22 km/h. Con datos reales cambian los números; lo que se mantiene es el método.</p>
+
+  <h2>Datos reales que habría que pedir para correrlo con la cuadrilla verdadera</h2>
+  <ol>
+    <li>Lista de técnicos: punto de salida (colonia o código postal, no domicilio), horario y días que trabaja.</li>
+    <li>Qué servicios puede hacer cada técnico (habilidades o certificaciones).</li>
+    <li>Órdenes de un día o una semana típica: zona, tipo de servicio y ventana que se le prometió al cliente.</li>
+    <li>Duración real promedio por tipo de servicio (de las órdenes cerradas).</li>
+    <li>Reglas del negocio: urgencias, servicios que no se pueden posponer, máximo de servicios por técnico, pago por visita o por kilómetro.</li>
+    <li>Cómo se asigna hoy (quién decide y con qué herramienta), para comparar contra la realidad y no contra una suposición.</li>
+  </ol>
+</main>
+<script>
+const D = {"ciudad": {"ancho": 24.0, "alto": 16.0}, "jornada": [480, 1080], "tecnicos": [{"id": 0, "nombre": "T01", "casa": [1.3621748914490555, 12.421257609268476], "habilidades": ["Filtros", "Fugas"]}, {"id": 1, "nombre": "T02", "casa": [22.889583571395235, 15.788120478121948], "habilidades": ["Bombas", "Fugas", "Purificador"]}, {"id": 2, "nombre": "T03", "casa": [20.501306394746607, 2.3072523032917207], "habilidades": ["Bombas", "Filtros", "Purificador"]}, {"id": 3, "nombre": "T04", "casa": [12.527812274565951, 7.337332713738002], "habilidades": ["Filtros", "Fugas"]}, {"id": 4, "nombre": "T05", "casa": [18.085976998970775, 8.196188411513992], "habilidades": ["Bombas", "Purificador"]}, {"id": 5, "nombre": "T06", "casa": [13.729684970934182, 6.355810573302748], "habilidades": ["Bombas", "Fugas"]}, {"id": 6, "nombre": "T07", "casa": [7.10706790125574, 9.583732641371016], "habilidades": ["Bombas", "Filtros"]}, {"id": 7, "nombre": "T08", "casa": [5.160913933543933, 6.677311664262631], "habilidades": ["Purificador"]}, {"id": 8, "nombre": "T09", "casa": [6.631257229214104, 11.81295297636605], "habilidades": ["Purificador"]}, {"id": 9, "nombre": "T10", "casa": [14.26099823666802, 0.9966396230015491], "habilidades": ["Bombas"]}, {"id": 10, "nombre": "T11", "casa": [12.120470857870824, 9.236291720417523], "habilidades": ["Filtros", "Fugas", "Purificador"]}, {"id": 11, "nombre": "T12", "casa": [19.38087858453423, 9.680604550290209], "habilidades": ["Bombas", "Filtros"]}, {"id": 12, "nombre": "T13", "casa": [17.0639923868708, 15.463901763449641], "habilidades": ["Bombas", "Filtros", "Fugas"]}, {"id": 13, "nombre": "T14", "casa": [22.50825894584546, 6.244705205489685], "habilidades": ["Bombas", "Purificador"]}, {"id": 14, "nombre": "T15", "casa": [0.8177051594361275, 0.3063982496339026], "habilidades": ["Bombas", "Fugas", "Purificador"]}], "ordenes": [{"id": 0, "folio": "OS-101", "lugar": [14.518783172790592, 8.714301321899017], "habilidad": "Filtros", "duracion": 25, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 1, "folio": "OS-102", "lugar": [20.26782876504111, 14.699749520217429], "habilidad": "Purificador", "duracion": 90, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 2, "folio": "OS-103", "lugar": [18.00574682777628, 6.329210739815885], "habilidad": "Purificador", "duracion": 90, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 3, "folio": "OS-104", "lugar": [12.887521224272094, 10.130648701638828], "habilidad": "Bombas", "duracion": 90, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 4, "folio": "OS-105", "lugar": [9.644094340232371, 12.912998117960589], "habilidad": "Purificador", "duracion": 65, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 5, "folio": "OS-106", "lugar": [22.28007454075503, 0.7060630349751325], "habilidad": "Filtros", "duracion": 35, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 6, "folio": "OS-107", "lugar": [9.72955284859987, 11.024591095603903], "habilidad": "Filtros", "duracion": 45, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 7, "folio": "OS-108", "lugar": [2.406384963443391, 0.37161865390049975], "habilidad": "Purificador", "duracion": 75, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 8, "folio": "OS-109", "lugar": [0.9073362286383606, 9.951861378244523], "habilidad": "Fugas", "duracion": 65, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 9, "folio": "OS-110", "lugar": [16.193738836987983, 9.012949259686724], "habilidad": "Purificador", "duracion": 90, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 10, "folio": "OS-111", "lugar": [12.777258411063189, 8.912014955236767], "habilidad": "Purificador", "duracion": 65, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 11, "folio": "OS-112", "lugar": [10.503285316138914, 9.341582622650717], "habilidad": "Filtros", "duracion": 45, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 12, "folio": "OS-113", "lugar": [6.606770200031832, 10.370029841902204], "habilidad": "Filtros", "duracion": 50, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 13, "folio": "OS-114", "lugar": [9.70836799428383, 14.147657639607424], "habilidad": "Fugas", "duracion": 40, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 14, "folio": "OS-115", "lugar": [8.470838619627461, 15.805033853486645], "habilidad": "Fugas", "duracion": 65, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 15, "folio": "OS-116", "lugar": [0.6752011671087699, 11.346307911895416], "habilidad": "Filtros", "duracion": 35, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 16, "folio": "OS-117", "lugar": [14.042627770736182, 7.818866528532625], "habilidad": "Filtros", "duracion": 25, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 17, "folio": "OS-118", "lugar": [14.304317729588998, 9.374801628474387], "habilidad": "Fugas", "duracion": 40, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 18, "folio": "OS-119", "lugar": [2.009939389947199, 11.202291213564449], "habilidad": "Purificador", "duracion": 75, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 19, "folio": "OS-120", "lugar": [15.46306315683277, 3.0413416354690597], "habilidad": "Purificador", "duracion": 85, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 20, "folio": "OS-121", "lugar": [15.239759590279014, 7.872753578435818], "habilidad": "Filtros", "duracion": 25, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 21, "folio": "OS-122", "lugar": [10.61758760768214, 5.634930874708095], "habilidad": "Filtros", "duracion": 50, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 22, "folio": "OS-123", "lugar": [20.427798733926366, 7.700162993427249], "habilidad": "Purificador", "duracion": 65, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 23, "folio": "OS-124", "lugar": [8.822347356395195, 8.234616783987589], "habilidad": "Bombas", "duracion": 100, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 24, "folio": "OS-125", "lugar": [10.994357693931894, 12.000094615911504], "habilidad": "Bombas", "duracion": 105, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 25, "folio": "OS-126", "lugar": [15.494735873539451, 8.47837484078089], "habilidad": "Bombas", "duracion": 90, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 26, "folio": "OS-127", "lugar": [9.212855219005458, 10.474473440904308], "habilidad": "Filtros", "duracion": 45, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 27, "folio": "OS-128", "lugar": [22.824113255484356, 9.996683094500364], "habilidad": "Filtros", "duracion": 35, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 28, "folio": "OS-129", "lugar": [1.6066345185871622, 15.770141545662511], "habilidad": "Filtros", "duracion": 50, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 29, "folio": "OS-130", "lugar": [5.345453975490741, 2.1953738719576723], "habilidad": "Fugas", "duracion": 50, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 30, "folio": "OS-131", "lugar": [8.06494657518048, 11.401908489075625], "habilidad": "Bombas", "duracion": 105, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 31, "folio": "OS-132", "lugar": [18.283308043817108, 11.363243463894253], "habilidad": "Bombas", "duracion": 80, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 32, "folio": "OS-133", "lugar": [7.969368995693349, 10.97689627841672], "habilidad": "Filtros", "duracion": 50, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 33, "folio": "OS-134", "lugar": [10.461206802557776, 8.641906955389773], "habilidad": "Purificador", "duracion": 75, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 34, "folio": "OS-135", "lugar": [15.989756653588461, 5.908324427401335], "habilidad": "Bombas", "duracion": 90, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 35, "folio": "OS-136", "lugar": [15.576745507886626, 6.325947050932813], "habilidad": "Fugas", "duracion": 50, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 36, "folio": "OS-137", "lugar": [7.472223609738773, 8.129875687832088], "habilidad": "Purificador", "duracion": 75, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 37, "folio": "OS-138", "lugar": [5.895299818897724, 12.572522300597692], "habilidad": "Purificador", "duracion": 75, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 38, "folio": "OS-139", "lugar": [9.890806933180318, 8.034583358843074], "habilidad": "Fugas", "duracion": 50, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 39, "folio": "OS-140", "lugar": [15.437989781491293, 7.751315388149441], "habilidad": "Filtros", "duracion": 35, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 40, "folio": "OS-141", "lugar": [23.12158665055932, 4.580292738539034], "habilidad": "Fugas", "duracion": 65, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 41, "folio": "OS-142", "lugar": [11.709797744002634, 11.040986929996672], "habilidad": "Filtros", "duracion": 50, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 42, "folio": "OS-143", "lugar": [6.371294760991149, 10.730980775734484], "habilidad": "Purificador", "duracion": 75, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 43, "folio": "OS-144", "lugar": [15.706419159802682, 9.440912605169375], "habilidad": "Bombas", "duracion": 90, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 44, "folio": "OS-145", "lugar": [16.543800781252394, 0.9865874713432294], "habilidad": "Fugas", "duracion": 60, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 45, "folio": "OS-146", "lugar": [9.582421961287643, 8.793632515537826], "habilidad": "Filtros", "duracion": 50, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 46, "folio": "OS-147", "lugar": [17.46433238134748, 8.942924462859441], "habilidad": "Bombas", "duracion": 90, "ventana": "Mañana", "abre": 480, "cierra": 720}, {"id": 47, "folio": "OS-148", "lugar": [8.594821469491453, 16.0], "habilidad": "Filtros", "duracion": 25, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 48, "folio": "OS-149", "lugar": [16.775252258656682, 9.65849554180891], "habilidad": "Bombas", "duracion": 90, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 49, "folio": "OS-150", "lugar": [12.584585070843959, 4.651643353336137], "habilidad": "Purificador", "duracion": 75, "ventana": "Tarde", "abre": 720, "cierra": 1020}, {"id": 50, "folio": "OS-151", "lugar": [10.20126542446549, 10.019784045883338], "habilidad": "Filtros", "duracion": 35, "ventana": "Todo el día", "abre": 480, "cierra": 1020}, {"id": 51, "folio": "OS-152", "lugar": [16.165529611289752, 8.163264106319282], "habilidad": "Filtros", "duracion": 25, "ventana": "Mañana", "abre": 480, "cierra": 720}], "antes": {"plan": {"0": {"km": 31.1, "paradas": [{"orden": 8, "estado": "a tiempo", "llega": 489, "empieza": 489, "termina": 554}, {"orden": 14, "estado": "a tiempo", "llega": 592, "empieza": 592, "termina": 657}, {"orden": 28, "estado": "a tiempo", "llega": 677, "empieza": 677, "termina": 727}, {"orden": 15, "estado": "a tiempo", "llega": 742, "empieza": 742, "termina": 777}], "regreso": 782}, "1": {"km": 64.3, "paradas": [{"orden": 1, "estado": "a tiempo", "llega": 491, "empieza": 491, "termina": 581}, {"orden": 29, "estado": "a tiempo", "llega": 658, "empieza": 658, "termina": 708}, {"orden": 40, "estado": "tarde", "llega": 765, "empieza": 765, "termina": 830}], "regreso": 862}, "2": {"km": 6.9, "paradas": [{"orden": 5, "estado": "a tiempo", "llega": 490, "empieza": 720, "termina": 755}], "regreso": 765}, "3": {"km": 29.8, "paradas": [{"orden": 6, "estado": "a tiempo", "llega": 499, "empieza": 499, "termina": 544}, {"orden": 16, "estado": "a tiempo", "llega": 566, "empieza": 566, "termina": 591}, {"orden": 38, "estado": "a tiempo", "llega": 604, "empieza": 604, "termina": 654}, {"orden": 50, "estado": "a tiempo", "llega": 661, "empieza": 661, "termina": 696}, {"orden": 11, "estado": "a tiempo", "llega": 699, "empieza": 720, "termina": 765}, {"orden": 41, "estado": "a tiempo", "llega": 774, "empieza": 774, "termina": 824}], "regreso": 837}, "4": {"km": 25.5, "paradas": [{"orden": 2, "estado": "a tiempo", "llega": 486, "empieza": 486, "termina": 576}, {"orden": 9, "estado": "a tiempo", "llega": 589, "empieza": 589, "termina": 679}, {"orden": 46, "estado": "a tiempo", "llega": 683, "empieza": 683, "termina": 773}, {"orden": 48, "estado": "a tiempo", "llega": 777, "empieza": 777, "termina": 867}, {"orden": 19, "estado": "a tiempo", "llega": 890, "empieza": 890, "termina": 975}, {"orden": 31, "estado": "pospuesta"}, {"orden": 43, "estado": "pospuesta"}], "regreso": 997}, "5": {"km": 25.4, "paradas": [{"orden": 3, "estado": "a tiempo", "llega": 493, "empieza": 493, "termina": 583}, {"orden": 13, "estado": "a tiempo", "llega": 604, "empieza": 604, "termina": 644}, {"orden": 17, "estado": "a tiempo", "llega": 671, "empieza": 671, "termina": 711}], "regreso": 722}, "6": {"km": 28.5, "paradas": [{"orden": 12, "estado": "a tiempo", "llega": 484, "empieza": 484, "termina": 534}, {"orden": 26, "estado": "a tiempo", "llega": 542, "empieza": 542, "termina": 587}, {"orden": 32, "estado": "a tiempo", "llega": 592, "empieza": 592, "termina": 642}, {"orden": 45, "estado": "a tiempo", "llega": 653, "empieza": 653, "termina": 703}, {"orden": 23, "estado": "a tiempo", "llega": 707, "empieza": 720, "termina": 820}, {"orden": 30, "estado": "a tiempo", "llega": 831, "empieza": 831, "termina": 936}, {"orden": 47, "estado": "a tiempo", "llega": 951, "empieza": 951, "termina": 976}], "regreso": 999}, "7": {"km": 13.0, "paradas": [{"orden": 36, "estado": "a tiempo", "llega": 491, "empieza": 491, "termina": 566}, {"orden": 42, "estado": "a tiempo", "llega": 577, "empieza": 577, "termina": 652}], "regreso": 667}, "8": {"km": 3.1, "paradas": [{"orden": 37, "estado": "a tiempo", "llega": 485, "empieza": 485, "termina": 560}], "regreso": 565}, "9": {"km": 29.3, "paradas": [{"orden": 24, "estado": "a tiempo", "llega": 520, "empieza": 720, "termina": 825}], "regreso": 865}, "10": {"km": 25.5, "paradas": [{"orden": 10, "estado": "a tiempo", "llega": 483, "empieza": 483, "termina": 548}, {"orden": 33, "estado": "a tiempo", "llega": 556, "empieza": 556, "termina": 631}, {"orden": 4, "estado": "a tiempo", "llega": 646, "empieza": 720, "termina": 785}, {"orden": 21, "estado": "a tiempo", "llega": 809, "empieza": 809, "termina": 859}, {"orden": 49, "estado": "a tiempo", "llega": 868, "empieza": 868, "termina": 943}], "regreso": 958}, "11": {"km": 7.7, "paradas": [{"orden": 27, "estado": "a tiempo", "llega": 491, "empieza": 491, "termina": 526}], "regreso": 537}, "12": {"km": 47.5, "paradas": [{"orden": 0, "estado": "a tiempo", "llega": 506, "empieza": 506, "termina": 531}, {"orden": 34, "estado": "a tiempo", "llega": 543, "empieza": 543, "termina": 633}, {"orden": 39, "estado": "a tiempo", "llega": 640, "empieza": 640, "termina": 675}, {"orden": 44, "estado": "a tiempo", "llega": 698, "empieza": 698, "termina": 758}, {"orden": 51, "estado": "tarde", "llega": 780, "empieza": 780, "termina": 805}, {"orden": 20, "estado": "a tiempo", "llega": 809, "empieza": 809, "termina": 834}, {"orden": 25, "estado": "a tiempo", "llega": 837, "empieza": 837, "termina": 927}, {"orden": 35, "estado": "a tiempo", "llega": 934, "empieza": 934, "termina": 984}], "regreso": 1014}, "13": {"km": 7.2, "paradas": [{"orden": 22, "estado": "a tiempo", "llega": 490, "empieza": 490, "termina": 555}], "regreso": 565}, "14": {"km": 25.6, "paradas": [{"orden": 7, "estado": "a tiempo", "llega": 485, "empieza": 720, "termina": 795}, {"orden": 18, "estado": "a tiempo", "llega": 827, "empieza": 827, "termina": 902}], "regreso": 936}}, "resumen": {"km": 370.4, "atendidas": 50, "sin_atender": 2, "a_tiempo": 48, "pct_a_tiempo": 96, "por_tecnico": 3.3, "tecnicos_usados": 15, "horas_manejo": 16.8}}, "despues": {"plan": {"0": {"km": 13.8, "paradas": [{"orden": 28, "estado": "a tiempo", "llega": 491, "empieza": 491, "termina": 541}, {"orden": 8, "estado": "a tiempo", "llega": 560, "empieza": 560, "termina": 625}, {"orden": 15, "estado": "a tiempo", "llega": 630, "empieza": 720, "termina": 755}], "regreso": 760}, "1": {"km": 7.6, "paradas": [{"orden": 1, "estado": "a tiempo", "llega": 491, "empieza": 491, "termina": 581}], "regreso": 592}, "2": {"km": 31.3, "paradas": [{"orden": 22, "estado": "a tiempo", "llega": 496, "empieza": 496, "termina": 561}, {"orden": 2, "estado": "a tiempo", "llega": 572, "empieza": 572, "termina": 662}, {"orden": 34, "estado": "a tiempo", "llega": 669, "empieza": 669, "termina": 759}, {"orden": 21, "estado": "a tiempo", "llega": 775, "empieza": 775, "termina": 825}, {"orden": 49, "estado": "a tiempo", "llega": 834, "empieza": 834, "termina": 909}, {"orden": 19, "estado": "a tiempo", "llega": 922, "empieza": 922, "termina": 1007}], "regreso": 1024}, "3": {"km": 43.0, "paradas": [{"orden": 16, "estado": "a tiempo", "llega": 486, "empieza": 486, "termina": 511}, {"orden": 0, "estado": "a tiempo", "llega": 515, "empieza": 515, "termina": 540}, {"orden": 51, "estado": "a tiempo", "llega": 547, "empieza": 547, "termina": 572}, {"orden": 27, "estado": "a tiempo", "llega": 596, "empieza": 596, "termina": 631}, {"orden": 40, "estado": "a tiempo", "llega": 647, "empieza": 647, "termina": 712}, {"orden": 5, "estado": "a tiempo", "llega": 726, "empieza": 726, "termina": 761}, {"orden": 44, "estado": "a tiempo", "llega": 778, "empieza": 778, "termina": 838}, {"orden": 35, "estado": "a tiempo", "llega": 856, "empieza": 856, "termina": 906}, {"orden": 39, "estado": "a tiempo", "llega": 911, "empieza": 911, "termina": 946}, {"orden": 20, "estado": "a tiempo", "llega": 947, "empieza": 947, "termina": 972}], "regreso": 982}, "4": {"km": 13.3, "paradas": [{"orden": 46, "estado": "a tiempo", "llega": 484, "empieza": 484, "termina": 574}, {"orden": 9, "estado": "a tiempo", "llega": 578, "empieza": 578, "termina": 668}, {"orden": 25, "estado": "a tiempo", "llega": 672, "empieza": 720, "termina": 810}, {"orden": 43, "estado": "a tiempo", "llega": 814, "empieza": 814, "termina": 904}, {"orden": 31, "estado": "a tiempo", "llega": 917, "empieza": 917, "termina": 997}], "regreso": 1007}, "5": {"km": 0.0, "paradas": [], "regreso": 480}, "6": {"km": 14.6, "paradas": [{"orden": 12, "estado": "a tiempo", "llega": 484, "empieza": 484, "termina": 534}, {"orden": 26, "estado": "a tiempo", "llega": 542, "empieza": 542, "termina": 587}, {"orden": 6, "estado": "a tiempo", "llega": 590, "empieza": 590, "termina": 635}, {"orden": 30, "estado": "a tiempo", "llega": 641, "empieza": 720, "termina": 825}, {"orden": 32, "estado": "a tiempo", "llega": 827, "empieza": 827, "termina": 877}, {"orden": 23, "estado": "a tiempo", "llega": 888, "empieza": 888, "termina": 988}], "regreso": 997}, "7": {"km": 0.0, "paradas": [], "regreso": 480}, "8": {"km": 14.2, "paradas": [{"orden": 37, "estado": "a tiempo", "llega": 485, "empieza": 485, "termina": 560}, {"orden": 42, "estado": "a tiempo", "llega": 567, "empieza": 567, "termina": 642}, {"orden": 18, "estado": "a tiempo", "llega": 656, "empieza": 720, "termina": 795}], "regreso": 810}, "9": {"km": 0.0, "paradas": [], "regreso": 480}, "10": {"km": 20.9, "paradas": [{"orden": 10, "estado": "a tiempo", "llega": 483, "empieza": 483, "termina": 548}, {"orden": 33, "estado": "a tiempo", "llega": 556, "empieza": 556, "termina": 631}, {"orden": 38, "estado": "a tiempo", "llega": 635, "empieza": 635, "termina": 685}, {"orden": 36, "estado": "a tiempo", "llega": 693, "empieza": 693, "termina": 768}, {"orden": 45, "estado": "a tiempo", "llega": 776, "empieza": 776, "termina": 826}, {"orden": 4, "estado": "a tiempo", "llega": 838, "empieza": 838, "termina": 903}, {"orden": 50, "estado": "a tiempo", "llega": 913, "empieza": 913, "termina": 948}, {"orden": 11, "estado": "a tiempo", "llega": 951, "empieza": 951, "termina": 996}], "regreso": 1001}, "11": {"km": 0.0, "paradas": [], "regreso": 480}, "12": {"km": 31.2, "paradas": [{"orden": 48, "estado": "a tiempo", "llega": 498, "empieza": 498, "termina": 588}, {"orden": 17, "estado": "a tiempo", "llega": 596, "empieza": 596, "termina": 636}, {"orden": 3, "estado": "a tiempo", "llega": 643, "empieza": 643, "termina": 733}, {"orden": 41, "estado": "a tiempo", "llega": 739, "empieza": 739, "termina": 789}, {"orden": 24, "estado": "a tiempo", "llega": 794, "empieza": 794, "termina": 899}, {"orden": 13, "estado": "a tiempo", "llega": 909, "empieza": 909, "termina": 949}, {"orden": 47, "estado": "a tiempo", "llega": 958, "empieza": 958, "termina": 983}, {"orden": 14, "estado": "a tiempo", "llega": 984, "empieza": 984, "termina": 1049}], "regreso": 1074}, "13": {"km": 0.0, "paradas": [], "regreso": 480}, "14": {"km": 13.2, "paradas": [{"orden": 29, "estado": "a tiempo", "llega": 498, "empieza": 498, "termina": 548}, {"orden": 7, "estado": "a tiempo", "llega": 562, "empieza": 720, "termina": 795}], "regreso": 800}}, "resumen": {"km": 203.1, "atendidas": 52, "sin_atender": 0, "a_tiempo": 52, "pct_a_tiempo": 100, "por_tecnico": 5.2, "tecnicos_usados": 10, "horas_manejo": 9.2}}, "solver": "OR-Tools 9.15, ruteo con ventanas de horario y habilidades, búsqueda local guiada 30 s"};
+const $ = (id) => document.getElementById(id);
+const esc = (t) => String(t ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const hora = (m) => m == null ? "—" : `${Math.floor(m / 60)}:${String(m % 60).padStart(2, "0")}`;
+let plan = "despues", sel = null;
+const W = 720, H = Math.round(720 * D.ciudad.alto / D.ciudad.ancho), M = 16;
+const X = (x) => M + x / D.ciudad.ancho * (W - 2 * M), Y = (y) => M + y / D.ciudad.alto * (H - 2 * M);
+$("solver").textContent = "Solver: " + D.solver + ".";
+
+function tiles() {
+  const a = D.antes.resumen, d = D.despues.resumen, r = D[plan].resumen;
+  const t = [
+    ["Kilómetros del día", r.km.toLocaleString("es-MX"), `antes <b>${a.km}</b> · después <b>${d.km}</b> · ${Math.round(100 * (1 - d.km / a.km))} % menos`],
+    ["Servicios atendidos", `${r.atendidas} de ${D.ordenes.length}`, `antes <b>${a.atendidas}</b> · después <b>${d.atendidas}</b>`],
+    ["Llegadas a tiempo", `${r.pct_a_tiempo} %`, `antes <b>${a.pct_a_tiempo} %</b> · después <b>${d.pct_a_tiempo} %</b>`],
+    ["Técnicos con trabajo", `${r.tecnicos_usados} de ${D.tecnicos.length}`, `servicios por técnico: antes <b>${a.por_tecnico}</b> · después <b>${d.por_tecnico}</b>`],
+  ];
+  $("tiles").innerHTML = t.map(([e, v, c]) => `<div class="tile"><div class="et">${e}</div><div class="v">${v}</div><div class="c">${c}</div></div>`).join("");
+}
+
+function lista() {
+  const P = D[plan].plan;
+  $("lista").innerHTML = D.tecnicos.map((t) => {
+    const r = P[t.id], n = r.paradas.filter((p) => p.estado !== "pospuesta").length;
+    return `<button data-t="${t.id}" aria-pressed="${sel === t.id}"><span class="n">${t.nombre}</span><span><span class="h">${esc(t.habilidades.join(", "))}</span></span><span class="k">${n} serv.<br>${r.km} km</span></button>`;
+  }).join("");
+  $("lista").querySelectorAll("button").forEach((b) => b.onclick = () => { sel = +b.dataset.t; pinta(); });
+}
+
+function mapa() {
+  const P = D[plan].plan, s = [];
+  for (let gx = 0; gx <= D.ciudad.ancho; gx += 4) s.push(`<line x1="${X(gx)}" y1="${M}" x2="${X(gx)}" y2="${H - M}" stroke="var(--grid)" stroke-width="1"/>`);
+  for (let gy = 0; gy <= D.ciudad.alto; gy += 4) s.push(`<line x1="${M}" y1="${Y(gy)}" x2="${W - M}" y2="${Y(gy)}" stroke="var(--grid)" stroke-width="1"/>`);
+  const linea = (t, color, ancho) => {
+    const pts = [t.casa, ...P[t.id].paradas.filter((p) => p.estado !== "pospuesta").map((p) => D.ordenes[p.orden].lugar), t.casa];
+    if (pts.length < 3) return "";
+    return `<polyline points="${pts.map((p) => `${X(p[0])},${Y(p[1])}`).join(" ")}" fill="none" stroke="${color}" stroke-width="${ancho}" stroke-linejoin="round" stroke-linecap="round"/>`;
+  };
+  D.tecnicos.forEach((t) => { if (t.id !== sel) s.push(linea(t, "var(--ruta)", 1.5)); });
+  if (sel != null) s.push(linea(D.tecnicos[sel], "var(--acento)", 3));
+  const mias = new Set(sel == null ? [] : P[sel].paradas.map((p) => p.orden));
+  D.ordenes.forEach((o) => {
+    const m = mias.has(o.id);
+    s.push(`<circle data-o="${o.id}" cx="${X(o.lugar[0])}" cy="${Y(o.lugar[1])}" r="${m ? 6 : 4.5}" fill="${m ? "var(--acento)" : "var(--ink2)"}" stroke="var(--surface)" stroke-width="2"/>`);
+  });
+  D.tecnicos.forEach((t) => s.push(`<rect data-c="${t.id}" x="${X(t.casa[0]) - 5}" y="${Y(t.casa[1]) - 5}" width="10" height="10" fill="var(--ink)" stroke="var(--surface)" stroke-width="2" ${t.id === sel ? 'style="outline:2px solid var(--acento)"' : ""}/>`));
+  const svg = $("svg"); svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.innerHTML = s.join("");
+  const quien = {}; D.tecnicos.forEach((t) => P[t.id].paradas.forEach((p) => quien[p.orden] = { t, p }));
+  svg.querySelectorAll("circle,rect").forEach((el) => {
+    el.style.cursor = "pointer";
+    el.onmouseenter = el.onfocus = (e) => {
+      let h;
+      if (el.dataset.o != null) {
+        const o = D.ordenes[+el.dataset.o], q = quien[o.id];
+        h = `<b>${o.folio}</b> · ${esc(o.habilidad)}<br>Ventana: ${esc(o.ventana)} (${hora(o.abre)} a ${hora(o.cierra)})<br>${q ? `${q.t.nombre} · ${q.p.estado === "pospuesta" ? "pospuesta" : `llega ${hora(q.p.llega)} · ${q.p.estado}`}` : "sin asignar"}`;
+      } else { const t = D.tecnicos[+el.dataset.c]; h = `<b>${t.nombre}</b> · casa<br>${esc(t.habilidades.join(", "))}`; }
+      const tip = $("tip"); tip.innerHTML = h; tip.style.display = "block";
+      const r = $("mapa").getBoundingClientRect(), b = el.getBoundingClientRect();
+      tip.style.left = Math.min(r.width - 250, Math.max(8, b.left - r.left + 12)) + "px"; tip.style.top = (b.top - r.top + 12) + "px";
+    };
+    el.onmouseleave = () => $("tip").style.display = "none";
+    el.onclick = () => { const t = el.dataset.c != null ? +el.dataset.c : quien[+el.dataset.o]?.t.id; if (t != null) { sel = t; pinta(); } };
+  });
+}
+
+function agenda() {
+  if (sel == null) { $("agenda").innerHTML = `<tr><td colspan="6">Elige un técnico.</td></tr>`; return; }
+  const r = D[plan].plan[sel];
+  $("agenda").innerHTML = r.paradas.length ? r.paradas.map((p) => { const o = D.ordenes[p.orden];
+    return `<tr><td>${o.folio}</td><td>${esc(o.habilidad)} · ${o.duracion} min</td><td>${esc(o.ventana)} (${hora(o.abre)} a ${hora(o.cierra)})</td><td class="num">${hora(p.llega)}</td><td class="num">${hora(p.termina)}</td><td>${p.estado}</td></tr>`; }).join("")
+    : `<tr><td colspan="6">Sin servicios este día${plan === "despues" ? ": queda libre para urgencias u otra cuadrilla." : "."}</td></tr>`;
+}
+
+function pinta() {
+  document.querySelectorAll(".conmuta button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.p === plan)));
+  tiles(); lista(); mapa(); agenda();
+}
+document.querySelectorAll(".conmuta button").forEach((b) => b.onclick = () => { plan = b.dataset.p; pinta(); });
+sel = D.tecnicos.reduce((a, t) => (D.despues.plan[t.id].paradas.length > D.despues.plan[a.id].paradas.length ? t : a)).id;
+pinta();
+</script>
+</body>
+</html>

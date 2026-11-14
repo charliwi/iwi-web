@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>alkimia · finanzas</title>
+<style>
+/* alkimia · vistas de finanzas (Diseño, 11 nov 2026). Carlos, 10 nov: «pantallas configurables en color que corran en todos lados;
+   la app necesita vistas, como dónde ir a ver finanzas». Lenguaje del video 01-B: noche con dos luces, tarjetas claras, esfera viva.
+   Esquinas de 6 px (Carlos, 11 nov). Números de ejemplo, ni altos ni bajos. Color por tokens: data-tema en <html>. */
+:root{--noche:#15131F;--pergamino:#F3EEE4;--tenue-n:#B9B2C4;--surface:#FFFFFF;--ink:#191714;--tenue:#5E5868;--linea:#ECE8EF;--suave:#F6F3F8;
+ --luz1:#4A2A7A;--luz2:#D97757;--acento:#4A2A7A;--accion:#D97757;--entra:#2E7D4F;--sale:#C2563A;--ok:#2E5C35;--ok-f:#E2F0E6;--av:#8A6800;--av-f:#FBF1D9;--mal:#B3261E;--mal-f:#FBE9E7;
+ --r:6px;--sombra:0 14px 40px rgba(0,0,0,.22);--sans:"Helvetica Neue",Helvetica,Arial,sans-serif;--typ:"Courier Prime","Courier New",Courier,monospace;--fondo:var(--noche);--texto-fondo:var(--pergamino)}
+:root[data-tema="verde"]{--luz1:#2E5C35;--luz2:#2A6466;--acento:#2E5C35;--accion:#2A6466}
+:root[data-tema="azul"]{--luz1:#3A4A86;--luz2:#2A6466;--acento:#3A4A86;--accion:#3A4A86}
+:root[data-tema="ocre"]{--luz1:#8A6A1E;--luz2:#6D4A2A;--acento:#6D4A2A;--accion:#B8742A}
+:root[data-tema="claro"]{--fondo:#F0EEE6;--texto-fondo:#191714;--tenue-n:#5E5868;--luz1:#E8DDF5;--luz2:#F6E4DB;--sombra:0 6px 20px rgba(25,23,20,.08)}
+*{box-sizing:border-box;margin:0}
+html{background:var(--fondo)}
+body{min-height:100vh;background:var(--fondo);color:var(--texto-fondo);font:400 15px/1.45 var(--sans);overflow-x:hidden}
+body::before,body::after{content:"";position:fixed;z-index:0;width:110vmax;height:110vmax;border-radius:50%;filter:blur(110px);opacity:.7;pointer-events:none;transition:background 1.2s}
+body::before{background:var(--luz1);left:-60vmax;top:-65vmax;animation:l1 28s ease-in-out infinite alternate}
+body::after{background:var(--luz2);right:-65vmax;bottom:-70vmax;opacity:.55;animation:l2 33s ease-in-out infinite alternate}
+@keyframes l1{to{transform:translate(16vmax,12vmax)}}@keyframes l2{to{transform:translate(-14vmax,-10vmax)}}
+.app{position:relative;z-index:1;display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+/* navegación */
+nav.lado{padding:28px 18px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh}
+.marca{font:700 26px/1 var(--sans);letter-spacing:-.04em;margin:0 10px 28px}
+nav.lado a,nav.abajo a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r);color:var(--texto-fondo);text-decoration:none;font-weight:600;opacity:.75}
+nav.lado a[aria-current],nav.abajo a[aria-current]{background:var(--surface);color:var(--ink);opacity:1;box-shadow:var(--sombra)}
+nav.lado a svg,nav.abajo a svg{width:20px;height:20px;flex:none}
+nav.lado .sec{font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--tenue-n);margin:18px 12px 6px}
+nav.abajo{display:none}
+main{padding:28px 32px 64px;max-width:1180px}
+.cab{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+h1{font:700 40px/1.05 var(--sans);letter-spacing:-.03em}
+.sub{font:400 15px/1.5 var(--typ);color:var(--tenue-n);margin-top:6px}
+.temas{display:flex;gap:6px;align-items:center;padding:6px;border-radius:var(--r);background:rgba(255,255,255,.12)}
+:root[data-tema="claro"] .temas{background:rgba(25,23,20,.06)}
+.temas span{font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--tenue-n);margin:0 6px}
+.temas button{width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
+.temas button[aria-pressed="true"]{border-color:var(--texto-fondo)}
+.vista{display:none}.vista.activa{display:block}
+.card{background:var(--surface);color:var(--ink);border-radius:var(--r);box-shadow:var(--sombra);padding:20px 22px}
+.et{font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--tenue)}
+.num{font:700 30px/1.1 var(--sans);letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:6px}
+.num small{font-size:15px;font-weight:600}
+.mut{color:var(--tenue);font-size:13px}
+.rej{display:grid;gap:16px}.rej>*,main{min-width:0}
+.k3{grid-template-columns:repeat(3,1fr)}
+.dos{grid-template-columns:1.6fr 1fr}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:var(--r);font:700 12px/20px var(--sans);white-space:nowrap}
+.p-ok{background:var(--ok-f);color:var(--ok)}.p-av{background:var(--av-f);color:var(--av)}.p-mal{background:var(--mal-f);color:var(--mal)}.p-n{background:var(--suave);color:var(--tenue)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);text-align:left;padding:0 8px 10px}
+td{padding:12px 8px;border-top:1px solid var(--linea);vertical-align:middle}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tabla{overflow-x:auto}.tabla table{min-width:560px}
+.bt{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:8px 16px;border-radius:var(--r);border:2px solid var(--ink);background:transparent;color:var(--ink);font:700 14px var(--sans);cursor:pointer}
+.bt.si{background:var(--accion);border-color:var(--accion);color:#fff}
+/* esfera de alkimia */
+.orb{width:44px;height:44px;border-radius:50%;flex:none;background:conic-gradient(from 0deg,#8C5ADC,#FF46AA,#FF6E28,#FFBE3C,#1EDC78,#2878FF,#8C5ADC);filter:saturate(1.3);box-shadow:0 0 18px rgba(140,90,220,.5);animation:gira 5s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+.pregunta{display:flex;gap:14px;align-items:center}
+.pregunta .tx{flex:1}
+.pregunta .tx b{display:block;font-size:17px;margin-bottom:2px}
+.dice{display:flex;gap:10px;align-items:center;margin-top:14px;padding:12px 14px;border-radius:var(--r);background:var(--suave);font-size:14px}
+.dice svg{width:18px;height:18px;flex:none;color:var(--acento)}
+.leyenda{display:flex;gap:18px;font-size:13px;color:var(--tenue);margin-top:8px}
+.leyenda i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.barra{height:10px;border-radius:3px;background:var(--suave);overflow:hidden}.barra i{display:block;height:100%;border-radius:3px}
+.fila{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--linea)}
+.fila:first-of-type{border-top:0}
+.ori{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--tenue)}
+.ori svg{width:16px;height:16px}
+h2{font:700 18px var(--sans);margin-bottom:14px}
+.ejemplo{font:400 12px var(--typ);color:var(--tenue-n);margin-top:28px}
+@media (max-width:900px){
+ .app{grid-template-columns:1fr}nav.lado{display:none}
+ nav.abajo{display:flex;position:fixed;z-index:5;left:10px;right:10px;bottom:10px;justify-content:space-around;padding:6px;border-radius:calc(var(--r) + 4px);background:rgba(21,19,31,.82);backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+ :root[data-tema="claro"] nav.abajo{background:rgba(255,255,255,.9)}
+ nav.abajo a{flex-direction:column;gap:3px;padding:8px 6px;font-size:11px;flex:1}
+ main{padding:20px 16px 110px}
+ .k3,.dos{grid-template-columns:1fr}
+ h1{font-size:32px}
+ .k3{grid-template-columns:1fr 1fr}.k3 .card:last-child{grid-column:1/-1}
+}
+@media (max-width:600px){
+ .tabla table{min-width:0}.tabla tr:first-child{display:none}
+ .tabla tr{display:grid;grid-template-columns:1fr auto;column-gap:12px;padding:10px 0;border-top:1px solid var(--linea)}
+ .tabla td{border:0;padding:1px 0;font-size:14px;color:var(--tenue)}
+ .tabla td:first-child{color:var(--ink);font-weight:700;font-size:15px}
+ .tabla td.n{grid-column:2;grid-row:1;color:var(--ink);font-weight:700}
+ .tabla td:last-child:not(.n){grid-column:2;grid-row:2;justify-self:end}
+ #movimientos .tabla td:nth-child(2){color:var(--ink);font-weight:600;grid-column:1}
+ .pregunta{flex-wrap:wrap}.pregunta .tx{flex:1 1 200px}.pregunta>div:last-child{width:100%}
+}
+@media (prefers-reduced-motion:reduce){body::before,body::after,.orb{animation:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+ <symbol id="i-res" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></symbol>
+ <symbol id="i-cob" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13l-3-3M17 17H4l3 3"/></symbol>
+ <symbol id="i-mov" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></symbol>
+ <symbol id="i-pro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/></symbol>
+ <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+ <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+ <symbol id="i-xls" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></symbol>
+ <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+ <symbol id="i-rec" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol>
+</defs></svg>
+
+<div class="app">
+ <nav class="lado" aria-label="alkimia">
+  <div class="marca">alkimia</div>
+  <div class="sec">Finanzas</div>
+  <a href="#resumen" data-v="resumen" aria-current="page"><svg><use href="#i-res"/></svg>Resumen</a>
+  <a href="#cobros" data-v="cobros"><svg><use href="#i-cob"/></svg>Cobros y pagos</a>
+  <a href="#movimientos" data-v="movimientos"><svg><use href="#i-mov"/></svg>Movimientos</a>
+  <a href="#proyectos" data-v="proyectos"><svg><use href="#i-pro"/></svg>Por proyecto</a>
+ </nav>
+
+ <main>
+  <div class="cab">
+   <div><h1 id="titulo">Finanzas</h1><p class="sub" id="subt">Noviembre · al día de hoy</p></div>
+   <div class="temas" role="group" aria-label="Color"><span>Color</span>
+    <button data-tema="" aria-pressed="true" title="alkimia" style="background:linear-gradient(135deg,#4A2A7A 50%,#D97757 50%)"></button>
+    <button data-tema="verde" aria-pressed="false" title="Verde" style="background:linear-gradient(135deg,#2E5C35 50%,#2A6466 50%)"></button>
+    <button data-tema="azul" aria-pressed="false" title="Azul" style="background:linear-gradient(135deg,#3A4A86 50%,#2A6466 50%)"></button>
+    <button data-tema="ocre" aria-pressed="false" title="Ocre" style="background:linear-gradient(135deg,#8A6A1E 50%,#6D4A2A 50%)"></button>
+    <button data-tema="claro" aria-pressed="false" title="Claro" style="background:linear-gradient(135deg,#F0EEE6 50%,#E8DDF5 50%)"></button>
+   </div>
+  </div>
+
+  <!-- RESUMEN -->
+  <section class="vista activa" id="resumen">
+   <div class="rej k3">
+    <div class="card"><div class="et">Entró</div><div class="num" style="color:var(--entra)">$186,400</div><div class="mut">8% más que octubre</div></div>
+    <div class="card"><div class="et">Salió</div><div class="num" style="color:var(--sale)">$142,900</div><div class="mut">3% más que octubre</div></div>
+    <div class="card"><div class="et">Queda</div><div class="num">$43,500</div><div class="mut">después de lo ya pagado</div></div>
+   </div>
+   <div class="rej dos" style="margin-top:16px">
+    <div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline"><h2 style="margin:0">Entradas y salidas</h2><span class="mut">6 meses</span></div>
+     <svg id="graf" viewBox="0 0 600 240" width="100%" style="margin-top:10px" role="img" aria-label="Entradas y salidas de junio a noviembre"></svg>
+     <div class="leyenda"><span><i style="background:var(--entra)"></i>Entradas</span><span><i style="background:var(--sale)"></i>Salidas</span></div></div>
+    <div class="card"><h2>Lo que viene</h2>
+     <div class="fila"><div><b>Por cobrar</b><div class="mut">3 facturas · esta semana</div></div><div style="text-align:right"><b>$38,200</b><div><span class="pill p-av">▲ 1 vence el jueves</span></div></div></div>
+     <div class="fila"><div><b>Por pagar</b><div class="mut">4 pagos · próximos 10 días</div></div><div style="text-align:right"><b>$27,600</b><div><span class="pill p-n">sin urgencia</span></div></div></div>
+     <div class="fila"><div><b>Vencido</b><div class="mut">1 cobro de octubre</div></div><div style="text-align:right"><b>$6,800</b><div><span class="pill p-mal">✖ 12 días</span></div></div></div>
+     <a class="bt" href="#cobros" data-v="cobros" style="margin-top:14px;width:100%">Ver cobros y pagos</a></div>
+   </div>
+   <div class="card" style="margin-top:16px"><div class="pregunta"><div class="orb" aria-hidden="true"></div><div class="tx"><b>Pregúntale a alkimia</b><span class="mut">Dilo como lo dirías: no tienes que saber de números.</span></div><button class="bt si" aria-label="Hablar"><svg width="18" height="18"><use href="#i-mic"/></svg>Hablar</button></div>
+    <div class="dice"><svg><use href="#i-mic"/></svg><span>«¿Cuánto nos queda si cobramos lo de esta semana?»</span></div>
+    <div class="dice" style="background:transparent;padding-left:0"><span><b>alkimia:</b> Si entran las 3 facturas de esta semana, quedan $81,700 al cierre de noviembre. Te aviso el jueves si la de Casa Lomas no ha llegado.</span></div></div>
+  </section>
+
+  <!-- COBROS Y PAGOS -->
+  <section class="vista" id="cobros">
+   <div class="card" style="margin-bottom:16px;border-left:4px solid var(--accion)"><div class="pregunta"><div class="orb" aria-hidden="true"></div><div class="tx"><b>¿Le mando recordatorio a Casa Lomas?</b><span class="mut">La factura de octubre lleva 12 días vencida. Nada sale sin tu sí.</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="bt si">Sí, mándalo</button><button class="bt">Después</button></div></div></div>
+   <div class="rej dos">
+    <div class="card"><h2>Por cobrar</h2><div class="tabla"><table>
+     <tr><th>Cliente</th><th>Concepto</th><th>Fecha</th><th class="n">Monto</th><th>Estado</th></tr>
+     <tr><td><b>Casa Lomas</b></td><td>Avance de obra, oct</td><td>30 oct</td><td class="n">$6,800</td><td><span class="pill p-mal">✖ Vencido</span></td></tr>
+     <tr><td><b>Torre Norte</b></td><td>Estimación 4</td><td>jue 13</td><td class="n">$18,500</td><td><span class="pill p-av">▲ Por vencer</span></td></tr>
+     <tr><td><b>Local Centro</b></td><td>Anticipo</td><td>vie 14</td><td class="n">$12,000</td><td><span class="pill p-n">En tiempo</span></td></tr>
+     <tr><td><b>Depto 302</b></td><td>Cotización aceptada</td><td>lun 17</td><td class="n">$7,700</td><td><span class="pill p-n">En tiempo</span></td></tr>
+     <tr><td><b>Torre Norte</b></td><td>Estimación 3</td><td>2 nov</td><td class="n">$21,000</td><td><span class="pill p-ok">✓ Cobrado</span></td></tr></table></div></div>
+    <div class="card"><h2>Por pagar</h2>
+     <div class="fila"><div><b>Acero del Norte</b><div class="mut">Pedido de varilla · vie 14</div></div><div style="text-align:right"><b>$11,300</b><div><span class="pill p-av">▲ Pide tu sí</span></div></div></div>
+     <div class="fila"><div><b>Concretos MX</b><div class="mut">Colado losa 2 · mar 18</div></div><div style="text-align:right"><b>$8,900</b><div><span class="pill p-n">Programado</span></div></div></div>
+     <div class="fila"><div><b>Renta bodega</b><div class="mut">Mensual · jue 20</div></div><div style="text-align:right"><b>$5,200</b><div><span class="pill p-n">Programado</span></div></div></div>
+     <div class="fila"><div><b>Nómina de obra</b><div class="mut">Semana 46 · vie 14</div></div><div style="text-align:right"><b>$2,200</b><div><span class="pill p-ok">✓ Pagado</span></div></div></div></div>
+   </div>
+  </section>
+
+  <!-- MOVIMIENTOS -->
+  <section class="vista" id="movimientos">
+   <div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px"><h2 style="margin:0">Movimientos de noviembre</h2><span class="mut">alkimia los junta de tus correos, tus Excel y tus chats</span></div>
+    <div class="tabla" style="margin-top:12px"><table>
+     <tr><th>Fecha</th><th>Concepto</th><th>De dónde</th><th>Proyecto</th><th class="n">Monto</th></tr>
+     <tr><td>10 nov</td><td>Pago de Torre Norte, estimación 3</td><td><span class="ori"><svg><use href="#i-mail"/></svg>Correo</span></td><td>Torre Norte</td><td class="n" style="color:var(--entra)">+ $21,000</td></tr>
+     <tr><td>9 nov</td><td>Nómina de obra, semana 45</td><td><span class="ori"><svg><use href="#i-xls"/></svg>Excel</span></td><td>Varios</td><td class="n" style="color:var(--sale)">− $2,200</td></tr>
+     <tr><td>8 nov</td><td>Anticipo Local Centro</td><td><span class="ori"><svg><use href="#i-chat"/></svg>WhatsApp</span></td><td>Local Centro</td><td class="n" style="color:var(--entra)">+ $9,500</td></tr>
+     <tr><td>7 nov</td><td>Cemento y arena</td><td><span class="ori"><svg><use href="#i-rec"/></svg>Recibo</span></td><td>Casa Lomas</td><td class="n" style="color:var(--sale)">− $4,350</td></tr>
+     <tr><td>6 nov</td><td>Herramienta</td><td><span class="ori"><svg><use href="#i-rec"/></svg>Recibo</span></td><td>Torre Norte</td><td class="n" style="color:var(--sale)">− $1,780</td></tr>
+     <tr><td>5 nov</td><td>Cotización depto 302 aceptada</td><td><span class="ori"><svg><use href="#i-mail"/></svg>Correo</span></td><td>Depto 302</td><td class="n mut">por cobrar</td></tr></table></div>
+    <div class="dice" style="margin-top:16px"><svg><use href="#i-mic"/></svg><span>¿Falta algo? Díselo: «el recibo del flete del martes está en el chat con Diego».</span></div></div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section class="vista" id="proyectos">
+   <div class="rej dos">
+    <div class="card"><h2>Por proyecto</h2><div id="proys"></div><div class="leyenda" style="margin-top:14px"><span><i style="background:var(--entra)"></i>Cobrado</span><span><i style="background:var(--sale)"></i>Gastado</span></div></div>
+    <div class="card"><h2>Lo que alkimia ve</h2>
+     <div class="fila"><div><b>Casa Lomas</b><div class="mut">El gasto ya va en 82% de lo cobrado.</div></div><span class="pill p-av">▲ Revisar</span></div>
+     <div class="fila"><div><b>Torre Norte</b><div class="mut">Va en tiempo y con margen sano.</div></div><span class="pill p-ok">✓ Bien</span></div>
+     <div class="fila"><div><b>Local Centro</b><div class="mut">Falta cobrar el anticipo completo.</div></div><span class="pill p-n">Pendiente</span></div>
+     <div class="dice" style="margin-top:12px"><svg><use href="#i-mic"/></svg><span>«¿Por qué Casa Lomas gasta tanto?»</span></div></div>
+   </div>
+  </section>
+
+  <p class="ejemplo">Vista de diseño. Clientes, proyectos y números de ejemplo. Los números de ejemplo no son de nadie.</p>
+ </main>
+
+ <nav class="abajo" aria-label="Finanzas">
+  <a href="#resumen" data-v="resumen" aria-current="page"><svg><use href="#i-res"/></svg>Resumen</a>
+  <a href="#cobros" data-v="cobros"><svg><use href="#i-cob"/></svg>Cobros</a>
+  <a href="#movimientos" data-v="movimientos"><svg><use href="#i-mov"/></svg>Movimientos</a>
+  <a href="#proyectos" data-v="proyectos"><svg><use href="#i-pro"/></svg>Proyectos</a>
+ </nav>
+</div>
+<script>
+(function(){
+ const T={resumen:['Finanzas','Noviembre · al día de hoy'],cobros:['Cobros y pagos','Lo que te deben y lo que debes'],movimientos:['Movimientos','Todo lo que entró y salió, en un lugar'],proyectos:['Por proyecto','Cuánto deja cada obra']};
+ function ve(v){if(!T[v])v='resumen';document.querySelectorAll('.vista').forEach(s=>s.classList.toggle('activa',s.id===v));
+  document.querySelectorAll('[data-v]').forEach(a=>{if(a.closest('nav'))a.toggleAttribute('aria-current',a.dataset.v===v)});
+  document.getElementById('titulo').textContent=T[v][0];document.getElementById('subt').textContent=T[v][1];window.scrollTo(0,0)}
+ document.querySelectorAll('[data-v]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();history.replaceState(null,'','#'+a.dataset.v);ve(a.dataset.v)}));
+ ve(location.hash.slice(1));
+ const raiz=document.documentElement;
+ function tema(t){if(t)raiz.dataset.tema=t;else delete raiz.dataset.tema;document.querySelectorAll('.temas button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.tema===t));try{localStorage.setItem('alk_tema',t)}catch(x){}}
+ document.querySelectorAll('.temas button').forEach(b=>b.addEventListener('click',()=>tema(b.dataset.tema)));
+ let guardado='';try{guardado=localStorage.getItem('alk_tema')||''}catch(x){}
+ const q=new URLSearchParams(location.search).get('tema');tema(q!==null?q:guardado);
+ // gráfica
+ const EN=[142,151,148,163,172,186],SA=[118,126,131,129,139,143],M=['jun','jul','ago','sep','oct','nov'],W=600,H=240,px=40,py=20,mn=100,mx=200;
+ const X=i=>px+(W-px-16)*i/5,Y=v=>H-30-(v-mn)/(mx-mn)*(H-30-py);let s='';
+ [100,150,200].forEach(v=>s+=`<line x1="${px}" x2="${W-10}" y1="${Y(v)}" y2="${Y(v)}" stroke="#ECE8EF"/><text x="${px-8}" y="${Y(v)+4}" font-size="11" fill="#8A8494" text-anchor="end">${v}k</text>`);
+ const ln=(a,c)=>`<polyline points="${a.map((v,i)=>X(i)+','+Y(v)).join(' ')}" fill="none" stroke="${c}" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>`+a.map((v,i)=>`<circle cx="${X(i)}" cy="${Y(v)}" r="${i===5?6:4}" fill="${c}"/>`).join('');
+ s+=ln(EN,'var(--entra)')+ln(SA,'var(--sale)');M.forEach((m,i)=>s+=`<text x="${X(i)}" y="${H-8}" font-size="12" fill="#8A8494" text-anchor="middle">${m}</text>`);
+ document.getElementById('graf').innerHTML=s;
+ // proyectos
+ const P=[['Torre Norte',96,58],['Casa Lomas',52,43],['Local Centro',21,9],['Depto 302',8,3]],mxp=100;
+ document.getElementById('proys').innerHTML=P.map(p=>`<div style="margin:14px 0"><div style="display:flex;justify-content:space-between;font-size:15px"><b>${p[0]}</b><span class="mut">deja $${(p[1]-p[2]).toFixed(0)}k</span></div>
+  <div class="barra" style="margin-top:6px"><i style="width:${p[1]/mxp*100}%;background:var(--entra)"></i></div><div class="barra" style="margin-top:4px"><i style="width:${p[2]/mxp*100}%;background:var(--sale)"></i></div></div>`).join('');
+})();
+</script>
+</body>
+</html>

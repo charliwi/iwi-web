@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>alkimia · finanzas · editorial</title>
+<style>
+/* alkimia · finanzas v2 editorial (Diseño, 13 nov 2026).
+   Carlos, 13 nov: «Va, arma el boceto de finanzas de alkimia», sobre la referencia Folio de AI Studio que le gustó.
+   De Folio se toma el patrón (cifra grande con frase, gráficas con «Ver datos», filtros que animan), nunca el activo.
+   Base: DISENO-BASE (Helvetica 700/300, Courier Prime para lo que explica), paleta de alkimia, esquinas de 6 px.
+   Color configurable por tokens (data-tema en <html>). Entradas en verde dinero, salidas en arcilla. Sin bancos. */
+@font-face{font-family:"Courier Prime";src:url(../iwi-dt-recorridos/fuentes/courierprime-400.ttf) format("truetype");font-weight:400}
+@font-face{font-family:"Courier Prime";src:url(../iwi-dt-recorridos/fuentes/courierprime-700.ttf) format("truetype");font-weight:700}
+:root{--fondo:#F0EEE6;--papel:#FBFAF6;--tinta:#191714;--tenue:#6A6459;--linea:#D9D4C7;--suave:#E7E3D8;
+ --acento:#4A2A7A;--accion:#D97757;--entra:#2E7D4F;--sale:#C2563A;--kraft:#D4A27F;
+ --p1:#4A2A7A;--p2:#D97757;--p3:#2A6466;--p4:#D4A27F;
+ --r:6px;--sans:"Helvetica Neue",Helvetica,Arial,sans-serif;--typ:"Courier Prime","Courier New",Courier,monospace}
+:root[data-tema="verde"]{--acento:#2E5C35;--accion:#2A6466;--p1:#2E5C35;--p2:#2A6466;--p3:#8A6A1E;--p4:#A9C2A0}
+:root[data-tema="azul"]{--acento:#3A4A86;--accion:#3A4A86;--p1:#3A4A86;--p2:#2A6466;--p3:#8C98E0;--p4:#B9C6D9}
+:root[data-tema="ocre"]{--acento:#6D4A2A;--accion:#B8742A;--p1:#6D4A2A;--p2:#B8742A;--p3:#8A6A1E;--p4:#D4A27F}
+:root[data-tema="noche"]{--fondo:#15131F;--papel:#1E1B2A;--tinta:#F3EEE4;--tenue:#B9B2C4;--linea:#3A3548;--suave:#2A2638;--entra:#5FBF86;--sale:#E8865F;--acento:#B48BE0;--barra:#2A2540;--p1:#8C6AD0;--p2:#E8865F;--p3:#5FB0B2;--p4:#D4A27F}
+*{box-sizing:border-box;margin:0}
+html{background:var(--fondo)}
+body{background:var(--fondo);color:var(--tinta);font:400 15px/1.5 var(--sans);transition:background .6s,color .6s}
+a{color:inherit}
+.w{max-width:1240px;margin:0 auto;padding:0 32px}
+/* barra */
+.barra{position:sticky;top:0;z-index:10;background:var(--barra,var(--acento));color:#fff;transition:background .6s}
+.barra .w{display:flex;align-items:center;gap:24px;height:48px}
+.marca{font:700 20px/1 var(--sans);letter-spacing:-.04em}
+.barra nav{display:flex;gap:4px;flex:1;overflow-x:auto;scrollbar-width:none}
+.barra nav a{text-decoration:none;font:600 13px var(--sans);padding:6px 10px;border-radius:var(--r);opacity:.78;white-space:nowrap}
+.barra nav a[aria-current]{background:rgba(255,255,255,.18);opacity:1}
+.barra nav a small{font:400 11px var(--typ);margin-right:6px;opacity:.8}
+.temas{display:flex;gap:6px;align-items:center}
+.temas button{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.35);cursor:pointer;padding:0}
+.temas button[aria-pressed="true"]{border-color:#fff;transform:scale(1.15)}
+/* encabezado */
+.ced{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:18px 0;border-bottom:1px solid var(--linea);font:400 12px var(--typ);color:var(--tenue);letter-spacing:.04em}
+.ced b{font:700 15px var(--sans);color:var(--tinta);letter-spacing:-.01em}
+/* pliegos */
+.pliego{display:grid;grid-template-columns:5fr 7fr;gap:56px;padding:64px 0;border-bottom:1px solid var(--linea)}
+.pliego.inv{grid-template-columns:7fr 5fr}
+.pliego.inv .texto{order:2}
+.num-sec{font:400 12px var(--typ);color:var(--tenue);letter-spacing:.04em;margin-bottom:18px}
+h1{font:300 clamp(40px,5.2vw,68px)/1.02 var(--sans);letter-spacing:-.035em;margin-bottom:28px}
+h1 b,h2 b{font-weight:700}
+h2{font:300 clamp(30px,3.4vw,44px)/1.06 var(--sans);letter-spacing:-.03em;padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid var(--linea)}
+.explica{font:400 15px/1.6 var(--typ);color:var(--tinta)}
+.explica+.explica{margin-top:14px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.verde{color:var(--entra)}.arcilla{color:var(--sale)}
+/* cifras */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--tinta);border-bottom:1px solid var(--linea)}
+.kpis>div{padding:24px 24px 28px 0;border-right:1px solid var(--linea);margin-right:24px}
+.kpis>div:last-child{border-right:0;margin-right:0}
+.kpis .c{font:300 clamp(34px,4vw,54px)/1 var(--sans);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.kpis .c small{font-size:.45em;letter-spacing:0}
+.kpis p{font:400 13px/1.45 var(--typ);color:var(--tenue);margin-top:12px}
+.kpis .d{font:700 12px var(--sans);margin-top:6px}
+/* figuras */
+.fig-cab{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.fig-cab h3{font:700 15px var(--sans)}
+.seg{display:inline-flex;border:1px solid var(--tinta);border-radius:var(--r);overflow:hidden}
+.seg button{font:600 12px var(--sans);padding:7px 12px;border:0;background:transparent;color:var(--tinta);cursor:pointer}
+.seg button+button{border-left:1px solid var(--tinta)}
+.seg button[aria-pressed="true"]{background:var(--tinta);color:var(--fondo)}
+.pie{border-top:1px solid var(--linea);margin-top:18px;padding-top:12px;font:400 12px/1.5 var(--typ);color:var(--tenue)}
+.pie b{font:700 11px var(--sans);letter-spacing:.08em;color:var(--tinta);margin-right:6px}
+.ver{margin-top:12px;font:600 12px var(--sans);padding:7px 12px;border:1px solid var(--tinta);border-radius:var(--r);background:transparent;color:var(--tinta);cursor:pointer}
+.datos{display:none;margin-top:14px}.datos.on{display:block}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--tenue);text-align:left;padding:8px 8px 8px 0;border-bottom:1px solid var(--tinta)}
+th button{all:unset;cursor:pointer}th button::after{content:" ↕";opacity:.5}
+td{white-space:nowrap;padding:10px 8px 10px 0;border-bottom:1px solid var(--linea);font-variant-numeric:tabular-nums}
+td.n,th.n{text-align:right}
+tr.tot td{font-weight:700;border-bottom:0}
+.mini{display:inline-block;height:4px;border-radius:2px;background:var(--acento);vertical-align:middle;margin-right:8px}
+/* matriz */
+#matriz{display:grid;grid-template-columns:repeat(31,1fr);gap:3px}
+#matriz i{aspect-ratio:1;border-radius:2px;background:var(--tinta);transition:background .5s,transform .5s}
+.ley{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font:400 12px var(--typ);color:var(--tenue)}
+.ley i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+/* barra 100 */
+.cien{display:flex;height:44px;border-radius:var(--r);overflow:hidden}
+.cien div{display:flex;align-items:center;padding-left:8px;color:#fff;font:700 12px var(--sans);transition:flex-grow .6s;white-space:nowrap;overflow:hidden}
+.cien-et{display:flex;margin-bottom:6px;font:400 11px var(--typ);color:var(--tenue)}
+.cien-et span{overflow:hidden;white-space:nowrap;text-overflow:clip;padding-right:4px;transition:flex-grow .6s}
+svg text{font-family:var(--sans)}
+/* alkimia pregunta */
+.preg{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);padding:20px 22px}
+.preg b{display:block;font-size:17px}
+.preg .explica{font-size:14px;color:var(--tenue)}
+.bt{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 18px;border-radius:var(--r);border:0;background:var(--accion);color:#fff;font:700 14px var(--sans);cursor:pointer}
+.dice{margin-top:14px;font:400 14px/1.55 var(--typ)}
+.dice p+p{margin-top:8px}
+.hito-card{margin-top:16px;padding:16px 18px;border-left:3px solid var(--accion);background:var(--papel);border-radius:0 var(--r) var(--r) 0;min-height:86px}
+.hito-card .f{font:400 12px var(--typ);color:var(--tenue)}
+.hito-card b{display:block;font-size:16px;margin:4px 0}
+.ejemplo{font:400 12px var(--typ);color:var(--tenue);padding:28px 0 48px}
+@media (max-width:900px){
+ .w{padding:0 16px}
+ .pliego,.pliego.inv{grid-template-columns:1fr;gap:32px;padding:44px 0}
+ .pliego.inv .texto{order:0}
+ .kpis{grid-template-columns:1fr 1fr}.kpis>div:nth-child(2){border-right:0;margin-right:0}.kpis>div:nth-child(-n+2){border-bottom:1px solid var(--linea)}
+ .cols{grid-template-columns:1fr}
+ .barra .w{gap:8px 12px;flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:6px}.barra nav{order:3;flex-basis:100%;margin:0 -10px}.barra nav a small{display:none}
+ td:first-child{white-space:normal}
+ #matriz{grid-template-columns:repeat(20,1fr)}
+ .preg{grid-template-columns:auto 1fr}.preg .bt{grid-column:1/-1}
+ .ced span:last-child{display:none}
+}
+@media (max-width:600px){svg text{font-size:18px}#pesas text:last-child{font-size:17px}#cascada text{font-size:15px}#cascada .cl{font-size:14px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="barra"><div class="w">
+ <span class="marca">alkimia</span>
+ <nav aria-label="Finanzas">
+  <a href="#resumen" aria-current="true"><small>01</small>Resumen</a>
+  <a href="#ganancia"><small>02</small>Ganancia</a>
+  <a href="#entradas"><small>03</small>Entradas</a>
+  <a href="#gastos"><small>04</small>Gastos</a>
+  <a href="#proyectos"><small>05</small>Obras</a>
+  <a href="#ano"><small>06</small>El año</a>
+  <a href="#vender"><small>07</small>Por vender</a>
+  <a href="#viene"><small>08</small>Lo que viene</a>
+ </nav>
+ <div class="temas" role="group" aria-label="Color">
+  <button data-tema="" aria-pressed="true" title="alkimia" style="background:linear-gradient(135deg,#4A2A7A 50%,#D97757 50%)"></button>
+  <button data-tema="verde" aria-pressed="false" title="Verde" style="background:linear-gradient(135deg,#2E5C35 50%,#2A6466 50%)"></button>
+  <button data-tema="azul" aria-pressed="false" title="Azul" style="background:linear-gradient(135deg,#3A4A86 50%,#8C98E0 50%)"></button>
+  <button data-tema="ocre" aria-pressed="false" title="Ocre" style="background:linear-gradient(135deg,#6D4A2A 50%,#B8742A 50%)"></button>
+  <button data-tema="noche" aria-pressed="false" title="Noche" style="background:linear-gradient(135deg,#15131F 50%,#B48BE0 50%)"></button>
+ </div>
+</div></header>
+
+<div class="w">
+ <div class="ced"><span><b>Finanzas</b> · Constructora de Mariana</span><span>NOVIEMBRE · AL DÍA DE HOY · DE TUS CORREOS, EXCEL, CHATS Y RECIBOS</span></div>
+
+ <!-- 01 RESUMEN -->
+ <section class="pliego" id="resumen">
+  <div class="texto">
+   <p class="num-sec">01 · Resumen</p>
+   <h1>En noviembre te quedan <b>$43,500.</b></h1>
+   <p class="explica">Entró <b class="verde">$186,400</b>, 8% más que octubre. Salió <b class="arcilla">$142,900</b>, casi lo mismo. alkimia lo juntó de tus correos, tus Excel, tus chats y tus recibos; no tuviste que capturar nada.</p>
+   <p class="explica">Esta semana te deben <b>$38,200</b>. Si se cobra, cierras el mes con <b>$81,700</b>.</p>
+  </div>
+  <div>
+   <div class="preg"><canvas id="orb1" aria-hidden="true"></canvas><div><b>Pregúntale a alkimia</b><span class="explica">Dilo como lo dirías. No tienes que saber de números.</span></div><button class="bt">Hablar</button></div>
+   <div class="dice"><p>«¿Por qué gastamos más en materiales?»</p><p><b>alkimia:</b> Compraste varilla y cemento para el colado de Torre Norte: $6,600 más que en octubre. Ya está cobrado en la estimación 4.</p></div>
+  </div>
+ </section>
+ <div class="kpis">
+  <div><div class="c verde">$186<small>,400</small></div><div class="d verde">↑ 8% contra octubre</div><p>Lo que entró en el mes</p></div>
+  <div><div class="c arcilla">$142<small>,900</small></div><div class="d arcilla">↑ 3% contra octubre</div><p>Lo que salió, ya pagado</p></div>
+  <div><div class="c">$38<small>,200</small></div><div class="d" style="color:var(--accion)">1 vence el jueves</div><p>Te deben esta semana, 3 facturas</p></div>
+  <div><div class="c">$6<small>,800</small></div><div class="d arcilla">12 días vencido</div><p>Casa Lomas, avance de octubre</p></div>
+ </div>
+
+
+ <!-- 02 GANANCIA · ESTADO DE RESULTADOS -->
+ <section class="pliego" id="ganancia">
+  <div class="texto">
+   <p class="num-sec">02 · Ganancia · estado de resultados</p>
+   <h2>En noviembre ganaste <b>$34,400.</b></h2>
+   <div class="cols"><p class="explica">Vendiste $192,000 y la obra costó $129,400. Quitando renta, servicios y lo que apartas para impuestos, de cada $100 que vendes te quedan $18 limpios. En octubre eran $15.</p>
+   <p class="explica">Ganancia no es lo mismo que lo que tienes en la mano: de lo vendido en noviembre todavía te deben $5,600. Por eso esta cifra y la de arriba no son iguales.</p></div>
+  </div>
+  <div>
+   <div class="fig-cab"><h3>De lo que vendes a lo que ganas</h3>
+    <div class="seg" id="seg-g"><button aria-pressed="true" data-m="1">Noviembre</button><button aria-pressed="false" data-m="0">Octubre</button></div></div>
+   <svg id="cascada" viewBox="0 0 640 330" width="100%" role="img" aria-label="Cascada de ventas a ganancia"></svg>
+   <div class="pie"><b>FIG. 1</b>En miles de pesos. El apartado de impuestos es un estimado de 30% para que no te sorprenda; tu contador da la cifra final. Ejemplo.</div>
+   <button class="ver" data-ver="t0">Ver estado de resultados ↓</button>
+   <div class="datos" id="t0"><table id="tabla-er"></table></div>
+  </div>
+ </section>
+ <!-- 03 ENTRADAS -->
+ <section class="pliego inv" id="entradas">
+  <div>
+   <div class="fig-cab"><h3>Lo que entró en noviembre, un cuadrito por cada $1,000</h3>
+    <div class="seg" id="seg-m"><button aria-pressed="true" data-g="todo">Todo</button><button aria-pressed="false" data-g="proy">Por obra</button><button aria-pressed="false" data-g="ori">De dónde llegó</button></div></div>
+   <div id="matriz" role="img" aria-label="186 cuadritos, uno por cada mil pesos que entraron en noviembre"></div>
+   <div class="ley" id="ley-m"></div>
+   <div class="pie"><b>FIG. 2</b>186 cuadritos = $186,400. Fuente: tus correos y chats · ejemplo.</div>
+   <button class="ver" data-ver="t1">Ver datos ↓</button>
+   <div class="datos" id="t1"><table><tr><th>Obra</th><th class="n">Entró</th><th class="n">Del total</th></tr>
+    <tr><td>Torre Norte</td><td class="n">$98,000</td><td class="n">53%</td></tr><tr><td>Casa Lomas</td><td class="n">$41,000</td><td class="n">22%</td></tr>
+    <tr><td>Local Centro</td><td class="n">$33,000</td><td class="n">18%</td></tr><tr><td>Depto 302</td><td class="n">$14,400</td><td class="n">8%</td></tr>
+    <tr class="tot"><td>Total</td><td class="n">$186,400</td><td class="n">100%</td></tr></table></div>
+  </div>
+  <div class="texto">
+   <p class="num-sec">03 · Entradas</p>
+   <h2>Torre Norte trae <b>la mitad</b> de lo que entra.</h2>
+   <div class="cols"><p class="explica">Cada cuadrito es mil pesos. Toca «Por obra» y se acomodan por proyecto; toca «De dónde llegó» y ves si el pago llegó por correo, por WhatsApp o en un depósito que mandaste en Excel.</p>
+   <p class="explica">Depender tanto de una obra no es malo, pero conviene saberlo: si Torre Norte se atrasa, el mes se aprieta.</p></div>
+  </div>
+ </section>
+
+ <!-- 03 GASTOS -->
+ <section class="pliego" id="gastos">
+  <div class="texto">
+   <p class="num-sec">04 · Gastos</p>
+   <h2>Materiales subió; <b>subcontratos bajó.</b></h2>
+   <div class="cols"><p class="explica">Cada línea va de octubre (círculo hueco) a noviembre (círculo lleno). Si la línea es arcilla, gastaste más; si es verde, gastaste menos.</p>
+   <p class="explica">Ordénalo por cuánto gastas o por cuánto cambió. Abajo, en qué se va cada peso.</p></div>
+  </div>
+  <div>
+   <div class="fig-cab"><h3>Gasto por rubro, octubre contra noviembre</h3>
+    <div class="seg" id="seg-d"><button aria-pressed="true" data-o="monto">Por cuánto</button><button aria-pressed="false" data-o="cambio">Por cambio</button></div></div>
+   <svg id="pesas" viewBox="0 0 640 330" width="100%" role="img" aria-label="Gasto por rubro de octubre a noviembre"></svg>
+   <div class="pie"><b>FIG. 3</b>En miles de pesos. Fuente: tus recibos y tu Excel de nómina · ejemplo.</div>
+   <h3 style="font:700 15px var(--sans);margin:28px 0 12px">En qué se va cada peso de noviembre</h3>
+   <div class="cien-et" id="cien-et"></div>
+   <div class="cien" id="cien"></div>
+   <button class="ver" data-ver="t2">Ver datos ↓</button>
+   <div class="datos" id="t2"><table id="tabla-g"></table></div>
+  </div>
+ </section>
+
+ <!-- 04 PROYECTOS -->
+ <section class="pliego inv" id="proyectos">
+  <div>
+   <div class="fig-cab"><h3>Lo que deja cada obra desde que arrancó</h3>
+    <div class="seg" id="seg-p"><button aria-pressed="true" data-p="deja">Lo que deja</button><button aria-pressed="false" data-p="margen">Margen</button></div></div>
+   <svg id="barras" viewBox="0 0 640 300" width="100%" role="img" aria-label="Lo que deja cada obra"></svg>
+   <div class="pie"><b>FIG. 4</b>Cobrado menos gastado, en miles de pesos. Fuente: todo lo anterior · ejemplo.</div>
+   <table style="margin-top:18px" id="tabla-p"></table>
+  </div>
+  <div class="texto">
+   <p class="num-sec">05 · Proyectos</p>
+   <h2>Casa Lomas <b>deja poco.</b></h2>
+   <div class="cols"><p class="explica">El gasto de Casa Lomas ya va en 83% de lo cobrado. Torre Norte deja $38,000 con un margen sano.</p>
+   <p class="explica">Toca los títulos de la tabla para ordenar. alkimia te avisa cuando una obra pasa de 80%.</p></div>
+   <div class="dice" style="margin-top:20px"><p>«¿Por qué Casa Lomas gasta tanto?»</p></div>
+  </div>
+ </section>
+
+ <!-- 05 EL AÑO -->
+ <section class="pliego" id="ano">
+  <div class="texto">
+   <p class="num-sec">06 · El año</p>
+   <h2>Lo que te queda cada mes, <b>con lo que pasó.</b></h2>
+   <div class="cols"><p class="explica">La línea es lo que te quedó al cierre de cada mes. Los cuadritos de abajo son lo que alkimia vio pasar: toca uno y te cuenta.</p>
+   <p class="explica">Agosto bajó por la compra grande de acero; septiembre se recuperó con el anticipo de Torre Norte.</p></div>
+  </div>
+  <div>
+   <div class="fig-cab"><h3>Lo que quedó al cierre de cada mes</h3></div>
+   <svg id="linea" viewBox="0 0 640 330" width="100%" role="img" aria-label="Lo que quedó cada mes de junio a noviembre"></svg>
+   <div class="hito-card" id="hito" aria-live="polite"></div>
+   <div class="pie"><b>FIG. 5</b>En miles de pesos. Fuente: tus correos, Excel, chats y recibos · ejemplo.</div>
+  </div>
+ </section>
+
+
+ <!-- 07 POR VENDER -->
+ <section class="pliego inv" id="vender">
+  <div>
+   <div class="fig-cab"><h3>Cotizaciones abiertas</h3>
+    <div class="seg" id="seg-v"><button aria-pressed="true" data-v="prob">Lo probable</button><button aria-pressed="false" data-v="todo">Lo que vale</button></div></div>
+   <svg id="embudo" viewBox="0 0 640 260" width="100%" role="img" aria-label="Cotizaciones abiertas y lo probable de cada una"></svg>
+   <div class="pie"><b>FIG. 6</b>Barra clara: lo que vale la cotización. Barra llena: lo probable, según cómo va cada una. En miles de pesos · ejemplo.</div>
+   <table style="margin-top:18px" id="tabla-v"></table>
+  </div>
+  <div class="texto">
+   <p class="num-sec">07 · Por vender</p>
+   <h2>Tienes <b>$244,000</b> cotizado; lo probable es <b>$93,000.</b></h2>
+   <div class="cols"><p class="explica">alkimia lee tus cotizaciones en el correo y en el chat, y calcula qué tan probable es cada una según cómo va: si la abrieron, si pidieron cambios, si ya hay fecha.</p>
+   <p class="explica">Oficinas Reforma es la más grande, pero la menos segura. Fachada Plaza es chica y está casi cerrada.</p></div>
+   <div class="dice" style="margin-top:20px"><p>«¿A quién le doy seguimiento esta semana?»</p><p><b>alkimia:</b> A Bodega Sur: abrieron la cotización dos veces y no han contestado. ¿Les escribo? Nada sale sin tu sí.</p></div>
+  </div>
+ </section>
+
+ <!-- 08 LO QUE VIENE · PROYECCIÓN -->
+ <section class="pliego" id="viene">
+  <div class="texto">
+   <p class="num-sec">08 · Lo que viene · proyección</p>
+   <h2>En enero <b>se aprieta.</b></h2>
+   <div class="cols"><p class="explica">La línea llena es lo que te quedó cada mes. La punteada es lo que vas a tener si sólo entra lo seguro: lo que ya te deben y las estimaciones firmadas. La banda es lo que puede pasar si cierras lo probable.</p>
+   <p class="explica">En diciembre pagas aguinaldos y en enero termina Torre Norte. Con lo seguro, enero cierra en $38,000.</p></div>
+   <div class="hito-card"><div class="f">ALKIMIA SUGIERE</div><b>Cobra Casa Lomas y cierra Bodega Sur antes del 15 de diciembre.</b><div class="explica" style="font-size:14px">Si Bodega Sur paga su anticipo de 30%, enero queda arriba de $60,000. ¿Te armo los dos recordatorios? Nada sale sin tu sí.</div></div>
+  </div>
+  <div>
+   <div class="fig-cab"><h3>Lo que tendrás al cierre de cada mes</h3>
+    <div class="seg" id="seg-y"><button aria-pressed="true" data-y="1">Con lo probable</button><button aria-pressed="false" data-y="0">Sólo lo seguro</button></div></div>
+   <svg id="proy" viewBox="0 0 640 300" width="100%" role="img" aria-label="Proyección de caja de diciembre a febrero"></svg>
+   <div class="pie"><b>FIG. 7</b>En miles de pesos. Seguro: lo que ya te deben, estimaciones firmadas y pagos programados. Probable: más las cotizaciones de la figura 6. Ejemplo.</div>
+   <button class="ver" data-ver="t7">Ver datos ↓</button>
+   <div class="datos" id="t7"><table><tr><th>Mes</th><th class="n">Entra seguro</th><th class="n">Sale programado</th><th class="n">Queda seguro</th><th class="n">Con lo probable</th></tr>
+    <tr><td>Diciembre</td><td class="n">$151,000</td><td class="n">$142,500</td><td class="n">$52,000</td><td class="n">$61,000</td></tr>
+    <tr><td>Enero</td><td class="n">$96,000</td><td class="n">$110,000</td><td class="n">$38,000</td><td class="n">$64,000</td></tr>
+    <tr><td>Febrero</td><td class="n">$103,000</td><td class="n">$100,000</td><td class="n">$41,000</td><td class="n">$79,000</td></tr></table></div>
+  </div>
+ </section>
+
+ <p class="ejemplo">Boceto de Diseño, v2 editorial. Clientes, obras y números de ejemplo; no son de nadie. Sin bancos: los movimientos vienen de correo, Excel, WhatsApp y recibos.</p>
+</div>
+
+<script src="../alkimia-portal/mini-murmuracion.js"></script>
+<script>
+(function(){
+ const raiz=document.documentElement,css=v=>getComputedStyle(raiz).getPropertyValue(v).trim();
+ const NS='http://www.w3.org/2000/svg',$=id=>document.getElementById(id);
+ const fmt=n=>'$'+Math.round(n).toLocaleString('es-MX');
+ // tema
+ const pintores=[];
+ function tema(t){if(t)raiz.dataset.tema=t;else delete raiz.dataset.tema;document.querySelectorAll('.temas button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.tema===t));try{localStorage.setItem('alk_tema2',t)}catch(x){}pintores.forEach(f=>f())}
+ document.querySelectorAll('.temas button').forEach(b=>b.onclick=()=>tema(b.dataset.tema));
+ let g0='';try{g0=localStorage.getItem('alk_tema2')||''}catch(x){}
+ const q=new URLSearchParams(location.search).get('tema');
+ // segmentos
+ function seg(id,f){const s=$(id);s.querySelectorAll('button').forEach(b=>b.onclick=()=>{s.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));f(b)})}
+ document.querySelectorAll('[data-ver]').forEach(b=>b.onclick=()=>{const d=$(b.dataset.ver),on=d.classList.toggle('on');b.textContent=on?'Ocultar datos ↑':'Ver datos ↓'});
+ // esfera
+ if(window.alkMiniMur)alkMiniMur($('orb1'),{semilla:4,tam:52});
+
+ // FIG 1 · matriz
+ const OBR=[['Torre Norte',98,'--p1'],['Casa Lomas',41,'--p2'],['Local Centro',33,'--p3'],['Depto 302',14,'--p4']];
+ const ORI=[['Correo',104,'--p1'],['WhatsApp',47,'--p2'],['Excel',35,'--p3']];
+ const M=$('matriz');for(let i=0;i<186;i++)M.appendChild(document.createElement('i'));
+ let gm='todo';
+ function asigna(G){const a=[];G.forEach((g,k)=>{for(let j=0;j<g[1];j++)a.push(k)});return a}
+ function matriz(){const cs=[...M.children],G=gm==='proy'?OBR:gm==='ori'?ORI:null,a=G?asigna(G):null;
+  cs.forEach((c,i)=>{c.style.background=G?css(G[a[i]][2]):css('--tinta');c.style.transitionDelay=(i%31)*8+'ms'});
+  $('ley-m').innerHTML=G?G.map(g=>`<span><i style="background:${css(g[2])}"></i>${g[0]} · ${g[1]}</span>`).join(''):'<span>Toca «Por obra» o «De dónde llegó».</span>'}
+ seg('seg-m',b=>{gm=b.dataset.g;matriz()});pintores.push(matriz);
+
+ // FIG 2 · pesas
+ const R=[['Materiales',54.8,61.4],['Nómina de obra',39.1,38.6],['Subcontratos',21.5,18.2],['Servicios',8.6,8.3],['Herramienta',3.9,6.3],['Renta de bodega',5.2,5.2],['Fletes',5.6,4.9]];
+ let od='monto';
+ function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+ const P=$('pesas'),X0=150,X1=560,xm=70,X=v=>X0+(X1-X0)*v/xm,FY=i=>40+i*38;
+ const filas=R.map(r=>{const g=el('g',{});g.style.transition='transform .6s';
+  const ln=el('line',{y1:0,y2:0,'stroke-width':3,'stroke-linecap':'round'}),c0=el('circle',{r:6,'stroke-width':2.5}),c1=el('circle',{r:6.5}),
+   t=el('text',{x:0,y:4,'font-size':13,'font-weight':600}),d=el('text',{x:632,y:4,'font-size':12,'font-weight':700,'text-anchor':'end'});
+  t.textContent=r[0];const dv=r[2]-r[1];d.textContent=(dv>0?'+':dv<0?'−':'')+(Math.abs(dv)<.05?'igual':Math.abs(dv).toFixed(1)+'k');
+  [ln,c0,c1,t,d].forEach(e=>g.appendChild(e));P.appendChild(g);return {r,g,ln,c0,c1,t,d}});
+ function ejes(){P.querySelectorAll('.eje').forEach(e=>e.remove());[0,10,20,30,40,50,60,70].forEach(v=>{const l=el('line',{x1:X(v),x2:X(v),y1:22,y2:310,stroke:css('--linea'),class:'eje'}),tx=el('text',{x:X(v),y:326,'font-size':11,'text-anchor':'middle',fill:css('--tenue'),class:'eje'});tx.textContent=v+'k';P.insertBefore(tx,P.firstChild);P.insertBefore(l,P.firstChild)});
+  const l0=el('g',{class:'eje'});l0.innerHTML=`<circle cx="${X0+6}" cy="12" r="5" fill="none" stroke="${css('--tinta')}" stroke-width="2"/><text x="${X0+16}" y="16" font-size="11" fill="${css('--tenue')}">octubre</text><circle cx="${X0+120}" cy="12" r="5" fill="${css('--tinta')}"/><text x="${X0+130}" y="16" font-size="11" fill="${css('--tenue')}">noviembre</text>`;P.appendChild(l0)}
+ function pesas(){ejes();const ord=[...filas].sort((a,b)=>od==='monto'?b.r[2]-a.r[2]:Math.abs(b.r[2]-b.r[1])-Math.abs(a.r[2]-a.r[1]));
+  ord.forEach((f,i)=>{const [n,a,b]=f.r,col=b>a+.05?css('--sale'):b<a-.05?css('--entra'):css('--tenue');f.g.style.transform=`translateY(${FY(i)}px)`;
+   f.ln.setAttribute('x1',X(a));f.ln.setAttribute('x2',X(b));f.ln.setAttribute('stroke',col);
+   f.c0.setAttribute('cx',X(a));f.c0.setAttribute('fill',css('--fondo'));f.c0.setAttribute('stroke',css('--tinta'));
+   f.c1.setAttribute('cx',X(b));f.c1.setAttribute('fill',css('--tinta'));f.t.setAttribute('fill',css('--tinta'));f.d.setAttribute('fill',col)})}
+ seg('seg-d',b=>{od=b.dataset.o;pesas()});pintores.push(pesas);
+
+ // barra 100
+ const CC=['--p1','--p2','--p3','--p4','--kraft','--tenue','--linea'];
+ function cien(){const tot=R.reduce((s,r)=>s+r[2],0),ord=[...R].sort((a,b)=>b[2]-a[2]);
+  $('cien').innerHTML=ord.map((r,i)=>`<div style="flex-grow:${r[2]};background:${css(CC[i])};color:${i>=5?css('--tinta'):'#fff'}">${r[2]/tot>=.08?Math.round(r[2]/tot*100)+'%':''}</div>`).join('');
+  $('cien-et').innerHTML=ord.map(r=>`<span style="flex:${r[2]} 1 0">${r[2]/tot>=.2?r[0]:''}</span>`).join('');
+  $('tabla-g').innerHTML='<tr><th>Rubro</th><th class="n">Octubre</th><th class="n">Noviembre</th><th class="n">De cada peso</th></tr>'+ord.map(r=>`<tr><td>${r[0]}</td><td class="n">${fmt(r[1]*1000)}</td><td class="n">${fmt(r[2]*1000)}</td><td class="n">${Math.round(r[2]/tot*100)}¢</td></tr>`).join('')+`<tr class="tot"><td>Total</td><td class="n">$138,700</td><td class="n">$142,900</td><td class="n">100¢</td></tr>`}
+ pintores.push(cien);
+
+ // FIG 3 · obras
+ const O=[['Torre Norte',96,58],['Casa Lomas',52,43],['Local Centro',21,9],['Depto 302',8,3]];
+ let op='deja',osort={k:3,d:-1};
+ const B=$('barras');
+ function barras(){B.innerHTML='';const v=O.map(o=>op==='deja'?o[1]-o[2]:(o[1]-o[2])/o[1]*100),mx=op==='deja'?40:70,bw=96,gap=(640-4*bw)/5,H=220,base=250;
+  [0,.25,.5,.75,1].forEach(f=>{const y=base-H*f;B.appendChild(el('line',{x1:0,x2:640,y1:y,y2:y,stroke:css('--linea')}));const t=el('text',{x:0,y:y-5,'font-size':11,fill:css('--tenue')});t.textContent=op==='deja'?Math.round(mx*f)+'k':Math.round(mx*f)+'%';B.appendChild(t)});
+  O.forEach((o,i)=>{const x=gap+i*(bw+gap),h=H*v[i]/mx,col=(o[1]-o[2])/o[1]<.2?css('--sale'):css('--entra');
+   const r=el('rect',{x,width:bw,y:base,height:0,fill:col,rx:3});B.appendChild(r);requestAnimationFrame(()=>{r.style.transition='y .7s cubic-bezier(.2,.8,.2,1),height .7s cubic-bezier(.2,.8,.2,1)';r.setAttribute('y',base-h);r.setAttribute('height',h)});
+   const t=el('text',{x:x+bw/2,y:base-h-10,'font-size':22,'font-weight':300,'text-anchor':'middle',fill:css('--tinta')});t.textContent=op==='deja'?'$'+v[i]+'k':Math.round(v[i])+'%';B.appendChild(t);
+   const n=el('text',{x:x+bw/2,y:base+22,'font-size':12,'font-weight':600,'text-anchor':'middle',fill:css('--tinta')});n.textContent=o[0];B.appendChild(n)})}
+ function tablaP(){const rows=O.map(o=>[o[0],o[1],o[2],o[1]-o[2],Math.round(o[2]/o[1]*100)]).sort((a,b)=>(a[osort.k]>b[osort.k]?1:-1)*osort.d);
+  const H=['Obra','Cobrado','Gastado','Deja','Gasto / cobro'];
+  $('tabla-p').innerHTML='<tr>'+H.map((h,k)=>`<th class="${k?'n':''}"><button data-k="${k}">${h}</button></th>`).join('')+'</tr>'+rows.map(r=>`<tr><td>${r[0]}</td><td class="n">$${r[1]}k</td><td class="n">$${r[2]}k</td><td class="n"><b>$${r[3]}k</b></td><td class="n"><span class="mini" style="width:${r[4]*.6}px;background:${r[4]>=80?css('--sale'):css('--entra')}"></span>${r[4]}%</td></tr>`).join('');
+  $('tabla-p').querySelectorAll('th button').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;osort={k,d:osort.k===k?-osort.d:-1};tablaP()})}
+ seg('seg-p',b=>{op=b.dataset.p;barras()});pintores.push(barras,tablaP);
+
+ // FIG 4 · línea con hitos
+ const MES=['jun','jul','ago','sep','oct','nov'],Q=[24,25,17,34,33,43.5];
+ const HI=[[1,'Julio','Arranca Casa Lomas','Primer anticipo de $15,000 por correo; alkimia abrió la obra sola.','Casa Lomas'],[2,'Agosto','Compra grande de acero','$22,000 en varilla para Torre Norte. Por eso bajó lo que quedó.','Acero'],[3,'Septiembre','Anticipo de Torre Norte','Entró por WhatsApp con su comprobante; el mes se recuperó.','Anticipo'],[5,'Noviembre','Se acepta el depto 302','La cotización se aceptó por correo; ya está en lo que te deben.','Depto 302']];
+ const L=$('linea');let hsel=3;
+ function linea(){L.innerHTML='';const x=i=>30+i*(600-30)/5,y=v=>220-v/50*190;
+  [0,10,20,30,40,50].forEach(v=>{L.appendChild(el('line',{x1:30,x2:620,y1:y(v),y2:y(v),stroke:css('--linea')}));const t=el('text',{x:0,y:y(v)+4,'font-size':11,fill:css('--tenue')});t.textContent=v+'k';L.appendChild(t)});
+  MES.forEach((m,i)=>{const t=el('text',{x:x(i),y:242,'font-size':12,'text-anchor':'middle',fill:css('--tenue')});t.textContent=m;L.appendChild(t)});
+  const pl=el('polyline',{points:Q.map((v,i)=>x(i)+','+y(v)).join(' '),fill:'none',stroke:css('--acento'),'stroke-width':3,'stroke-linejoin':'round'});L.appendChild(pl);
+  const len=pl.getTotalLength();pl.style.strokeDasharray=len;pl.style.strokeDashoffset=len;requestAnimationFrame(()=>{pl.style.transition='stroke-dashoffset 1.4s ease';pl.style.strokeDashoffset=0});
+  Q.forEach((v,i)=>L.appendChild(el('circle',{cx:x(i),cy:y(v),r:i===5?6:4,fill:css('--acento')})));
+  const t=el('text',{x:x(5)+10,y:y(43.5)-10,'font-size':20,'font-weight':300,fill:css('--tinta'),'text-anchor':'end'});t.textContent='$43.5k';L.appendChild(t);
+  L.appendChild(el('line',{x1:30,x2:620,y1:280,y2:280,stroke:css('--tinta')}));
+  HI.forEach((h,k)=>{const cx=x(h[0]),on=k===hsel;L.appendChild(el('line',{x1:cx,x2:cx,y1:y(Q[h[0]])+8,y2:270,stroke:on?css('--accion'):css('--linea'),'stroke-dasharray':'3 3'}));
+   const r=el('rect',{x:cx-9,y:271,width:18,height:18,rx:3,fill:on?css('--accion'):css('--tinta'),tabindex:0,role:'button','aria-label':h[2],style:'cursor:pointer'});
+   r.onclick=()=>{hsel=k;linea()};r.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();hsel=k;linea()}};L.appendChild(r);
+   const tt=el('text',{x:cx>560?cx+9:cx,y:310,'font-size':11,'text-anchor':cx>560?'end':'middle',fill:on?css('--tinta'):css('--tenue'),'font-weight':on?700:400});tt.textContent=h[4];L.appendChild(tt)});
+  const h=HI[hsel];$('hito').innerHTML=`<div class="f">${h[1].toUpperCase()}</div><b>${h[2]}</b><div class="explica" style="font-size:14px">${h[3]}</div>`}
+ pintores.push(linea);
+
+ // FIG 1 · cascada (estado de resultados)
+ const ER=[[178.0,124.9,13.8],[192.0,129.4,13.5]];let mg=1;
+ function cascada(){const C=$('cascada');C.innerHTML='';const [v,c,f]=ER[mg],ub=v-c,uo=ub-f,im=+(uo*.3).toFixed(1),g=+(uo-im).toFixed(1);
+  const P=[['Ventas',0,v,'--tinta'],['Costo de obra',ub,v,'--sale'],['Utilidad bruta',0,ub,'--acento'],['Gastos fijos',uo,ub,'--sale'],['De operación',0,uo,'--acento'],['Impuestos',g,uo,'--kraft'],['Ganancia',0,g,'--entra']];
+  const base=260,H=230,y=k=>base-k/200*H,bw=62,gap=(600-7*bw)/8;
+  [0,50,100,150,200].forEach(k=>{C.appendChild(el('line',{x1:0,x2:640,y1:y(k),y2:y(k),stroke:css('--linea')}));const t=el('text',{x:0,y:y(k)-4,'font-size':11,fill:css('--tenue')});t.textContent=k+'k';C.appendChild(t)});
+  P.forEach((p,i)=>{const x=40+gap+i*(bw+gap),y0=y(p[2]),h=y(p[1])-y(p[2]),r=el('rect',{x,width:bw,y:y0,height:h,rx:3,fill:css(p[3])});C.appendChild(r);
+   if(i<6){const nx=x+bw,ny=i%2===0?y(p[1]===0?p[2]:p[1]):y(p[1]);C.appendChild(el('line',{x1:nx,x2:nx+gap,y1:i%2===0?y0:y(p[1]),y2:i%2===0?y0:y(p[1]),stroke:css('--tenue'),'stroke-dasharray':'2 3'}))}
+   const resta=p[1]>0,val=p[2]-p[1],t=el('text',{x:x+bw/2,y:y0-8,'font-size':i===6||i===0?18:14,'font-weight':i===6?700:400,'text-anchor':'middle',fill:css(i===6?'--entra':'--tinta')});t.textContent=(resta?'−':'')+'$'+val.toFixed(1)+'k';C.appendChild(t);
+   const n=el('text',{x:x+bw/2,y:base+22,'font-size':11,'font-weight':600,'text-anchor':'middle',fill:css('--tinta'),class:'cl'});n.textContent=innerWidth<600?['Ventas','Costo','Bruta','Fijos','Operación','Impuestos','Ganancia'][i]:p[0];C.appendChild(n)});
+  const pct=(a,b)=>Math.round(a/b*100)+'%',row=(n,o,nn,b)=>`<tr${b?' class="tot"':''}><td>${n}</td><td class="n">${fmt(o*1000)}</td><td class="n">${fmt(nn*1000)}</td><td class="n">${nn>=o?'+':'−'}${fmt(Math.abs(nn-o)*1000)}</td></tr>`;
+  const O=ER[0],N=ER[1],q=e=>{const ub=e[0]-e[1],uo=ub-e[2],im=+(uo*.3).toFixed(1);return [ub,uo,im,+(uo-im).toFixed(1)]},qo=q(O),qn=q(N);
+  $('tabla-er').innerHTML='<tr><th>Concepto</th><th class="n">Octubre</th><th class="n">Noviembre</th><th class="n">Cambio</th></tr>'+row('Ventas (lo facturado)',O[0],N[0])+row('Costo de obra: materiales, nómina, subcontratos, herramienta y fletes',O[1],N[1])+row('Utilidad bruta · '+pct(qn[0],N[0])+' de lo vendido',qo[0],qn[0],1)+row('Gastos fijos: renta y servicios',O[2],N[2])+row('Utilidad de operación',qo[1],qn[1],1)+row('Apartado para impuestos (estimado 30%)',qo[2],qn[2])+row('Ganancia · '+pct(qn[3],N[0])+' de lo vendido',qo[3],qn[3],1)}
+ seg('seg-g',b=>{mg=+b.dataset.m;cascada()});pintores.push(cascada);
+
+ // FIG 6 · por vender
+ const V=[['Oficinas Reforma',120,20,'Enviada hace 3 semanas'],['Bodega Sur',64,60,'La abrieron 2 veces'],['Casa Jardín',38,40,'Pidieron cambios'],['Fachada Plaza',22,70,'Ya hay fecha de arranque']];let mv='prob';
+ function embudo(){const E=$('embudo');E.innerHTML='';const X0=150,W=360,x=k=>X0+W*k/120,ord=[...V].sort((a,b)=>mv==='prob'?b[1]*b[2]-a[1]*a[2]:b[1]-a[1]);
+  [0,30,60,90,120].forEach(k=>{E.appendChild(el('line',{x1:x(k),x2:x(k),y1:10,y2:228,stroke:css('--linea')}));const t=el('text',{x:x(k),y:248,'font-size':11,'text-anchor':'middle',fill:css('--tenue')});t.textContent=k+'k';E.appendChild(t)});
+  ord.forEach((v,i)=>{const y=22+i*52,p=v[1]*v[2]/100;E.appendChild(el('rect',{x:X0,y,width:W*v[1]/120,height:26,rx:3,fill:css('--suave')}));
+   const r=el('rect',{x:X0,y,width:0,height:26,rx:3,fill:css(v[2]>=60?'--entra':'--acento')});E.appendChild(r);requestAnimationFrame(()=>{r.style.transition='width .7s';r.setAttribute('width',W*p/120)});
+   const n=el('text',{x:0,y:y+17,'font-size':13,'font-weight':600,fill:css('--tinta')});n.textContent=v[0];E.appendChild(n);
+   const t=el('text',{x:X0+W*v[1]/120+8,y:y+17,'font-size':12,fill:css('--tinta')});t.textContent=mv==='prob'?'$'+p.toFixed(1)+'k de $'+v[1]+'k':'$'+v[1]+'k · '+v[2]+'%';E.appendChild(t)});
+  $('tabla-v').innerHTML='<tr><th>Cotización</th><th class="n">Vale</th><th class="n">Qué tan probable</th><th class="n">Lo probable</th><th>Cómo va</th></tr>'+ord.map(v=>`<tr><td>${v[0]}</td><td class="n">$${v[1]}k</td><td class="n">${v[2]}%</td><td class="n"><b>$${(v[1]*v[2]/100).toFixed(1)}k</b></td><td style="white-space:normal">${v[3]}</td></tr>`).join('')+'<tr class="tot"><td>Total</td><td class="n">$244k</td><td class="n"></td><td class="n">$93.0k</td><td></td></tr>'}
+ seg('seg-v',b=>{mv=b.dataset.v;embudo()});pintores.push(embudo);
+
+ // FIG 7 · proyección
+ const MP=['jun','jul','ago','sep','oct','nov','dic','ene','feb'],PAS=[24,25,17,34,33,43.5],SEG=[43.5,52,38,41],PRO=[43.5,61,64,79];let my=1;
+ function proy(){const Y=$('proy');Y.innerHTML='';const x=i=>34+i*(600-34)/8,y=v=>240-v/90*210;
+  Y.appendChild(el('rect',{x:x(5),y:10,width:x(8)-x(5)+10,height:230,fill:css('--suave'),opacity:.6}));
+  const ft=el('text',{x:x(5)+8,y:26,'font-size':11,fill:css('--tenue')});ft.textContent='PROYECCIÓN';Y.appendChild(ft);
+  [0,30,60,90].forEach(v=>{Y.appendChild(el('line',{x1:34,x2:630,y1:y(v),y2:y(v),stroke:css('--linea')}));const t=el('text',{x:0,y:y(v)+4,'font-size':11,fill:css('--tenue')});t.textContent=v+'k';Y.appendChild(t)});
+  MP.forEach((m,i)=>{const t=el('text',{x:x(i),y:262,'font-size':12,'text-anchor':'middle',fill:css(i>5?'--tinta':'--tenue'),'font-weight':i>5?600:400});t.textContent=m;Y.appendChild(t)});
+  if(my){const pts=PRO.map((v,i)=>x(i+5)+','+y(v)).concat([...SEG].reverse().map((v,i)=>x(8-i)+','+y(v)));const band=el('polygon',{points:pts.join(' '),fill:css('--entra'),opacity:0});band.style.transition='opacity .6s';Y.appendChild(band);requestAnimationFrame(()=>band.setAttribute('opacity',.18));
+   Y.appendChild(el('polyline',{points:PRO.map((v,i)=>x(i+5)+','+y(v)).join(' '),fill:'none',stroke:css('--entra'),'stroke-width':2}));
+   const t=el('text',{x:x(8),y:y(79)-10,'font-size':14,'text-anchor':'end',fill:css('--entra'),'font-weight':700});t.textContent='$79k probable';Y.appendChild(t)}
+  Y.appendChild(el('polyline',{points:PAS.map((v,i)=>x(i)+','+y(v)).join(' '),fill:'none',stroke:css('--acento'),'stroke-width':3,'stroke-linejoin':'round'}));
+  Y.appendChild(el('polyline',{points:SEG.map((v,i)=>x(i+5)+','+y(v)).join(' '),fill:'none',stroke:css('--tinta'),'stroke-width':2.5,'stroke-dasharray':'6 5'}));
+  SEG.forEach((v,i)=>{if(i)Y.appendChild(el('circle',{cx:x(i+5),cy:y(v),r:4.5,fill:css('--fondo'),stroke:css('--tinta'),'stroke-width':2}))});
+  const e=el('text',{x:x(7),y:y(38)+24,'font-size':13,'text-anchor':'middle',fill:css('--sale'),'font-weight':700});e.textContent='enero $38k';Y.appendChild(e);
+  PAS.forEach((v,i)=>Y.appendChild(el('circle',{cx:x(i),cy:y(v),r:i===5?5.5:3.5,fill:css('--acento')})))}
+ seg('seg-y',b=>{my=+b.dataset.y;proy()});pintores.push(proy);
+
+
+ tema(q!==null?q:g0);
+ // navegación: marca la sección visible
+ const as=[...document.querySelectorAll('.barra nav a')];
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)as.forEach(a=>a.toggleAttribute('aria-current',a.hash==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
+ document.querySelectorAll('.pliego').forEach(s=>io.observe(s));
+})();
+</script>
+</body>
+</html>
