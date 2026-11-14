@@ -299,7 +299,6 @@ function pintaCap() {
 }
 
 function panorama() {
-<<<<<<< HEAD
   /* Datos de Mía (orden 83, 14 nov): reportados en prensa que cita los boletines; ninguno verificado aún en su fuente primaria. */
   const DATOS = [
     ["La construcción creció 10.6 % anual real.", "Agosto de 2026 · nacional", "INEGI, Encuesta Nacional de Empresas Constructoras"],
@@ -316,22 +315,6 @@ function panorama() {
     <h2>Sobre los terrenos</h2>
     <div class="card"><p>No hay un dato público comparable del precio del terreno por metro cuadrado entre ciudades. Y el precio solo no basta: cuentan los servicios, el uso de suelo, la demanda, qué tan rápido se vende y los papeles del predio.</p>
       <p style="margin:0"><b>¿Qué ciudades estás considerando?</b> Con eso buscamos terrenos zona por zona.</p></div>`;
-=======
-  /* Texto de alkimia sobre el hallazgo de Mía (14 nov): datos públicos reportados en prensa, por confirmar en su fuente. */
-  const D = [
-    ["La construcción creció <b>10.6 % anual real</b> en agosto de 2026.", "Nacional · agosto de 2026 · INEGI, ENEC"],
-    ["En 2026 la obra crece más en <b>Estado de México, Querétaro e Hidalgo</b>.", "Estatal · junio y julio de 2026 · INEGI, ENEC e IMAIEF"],
-    ["La vivienda con crédito subió <b>7 % anual</b> al tercer trimestre de 2026; más en Tamaulipas, Quintana Roo y Jalisco, menos en Ciudad de México.", "Nacional y estatal · 3er trimestre de 2026 · SHF, Índice de Precios de la Vivienda"],
-    ["Construir cuesta más: precios al productor de la construcción <b>+6.23 % anual</b> en octubre de 2026.", "Nacional · octubre de 2026 · INEGI, INPP"]];
-  return `<header><div class="marca">Panorama</div><h1>Para dónde va <b>la onda</b>.</h1></header>
-    <div class="card" style="background:var(--ink);color:var(--bg)"><p style="margin:0;font-weight:700">Datos públicos reportados en prensa; por confirmar en su fuente.</p></div>
-    ${D.map(([t, f], i) => `<div class="card"><div class="fila" style="align-items:flex-start"><span style="font:300 30px/30px var(--sans);color:var(--acento)">${i + 1}</span><span class="chip aviso">por confirmar</span></div>
-      <p style="font:400 19px/28px var(--sans);margin:8px 0 6px">${t}</p><div class="sub">${f}</div></div>`).join("")}
-    <div class="card atn aviso"><div class="sub" style="margin-bottom:4px"><b>Hipótesis</b></div><p style="font:400 18px/27px var(--sans);margin:0">Buena parte del crecimiento viene de obra pública; no significa más mercado para obra chica privada.</p></div>
-    <div class="card atn alerta"><div class="sub" style="margin-bottom:4px"><b>Ojo</b></div><p style="font:400 18px/27px var(--sans);margin:0">No hay un dato público comparable del precio del terreno por metro cuadrado. Y el precio solo no basta: cuentan servicios, uso de suelo, demanda y papeles del predio.</p></div>
-    <h2>Siguiente paso</h2>
-    <div class="card"><p class="nombre" style="margin:0 0 12px">¿Qué ciudades estás considerando?</p><p style="margin:0">Con eso buscamos terrenos zona por zona.</p></div>`;
->>>>>>> 4828544 (Diseño: demo de obras, panorama «Para dónde va la onda» con los datos públicos de Mía por confirmar, y «Platícale» rotulado simulado (orden 83))
 }
 
 /* «Hoy» (Diseño): lo que necesita atención de todas las obras, primero lo más urgente */
