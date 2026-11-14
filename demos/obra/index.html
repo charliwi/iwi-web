@@ -300,17 +300,17 @@ function pintaCap() {
 }
 
 function panorama() {
-  /* Datos de Mía (orden 83, 14 nov): reportados en prensa que cita los boletines; ninguno verificado aún en su fuente primaria. */
+  /* Datos de Mía (orden 83, 14 nov), verificados por Kim en el extracto de los boletines oficiales (no en el PDF completo); cifras preliminares. */
   const DATOS = [
-    ["La construcción creció 10.6 % anual real.", "Agosto de 2026 · nacional", "INEGI, Encuesta Nacional de Empresas Constructoras"],
-    ["La obra crece más en Estado de México, Querétaro e Hidalgo.", "Junio y julio de 2026 · por estado", "INEGI, ENEC e Indicador Mensual de la Actividad Industrial por Entidad"],
-    ["La vivienda con crédito subió 7 % anual; más en Tamaulipas, Quintana Roo y Jalisco, menos en Ciudad de México.", "Tercer trimestre de 2026 · por estado", "SHF, Índice de Precios de la Vivienda"],
-    ["Construir cuesta más: precios al productor de la construcción +6.23 % anual.", "Octubre de 2026 · nacional", "INEGI, Índice Nacional de Precios Productor"],
+    ["La construcción creció 10.6 % anual.", "Agosto de 2026 · nacional · serie desestacionalizada", "INEGI, Encuesta Nacional de Empresas Constructoras, boletín 636/26"],
+    ["Entre los estados destaca Querétaro: +57.9 % anual en junio, y +26.1 % en su construcción en julio.", "Junio y julio de 2026 · Querétaro", "INEGI, ENEC boletín 502/26 e IMAIEF boletín 687/26"],
+    ["La vivienda con crédito subió 7 % anual; de enero a septiembre, 10.1 % en Guadalajara, 8.9 % en Tijuana y 4.6 % en el Valle de México.", "Tercer trimestre de 2026 · nacional y zonas metropolitanas", "SHF, Índice de Precios de la Vivienda, 10 nov 2026"],
+    ["Construir cuesta más: precios al productor de la construcción +6.23 % anual.", "Octubre de 2026 · nacional · preliminar", "INEGI, Índice Nacional de Precios Productor, boletín 685/26"],
   ];
   return `<header><div class="marca">Panorama · México</div><h1>Para dónde va <b>la onda</b>.</h1>
-    <p>Datos públicos reportados en prensa. Todos están <b>por confirmar</b> en su fuente oficial antes de usarlos para decidir.</p></header>
+    <p>Datos oficiales leídos en el extracto de cada boletín; son cifras preliminares y pueden revisarse. Antes de decidir con ellos, conviene abrir el boletín completo.</p></header>
     ${DATOS.map(([d, cuando, fuente]) => `<div class="card"><div class="fila"><span class="nombre" style="font-size:17px">${esc(d)}</span></div>
-      <div class="sub" style="margin-top:6px">${esc(cuando)} · ${esc(fuente)}</div><span class="chip aviso" style="margin-top:8px">por confirmar</span></div>`).join("")}
+      <div class="sub" style="margin-top:6px">${esc(cuando)} · ${esc(fuente)}</div><span class="chip aviso" style="margin-top:8px">preliminar</span></div>`).join("")}
     <h2>Hipótesis, no hecho</h2>
     <div class="card"><p style="margin:0">Buena parte del crecimiento de 2026 parece venir de obra pública. Eso no significa más mercado para la obra chica privada.</p></div>
     <h2>Sobre los terrenos</h2>
