@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>IAudit · Demostración (datos de ejemplo)</title>
+<style>
+/* DISENO-BASE: Helvetica 700/300, máquina de escribir para lo que explica, 12 columnas, línea de 24 px (tecla G), contraste por forma */
+:root{--bg:#EEF3F9;--surface:#FFFFFF;--line:#9DB0C6;--ink:#1C2340;--acento:#0E8C99;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;--typ:"Courier Prime","Courier New",Courier,monospace}
+@media (prefers-color-scheme:dark){:root{--bg:#1A1D2E;--surface:#20243A;--line:#4A5275;--ink:#FAFAFA;--acento:#5FD4DE}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;font:400 15px/24px var(--sans);color:var(--ink);background:var(--bg);overflow-wrap:anywhere}
+.rotulo{position:sticky;top:0;z-index:5;background:var(--ink);color:var(--surface);padding:0 24px;font:400 13px/24px var(--typ)}
+.rotulo b{font-weight:700}
+.wrap{max-width:1128px;margin:0 auto;padding:48px 24px 72px;position:relative}
+h1{font:300 48px/48px var(--sans);letter-spacing:-.02em;margin:0}
+h1 b{font-weight:700}
+.sub{font:700 12px/24px var(--sans);letter-spacing:.12em;text-transform:uppercase;margin:0 0 24px}
+.lead{font:400 15px/24px var(--typ);max-width:720px;margin:0 0 48px}
+.g{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.c{grid-column:span 4;display:flex;flex-direction:column;background:var(--surface);border:2px solid var(--ink);border-radius:2px;padding:22px;color:inherit;text-decoration:none;min-height:240px}
+.c:hover,.c:focus-visible{border-color:var(--acento);outline:2px solid var(--acento);outline-offset:2px}
+.c .n{font:700 11px/24px var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.c h2{font:700 24px/24px var(--sans);letter-spacing:-.01em;margin:0 0 24px}
+.c p{font:400 14px/24px var(--typ);margin:0 0 24px}
+.c .ir{margin-top:auto;font:700 12px/24px var(--sans);letter-spacing:.04em;border-top:2px solid var(--ink);padding-top:10px}
+footer{font:400 13px/24px var(--typ);margin-top:48px;max-width:720px}
+@media (max-width:860px){.c{grid-column:span 12;min-height:0}h1{font-size:40px}}
+.grid-on .wrap::after{content:"";position:absolute;inset:0 24px;pointer-events:none;z-index:9;
+  background:repeating-linear-gradient(to bottom,transparent 0 23px,rgba(14,140,153,.35) 23px 24px),repeating-linear-gradient(to right,rgba(14,140,153,.10) 0 calc((100% - 264px)/12),transparent calc((100% - 264px)/12) calc((100% - 264px)/12 + 24px))}
+</style>
+</head>
+<body>
+<div class="rotulo" id="rotulo"><b>Datos de ejemplo</b> · todo es inventado y nada se guarda</div>
+<main class="wrap">
+  <h1><b>IA</b>udit</h1>
+  <p class="sub">Auditoría de campo</p>
+  <p class="lead">Así funciona hoy una auditoría de inventario en bodegas, de la llegada de la persona al expediente que ve el cliente. Son tres recorridos navegables. Las bodegas, las ciudades, las personas, los productos, las cantidades y las fotos son inventados.</p>
+  <div class="g">
+    <a class="c" id="ir-campo" href="campo/index.html"><span class="n">1 · App de campo</span><h2>Campo</h2>
+      <p>La persona llega a la bodega con foto de la fachada, se presenta, cuenta los productos, confirma el cierre del conteo, contesta un cuestionario corto, firma y ve «Enviada».</p><span class="ir">Abrir la app de campo →</span></a>
+    <a class="c" id="ir-coord" href="panel/index.html?rol=coordinador"><span class="n">2 · Panel</span><h2>Coordinación</h2>
+      <p>Abre el día, ve el semáforo de las bodegas, entra a una y corrige un estatus con la explicación que leerá el cliente.</p><span class="ir">Abrir el panel de coordinación →</span></a>
+    <a class="c" id="ir-cliente" href="panel/index.html?rol=cliente"><span class="n">3 · Panel</span><h2>Cliente</h2>
+      <p>Abre su tablero y el expediente de una bodega: tiempos, productos contados, fotos de ejemplo y notas.</p><span class="ir">Abrir el tablero del cliente →</span></a>
+  </div>
+  <footer>Demostración sin conexión: no usa red ni base de datos. En la app de campo, «Reiniciar demo» borra lo capturado en este navegador. Tecla G: retícula.</footer>
+</main>
+<script>
+document.addEventListener('keydown',function(e){if((e.key==='g'||e.key==='G')&&!e.metaKey&&!e.ctrlKey&&!e.altKey)document.body.classList.toggle('grid-on')});
+</script>
+</body>
+</html>
