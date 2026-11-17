@@ -141,7 +141,7 @@ var io=new IntersectionObserver(function(es){es.forEach(function(x){var h=x.targ
  else{h.classList.remove('on');h.classList.toggle('arriba',x.boundingClientRect.top<0);h.querySelectorAll('video').forEach(function(v){v.pause()})}})},{threshold:.3});
 hs.forEach(function(h){io.observe(h)})})();
 
-(function(){var ls=document.querySelectorAll('#riel .menu a');if(!ls.length||!('IntersectionObserver' in window))return;
+(function(){var ls=document.querySelectorAll('.menu a');if(!ls.length||!('IntersectionObserver' in window))return;
 var io=new IntersectionObserver(function(es){es.forEach(function(x){if(!x.isIntersecting)return;var id=x.target.id;
  ls.forEach(function(a){a.classList.toggle('ya',a.dataset.s===id)})})},{rootMargin:'-45% 0px -50% 0px'});
 document.querySelectorAll('section[id]').forEach(function(sct){if(sct.id!=='inicio')io.observe(sct)});
