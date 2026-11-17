@@ -17,9 +17,9 @@
   --vidrio-borde:1px solid rgba(255,255,255,.25);
   --vidrio-linea:1px solid rgba(255,255,255,.14);
   --vidrio-blur:blur(18px) saturate(1.4);
-  --vidrio-radio:18px;                         /* tarjetas */
+  --vidrio-radio:15px;                         /* tarjetas (18 a 15, Carlos 17 nov: «quitar un 15% de radio … para que no se vea tan claude») */
   --vidrio-sombra:0 18px 48px rgba(0,0,0,.28);
-  --pastilla:999px;                            /* botones y pestañas, como Entrar y Home clásica en la home */
+  --pastilla:16px;                             /* botones y pestañas: ya no círculo completo, esquina suave (Carlos, 17 nov) */
 }
 .vidrio{background:var(--vidrio-fondo);border:var(--vidrio-borde);border-radius:var(--vidrio-radio);backdrop-filter:var(--vidrio-blur);-webkit-backdrop-filter:var(--vidrio-blur);box-shadow:var(--vidrio-sombra)}
 .vidrio-barra{background:var(--vidrio-barra),var(--vidrio-base);backdrop-filter:var(--vidrio-blur);-webkit-backdrop-filter:var(--vidrio-blur)}
