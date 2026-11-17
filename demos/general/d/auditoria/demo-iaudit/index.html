@@ -33,7 +33,27 @@ footer{font:400 13px/24px var(--typ);margin-top:48px;max-width:720px}
   background:repeating-linear-gradient(to bottom,transparent 0 23px,rgba(14,140,153,.35) 23px 24px),repeating-linear-gradient(to right,rgba(14,140,153,.10) 0 calc((100% - 264px)/12),transparent calc((100% - 264px)/12) calc((100% - 264px)/12 + 24px))}
 </style>
 </head>
-<body>
+<body><!--barra-d--><style>
+#barra-d{position:fixed;top:0;left:0;right:0;z-index:2147483000;height:44px;display:flex;align-items:center;gap:16px;padding:0 max(16px,env(safe-area-inset-left,0px));
+background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04)),rgba(12,14,34,.78);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+border-bottom:1px solid rgba(255,255,255,.14);color:#FAFAFA;font:300 14px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;box-sizing:border-box}
+#barra-d a{color:inherit!important;text-decoration:none;white-space:nowrap;background:none;border:0;padding:0;margin:0;box-shadow:none;font:inherit;width:auto;height:auto}
+#barra-d .iwi,#barra-d .mapa{font-weight:700}
+#barra-d a.iwi{font-weight:700;font-size:20px;letter-spacing:-.02em}
+#barra-d a.vuelve{border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:7px 14px;background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.05))}
+#barra-d .vuelve b{font-weight:700}
+#barra-d .aqui{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:.85;font-family:"Courier Prime","Courier New",monospace;font-size:13px}
+#barra-d a:focus-visible{outline:2px solid #E4F000;outline-offset:3px}
+#barra-d a:hover{color:#E4F000!important}
+@media (max-width:600px){#barra-d{gap:10px}#barra-d .aqui{display:none}#barra-d .vuelve{margin-right:auto}}
+html{scroll-padding-top:44px}
+body{padding-top:44px!important}
+</style><nav id="barra-d" aria-label="Regresar"><a class="iwi" href="../../../../../" aria-label="iwi, inicio">iwi</a><a class="vuelve" href="../../../#demos">← <b>Demo general</b></a><span class="aqui">IAudit · Demostración (datos de ejemplo)</span><a class="mapa" href="../../../../../">Mapa</a></nav><script>
+/* lo que estaba pegado arriba baja lo que mide la barra */
+addEventListener('DOMContentLoaded',function(){var b=document.getElementById('barra-d');
+document.querySelectorAll('body *').forEach(function(e){if(b.contains(e))return;var c=getComputedStyle(e);
+if((c.position==='sticky'||c.position==='fixed')&&c.top==='0px'&&c.bottom!=='0px')e.style.top='44px'})});
+</script><!--/barra-d-->
 <div class="rotulo" id="rotulo"><b>Datos de ejemplo</b> · todo es inventado y nada se guarda</div>
 <main class="wrap">
   <h1><b>IA</b>udit</h1>
